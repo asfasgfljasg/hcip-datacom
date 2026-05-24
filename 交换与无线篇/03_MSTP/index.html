@@ -1,0 +1,3125 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../02_RSTP/">
+      
+      
+        <link rel="next" href="../04_WLAN/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>MSTP - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#03_mstp" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MSTP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.MSTP基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.MSTP基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11rstpstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.RSTP/STP的不足
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.MSTP的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.MSTP的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122mst-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.MST Region
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123msti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.MSTI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124cst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.CST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125ist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.5.IST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126cist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.6.CIST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127sst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.7.SST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.8.域内设备角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#129" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.9.端口角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.10.端口状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1211mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.11.MSTP报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.MSTP的工作原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.MSTP的工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.MSTP拓扑计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132cist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.CIST计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133msti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.MSTI计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134msti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.MSTI计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.网络数据转发
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.基本配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.基本配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.基础配置命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212mst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.配置MST域并激活
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.可选配置命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.单域多实例实验
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.单域多实例实验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.场景描述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.配置演示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.MSTP基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.MSTP基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11rstpstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.RSTP/STP的不足
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.MSTP的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.MSTP的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122mst-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.MST Region
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123msti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.MSTI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124cst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.CST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125ist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.5.IST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126cist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.6.CIST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127sst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.7.SST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.8.域内设备角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#129" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.9.端口角色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1210" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.10.端口状态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1211mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.11.MSTP报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.MSTP的工作原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.MSTP的工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131mstp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.MSTP拓扑计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132cist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.CIST计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133msti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.MSTI计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134msti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.MSTI计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.网络数据转发
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.基本配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.基本配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.基础配置命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212mst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.配置MST域并激活
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.可选配置命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.单域多实例实验
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.单域多实例实验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.场景描述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.要求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.配置演示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="03_mstp">03_MSTP</h1>
+<h3 id="1mstp">1.MSTP基础</h3>
+<h4 id="11rstpstp">1.1.RSTP/STP的不足</h4>
+<p>如下图，<code>SW3</code>为接入交换机连接终端网段，使用两条链路连接汇聚交换机<code>SW1</code>和<code>SW2</code>，且所有链路均允许<code>VLAN2、3</code>通过。此时，<code>SW1</code>作为<code>vlan2</code>的网关，<code>SW2</code>作为<code>vlan3</code>的网关，需要实现不同<code>vlan</code>终端通过不同链路到达网关。</p>
+<p>如果该网络中只有一个<strong>生成树</strong>，假设<code>SW3</code>与<code>SW2</code>相连的端口为<strong>阻塞端口</strong>，则<code>vlan2</code>和<code>vlan3</code>所有的数据只能通过一条链路到达汇聚交换机，不能实现流量负载分担。除了负载分担无法实现之外，当<code>SW3</code>和<code>SW2</code>相连接口被阻塞后，<code>vlan3</code>的数据到达网关的路径是次优路径，最优路径是<code>sw3 --&gt; sw2</code>。</p>
+<p><img alt="image-20260425212858983" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260425212859028.png" /></p>
+<hr />
+<h4 id="12mstp">1.2.MSTP的基本概念</h4>
+<h5 id="121">1.2.1.概述</h5>
+<p><code>MSTP</code>是<code>IEEE 802.1s</code>中定义的生成树协议，<code>MSTP</code>兼容<code>STP</code>和<code>RSTP</code>，既可以快速收敛，又提供了数据转发的多个冗余路径，在数据转发过程中实现<code>vlan</code>数据的负载均衡。</p>
+<p><code>MSTP</code>可以将一个或多个<code>vlan</code>映射到一个<code>Instance</code>（实例），再基于<code>Instance</code>计算生成树，映射到同一个<code>Instance</code>的<code>VLAN</code>共享同一颗生成树。</p>
+<p><img alt="image-20260425213716907" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260425213716942.png" /></p>
+<p>如上图，<code>Instance1</code>对应的生成树以<code>SW1</code>为根交换机，转发<code>vlan1-vlan10</code>的数据报文。<code>Instance2</code>对应的生成树以<code>SW2</code>为根交换机，转发<code>vlan11-vlan20</code>的报文。不同<code>vlan</code>的报文沿不同的路径转发，实现负载分担。</p>
+<p><strong>注意：</strong>在<code>MSTP</code>中，生成树并不是基于<code>vlan</code>运行的，而是基于<code>instance</code>运行的。</p>
+<hr />
+<h5 id="122mst-region">1.2.2.MST Region</h5>
+<p><strong>网络层次：</strong></p>
+<ul>
+<li><code>MSTP</code>把一个交换网络划分成多个域，每个域内形成多颗生成树，生成树之间彼此独立。</li>
+</ul>
+<p><strong>MST Region(Multiple Spanning Tree Region,多生成树域)，简称MST域：</strong></p>
+<ul>
+<li>由交换网络中的多台交换设备以及它们之间的网段所构成。</li>
+<li>一个局域网可以存在多个<code>MST</code>域，各<code>MST</code>域之间在物理上直接或间接相连。用户可以通过<code>MSTP</code>配置命令把多台交换设备划分在同一个<code>MST</code>域内。</li>
+<li><code>MSTP</code>网络中包含一个或多个<code>MST</code>域，每个<code>MST</code>域中包含一个或多个生成树实例。</li>
+</ul>
+<p><img alt="image-20260425214049676" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260425231212453.png" /></p>
+<p><strong>如果没有域的概念：</strong></p>
+<ol>
+<li>如果<code>MSTP</code>没有域概念，全网所有交换机必须维护<strong>完全一致的instance到vlan的映射关系</strong>。</li>
+<li><code>MST Region</code>主要目的是为了做<strong>隔离</strong>。当没有域的情况下，任何拓扑变化（如链路抖动、设备重启）触发的<code>TCN</code>和<code>BPDU</code>会<strong>全网泛洪</strong>，严重将会导致网络和设备瘫痪。</li>
+</ol>
+<p><strong>总结：</strong></p>
+<ol>
+<li><code>MST</code>域将全网划分成多个独立的计算域。例如，<code>instnace1</code>在<code>Region A</code>和<code>Regin B</code>中是完全独立的两棵树，互不干扰。</li>
+<li>不同<code>MST Region</code>中的<code>instance</code>映射关系也可以不一致。</li>
+<li>方便管理员设计和管理，也降低了网络故障的风险和复杂度。</li>
+</ol>
+<p><strong>同一个MST域的设备具有以下特点：</strong></p>
+<ol>
+<li>都启动了<code>MSTP</code></li>
+<li>具有相同的域名</li>
+<li>具有相同的<code>VLAN</code>到生成树实例映射配置</li>
+<li>具有相同的<code>MSTP</code>修订级别配置</li>
+</ol>
+<hr />
+<h5 id="123msti">1.2.3.MSTI</h5>
+<p><code>MSTI(Multiple Spanning Tree Instance)</code>多生成树实例：</p>
+<ul>
+<li>在一个<code>MST</code>域内可以生成多颗生成树，每颗生成树都称为一个<code>MSTI</code>。</li>
+<li><code>MSTI</code>使用<code>Instance ID</code>标识，华为设备取值为<code>0-4094</code>。<code>instance 0</code>是缺省存在的，而且缺省时，华为交换机上所有的<code>vlan</code>都映射到了<code>instance 0</code>。另外，每个<code>vlan</code>只能对应一个<code>MSTI</code>，一个<code>MSTI</code>可以对应多个<code>vlan</code>。</li>
+</ul>
+<p><code>VLAN</code>映射表：</p>
+<ul>
+<li>该映射表记录了<code>VLAN</code>和<code>MSTI</code>之间的映射关系。</li>
+</ul>
+<p><img alt="image-20260425231751356" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260425231751397.png" /></p>
+<hr />
+<h5 id="124cst">1.2.4.CST</h5>
+<p><code>CST(Common Spanning Tree)</code>公共生成树：是连接交换网络内所有<code>MST</code>域的一颗生成树。</p>
+<p>如果把每个<code>MST</code>域看作是一个节点，<code>CST</code>就是这些节点通过生成树协议计算生成的一颗生成树。</p>
+<p><code>CST</code>主要是指<code>MST</code>域之间以及<code>MST</code>域与运行传统<code>STP/RSTP</code>的设备之间互联时，所形成的那一颗“”全局唯一**的生成树。</p>
+<p>全网只有一颗<code>CST</code>，它不关心<code>VLAN</code>，只关心<strong>域与域</strong>之间的连接。负责计算不同域之间的联通路径，防止跨域环路。</p>
+<p><img alt="image-20260425233727620" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260425233727665.png" /></p>
+<hr />
+<h5 id="125ist">1.2.5.IST</h5>
+<p><code>IST(Internal Spanning Tree)</code>内部生成树，域内的<code>Instance 0</code>，负责域内的通信。</p>
+<ul>
+<li>用于承载<strong>默认流量域区域互联</strong></li>
+<li>IST 是 MST 区域内的<strong>默认转发树</strong>。所有<strong>未映射到任何 MSTI（如 Instance 1, 2...）的 VLAN</strong>，其流量默认都由 IST 承载。同时，它负责将区域内的所有交换机连接成一个无环的整体。</li>
+<li>作为“区域代言人”对外通信（最关键作用）</li>
+<li>这是 IST 最独特的功能。MSTP 允许网络中存在多个区域（Region）以及传统的 STP/RSTP 设备。IST 会将整个 MST 区域<strong>“收缩”成一个虚拟的逻辑节点</strong>（看起来像一台大交换机），去参与外部网络的 CIST（公共生成树）计算。</li>
+<li>承载 BPDU 的“总管道”</li>
+<li>在 MSTP 中，<strong>IST（Instance 0）是唯一向外发送和接收 BPDU 的实例</strong>。所有 MSTI（Instance 1, 2...）的拓扑信息都是“搭载”在 IST 的 BPDU 报文里一起传输的。这保证了与传统 STP/RSTP 设备的兼容性。</li>
+</ul>
+<p><strong>注意：</strong>当一个域中，<code>IST</code>和<code>MSTI</code>都包含了某一个<code>vlan</code>，那当这个<code>vlan</code>在域内传播时按照<code>MSTI</code>的<code>STP</code>树转发。当跨区域转发时，<code>IST</code>仅决定域间链路是否<code>Forwarding</code>也就是角色，实际转发还是按照<code>MSTI</code>来。</p>
+<p><strong>帮助理解：</strong>我们要建立概念，所有的<code>STP</code>协议它的作用是<strong>破环</strong>，也就是从逻辑上关闭掉某一个接口，来保证不出现环路，它本质上无法决定二层的转发路径，仅仅是关闭接口而已。在区域内我们需要<code>MSTI</code>来帮助我们关闭某一个链路，来域间转发时我们需要<code>IST</code>来帮助我们决定关闭哪一个链路。这就是最最基本的概念了。</p>
+<p><img alt="image-20260425235132825" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260425235132867.png" /></p>
+<hr />
+<h5 id="126cist">1.2.6.CIST</h5>
+<p><code>CIST(Common and Internal Spanning Tree)</code>公共和内部生成树</p>
+<ul>
+<li>通过生成树协议计算生成的，连接一个交换网络内所有交换设备的单生成树。</li>
+<li>如下图，所有<code>MST</code>域的<code>IST</code>加上<code>CST</code>就构成一颗完整的生成树，即<code>CIST</code>。</li>
+</ul>
+<p><img alt="image-20260426000037908" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426000037955.png" /></p>
+<hr />
+<h5 id="127sst">1.2.7.SST</h5>
+<p><code>SST(Single Spanning Tree)</code>单生成树，这就是一个“术语”，有两种情况：</p>
+<ol>
+<li>在<code>MST</code>域眼中任何运行<code>STP/RSTP</code>的设备都被视为一个<code>SST</code>设备。</li>
+<li><code>MST</code>域中只有一个交换设备，这个交换设备构成<code>SST</code>。</li>
+</ol>
+<p>所以，<code>SST</code>并不会被视为<strong>域内节点</strong>，它会被认作是一个单独的域节点，其他<code>MSTP</code>设备探测到之后自动切换发送标准的<code>STP BPDU</code>。<code>SST</code>设备通常收敛较慢，可能会拖累整个<code>CIST</code>的收敛性能。同时，对于<code>SST</code>只能看到一颗树（<code>SST</code>），所有去往或来自该<code>SST</code>设备的<code>vlan</code>流量，都只能走<code>CIST</code>这一条路径，无法享受<code>MST</code>域内的多实例负载均衡。</p>
+<p><img alt="image-20260426000838095" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426000838138.png" /></p>
+<hr />
+<h5 id="128">1.2.8.域内设备角色</h5>
+<p><strong>总根（CIST Root）：</strong>是<code>CIST</code>的根桥，如图中<code>SW1</code>。</p>
+<p><strong>域根（Regional Root）：</strong>分别为<code>IST</code>域根和<code>MSTI</code>域根。</p>
+<ul>
+<li><code>IST</code>域根，在<code>MST</code>域中<code>IST Instance0</code>生成树中距离总根最近（比桥ID）的交换设备是<code>IST</code>域根，如图中<code>SW2、SW3、SW4</code>。代表整个域与总根通信，决定域间路径。</li>
+<li><code>MSTI</code>域根是每个多生成树实例的树根。也就是除了<code>Instance 0</code>外的其他实例的根桥，负责实例内部的路径选择</li>
+</ul>
+<p><strong>主桥（Master Bridge）：</strong><code>IST Master</code>是域内距离总根最近的交换设备，如图中<code>SW1、SW2、SW3、SW4</code>。如果总根在<code>MST</code>域中，则总根为该域的主桥。</p>
+<p><code>IST</code>域根 == 主桥</p>
+<p><img alt="image-20260426002359659" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426002359703.png" /></p>
+<hr />
+<table>
+<thead>
+<tr>
+<th><strong>角色</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MST域</td>
+<td>交换网络被划分成多个域，一个MST域内可以包含一台或多台交换机，同属于一个MST域的交换机必须配置相同的域名、相同的修订级别、以及相同的VLAN映射表</td>
+</tr>
+<tr>
+<td>MSTI</td>
+<td>基于Instance的生成树</td>
+</tr>
+<tr>
+<td>VLAN映射表</td>
+<td>VLAN和MSTI之间的映射关系</td>
+</tr>
+<tr>
+<td>CST</td>
+<td>公共生成树，连接所有MST域的一棵生成树</td>
+</tr>
+<tr>
+<td>IST</td>
+<td>内部生成树，MST域内Instance ID为0的一棵生成树</td>
+</tr>
+<tr>
+<td>CIST</td>
+<td>公共和内部生成树，连接一个交换网络内所有交换设备的生成树</td>
+</tr>
+<tr>
+<td>SST</td>
+<td>单生成树，MST域内只有一台交换设备</td>
+</tr>
+<tr>
+<td>总根</td>
+<td>CIST的根桥</td>
+</tr>
+<tr>
+<td>IST域根</td>
+<td>MST域中，IST距离总根最近的交换设备</td>
+</tr>
+<tr>
+<td>MSTI域根</td>
+<td>MSTI的根桥</td>
+</tr>
+<tr>
+<td>主桥</td>
+<td>距离总根最近的交换设备，包括：总根和IST域根</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="129">1.2.9.端口角色</h5>
+<p><code>MSTP</code>中定义的所有端口角色包括：<strong>同一端口在不同的生成树实例中可以担任不同的角色。</strong></p>
+<p>根端口：在非根桥上，离根桥最近的端口是本交换设备的根端口。根端口负责向树根方向转发数据。</p>
+<p>指定端口：对一台交换设备而言，它的指定端口是向下游交换设备转发BPDU报文的端口。</p>
+<p><code>Alternate</code>端口：从配置BPDU报文发送角度来看，Alternate端口就是由于学习到其它网桥发送的配置BPDU报文而阻塞的端口。从用户流量角度来看，Alternate端口提供了从指定桥到根的另一条可切换路径，作为根端口的备份端口。</p>
+<p><code>Backup</code>端口：从配置BPDU报文发送角度来看，Backup端口就是由于学习到自己发送的配置BPDU报文而阻塞的端口。从用户流量角度来看，Backup端口作为指定端口的备份，提供了另外一条从根节点到叶节点的备份通路。</p>
+<p><img alt="image-20260426204056752" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426204056798.png" /></p>
+<p><code>Master</code>端口：Master端口是MST域和总根相连的所有路径中最短路径上的端口，它是交换设备上连接MST域到总根的端口。Master端口是域中的报文去往总根的必经之路。Master端口是特殊域边缘端口，Master端口在CIST上的角色是Root Port，在其它各实例上的角色都是Master端口。</p>
+<p>域边缘端口：域边缘端口是指位于MST域的边缘并连接其它MST域或SST的端口。</p>
+<p><img alt="image-20260426203955707" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426204300164.png" /></p>
+<p>边缘端口：如果指定端口位于整个域的边缘，不再与任何交换设备连接，这种端口叫做边缘端口。边缘端口一般与用户终端设备直接连接。</p>
+<p><img alt="image-20260426204310313" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426204310353.png" /></p>
+<hr />
+<h5 id="1210">1.2.10.端口状态</h5>
+<p><code>MSTP</code>定义的端口状态与<code>RSTP</code>协议中定义相同：</p>
+<ul>
+<li><code>Forwarding</code>状态：端口既转发用户流量，学习<code>MAC</code>地址，又接收/发送<code>BPDU</code>报文。</li>
+<li><code>Learning</code>状态：过渡状态，端口接收/发送<code>BPDU</code>报文，不转发用户流量但是学习<code>MAC</code>地址。</li>
+<li><code>Discarding</code>状态：端口只接收<code>BPDU</code>报文，不转发用户流量也不学习<code>MAC</code>地址。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>**MSTP端口状态</th>
+<th><strong>端口在</strong>拓扑中的角色</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forwarding</td>
+<td>包括根端口、指定端口、Master端口、域边缘端口</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td>包括根端口、指定端口、Master端口、域边缘端口</td>
+</tr>
+<tr>
+<td>Discarding</td>
+<td>包括根端口、指定端口、Master端口、域边缘端口、Alternate端口、Backup端口</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="1211mstp">1.2.11.MSTP报文</h5>
+<p><code>MSTP</code>使用<code>MST BPDU</code>多生成树桥协议数据单元作为生成树计算的依据，<code>MST BPDU</code>报文用来计算生成树的拓扑、维护网络拓扑以及传达拓扑变化记录。</p>
+<p><img alt="image-20260426205838524" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426205838564.png" /></p>
+<p><img alt="image-20260426205817515" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426205817569.png" /></p>
+<ul>
+<li>Protocol Identifier：2 Byte，协议标识符。</li>
+<li>Protocol Version Identifier：1 Byte，协议版本标识符，STP为0，RSTP为2，MSTP为3。</li>
+<li>BPDU Type：1 Byte，BPDU类型：</li>
+<li>0x00：STP的Configuration BPDU</li>
+<li>0x80：STP的TCN BPDU（Topology Change Notification BPDU）</li>
+<li>0x02：RST BPDU（Rapid Spanning-Tree BPDU）或者MST BPDU（Multiple Spanning-Tree BPDU）</li>
+<li>CIST Flags：1 Byte，CIST标志字段。</li>
+<li>CIST Root Identifier：8 Byte，CIST的总根交换设备ID。</li>
+<li>CIST External Path Cost：4 Byte，CIST外部路径开销指从本交换设备所属的MST域到CIST根交换设备所属的MST域的累计路径开销。CIST外部路径开销根据链路带宽计算。</li>
+</ul>
+<hr />
+<h4 id="13mstp">1.3.MSTP的工作原理</h4>
+<h5 id="131mstp">1.3.1.MSTP拓扑计算</h5>
+<p><code>MSTP</code>可以将整个二层网络划分为多个<code>MST</code>域，各个域之间通过计算生成<code>CST</code>，域内生成<code>IST</code>，<code>CST</code>和<code>IST</code>构成了整个交换设备网络的<code>CIST</code>。域内还可以基于实例计算生成多颗生成树，每个生成树都被称为是一个<code>MSTI</code>。</p>
+<p><code>CIST</code>和<code>MSTI</code>都是根据<strong>优先级向量</strong>来计算的，这些优先级向量信息都包含在<code>MST BPDU</code>中。各交换设备互相交换<code>MST BPDU</code>来生成<code>CIST</code>和<code>MSTI</code>：</p>
+<ul>
+<li>参与<code>CIST</code>计算的优先级向量为：</li>
+<li>{ 根交换设备ID，外部路径开销，域根ID，内部路径开销，指定交换设备ID，指定端口ID，接收端口ID }</li>
+<li>参与<code>MSTI</code>计算的优先级向量为：</li>
+<li>{ 域根ID，内部路径开销，指定交换设备ID，指定端口ID，接收端口ID }</li>
+<li>注意：括号中的向量的优先级从左到右依次递减。</li>
+</ul>
+<p>优先级向量说明：</p>
+<ul>
+<li>根交换设备ID：根交换设备ID用于选择CIST中的根交换设备。</li>
+<li>根交换设备ID = Priority(16 bit) + MAC(48 bit)。</li>
+<li>其中Priority为MSTI0的优先级。</li>
+<li>外部路径开销（External Root Path Cost，ERPC）：从CIST的域根到达总根的路径开销。</li>
+<li>MST域内所有交换设备上保存的外部路径开销相同。</li>
+<li>若CIST根交换设备在域中，则域内所有交换设备上保存的外部路径开销为0。</li>
+<li>域根ID：域根ID用于选择MSTI中的域根。</li>
+<li>域根ID = Priority(16 bit) + MAC(48 bit)。</li>
+<li>其中Priority为MSTI0的优先级。</li>
+<li>内部路径开销（Internal Root Path Cost，IRPC）：本桥到达域根的路径开销。</li>
+<li>域边缘端口保存的内部路径开销大于非域边缘端口保存的内部路径开销。</li>
+<li>指定交换设备ID：CIST或MSTI实例的指定交换设备是本桥通往域根的最邻近的上游桥。</li>
+<li>如果本桥就是总根或域根，则指定交换设备为自己。</li>
+<li>指定端口ID：指定交换设备上同本设备上根端口相连的端口。</li>
+<li>Port ID = Priority(4 bit) + 端口号（12 bit）。</li>
+<li>端口优先级必须是16的整数倍。</li>
+<li>接收端口ID：接收到BPDU报文的端口。</li>
+<li>Port ID = Priority(4 bit) + 端口号（12 bit）。</li>
+<li>端口优先级必须是16的整数倍。</li>
+</ul>
+<hr />
+<h5 id="132cist">1.3.2.CIST计算</h5>
+<p>经过比较<code>MST BPDU</code>消息后，在整个网络中选择一个优先级最高的交换设备作为<code>CIST</code>的树根，即总根。</p>
+<p>在每个<code>MST</code>域内，<code>MSTP</code>通过计算生成<code>IST</code>；同时<code>MSTP</code>将每个<code>MST</code>域作为单台交换设备对待，通过计算，在<code>MST</code>域间生成<code>CST</code>。<code>CST</code>和<code>IST</code>构成了整个交换设备网络的<code>CIST</code>。</p>
+<p><img alt="image-20260426212508594" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426212508653.png" /></p>
+<hr />
+<h5 id="133msti">1.3.3.MSTI计算</h5>
+<p>在<code>MST</code>域内，<code>MSTP</code>根据<code>VLAN</code>和生成树实例的映射关系，针对不同的<code>VLAN</code>生成不同的生成树实例。</p>
+<p>每颗生成树独立进行计算，计算过程与<code>STP</code>计算生成树的过程类似。</p>
+<p><img alt="image-20260426212750045" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426212750106.png" /></p>
+<hr />
+<h5 id="134msti">1.3.4.MSTI计算</h5>
+<p><code>MSTI</code>的特点：</p>
+<ul>
+<li>每个<code>MSTI</code>独立计算自己的生成树，互补干扰。</li>
+<li>每个<code>MSTI</code>的生成树计算方法与<code>STP</code>基本相同。</li>
+<li>每个<code>MSTI</code>的生成树可以有不同的根、不同的拓扑。</li>
+<li>每个<code>MSTI</code>在自己的生成树内发送<code>BPDU</code>。</li>
+<li>每个<code>MSTI</code>的拓扑通过命令配置决定。</li>
+<li>每个端口在不同<code>MSTI</code>上的生成树参数可以不同。</li>
+<li>每个端口在不同<code>MSTI</code>上的角色、状态可以不同。</li>
+</ul>
+<hr />
+<p><strong>根桥和备份根桥：</strong>可以通过计算来自动确定生成树的根桥，用户也可以手动配置设备为指定生成树的根桥或备份根桥。</p>
+<ul>
+<li>设备在各生成树中的角色互相独立，在作为一棵生成树的根桥或备份根桥的同时，也可以作为其它生成树的根桥或备份根桥；但在同一棵生成树中，一台设备不能既作为根桥，又作为备份根桥。</li>
+<li>在一棵生成树中，生效的根桥只有一个；当两台或两台以上的设备被指定为同一棵生成树的根桥时，系统将选择MAC地址最小的设备作为根桥。</li>
+<li>可以在每棵生成树中指定多个备份根桥。当根桥出现故障或被关机时，备份根桥可以取代根桥成为指定生成树的根桥；但此时若配置了新的根桥，则备份根桥将不会成为根桥。如果配置了多个备份根桥，则MAC地址最小的备份根桥将成为指定生成树的根桥。</li>
+</ul>
+<hr />
+<h5 id="135">1.3.5.网络数据转发</h5>
+<p>在运行<code>MSTP</code>协议的网络中，一个<code>vlan</code>报文将沿着如下路径进行转发：</p>
+<ul>
+<li>在<code>MST</code>域内，沿着其对应的<code>MSTI</code>转发。</li>
+<li>在<code>MST</code>域间，沿着<code>CST</code>转发。</li>
+</ul>
+<p><img alt="image-20260426221135753" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426221135825.png" /></p>
+<hr />
+<h3 id="2">2.配置</h3>
+<h4 id="21">2.1.基本配置</h4>
+<h5 id="211">2.1.1.基础配置命令</h5>
+<ol>
+<li>配置生成树工作模式</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] stp mode mstp
+# 交换机支持STP、RSTP和MSTP三种生成树工作模式。默认情况工作在MSTP模式。
+# STP和MSTP不能互相识别报文，而MSTP和RSTP可以互相识别报文，所以若工作在MSTP工作模式下，交换设备会设置所有和运行STP的交换设备直接相连的端口工作在STP模式下，其他端口工作在MSTP模式下，实现运行不同生成树协议的设备之间的互通。
+</code></pre></div>
+<ol>
+<li>启用<code>MSTP</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] stp enable
+# 使能交换设备或端口上的STP/RSTP/MSTP功能。缺省情况下，全局和端口的STP/RSTP/MSTP均使能。
+注意：为了保证生成树计算过程快速而且稳定，必须在启用STP/RSTP/MSTP之前，完成对交换设备及其端口必要的基本配置。
+</code></pre></div>
+<h5 id="212mst">2.1.2.配置MST域并激活</h5>
+<ol>
+<li>进入<code>MST</code>域视图</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] stp region-configuration
+[Huawei-mst-region]
+</code></pre></div>
+<ol>
+<li>配置<code>MST</code>域的域名</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei-mst-region] region-name name
+# 缺省情况下，MST域名等于交换设备的桥MAC地址。
+# name：指定交换设备的MST域名。字符串形式，不支持空格，区分大小写，长度为1～32个字符。
+</code></pre></div>
+<ol>
+<li>配置多生成树实例与VLAN的映射关系</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei-mst-region] instance instance-id vlan { vlan-id1 [ to vlan-id2 ] }
+# instance-id：指定生成树实例的编号。整数形式，取值范围是0～4094，取值为0表示的是CIST。
+# 将指定VLAN映射到指定的生成树实例上。缺省情况下，所有VLAN均映射到CIST，即实例0上。
+</code></pre></div>
+<ol>
+<li>（可选）配置MST域的MSTP修订级别</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei-mst-region] revision-level level
+# 配置交换设备的MSTP修订级别。缺省情况下，交换设备MST域的修订级别是0。
+</code></pre></div>
+<ol>
+<li>激活MST域的配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei-mst-region] active region-configuration
+# 使域名、VLAN映射表和MSTP修订级别生效。
+</code></pre></div>
+<h5 id="213">2.1.3.可选配置命令</h5>
+<ol>
+<li>配置根桥和备份根桥</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] stp [ instance instance-id ] root { primary | secondary }
+# 配置当前交换设备为指定生成树的根桥或备份根桥。
+</code></pre></div>
+<ol>
+<li>配置交换设备在指定生成树实例中的优先级</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] stp [ instance instance-id ] priority priority
+# 配置交换设备在指定生成树中的优先级。缺省情况下，交换设备在指定生成树中的优先级是32768。
+</code></pre></div>
+<ol>
+<li>配置端口在指定生成树实例中的路径开销</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] stp pathcost-standard { dot1d-1998 | dot1t | legacy }
+# 配置路径开销值的计算方法。缺省情况下，路径开销值的计算方法为IEEE 802.1T标准。
+# dot1d-1998：指定路径开销值的计算方法是IEEE 802.1D-1998标准方法，取值范围为1~65535。
+# dot1t：指定路径开销值的计算方法是IEEE 802.1T标准方法，取值范围为1~200,000,000。
+# legacy：指定路径开销值的计算方法是华为计算方法，取值范围为1~200,000。
+
+[Huawei-GigabitEthernet0/0/1] stp [ instance instance-id ] cost cost
+# 配置当前端口在指定生成树上的端口路径开销。缺省情况下，端口在各个生成树上的路径开销为端口速率对应的路径开销。
+</code></pre></div>
+<ol>
+<li>配置端口在指定生成树实例中的优先级</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei-GigabitEthernet0/0/1] stp [ instance instance-id ] port priority priority
+# 配置当前端口在生成树计算时的优先级。缺省情况下，交换设备端口的优先级取值是128。
+# priority：指定端口在生成树计算时的优先级。整数形式，取值范围是0～240，步长为16，如0、16、32等。
+</code></pre></div>
+<hr />
+<h4 id="22">2.2.单域多实例实验</h4>
+<h5 id="221">2.2.1.场景描述</h5>
+<p>在一个复杂的网络中，由于冗余备份的需要，网络规划者一般都倾向于在设备之间部署多条物理链路，其中一条作为主用链路，其他作为备份链路，这样就可能形成环路。为此，可以在网络中部署<code>MSTP</code>避免环路。</p>
+<h5 id="222">2.2.2.要求</h5>
+<p><code>SW1、SW2、SW3、SW4</code>都运行<code>MSTP</code>。</p>
+<p>为实现<code>VLAN2</code>和<code>VLAN3</code>的流量负载分担，<code>MSTP</code>引入了多实例生成树。</p>
+<p><code>instance1</code>与<code>vlan2</code>进行绑定，<code>instance2</code>与<code>vlan3</code>进行绑定，<code>LSW1</code>作为<code>instance1</code>的根桥和<code>instance2</code>的备份根桥，<code>LSW2</code>作为<code>instance2</code>的根桥和<code>instance1</code>的备份根桥。</p>
+<p><code>LSW1</code>和<code>LSW2</code>运行<code>VRRP</code>，<code>LSW1</code>为<code>VRID2</code>的<code>master</code>设备<code>VRID3</code>的<code>Backup</code>设备，<code>LSW2</code>为<code>VRID3</code>的<code>Master</code>设备<code>VRID2</code>的<code>backup</code>设备。</p>
+<p><img alt="image-20260426225640309" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426225640386.png" /></p>
+<h5 id="223">2.2.3.配置演示</h5>
+<ol>
+<li>配置基于接口划分<code>vlan</code>，实现数据二层通信。（仅以<code>LSW1</code>为例）</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[LSW1]vlan batch 2 to 3
+[LSW1]interface g0/0/1  
+[LSW1-GigabitEthernet0/0/1]port link-type trunk
+[LSW1-GigabitEthernet0/0/1]port trunk all vlan 2 to 3
+[LSW1-GigabitEthernet0/0/1]quit
+[LSW1]interface g0/0/2
+[LSW1-GigabitEthernet0/0/2]port link-type trunk
+[LSW1-GigabitEthernet0/0/2]port trunk all vlan 2 to 3
+[LSW1-GigabitEthernet0/0/2]quit
+</code></pre></div>
+<ol>
+<li>配置<code>MSTP</code>基本功能（仅以<code>LSW1</code>为例）</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[LSW1]stp region-configuration  
+[LSW1-mst-region]region-name test   
+[LSW1-mst-region]instance 1 vlan 2
+[LSW1-mst-region]instance 2 vlan 3
+[LSW1-mst-region]active region-configuration 
+[LSW1-mst-region]quit
+</code></pre></div>
+<ol>
+<li>配置<code>MSTI 1</code>和<code>MSTI 2</code>的根桥和备份根桥</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[LSW1]stp instance 1 root primary   
+[LSW1]stp instance 2 root secondary 
+
+[LSW2]stp instance 1 root secondary 
+[LSW2]stp instance 2 root primary
+</code></pre></div>
+<p>4, 将与终端相连的端口设置为边缘端口</p>
+<div class="highlight"><pre><span></span><code>[LSW3]int Ethernet0/0/1
+[LSW3-Ethernet0/0/1]stp edged-port enable 
+[LSW3-Ethernet0/0/1]quit
+
+[LSW4]int Ethernet0/0/1
+[LSW4-Ethernet0/0/1]stp edged-port enable 
+[LSW4-Ethernet0/0/1]quit
+</code></pre></div>
+<ol>
+<li>验证<code>MSTP</code>配置结果</li>
+</ol>
+<p><img alt="image-20260426231032808" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426231032963.png" /></p>
+<p><img alt="image-20260426231055282" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260426231055366.png" /></p>
+<ol>
+<li><code>VRRP</code>配置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[LSW1]interface vlan 2
+[LSW1-Vlanif2]ip add 192.168.2.252 24
+[LSW1-Vlanif2]vrrp vrid 2 virtual-ip 192.168.2.254
+[LSW1-Vlanif2]vrrp vrid 2 priority 150
+[LSW1-Vlanif2]quit
+[LSW1]interface vlan 3
+[LSW1-Vlanif3]ip add 192.168.3.252 24   
+[LSW1-Vlanif3]vrrp vrid 3 virtual-ip 192.168.3.254
+[LSW1-Vlanif3]quit
+
+[LSW2]int vlan 2
+[LSW2-Vlanif2]ip add 192.168.2.253 24
+[LSW2-Vlanif2]vrrp vrid 2 virtual-ip 192.168.2.254
+[LSW2-Vlanif2]quit
+[LSW2]int vlan 3
+[LSW2-Vlanif3]ip add 192.168.3.253 24   
+[LSW2-Vlanif3]vrrp vrid 3 virtual-ip 192.168.3.254
+[LSW2-Vlanif3]vrrp vrid 3 priority 150
+[LSW2-Vlanif3]quit
+
+[LSW1]display  vrrp brief 
+VRID  State        Interface                Type     Virtual IP     
+----------------------------------------------------------------
+2     Master       Vlanif2                  Normal   192.168.2.254  
+3     Backup       Vlanif3                  Normal   192.168.3.254  
+----------------------------------------------------------------
+Total:2     Master:1     Backup:1     Non-active:0
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

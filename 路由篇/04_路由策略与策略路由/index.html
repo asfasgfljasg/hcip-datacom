@@ -1,0 +1,3633 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../03_IS-IS%E8%AF%A6%E8%A7%A3/">
+      
+      
+        <link rel="next" href="../05_BGP%E8%AF%A6%E8%A7%A3/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>路由策略与策略路由 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04_" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              路由策略与策略路由
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.路由策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.路由策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.路由匹配工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.路由匹配工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1.访问控制列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112ip-ip-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.IP前缀列表 ip-prefix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.策略工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.策略工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121route-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.Route-Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.匹配工具在路由策略中的作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123filter-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.Filter-Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.双点双向路由重分布
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.双点双向路由重分布">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.何为双点双向？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.为什么需要双点双向
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.准备工作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.问题一：次优路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.解决方法一：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.6.解决方法二：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#137" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.7.问题二：路由环路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#138" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.8.解决方法一：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#139" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.9.解决方法二：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.策略路由
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.策略路由">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21pbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.PBR基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.PBR基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.结构介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212pbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.PBR的分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.典型应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.实验：本地策略路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22mqc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.MQC基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.MQC基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.流分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.流行为
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.流策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.实验：接口策略路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.流量过滤
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.流量过滤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.流量过滤工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1.流量过滤工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311traffic-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1.Traffic-Filter部署位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312mqc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2.使用MQC过滤流量
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.路由策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.路由策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.路由匹配工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.路由匹配工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1.访问控制列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112ip-ip-prefix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.IP前缀列表 ip-prefix
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.策略工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.策略工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121route-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.Route-Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.匹配工具在路由策略中的作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123filter-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.Filter-Policy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.双点双向路由重分布
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.双点双向路由重分布">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.何为双点双向？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.为什么需要双点双向
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.准备工作
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.问题一：次优路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.解决方法一：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#136" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.6.解决方法二：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#137" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.7.问题二：路由环路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#138" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.8.解决方法一：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#139" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.9.解决方法二：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.策略路由
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.策略路由">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21pbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.PBR基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.PBR基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.结构介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212pbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.PBR的分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.典型应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.实验：本地策略路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22mqc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.MQC基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.MQC基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.流分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.流行为
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.流策略
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.实验：接口策略路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.流量过滤
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.流量过滤">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.流量过滤工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1.流量过滤工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311traffic-filter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1.Traffic-Filter部署位置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312mqc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2.使用MQC过滤流量
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="04_">04_路由策略与策略路由</h1>
+<h3 id="1">1.路由策略</h3>
+<p>路由策略（<code>Routing Policy</code>）是一套用于对路由信息进行过滤、属性设置等操作的方法，通过对路由的控制，可以影响数据流量转发操作。</p>
+<p>实际上<strong>路由策略</strong>并非单一的技术或者协议，而是一个技术专题或方法论，里面包含着多种工具及方法。</p>
+<p><img alt="image-20250822121623632" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640020.png" /></p>
+<p>如上图，网络中存在<code>OSPF</code>和<code>IS-IS</code>两种路由协议，默认情况下这两种路由协议的路由信息不会彼此交互，需要在<code>R3</code>进行<strong>双向引入</strong>。但是，引入完成后<code>IS-IS</code>中就拥有<code>OSPF</code>的所有路由了，可处于各种情况考虑，我只希望<strong>业务B</strong>被引入到<code>IS-IS</code>怎么办呢？</p>
+<ul>
+<li>在<code>R3</code>将<code>OSPF</code>路由引入到<code>IS-IS</code>时，使用<strong>路由策略</strong>进行过滤，只将业务<code>B</code>的路由信息引入到<code>IS-IS</code>。</li>
+</ul>
+<hr />
+<p><strong>作用</strong></p>
+<ol>
+<li><strong>控制路由的发布：</strong>通过路由策略对发布的路由进行过滤，只发布满足条件的路由。</li>
+<li><strong>控制路由的接收：</strong>通过路由策略对接收的路由进行过滤，只接收满足条件的路由。</li>
+<li><strong>控制路由的引入</strong>：通过路由策略控制从其他路由协议引入的路由条目，只有满足条件的路由才会被引入。</li>
+<li><strong>控制路由的属性</strong>：针对不同的路由设置不同的路由属性（例如度量值、路由的优先级或路由的标记等）。</li>
+</ol>
+<p><img alt="image-20250822123305007" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640011.png" /></p>
+<hr />
+<h4 id="11">1.1.路由匹配工具</h4>
+<p>无论现在你需要路由策略帮助你完成何种目的，都有一个前提，需要匹配一个或多个网段。路由匹配工具就是用来实现该功能的，并且它比你想象的要强大。</p>
+<hr />
+<h5 id="111">1.1.1.访问控制列表</h5>
+<p>访问控制列表（<code>Access control List,ACL</code>）是一个匹配工具，能够对报文及路由进行匹配和区分。</p>
+<p><code>ACL</code>由若干条<code>permit</code>或<code>deny</code>语句组成。每条语句就是该<code>ACL</code>的一条<strong>规则</strong>，每条语句中的<code>permit</code>或<code>deny</code>就是与这条规则相对应的处理动作。</p>
+<p><img alt="image-20250822141050114" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640013.png" /></p>
+<p><code>ACL</code>最初是为过滤数据包设计的，但也可以用来匹配路由。<strong>当它被用作匹配路由时，它检查的是路由条目本身的目的==网络地址==，而不是数据包的<code>IP</code>头。</strong></p>
+<hr />
+<p><strong>通配符</strong></p>
+<p>在<code>ACL</code>中采用<strong>通配符</strong>的方式匹配网段掩码。</p>
+<ul>
+<li>通配符是一个<code>32</code>位比特的数值，用于指示<code>IP</code>地址中哪些比特位需要严格匹配，哪些比特位无需匹配。</li>
+<li>通配符通常采用类似网络掩码的点分十进制形式表示，但是含义却与网络掩码完全不同。</li>
+</ul>
+<p>例如：</p>
+<div class="highlight"><pre><span></span><code>acl number 2000
+rule 5 deny source 10.1.1.1 0
+rule 10 deny source 10.1.1.2 0
+rule 15 deny permit 10.1.1.0 0.0.0.255
+</code></pre></div>
+<ul>
+<li><strong>匹配规则</strong>：<code>0</code>表示匹配，<code>1</code>表示无需匹配。</li>
+</ul>
+<p><img alt="image-20250822153843088" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640017.png" /></p>
+<hr />
+<p><strong>ACL的分类</strong></p>
+<p><img alt="image-20250822154034839" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640025.png" /></p>
+<p><strong>匹配规则</strong></p>
+<p><img alt="image-20250822154516713" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640028.png" /></p>
+<hr />
+<h5 id="112ip-ip-prefix">1.1.2.IP前缀列表 ip-prefix</h5>
+<p><code>ACL</code>并不适合所有的场景，因为<code>ACL</code>在匹配时检查路由的网络地址，而不是<strong>掩码</strong>。如下：</p>
+<p><img alt="image-20250822155039451" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640203.png" /></p>
+<p><code>R3</code>与<code>R1</code>和<code>R2</code>建立了<code>IS-IS</code>邻居关系，与<code>R4</code>建立了<code>OSPF</code>邻居关系。现在需要将<code>IS-IS</code>路由重分发到<code>OSPF</code>中，并且在重分发时需要过滤掉<code>172.16.0.0/16</code>这一条路由，保留其他的路由。</p>
+<p><strong>过滤之前：</strong></p>
+<p><img alt="image-20250822160139817" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640279.png" /></p>
+<p><strong>如果用<code>ACL</code>正确做法应该这么做：</strong></p>
+<div class="highlight"><pre><span></span><code>acl 2000
+    rule deny source 172.16.0.0 0.0.0.0
+    rule permit
+    quit
+route-policy hcip permit node 10
+    if-match acl 2000
+    quit
+ospf 1
+    import-route isis route-policy hcip
+</code></pre></div>
+<p>此时的现象是<code>R4</code>的路由表中<code>172.16.0.0/16</code>和<code>172.16.0.0/24</code>这两条路由都被过滤掉了。</p>
+<p><img alt="image-20250822160254196" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640291.png" /></p>
+<p><strong>大多数同学的做法应该和下面一样：</strong></p>
+<div class="highlight"><pre><span></span><code>acl 2000
+    rule deny source 172.16.0.0 0.0.255.255
+    rule permit
+    quit
+route-policy hcip permit node 10
+    if-match acl 2000
+    quit
+ospf 1
+    import-route isis route-policy hcip
+</code></pre></div>
+<p>此时的现象是不会有任何一条<code>172.16</code>开头的路由了。</p>
+<p><img alt="image-20250822160505000" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640272.png" /></p>
+<hr />
+<p>先分析一下这两种不同的做法，一定要清楚的是<code>ACL</code>匹配的是<strong>目的路由的网络地址</strong>，这是一个<strong>地址</strong>，而不是掩码。所以，当你写<code>172.16.0.0 0.0.0.0</code>时，他会匹配所有路由中地址开头为<code>172.16.0.0</code>的，当你写<code>172.16.0.0 0.0.0.255</code>，它会匹配所有<code>172.16.0</code>开头的，当你写<code>172.16.0.0 0.0.255.255</code>它会匹配所有<code>172.16</code>开头的。</p>
+<p><strong>那从上面的分析大家也能看出来，对于<code>ACL</code>来说它并不灵活，无法提供地址加掩码的方式进行匹配。</strong>只适用于一些较为简单的路由环境中使用，当面对更复杂的场景时，需要考虑另一个工具，<code>IP Prefix List</code></p>
+<hr />
+<p>一个路由条目由<strong>目的网络地址</strong>（<code>IP</code>前缀）和<strong>掩码长度</strong>（前缀长度）共同标识。<code>IP</code>前缀列表在匹配路由时，能够同时指定<strong>目的网络地址</strong>和<strong>掩码</strong>，从而实现对路由的精确匹配。</p>
+<p>现在，我们可以使用<code>IP</code>前缀列表实现刚刚的例子：</p>
+<p><img alt="image-20250822155039451" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640301.png" /></p>
+<div class="highlight"><pre><span></span><code>ip ip-prefix test deny 172.16.0.0 16
+ip ip-prefix test permit 0.0.0.0 0 less-equal 32
+route-policy hcip permit node 10
+    if-match ip-prefix test
+    quit
+ospf 1
+    import-route isis route-policy hcip
+</code></pre></div>
+<p><img alt="image-20250822164020560" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640296.png" /></p>
+<hr />
+<p><strong>结构</strong></p>
+<p>一条IP-Prefix List规则由三部分组成：</p>
+<ol>
+<li><strong>索引号 (index)</strong>： 决定规则的匹配顺序，从小到大的顺序匹配。</li>
+<li><strong>匹配模式 (permit/deny)</strong>： 定义匹配后的动作是“允许”还是“拒绝”。</li>
+<li><strong>匹配条件 (网络号/掩码长度 + 范围参数)</strong>： 定义匹配的具体内容</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ip ip-prefix [列表名称] index [序号] [permit | deny] [网络号]/[掩码长度] [匹配掩码范围参数]
+</code></pre></div>
+<hr />
+<p><strong>关键参数：</strong></p>
+<p>这是<code>IP-Prefix List</code>的灵魂所在，它们用于定义一个<strong>掩码长度的匹配范围</strong>。</p>
+<ul>
+<li><code>greater-equal &lt;ge-value&gt;</code>： 掩码长度 <strong>大于等于</strong><code>ge-value</code></li>
+<li><code>less-equal &lt;le-value&gt;</code>： 掩码长度 <strong>小于等于</strong> <code>le-value</code></li>
+</ul>
+<p>现在我们要分为以下几种情况来判断匹配路由时的掩码长度：</p>
+<ol>
+<li>如果只写了<strong>掩码长度</strong>，没有写<code>ge</code>和<code>le</code>，则标识精确匹配该掩码长度。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ip ip-prefix test deny 172.16.0.0 16
+</code></pre></div>
+<ol>
+<li>如果写了<code>ge</code>，没写<code>le</code>，则<code>le</code>值默认为<code>32</code></li>
+<li>如下，此时这条规则的含义是匹配前<code>16</code>位为<code>172.16.</code>并且掩码大于等于<code>24</code>，小于等于<code>32</code>的路由。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ip ip-prefix test deny 172.16.0.0 16 gre 24
+</code></pre></div>
+<p><img alt="image-20250822165752232" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640388.png" /></p>
+<ol>
+<li>如果写了<code>le</code>，没写<code>ge</code>，则<code>ge</code>值默认为<strong>掩码长度</strong>参数的值。</li>
+<li>如下，这条规则的含义是匹配<code>172.16</code>且掩码范围为<code>16-32</code>。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ip ip-prefix test deny 172.16.0.0 16 le 32
+</code></pre></div>
+<ol>
+<li>如果同时写了<code>ge、le</code>（<code>ge</code>必须小于等于<code>le</code>）</li>
+<li>如下，这条规则的含义是匹配<code>172.16</code>且掩码范围为<code>24-30</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>ip ip-prefix test deny 172.16.0.0 16 gre 24 le 32
+</code></pre></div>
+<hr />
+<p><strong>测试：</strong></p>
+<p>为什么在最初的例子中，我放通路由要写<code>0.0.0.0 0 le 32</code>，只写<code>0.0.0.0 0</code>为什么不行？？</p>
+<hr />
+<h4 id="12">1.2.策略工具</h4>
+<h5 id="121route-policy">1.2.1.Route-Policy</h5>
+<p><code>Route-Policy</code>是一个策略工具，用于过滤路由信息，以及为过滤后的路由信息设置路由属性。<code>Route-Policy</code>是拥有一个或多个节点（<code>Node</code>）的列表，每一个节点都可以是一系列条件语句及执行语句的集合。这些节点（<code>Node</code>）按照编号从小到达的顺序排列。</p>
+<p>在每个节点（<code>Node</code>）中，用户可以定义条件语句及执行语句，类似于<code>If-Then</code>（如果-则）。节点内的多个条件语句之间的关系为<strong>与</strong>，即匹配所有条件语句才会执行本节点内的动作。</p>
+<p>在<code>Route-Policy</code>中节点之间的关系为<strong>或</strong>，在执行<code>Route-Policy</code>时，自上而下从编号最小的节点开始进行匹配，如果被匹配的对象满足所有条件，则执行该节点中的执行语句（动作），并且不会再向下进行匹配。如果第一个节点在匹配时，有任何一个条件不满足，则向下继续匹配，以此类推。</p>
+<p><img alt="image-20250823151537899" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640490.png" /></p>
+<hr />
+<p>如下图，该<code>Route-Policy</code>的名称为<code>hcnp</code>，一共有三个节点，序号分别是<code>5、10、15</code>。默认情况的排序方式就是这样，每个序号之间预留了<code>4</code>个数，这么做的目的是为了考虑扩展性。每个节点中都由<strong>条件语句</strong><code>if-match</code>和<strong>执行语句</strong><code>apply</code>组成。</p>
+<p>当该<code>Route-Policy</code>被调用且开始执行时，路由匹配的操作将从序号最小的节点<code>node5</code>开始，只有满足了<code>Node5</code>中所有的<strong>条件语句</strong><code>if-match</code>后，才会执行<code>apply</code>的动作。如果<code>node5</code>的任何一个条件没有被满足，则向下继续匹配。</p>
+<p><img alt="image-20250823151616870" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640561.png" /></p>
+<hr />
+<p><strong>创建一个Route-Policy节点</strong></p>
+<p><code>route-policy-name</code>可以根据自己的需要进行自定义。</p>
+<div class="highlight"><pre><span></span><code>route-policy &lt;route-policy-name&gt; {permit|deny} node &lt;node&gt;
+</code></pre></div>
+<ul>
+<li><code>Permit</code>：指定该节点的匹配模式为允许。</li>
+<li><code>Deny</code>：指定节点的匹配模式为拒绝。</li>
+</ul>
+<p><code>Route-Policy</code>的末尾隐含着一个类似拒绝所有的节点。如果你指定的所有节点都没被匹配上，那么就会被拒绝。</p>
+<hr />
+<p><strong>if-match（可选）</strong></p>
+<p>在<code>Route-Policy</code>的节点视图下，使用<code>if-match</code>命令可定义匹配条件，所匹配的对象是路由信息的一些属性，例如路由的目的网络地址或掩码长度、度量值、标记（<code>Tag</code>）或下一跳地址等。以下是常用的<code>if-match</code>命令：</p>
+<ul>
+<li><strong>匹配<code>ACL</code></strong>：</li>
+<li><code>if-match acl {acl-number|acl-name}</code></li>
+<li><strong>匹配前缀列表</strong></li>
+<li><code>if-match ip-prefix ip-prefix-name</code></li>
+<li><strong>匹配度量值</strong></li>
+<li><code>if-match metric metric</code></li>
+<li><strong>匹配路由的出接口</strong></li>
+<li><code>if-match interface interface-type interface-number</code></li>
+<li><strong>匹配路由标签</strong></li>
+<li><code>if-match tag tag</code></li>
+</ul>
+<p>一个节点可以包含多条<code>if-match</code>语句，这些<code>if-match</code>语句之间是<strong>与</strong>的关系，也就是所有的<code>if-match</code>必须同时满足，被匹配对象才被视为匹配该节点，但是<code>if-match route-type</code>和<code>if-match interface</code>等除外，这些命令各自的<code>if-match</code>语句之间是<strong>或</strong>的关系。</p>
+<p>一个节点中可以不包含任何<code>if-match</code>语句，当这种情况出现时，则视为匹配所有，也就是任何的被匹配对象都满足该节点的条件。</p>
+<hr />
+<p><strong>apply（可选）</strong></p>
+<p>在<code>Route-Policy</code>的节点视图下，使用<code>apply</code>命令指定需执行的动作，这些动作主要是对所匹配的路由的某些属性进行修改，例如修改路由的度量值、优先级值、标记等。</p>
+<ul>
+<li><strong>设置路由的度量值：</strong></li>
+<li><code>apply cost [+|-] cost</code></li>
+<li><strong>设置路由的度量值类型：</strong></li>
+<li><code>apply cost-type { external | internal}</code>设置<code>IS-IS</code>的度量值类型。</li>
+<li><code>apply cost-type { type-1 | type-2 }</code>设置<code>OSPF</code>的度量值类型。</li>
+<li><strong>设置路由的下一跳地址：</strong></li>
+<li><code>apply ip-address next-hop {ipv4-address | peer-address}</code></li>
+<li><strong>设置路由的优先级：</strong></li>
+<li><code>apply preference</code></li>
+<li><strong>设置路由标记</strong></li>
+<li><code>apply tag</code></li>
+</ul>
+<p>一个节点可以不包含任何<code>apply</code>语句，此时该节点只被用于执行路由过滤，而不用于设置路由的属性。</p>
+<hr />
+<p><strong>实验1：</strong></p>
+<p><img alt="image-20250823193015959" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640565.png" /></p>
+<p><code>AR1</code>和<code>AR2</code>建立<code>OSPF</code>邻居，<code>AR1</code>有三条指向<code>AR3</code>的静态路由：</p>
+<ul>
+<li><code>192.168.10.0/24</code></li>
+<li><code>192.168.20.0/24</code></li>
+<li><code>192.168.30.0/24</code></li>
+</ul>
+<p>要求将静态路由引入到<code>OSPF</code>时，只放行<code>192.168.20.0/24</code>。</p>
+<p><img alt="image-20250823193748356" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640568.png" /></p>
+<p>在<code>AR1</code>创建<code>ip-prefix</code>匹配<code>192.168.20.0/24</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR1]ip ip-prefix static-to-ospf permit 192.168.20.0 24
+</code></pre></div>
+<p>在<code>AR1</code>创建<code>route-policy</code>并绑定<code>ip-prefix</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR1]route-policy static-to-ospf permit node 10
+[AR1-route-policy]if-match ip-prefix static-to-ospf 
+[AR1-route-policy]quit
+</code></pre></div>
+<p>在<code>AR1</code>的<code>OSPF</code>重分布<code>Static</code>并绑定<code>Route-Policy</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR1]ospf 1
+[AR1-ospf-1]import-route static route-policy static-to-ospf 
+[AR1-ospf-1]quit
+</code></pre></div>
+<p><img alt="image-20250823194557378" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640577.png" /></p>
+<hr />
+<p><strong>实验2：</strong></p>
+<p><img alt="image-20250823193015959" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640579.png" /></p>
+<p><code>AR1</code>和<code>AR2</code>建立<code>OSPF</code>邻居，<code>AR1</code>有三条指向<code>AR3</code>的静态路由：</p>
+<ul>
+<li><code>192.168.10.0/24</code></li>
+<li><code>192.168.20.0/24</code></li>
+<li><code>192.168.30.0/24</code></li>
+</ul>
+<p>要求将静态路由引入到<code>OSPF</code>时，过滤<code>192.168.20.0/24</code>。</p>
+<p><strong>方法一：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]ip ip-prefix static-to-ospf deny 192.168.20.0 24
+[AR1]ip ip-prefix static-to-ospf permit 192.168.10.0 24
+[AR1]ip ip-prefix static-to-ospf permit 192.168.30.0 24
+</code></pre></div>
+<p><img alt="image-20250823194838178" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640669.png" /></p>
+<p><strong>方法二：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]dis ip ip-prefix 
+Prefix-list static-to-ospf
+Permitted 2
+Denied 4
+        index: 10               permit  192.168.20.0/24
+
+[AR1]dis route-policy 
+Route-policy : static-to-ospf
+  deny : 10 (matched counts: 4)
+    Match clauses : 
+      if-match ip-prefix static-to-ospf
+  permit : 20 (matched counts: 13)
+</code></pre></div>
+<p><img alt="image-20250823200158742" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640729.png" /></p>
+<p><strong>问题：</strong></p>
+<p>为什么下面这种方式不可行？？</p>
+<div class="highlight"><pre><span></span><code>[AR1]dis ip ip-prefix
+Prefix-list static-to-ospf
+Permitted 4
+Denied 11
+        index: 10               deny    192.168.20.0/24
+
+&lt;AR1&gt;dis route-policy
+Route-policy : static-to-ospf
+  permit : 10 (matched counts: 11)
+    Match clauses : 
+      if-match ip-prefix static-to-ospf
+  permit : 20 (matched counts: 3)
+</code></pre></div>
+<p><strong>原因：</strong></p>
+<p>此时<code>192.168.20.0/24</code>的路由会进行<code>Route-Policy</code>的匹配，策略首先从<code>node 10</code>开始执行。<code>ip ip-prefix</code>在这里的角色是一个匹配工具，而不是执行动作的工具，它的<code>permit</code>和<code>deny</code>的含义是<strong>匹配</strong>和<strong>不匹配</strong>。</p>
+<p>所以，在这里<code>deny 192.168.20.0/24</code>代表不匹配，那么理所当然这条路由会到下一个<code>node</code>进行匹配工作，而<code>node 20</code>没有规定任何的<code>if-match</code>，代表匹配所有。</p>
+<p>最终，<code>192.168.20.0/24</code>就会被顺利的引入到<code>ospf</code>，所以这种方式不可行。</p>
+<hr />
+<h5 id="122">1.2.2.匹配工具在路由策略中的作用</h5>
+<p>无论是<code>ACL</code>还是<code>ip-prefix</code>一定要记住一点，在路由策略的情况下（站在路由策略的角度上），它们只是<strong>匹配工具</strong>，那也就代表只有被它们<code>permit</code>的才是被成功匹配的，<code>deny</code>了就是不匹配。</p>
+<p>举个例子：</p>
+<p>你是公司的<code>HR</code>，你的工作就是让符合条件的人来公司面试（<code>permit</code>）以及过滤掉不符合条件的人（<code>deny</code>）。那站在公司（路由策略）的角度，只有来面试（<code>permit</code>）的才能算进<code>HR</code>的业绩（匹配成功），<code>deny</code>的理所当然不算。</p>
+<hr />
+<h5 id="123filter-policy">1.2.3.Filter-Policy</h5>
+<p><code>Filter-Policy</code>（过滤-策略）是一个很常用的路由信息过滤工具，能够对接收、发布、引入的路由进行过滤，可应用于<code>IS-IS</code>、<code>OSPF</code>、<code>BGP</code>等协议。</p>
+<p><code>Filter-policy</code>可以调用<code>ACL、ip-prefilx、route-policy</code>等工具来匹配路由，用于控制对路由的发布或接收。在<code>IGP</code>和<code>BGP</code>都能够使用，<code>filter-policy</code>分为<code>import</code>和<code>export</code>。</p>
+<ul>
+<li><code>import</code>：主要影响路由器接收路由，影响自身路由表的变化，适合于任何路由协议。但是，不同类型的路由协议也是有差别的：</li>
+<li>距离矢量路由协议基于自身路由表来通告，传递的是路由表信息。通过<code>filter-policy</code>可以过滤路由的接收。</li>
+<li>
+<p>链路状态协议基于<code>LSA</code>，并不是路由信息，<code>filter-policy import</code>不能过滤<code>LSA</code>，而是阻止路由表的生成。</p>
+</li>
+<li>
+<p><code>export</code>：在距离矢量路由协议中用于向邻居发路由时的控制，影响邻居路由器的路由表变化。<strong>在链路状态协议中往往用在<code>ASBR</code>上控制外部路由的引入。</strong></p>
+</li>
+<li>在一些书籍中可能会提到，<code>export</code>可以过滤<code>3</code>类<code>LSA</code>，实际上无论你用模拟器还是真机，它都是做不到的。所以，<code>filter-policy export</code>在<code>ospf</code>中只能过滤<code>5</code>和<code>7</code>。</li>
+</ul>
+<hr />
+<p><strong>案例一：对<code>OSPF</code>接收的路由过滤（区域内）</strong></p>
+<p>下图中，三台路由器同属于<code>OSPF Area 0</code>，<code>AR1</code>发布网段<code>192.168.10.0/24</code>，要求在<code>AR2</code>上部署<code>filter-policy import</code>，使<code>AR2</code>的路由表中不允许出现<code>192.168.10.0/24</code>这条路由。</p>
+<p>在<code>AR1</code>的<code>loo0</code>接口修改类修为<code>broadcast</code>，就可以宣告出<code>24</code>位的路由。</p>
+<p><img alt="image-20250823232339615" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640723.png" /></p>
+<p><strong>配置如下：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR2]ip ip-prefix huawei index 10 deny 192.168.10.0 24
+[AR2]ip ip-prefix huawei index 20 permit 0.0.0.0 0 le 32
+[AR2]ospf 1
+[AR2-ospf-1]filter-policy ip-prefix huawei import
+</code></pre></div>
+<p><strong>现象：</strong></p>
+<p>此时，<code>AR2</code>的路由表中不会再出现<code>192.168.10.0/24</code>这条路有。但是，<code>AR2</code>的<code>LSDB</code>中依旧会存在<code>192.168.10.0/24</code>，并且<code>AR3</code>的路由表中依旧会有<code>192.168.10.0/24</code>。</p>
+<p>所以，可得出结论，当前的<code>filter-policy</code>只会影响<code>AR2</code>不将该路由放进路由表，但不会影响底层<code>OSPF LSA</code>的收发。</p>
+<p><img alt="image-20250823232936833" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640742.png" /></p>
+<p><img alt="image-20250823232951868" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640748.png" /></p>
+<p><strong>分析：</strong></p>
+<p>在这个实验中，无论你在哪台设备上使用<code>export</code>都无法成功做到影响其他设备的路由表。因为，<code>OSPF</code>使用<code>LSA</code>进行交互，<code>filter-policy</code>本身是无法控制<code>LSA</code>的，且<code>LSA1、LSA2</code>在<code>OSPF</code>里一个区域必须一致。所以，你没有任何办法通过<code>export</code>影响对方。</p>
+<hr />
+<p><strong>案例2：对<code>OSPF</code>接收的路由过滤（区域间）</strong></p>
+<p>对于下图，<code>AR2</code>的配置于第一个案例一致，依旧需要使用<code>import</code>。当使用<code>import</code>时，首先<code>192.168.10.0/24</code>不会出现在<code>AR2</code>的路由表中，因此<code>AR2</code>不能够再产生描述区域间路由的这个<code>Type3-LSA</code>，因此<code>SwitchC</code>上不会再学习到<code>10.1.1.0/24</code>这条路由。</p>
+<p>当然，你也可以直接选择在<code>AR3</code>上进行路由过滤，配置与上一个案例一致。</p>
+<div class="highlight"><pre><span></span><code>[AR2]ip ip-prefix huawei index 10 deny 192.168.10.0 24
+[AR2]ip ip-prefix huawei index 20 permit 0.0.0.0 0 le 32
+[AR2]ospf 1
+[AR2-ospf-1]filter-policy ip-prefix huawei import
+</code></pre></div>
+<p><img alt="image-20250823234308185" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640762.png" /></p>
+<p><strong>分析：</strong></p>
+<p>同样，如果在<code>AR2</code>上使用<code>export</code>也无法生效，按照书籍等一些资料的说法，<code>filter-policy</code>在<code>export</code>方向上可以过滤<code>LSA 3、LSA 5、LSA7</code>。所以，这里暂时存疑，可能是模拟器的问题。</p>
+<p>真机上也经过测试，无法做出在<code>ABR</code>上过滤<code>3</code>类<code>LSA</code>的效果。</p>
+<p><img alt="image-20250824003743417" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640949.png" /></p>
+<hr />
+<p><strong>案例3：对<code>OSPF</code>发出的路由过滤（外部路由）</strong></p>
+<p>对于下图，<code>AR1</code>的<code>loo2</code>接口地址为<code>192.168.20.0/24</code>，将该地址以直连的形式重分发进入<code>OSPF</code>。然后使用<code>filter-policy export</code>过滤掉该路由。</p>
+<p><img alt="image-20250824000821342" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640944.png" /></p>
+<div class="highlight"><pre><span></span><code>[AR1]ip ip-prefix test1 deny 192.168.20.0 24
+[AR1-ospf-1]filter-policy ip-prefix test1 export
+</code></pre></div>
+<p><img alt="image-20250824003528897" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640962.png" /></p>
+<p><img alt="image-20250824003730743" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640976.png" /></p>
+<hr />
+<h4 id="13">1.3.双点双向路由重分布</h4>
+<p><img alt="image-20250824122027603" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135640996.png" /></p>
+<h5 id="131">1.3.1.何为双点双向？</h5>
+<p>在边界路由器上把两个路由域的路由互相引入，称之为双向路由重分布。</p>
+<p>两个路由域存在两个边界路由器，并且都执行双向路由重分发，此时称为双点双向路由重分布。</p>
+<hr />
+<h5 id="132">1.3.2.为什么需要双点双向</h5>
+<p>双点双向路由重分布是一种经典的路由模型，因单点的双向路由重分布缺乏<strong>冗余性</strong>，一旦单点的边界路由器故障，那么两个路由域之间的通信可能就会出现问题，因此在大型网络部署中一般采用双点双向路由重分布。</p>
+<p>双点双向路由重分布虽然增强了网络的可靠性，但是容易引发：次优路径、路由环路等问题。</p>
+<hr />
+<h5 id="133">1.3.3.准备工作</h5>
+<p>在上图中，需要将<code>AR1</code>的<code>192.168.10.0/24</code>路由引入到<code>OSPF</code>中：</p>
+<div class="highlight"><pre><span></span><code>&lt;AR1&gt;dis ip ip-prefix 
+Prefix-list permit
+Permitted 1
+Denied 2
+        index: 10               permit  192.168.10.0/24         
+
+&lt;AR1&gt;dis route-policy
+Route-policy : permit
+  permit : 10 (matched counts: 1)
+    Match clauses : 
+      if-match ip-prefix permit
+</code></pre></div>
+<p><img alt="image-20250824131430070" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641001.png" /></p>
+<hr />
+<p>在<code>AR2</code>和<code>AR3</code>上执行<strong>双向引入</strong>。</p>
+<div class="highlight"><pre><span></span><code>[AR2]isis 1
+[AR2-isis-1]import-route ospf 1
+[AR2]ospf 1 
+[AR2-ospf-1]import-route isis 1
+
+[AR3]ospf 1
+[AR3-ospf-1]import-route isis 1
+[AR3]isis 1
+[AR3-isis-1]im ospf 1
+</code></pre></div>
+<hr />
+<h5 id="134">1.3.4.问题一：次优路径</h5>
+<p>由于做了<strong>双点双向重分布</strong>，当前<code>AR1</code>在<code>OSPF</code>中宣告了外部路由<code>192.168.10.0/24</code>，<code>AR2</code>会将该<code>OSPF</code>路由引入到<code>IS-IS</code>，并将<code>IS-IS</code>引入到<code>OSPF</code>，同时<code>AR3</code>也做了这件事。</p>
+<p><strong>即使，只做了<code>OSPF</code>引入<code>IS-IS</code>的单向重分布，也会出现这个问题。</strong></p>
+<p>但是，此时<code>AR3</code>会同时从<code>OSPF</code>和<code>IS-IS</code>学习到<code>192.168.10.0/24</code>的路由，那现在它会选择将<code>OSPF</code>的<code>192.168.10.0/24</code>加入路由表，还是<code>IS-IS</code>的<code>192.168.10.0/24</code>加入路由表呢？</p>
+<p>众所周知，当路由前缀相同时，先比较<strong>路由优先级</strong>，才是<code>OSPF</code>中的<code>192.168.10.0/24</code>因为是外部路由，所以优先级为<code>150</code>，而<code>IS-IS</code>的<code>192.168.10.0/24</code>路由优先级是<code>15</code>。故<code>AR3</code>的路由表中只保存<code>IS-IS</code>学习到的<code>192.168.10.0/24</code>。</p>
+<p>次优路径就此产生，<code>AR3</code>应该选择从<code>OSPF</code>走向<code>AR1</code>作为最优路径，但因为双点双向重分发引起的路由选路流程，选择了路由优先级最优的<code>IS-IS</code>。</p>
+<p><strong>为什么是<code>AR3</code>有这个现象，<code>AR2</code>会产生么？</strong></p>
+<ul>
+<li>哪台路由器<strong>后做</strong>高优先级引入低优先级这个动作，谁就会产生这个现象。</li>
+</ul>
+<p><strong>为什么<code>AR2</code>此时不会从<code>IS-IS</code>学习到这条路由？</strong></p>
+<ul>
+<li>因为<code>AR2</code>先做了重分发导致<code>AR3</code>只能从<code>IS-IS</code>学习到这条路有，那么<code>AR3</code>就不会将<code>IS-IS</code>的路由引入进<code>IS-IS</code>，所以<code>AR2</code>只会从<code>OSPF</code>学习到<code>192.168.10.0/24</code>。</li>
+</ul>
+<p><img alt="image-20250824134109203" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641119.png" /></p>
+<hr />
+<h5 id="135">1.3.5.解决方法一：</h5>
+<p>在<code>R3</code>的<code>IS-IS</code>进程内，通过<code>Filter-Policy</code>禁止来自<code>R4</code>的<code>192.168.10.0/24</code>路由加入本地路由表。</p>
+<div class="highlight"><pre><span></span><code>[AR3]ip ip-prefix deny deny 192.168.10.0 24
+[AR3]ip ip-prefix deny permit 0.0.0.0 0 le 32
+
+[AR3]isis 1 
+[AR3-isis-1]filter-policy ip-prefix deny import 
+[AR3-isis-1]quit
+</code></pre></div>
+<p><img alt="image-20250824133919315" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641143.png" /></p>
+<p><img alt="image-20250824133952800" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641147.png" /></p>
+<hr />
+<h5 id="136">1.3.6.解决方法二：</h5>
+<p>此时，可能需要在<code>R2</code>上继续往下做，因为次优路径出现在<code>R2</code>上了。如果上一种解决方法做了，你就可能会发现即使在<code>R3</code>拿掉<code>filter-policy</code>的配置，次优路径在<code>R3</code>上也看不到了，已经改变出现在<code>R2</code>上了。</p>
+<p><code>R2</code>通过<code>route-policy</code>匹配<code>192.168.10.0/24</code>这条路有，并将其<strong>路由优先级</strong>改小（小于<code>IS-IS</code>）。并在<code>OSPF</code>中使用<code>preference ase</code>进行调用。</p>
+<div class="highlight"><pre><span></span><code>[AR2]ip ip-prefix test1 permit 192.168.10.0 24
+[AR2]route-policy test1 permit node 10
+[AR2-route-policy]if-match ip-prefix test1
+[AR2-route-policy]apply preference 14
+[AR2-route-policy]quit
+[AR2]ospf 1
+[AR2-ospf-1]preference ase route-policy test1
+[AR2-ospf-1]quit
+</code></pre></div>
+<p><img alt="image-20250824134700698" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641155.png" /></p>
+<p><img alt="image-20250824134651429" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641165.png" /></p>
+<hr />
+<h5 id="137">1.3.7.问题二：路由环路</h5>
+<p>假设，没有解决<strong>次优路径</strong>的问题，此时<code>AR2</code>的路由表中依旧是从<code>IS-IS</code>学习到<code>192.168.10.0/24</code>的路由。</p>
+<p><img alt="image-20250824141015318" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641175.png" /></p>
+<p>如果，现在<code>AR1</code>的<code>192.168.10.0/24</code>因为各种各样的问题从<code>AR1</code>的路由表中消失了。</p>
+<p>此时<code>AR1</code>的路由表中立马会从<code>AR2</code>学习到<code>192.168.10.0/24</code>，<code>AR2</code>的<code>192.168.10.0/24</code>依旧是从<code>AR4 IS-IS</code>学习到的，<code>AR4</code>的也依旧是从<code>AR3 IS-IS</code>学习到的。</p>
+<p>那请问<code>AR3</code>呢？</p>
+<p><code>AR1</code>从<code>AR2</code>学习到后，就会把这条路有泛洪给<code>AR3</code>，所以<code>AR3</code>通过<code>OSPF</code>学习到了<code>192.168.10.0/24</code>下一跳是<code>AR1</code>。</p>
+<p>所以现在的顺序是：</p>
+<div class="highlight"><pre><span></span><code>AR1 --&gt; AR2 --&gt; AR4 --&gt; AR3 --&gt; AR1
+</code></pre></div>
+<p>环路就此产生：</p>
+<p><img alt="image-20250824142137192" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641348.png" /></p>
+<hr />
+<h5 id="138">1.3.8.解决方法一：</h5>
+<p>在<code>R2</code>的<code>OSPF</code>中引入<code>IS-IS</code>路由时，通过<code>Route-Policy</code>或者<code>Filter-Policy</code>过滤掉<code>192.168.10.0/24</code>这条路有。</p>
+<div class="highlight"><pre><span></span><code>[AR2]ip ip-prefix test2 deny 192.168.10.0 24
+[AR2-ospf-1]filter-policy ip-prefix test2 export
+</code></pre></div>
+<p>或者</p>
+<div class="highlight"><pre><span></span><code>ip ip-prefix test2 deny 192.168.10.0 24
+ip ip-prefix test2 permit 0.0.0.0 0 le 32
+route-policy test2 permit node 10
+if-match ip-prefix test2
+ospf 1
+import-route isis 1 route-policy test2
+</code></pre></div>
+<p><img alt="image-20250824142856527" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641362.png" /></p>
+<hr />
+<h5 id="139">1.3.9.解决方法二：</h5>
+<ul>
+<li>记得先把环境恢复到出现路由环路问题，可能得重新重分发。演示环境中，切换后<code>AR3</code>从<code>IS-IS</code>学到<code>192.168.10.0/24</code>的路由。</li>
+</ul>
+<p>使用<code>Tag</code>实现选择性的路由引入，在<code>AR2</code>将路由<code>192.168.10.0/24</code>从<code>OSPF</code>引入到<code>IS-IS</code>时打上<code>Tag</code>，在<code>R3</code>上将<code>IS-IS</code>引入到<code>OSPF</code>中时，过滤携带<code>Tag</code>的路由。</p>
+<p>需要注意，<code>IS-IS</code>必须是<code>Wide</code>模式的<code>Cost</code>才可以携带<code>Tag</code>。</p>
+<ol>
+<li>在<code>AR2</code>上使用<code>ip-prefix</code>匹配<code>192.168.10.0/24</code>的路由。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR2]ip ip-prefix hcip permit 192.168.10.0 24
+</code></pre></div>
+<ol>
+<li>在<code>AR2</code>上使用<code>Route-Policy</code>绑定<code>ip-prefix</code>并打上<code>Tag 200</code>。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR2]route-policy hcip permit node 10
+[AR2-route-policy]if-match ip-prefix hcip
+[AR2-route-policy]apply tag 200
+[AR2-route-policy]quit
+</code></pre></div>
+<ol>
+<li>在<code>AR2</code>的<code>IS-IS</code>引入<code>OSPF</code>时，绑定<code>Route-Policy</code>。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR2]isis 1
+[AR2-isis-1]import-route ospf route-policy hcip
+</code></pre></div>
+<ol>
+<li>在<code>AR3</code>上配置<code>Route-Policy</code>，匹配<code>Tag 200</code>的路由，并将其过滤。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR3]route-policy hcip deny node 10 
+[AR3-route-policy]if-match  tag 200
+[AR3-route-policy]quit
+[AR3]route-policy hcip permit node 20
+[AR3-route-policy]quit
+[AR3]ospf 1
+[AR3-ospf-1]import-route isis route-policy hcip
+[AR3-ospf-1]quit
+</code></pre></div>
+<p><img alt="image-20250824175807962" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641353.png" /></p>
+<p><img alt="image-20250824180428114" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641358.png" /></p>
+<hr />
+<h3 id="2">2.策略路由</h3>
+<p><img alt="image-20250824184322945" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641368.png" /></p>
+<p>首先回顾一下<code>IP</code>路由的概念，路由器收到一个<code>IP</code>报文时，需要根据该报文的<strong>目的</strong><code>IP</code>地址查找<strong>路由表</strong>按照路由条目所指示的出接口或下一跳<code>IP</code>地址转发该报文。所以，路由行为只关心报文的目的<code>IP</code>地址，而并不关心报文的源地址。</p>
+<p>如下图，假设<code>R3</code>的路由表中只有一条静态路由<code>ip route-static 10.1.1.0 24 10.1.13.1</code>，那么<code>R3</code>在收到<code>PC1</code>或<code>PC2</code>去往<code>10.1.1.0/24</code>的报文时，都只会将该报文传递给<code>10.1.13.1</code>。即使负载均衡也是较为随机的交给<code>R1</code>或<code>R2</code>。</p>
+<p>在这个例子中，你所能控制的无非就是使用<strong>路由策略</strong>影响<code>PC1</code>和<code>PC2</code>的数据包的下一跳，依旧是以目的地址查找路由表。你无法将<code>PC1</code>和<code>PC2</code>的流量精确控制，分担到两条链路上。</p>
+<p>假设，我现在有一个需求，<code>PC1</code>的流量<code>R3</code>必须给<code>R1</code>，<code>PC2</code>的流量<code>R3</code>必须给<code>R2</code>。如果，还有其他<code>PC</code>的流量<code>R3</code>根据路由表转发。你无法再使用之前所学的知识做到这个需求了，你需要学习<strong>策略路由</strong>。</p>
+<p><img alt="image-20250824182735487" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641371.png" /></p>
+<hr />
+<h4 id="21pbr">2.1.PBR基本概念</h4>
+<p><code>PBR(Policy-Based Routing)</code>策略路由</p>
+<ul>
+<li><code>PBR</code>使网络设备不仅能够基于报文的目的<code>IP</code>地址进行数据转发，更能基于其他元素进行数据转发，例如：</li>
+<li>源<code>IP</code>地址</li>
+<li>源<code>MAC</code>地址</li>
+<li>目的<code>MAC</code>地址</li>
+<li>源端口号</li>
+<li>目的端口号</li>
+<li>
+<p><code>VLAN-ID</code>等</p>
+</li>
+<li>
+<p>用户也可以使用匹配工具，匹配特定的报文，然后针对性的进行<code>PBR</code>部署。</p>
+</li>
+<li><strong>若设备部署了<code>PBR</code>，则被匹配的报文优先根据<code>PBR</code>的策略进行转发，==即PBR策略的优先级高于传统路由==。</strong></li>
+</ul>
+<p><img alt="image-20250824183831846" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641532.png" /></p>
+<hr />
+<h5 id="211">2.1.1.结构介绍</h5>
+<p><code>Policy-Based Routing</code>的配置方式与<code>Route-Policy</code>基本一致：<a href="https://support.huawei.com/enterprise/zh/doc/EDOC1100332384/7da6de95">PBR Apply</a></p>
+<p><img alt="image-20250824184250078" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641546.png" /></p>
+<hr />
+<h5 id="212pbr">2.1.2.PBR的分类</h5>
+<p><code>PBR</code>分为<strong>接口PBR</strong>和<strong>本地PBR</strong>，这里有一个需要注意的地方，在<code>PPT</code>里很明确的说<code>PBR</code>可以用作本地也可以用作接口，但事实上华为认为针对本地的策略路由应该使用<code>PBR</code>，而针对接口的策略路由应该使用<code>MQC</code>。</p>
+<p>你这个时候很有可能会反驳我，用<code>PBR</code>明明也可以实现接口<code>PBR</code>。</p>
+<ul>
+<li>只有少部分设备的<code>PBR</code>支持接口策略路由，模拟器也不支持。</li>
+</ul>
+<p><img alt="image-20250824184450287" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641539.png" /></p>
+<hr />
+<h5 id="213">2.1.3.典型应用场景</h5>
+<p><img alt="image-20250824184715778" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641549.png" /></p>
+<p><img alt="image-20250824184734839" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641560.png" /></p>
+<hr />
+<h5 id="214">2.1.4.实验：本地策略路由</h5>
+<p>在下图中，有三台路由器，其中<code>AR2</code>和<code>AR3</code>都有一个回环口地址。</p>
+<p><strong>要求：</strong></p>
+<ul>
+<li><code>AR1</code>不允许配置静态路由，<code>AR1</code>能够成功<code>ping</code>通两条回环口地址。</li>
+</ul>
+<p><img alt="image-20250824225645194" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641576.png" /></p>
+<div class="highlight"><pre><span></span><code>[AR1]acl 3000
+[AR1-acl-adv-3000]rule permit ip source 0.0.0.0 0 destination 2.2.2.2 0
+[AR1-acl-adv-3000]quit
+
+[AR1]acl 3001
+[AR1-acl-adv-3001]rule permit ip source 0.0.0.0 0 destination 3.3.3.3 0
+[AR1-acl-adv-3001]quit
+
+[AR1]policy-based-route hcip permit node 10 
+[AR1-policy-based-route-hcip-10]if-match acl 3000
+[AR1-policy-based-route-hcip-10]apply ip-address next-hop 12.1.1.2
+[AR1-policy-based-route-hcip-10]quit
+
+[AR1]policy-based-route hcip permit node 20
+[AR1-policy-based-route-hcip-20]if-match acl 3001
+[AR1-policy-based-route-hcip-20]apply ip-address next-hop 13.1.1.2
+[AR1-policy-based-route-hcip-20]quit
+
+[AR1]ip local policy-based-route hcip
+</code></pre></div>
+<p><img alt="image-20250824230303886" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641686.png" /></p>
+<p><img alt="image-20250824230318394" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641710.png" /></p>
+<hr />
+<h4 id="22mqc">2.2.MQC基本概念</h4>
+<p>再次重申，现在一定要建立一个观点，<code>PBR</code>这个工具用在<strong>本地策略路由</strong>。而针对<strong>接口策略路由</strong>时，需要使用<code>MQC</code>。</p>
+<p><code>MQC(Modular QoS Command-Line Interface)</code>模块化<code>QoS</code>命令行，是指通过将具有某类共同特征的数据流划分为一类，并为同一类数据流提供相同的服务，也可以对不同类的数据流提供不同的服务。</p>
+<p><code>MQC</code>包含为三个要素：</p>
+<ul>
+<li>流分类（<code>traffic classifier</code>）</li>
+<li>流行为（<code>traffic behavior</code>）</li>
+<li>流策略（<code>traffic policy</code>）</li>
+</ul>
+<p><code>MQC</code>的流行为支持重定向报文，因此可以使用<code>MQC</code>实现<code>IP</code>单播策略路由。所以，<code>MQC</code>是实现策略路由的一种方式，但<code>MQC</code>不仅仅可以实现策略路由。</p>
+<p><img alt="image-20250824222635071" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641715.png" /></p>
+<hr />
+<h5 id="221">2.2.1.流分类</h5>
+<p><strong>流分类：</strong>定义一组流量匹配规则，以对报文进行分类。</p>
+<ul>
+<li><strong>可匹配内容：</strong><a href="https://support.huawei.com/enterprise/zh/doc/EDOC1100332384/df2fa186">策略路由原理描述 </a></li>
+</ul>
+<p><img alt="image-20250824222801851" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641720.png" /></p>
+<hr />
+<h5 id="222">2.2.2.流行为</h5>
+<p><strong>流行为：</strong>用来定义执行的动作，支持报文过滤、重标记优先级、重定向、流量统计等动作。</p>
+<ul>
+<li><strong>可匹配内容：</strong><a href="https://support.huawei.com/enterprise/zh/doc/EDOC1100332384/df2fa186">策略路由原理描述 </a></li>
+</ul>
+<p><img alt="image-20250824223102584" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641733.png" /></p>
+<hr />
+<h5 id="223">2.2.3.流策略</h5>
+<p><strong>流策略：</strong>支持在接口上调用。</p>
+<ul>
+<li>流策略存在方向（<code>inbound、outbound</code>）的概念，策略中的流行为匹配入、出方向的报文，对匹配中的报文执行相应的流动作。</li>
+</ul>
+<p><img alt="image-20250824223228649" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641758.png" /></p>
+<hr />
+<h5 id="224">2.2.4.实验：接口策略路由</h5>
+<p><strong>实验环境：</strong></p>
+<p>当前<code>LSW1</code>上有两个业务<code>vlan</code>，<code>vlan 10 192.168.10.0/24</code>对接<code>PC1</code>，<code>vlan 20 192.168.20.0/24</code>对接<code>PC2</code>，<code>PC3 100.100.100.100/24</code>网关指向了<code>AR2</code>，<code>PC4 100.100.100.200/24</code>网关指向了<code>AR3</code>。所有的路由通过<code>OSPF</code>打通。</p>
+<p><strong>实验要求：</strong></p>
+<ul>
+<li>
+<p>通过<code>MQC</code>实现<code>vlan 10</code>访问<code>100.100.100.100</code>从<code>AR3</code>走，访问<code>100.100.100.200</code>从<code>AR2</code>走。</p>
+</li>
+<li>
+<p>通过<code>MQC</code>实现<code>vlan 20</code>访问<code>100.100.100.100</code>从<code>AR2</code>走，访问<code>100.100.100.200</code>从<code>AR3</code>走。</p>
+</li>
+</ul>
+<p><img alt="image-20250824213728335" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641910.png" /></p>
+<hr />
+<p>先分析一下，按照我当前的需求，<code>vlan 10</code>访问<code>100.100.100.100</code>和<code>vlan 20</code>访问<code>100.100.100.200</code>流量走向是一致的。<code>vlan 10</code>访问<code>100.100.100.200</code>和<code>vlan 20</code>访问<code>100.100.100.100</code>流量走向是一致的。</p>
+<ol>
+<li>在<code>AR1</code>配置<code>ACL</code>匹配下一跳为<code>AR2</code>的流量。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>acl name next_ar2 3000
+ rule 5 permit ip source 192.168.10.0 0.0.0.255 destination 100.100.100.200 0
+ rule 10 permit ip source 192.168.20.0 0.0.0.255 destination 100.100.100.100 0
+</code></pre></div>
+<ol>
+<li>在<code>AR1</code>配置<code>ACL</code>匹配<code>vlan 20</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>acl name next_ar3 3001
+ rule 5 permit ip source 192.168.10.0 0.0.0.255 destination 100.100.100.100 0
+ rule 10 permit ip source 192.168.20.0 0.0.0.255 destination 100.100.100.200 0
+</code></pre></div>
+<ol>
+<li>创建<strong>流分类</strong>，分别匹配<code>ACL 3000、30001</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR1]traffic classifier 1   
+[AR1-classifier-1]if-match acl 3000
+[AR1-classifier-1]quit
+
+[AR1]traffic classifier 2   
+[AR1-classifier-2]if-match acl 3001
+[AR1-classifier-2]quit
+</code></pre></div>
+<ol>
+<li>创建<strong>流行为</strong>分别执行将报文重定向到<code>12.1.1.2、13.1.1.2</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR1]traffic behavior 1
+[AR1-behavior-1]redirect ip-nexthop 12.1.1.2
+[AR1-behavior-1]quit
+
+[AR1]traffic behavior 2
+[AR1-behavior-2]redirect ip-nexthop 13.1.1.2
+[AR1-behavior-2]quit
+</code></pre></div>
+<ol>
+<li>创建<strong>流策略</strong><code>Redirect</code>，将流分类与流行为一一绑定</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR1]traffic policy Redirect
+[AR1-trafficpolicy-Redirect]classifier 1 behavior 1
+[AR1-trafficpolicy-Redirect]classifier 2 behavior 2
+[AR1-trafficpolicy-Redirect]quit
+</code></pre></div>
+<ol>
+<li>将<code>AR1</code>的<code>GE0/0/2</code>接口入方向调用流策略<code>Redirect</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR1]int g0/0/2 
+[AR1-GigabitEthernet0/0/2]traffic-policy Redirect inbound 
+[AR1-GigabitEthernet0/0/2]quit
+</code></pre></div>
+<p><img alt="image-20250824225420136" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641920.png" /></p>
+<hr />
+<h3 id="3">3.流量过滤</h3>
+<p>为提高网络安全性，管理人员需要控制进入网络的流量，将不信任的报文丢弃在网络边界。所谓的不信任报文是指对用户来说存在安全隐患或者不愿意接收的报文。同时保证数据访问安全性，企业网络中经常会要求一些部门之间不能相互访问。</p>
+<p><img alt="image-20250824231500596" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641916.png" /></p>
+<h4 id="31">3.1.流量过滤工具</h4>
+<p><code>Traffic-Filter</code>只能应用在接口视图下，而<code>MQC</code>可以调用在多种视图。</p>
+<p><img alt="image-20250824231522273" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641925.png" /></p>
+<h5 id="311traffic-filter">3.1.1.Traffic-Filter部署位置</h5>
+<p>使用<code>Traffic-Filter</code>过滤流量可以灵活地选择部署位置，在流量进入设备或者离开设备的接口上执行过滤动作，双向访问的业务禁止其中一个方向即可实现阻断业务的需求。</p>
+<p><img alt="image-20250824231628698" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641943.png" /></p>
+<p><strong>实验：</strong></p>
+<p>要求阻止<code>PC1</code>与<code>PC2</code>的互访。</p>
+<p><img alt="image-20250824232002841" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135641950.png" /></p>
+<p><strong>方法一：</strong></p>
+<ul>
+<li><strong>方向：</strong><code>PC1 --&gt; PC2</code></li>
+<li><strong>匹配策略：</strong><code>source:192.168.10.1 destination:192.168.20.1</code></li>
+<li><strong>调用接口：</strong><code>GE0/0/0 in</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1]acl 3000   
+[AR1-acl-adv-3000]rule deny ip source 192.168.10.1 0 destination 192.168.20.1 0
+[AR1-acl-adv-3000]rule permit ip
+[AR1-acl-adv-3000]quit
+
+[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/0]traffic-filter inbound acl 3000
+[AR1-GigabitEthernet0/0/0]quit
+</code></pre></div>
+<p><img alt="image-20250824232421634" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135642072.png" /></p>
+<hr />
+<p><strong>方法二：</strong></p>
+<ul>
+<li><strong>方向：</strong><code>PC1 --&gt; PC2</code></li>
+<li><strong>匹配策略：</strong><code>source:192.168.10.1 destination:192.168.20.1</code></li>
+<li><strong>调用接口：</strong><code>GE0/0/1 out</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1]acl 3000   
+[AR1-acl-adv-3000]rule deny ip source 192.168.10.1 0 destination 192.168.20.1 0
+[AR1-acl-adv-3000]rule permit ip
+[AR1-acl-adv-3000]quit
+
+[AR1]int g0/0/1
+[AR1-GigabitEthernet0/0/1]traffic-filter outbound acl 3000
+[AR1-GigabitEthernet0/0/1]quit
+</code></pre></div>
+<hr />
+<p><strong>方法三：</strong></p>
+<ul>
+<li><strong>方向：</strong><code>PC2 --&gt; PC1</code></li>
+<li><strong>匹配策略：</strong><code>source:192.168.20.1 destination:192.168.10.1</code></li>
+<li><strong>调用接口：</strong><code>GE0/0/1 in</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1]acl 3001
+[AR1-acl-adv-3001]rule deny ip source 192.168.20.1 0 destination 192.168.10.1 0
+[AR1-acl-adv-3001]rule permit ip
+[AR1-acl-adv-3001]quit
+
+[AR1]int g0/0/1
+[AR1-GigabitEthernet0/0/1]traffic-filter inbound acl 3001
+</code></pre></div>
+<hr />
+<p><strong>方法四：</strong></p>
+<ul>
+<li><strong>方向：</strong><code>PC2 --&gt; PC1</code></li>
+<li><strong>匹配策略：</strong><code>source:192.168.20.1 destination:192.168.10.1</code></li>
+<li><strong>调用接口：</strong><code>GE0/0/0 out</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1]acl 3001
+[AR1-acl-adv-3001]rule deny ip source 192.168.20.1 0 destination 192.168.10.1 0
+[AR1-acl-adv-3001]rule permit ip
+[AR1-acl-adv-3001]quit
+
+[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/1]traffic-filter outbound acl 3001
+</code></pre></div>
+<hr />
+<h5 id="312mqc">3.1.2.使用MQC过滤流量</h5>
+<p><strong>方法一：</strong></p>
+<ul>
+<li><strong>方向：</strong><code>PC1 --&gt; PC2</code></li>
+<li><strong>匹配策略：</strong><code>source:192.168.10.1 destination:192.168.20.1</code></li>
+<li><strong>调用接口：</strong><code>GE0/0/0 in</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1]acl 3000   
+[AR1-acl-adv-3000]rule deny ip source 192.168.10.1 0 destination 192.168.20.1 0
+[AR1-acl-adv-3000]rule permit ip
+[AR1-acl-adv-3000]quit
+
+[AR1]traffic classifier 1-2 
+[AR1-classifier-1-2]if-match acl 3000
+[AR1-classifier-1-2]quit
+
+[AR1]traffic behavior 1-2
+[AR1-behavior-1-2]deny
+[AR1-behavior-1-2]quit  
+
+[AR1]traffic policy 1-2
+[AR1-trafficpolicy-1-2]classifier 1-2 behavior 1-2
+[AR1-trafficpolicy-1-2]quit
+
+[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/0]traffic-policy 1-2 inbound 
+[AR1-GigabitEthernet0/0/0]quit
+</code></pre></div>
+<hr />
+<p><strong>方法二：</strong></p>
+<ul>
+<li><strong>方向：</strong><code>PC1 --&gt; PC2</code></li>
+<li><strong>匹配策略：</strong><code>source:192.168.10.1 destination:192.168.20.1</code></li>
+<li><strong>调用接口：</strong><code>GE0/0/1 out</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1]acl 3000   
+[AR1-acl-adv-3000]rule deny ip source 192.168.10.1 0 destination 192.168.20.1 0
+[AR1-acl-adv-3000]rule permit ip
+[AR1-acl-adv-3000]quit
+
+[AR1]traffic classifier 1-2 
+[AR1-classifier-1-2]if-match acl 3000
+[AR1-classifier-1-2]quit
+
+[AR1]traffic behavior 1-2
+[AR1-behavior-1-2]deny
+[AR1-behavior-1-2]quit  
+
+[AR1]traffic policy 1-2
+[AR1-trafficpolicy-1-2]classifier 1-2 behavior 1-2
+[AR1-trafficpolicy-1-2]quit
+
+[AR1]int g0/0/1
+[AR1-GigabitEthernet0/0/1]traffic-policy 1-2 outbound 
+[AR1-GigabitEthernet0/0/1]quit
+</code></pre></div>
+<hr />
+<p><strong>方法三：</strong></p>
+<ul>
+<li><strong>方向：</strong><code>PC2 --&gt; PC1</code></li>
+<li><strong>匹配策略：</strong><code>source:192.168.20.1 destination:192.168.10.1</code></li>
+<li><strong>调用接口：</strong><code>GE0/0/1 in</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1]acl 3001
+[AR1-acl-adv-3001]rule deny ip source 192.168.20.1 0 destination 192.168.10.1 0
+[AR1-acl-adv-3001]rule permit ip
+[AR1-acl-adv-3001]quit
+
+[AR1]traffic classifier 2-1 
+[AR1-classifier-2-1]if-match acl 3001
+[AR1-classifier-2-1]quit
+
+[AR1]traffic behavior 2-1   
+[AR1-behavior-2-1]deny 
+[AR1-behavior-2-1]quit
+
+[AR1]traffic policy 2-1 
+[AR1-trafficpolicy-2-1]classifier 2-1 behavior 2-1
+[AR1-trafficpolicy-2-1]quit
+
+[AR1]int g0/0/1
+[AR1-GigabitEthernet0/0/1]traffic-policy 2-1 inbound 
+[AR1-GigabitEthernet0/0/1]quit
+</code></pre></div>
+<hr />
+<p><strong>方法四：</strong></p>
+<ul>
+<li><strong>方向：</strong><code>PC2 --&gt; PC1</code></li>
+<li><strong>匹配策略：</strong><code>source:192.168.20.1 destination:192.168.10.1</code></li>
+<li><strong>调用接口：</strong><code>GE0/0/0 out</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1]acl 3001
+[AR1-acl-adv-3001]rule deny ip source 192.168.20.1 0 destination 192.168.10.1 0
+[AR1-acl-adv-3001]rule permit ip
+[AR1-acl-adv-3001]quit
+
+[AR1]traffic classifier 2-1 
+[AR1-classifier-2-1]if-match acl 3001
+[AR1-classifier-2-1]quit
+
+[AR1]traffic behavior 2-1   
+[AR1-behavior-2-1]deny 
+[AR1-behavior-2-1]quit
+
+[AR1]traffic policy 2-1 
+[AR1-trafficpolicy-2-1]classifier 2-1 behavior 2-1
+[AR1-trafficpolicy-2-1]quit
+
+[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/0]traffic-policy 2-1 outbound 
+[AR1-GigabitEthernet0/0/0]quit
+</code></pre></div>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

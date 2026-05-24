@@ -1,0 +1,3391 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+      
+      
+        <link rel="next" href="../06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>软件包管理 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#05_" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              软件包管理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.管理软件包
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.管理软件包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.软件包
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.软件包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.安装方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.RPM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.RPM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.RPM的核心组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.RPM包的文件结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.RPM的工作流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.RPM的依赖管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.5.RPM的获取方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.6.RPM的验证机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.7.RPM命令介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.8.小实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2yumdnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.YUM与DNF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.YUM与DNF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21yum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.YUM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.YUM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.软件仓库
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213yum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.yum命令介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22dnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.DNF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.DNF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221dnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.DNF本地源配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.搭建repo服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.管理软件包
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.管理软件包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.软件包
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.软件包">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.安装方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.RPM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.RPM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.RPM的核心组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.RPM包的文件结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.RPM的工作流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.RPM的依赖管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.5.RPM的获取方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.6.RPM的验证机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127rpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.7.RPM命令介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.8.小实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2yumdnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.YUM与DNF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.YUM与DNF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21yum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.YUM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.YUM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.软件仓库
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213yum" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.yum命令介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.示例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22dnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.DNF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.DNF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221dnf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.DNF本地源配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23repo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.搭建repo服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="05_">05_软件包管理</h1>
+<h3 id="1">1.管理软件包</h3>
+<h4 id="11">1.1.软件包</h4>
+<p>在<code>Linux</code>上安装一款软件，本质上是让一个程序在我们的系统上运行，他需要如下内容： </p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">要素</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 程序文件本身</strong></td>
+<td style="text-align: left;">可执行的二进制文件</td>
+<td style="text-align: left;"><code>/usr/bin/firefox</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 依赖库</strong></td>
+<td style="text-align: left;">程序运行需要的外部代码库</td>
+<td style="text-align: left;"><code>libc.so.6</code>, <code>libgtk-3.so.0</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3. 配置文件</strong></td>
+<td style="text-align: left;">程序的设置信息</td>
+<td style="text-align: left;"><code>/etc/nginx/nginx.conf</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4. 资源文件</strong></td>
+<td style="text-align: left;">图标、文档、帮助文件等</td>
+<td style="text-align: left;"><code>/usr/share/icons/hicolor/...</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5. 系统集成</strong></td>
+<td style="text-align: left;">菜单快捷方式、文件关联等</td>
+<td style="text-align: left;"><code>/usr/share/applications/firefox.desktop</code></td>
+</tr>
+</tbody>
+</table>
+<h5 id="112">1.1.2.安装方式</h5>
+<p>不同的安装方式，就是获取和布置上述要素的不同方法。在<code>Linux</code>上可以整体分为<strong>二进制安装</strong>和<strong>源码安装</strong>两种方式。</p>
+<p>源码安装和二进制安装的区别可以理解为，菜谱和成品菜的区别。</p>
+<p><strong>源码安装：</strong></p>
+<ul>
+<li>源码是程序员用<strong>编程语言</strong>（如 C, C++, Java, Python, Go）编写的<strong>原始源代码</strong>（通常是<code>.tar.gz</code>或<code>.tar.xz</code>等压缩格式）</li>
+<li><strong>使用场景：</strong></li>
+<li>软件仓库里没有你需要的软件或特定版本。</li>
+<li>你需要针对自己的硬件进行编译优化以获得最佳性能。</li>
+<li>你想修改源代码。</li>
+<li><strong>安装流程：</strong></li>
+<li><code>./configure</code>：检查你的系统环境，配置编译选项。</li>
+<li><code>make</code>：开始编译源代码，生成二进制文件。</li>
+<li><code>sudo make install</code>：将编译好的文件安装到系统中。</li>
+</ul>
+<p><strong>二进制安装：</strong></p>
+<ul>
+<li>二进制包一般是由<code>Linux</code>发行版官方仓库、第三方仓库提供。</li>
+<li>获取到匹配<code>Linux</code>发行版的二进制包后，使用配套的软件包管理器进行安装即可。</li>
+</ul>
+<hr />
+<h4 id="12rpm">1.2.RPM</h4>
+<p><code>RPM（RedHat Package Manager）</code>，由<code>Red Hat</code>提出的包管理系统，用于安装、查询、验证、更新和卸载软件包。在<code>openEuler</code>中需要本地获取软件的<code>rpm</code>包，通过<code>RPM</code>包管理器进行安装。默认情况下<code>RPM</code>包的安装、删除、更新只有<code>root</code>用户可以操作，查询则是所有用户都可以。</p>
+<p><strong>RPM软件包命名格式：</strong></p>
+<p><img alt="image-20251011133125309" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251011133125350.png" /></p>
+<ul>
+<li><code>name-version-release.arch.rpm</code></li>
+<li><code>name</code>：软件包名称</li>
+<li><code>version</code>：带有主、次和修订次数的软件包版本</li>
+<li><code>arch</code>：硬件平台</li>
+<li><code>src.rpm</code>：源代码包</li>
+<li><code>vsftpd-3.0.5-2.oe2403.x86_64.rpm</code></li>
+<li><code>vsftpd</code>：软件包的名称</li>
+<li><code>3.0.5-2</code>：前半部分代表版本号，<code>2</code>代表修订次数</li>
+<li><code>oe2403</code>：表示软件包的发行商版本</li>
+<li><code>x86_64</code>：表示软件包的硬件平台，适合的<code>cpu</code>架构。</li>
+<li><strong>特殊名称：</strong></li>
+<li><code>devel</code>：表示这个<code>RPM</code>包是软件的开发包</li>
+<li><code>noarch</code>：表示这个软件包可以在任何硬件平台上安装</li>
+</ul>
+<hr />
+<h5 id="121rpm">1.2.1.RPM的核心组件</h5>
+<p><code>RPM</code>的工作依赖以下关键部分：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>组件</strong></th>
+<th style="text-align: left;"><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>RPM 包文件（.rpm）</strong></td>
+<td style="text-align: left;">包含编译好的二进制文件、依赖信息、安装脚本等。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>RPM 数据库</strong></td>
+<td style="text-align: left;">位于 <code>/var/lib/rpm/</code>，记录所有已安装包的元数据（文件列表、版本、依赖等）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>rpm 命令工具</strong></td>
+<td style="text-align: left;">用户通过 <code>rpm</code>命令与数据库和包文件交互。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="122rpm">1.2.2.RPM包的文件结构</h5>
+<ol>
+<li>
+<p><strong>文件清单</strong></p>
+</li>
+<li>
+<p><strong>二进制可执行文件</strong>（如 <code>/usr/bin/nginx</code>）</p>
+</li>
+<li>
+<p><strong>配置文件</strong>（如 <code>/etc/nginx/nginx.conf</code>）</p>
+</li>
+<li>
+<p><strong>库文件</strong>（如 <code>/usr/lib64/libnginx.so</code>）</p>
+</li>
+<li>
+<p><strong>文档和手册</strong>（如 <code>/usr/share/doc/nginx/README</code>）</p>
+</li>
+<li>
+<p><strong>元数据（Metadata）</strong></p>
+</li>
+<li>
+<p><strong>软件名称、版本、发布号</strong>（如 <code>nginx-1.20.1-1.el8</code>）</p>
+</li>
+<li>
+<p><strong>依赖关系</strong>（如 <code>Requires: openssl &gt;= 1.1.1</code>）</p>
+</li>
+<li>
+<p><strong>签名信息</strong>（GPG 签名验证包的来源可信性）</p>
+</li>
+<li>
+<p><strong>脚本钩子（Scriptlets）：</strong>在安装/卸载前后自动执行的脚本：</p>
+</li>
+<li>
+<p><code>%pre</code>：安装前执行（如创建用户）。</p>
+</li>
+<li>
+<p><code>%post</code>：安装后执行（如启动服务）。</p>
+</li>
+<li>
+<p><code>%preun</code>：卸载前执行（如停止服务）。</p>
+</li>
+<li>
+<p><code>%postun</code>：卸载后执行（如清理残留文件）。</p>
+</li>
+</ol>
+<hr />
+<h5 id="123rpm">1.2.3.RPM的工作流程</h5>
+<p><strong>安装流程：</strong></p>
+<p><img alt="3666318622-59bcd8bc1b1d9_fix732.webp" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251011131203092.webp" /></p>
+<ol>
+<li><strong>检查依赖</strong>：<code>rpm -ivh package.rpm</code></li>
+<li>RPM 读取包的 <code>Requires</code>字段，检查系统是否满足依赖（若未满足，需手动或通过 <code>dnf</code>安装）。</li>
+<li><strong>解压包内容</strong>：</li>
+<li>将二进制文件、配置文件等解压到临时目录。</li>
+<li><strong>执行 <code>%pre</code>脚本</strong>：</li>
+<li>运行安装前的自定义命令（如创建用户）。</li>
+<li><strong>部署文件到系统</strong>：</li>
+<li>将文件复制到目标路径（如 <code>/usr/bin</code>、<code>/etc</code>）。</li>
+<li><strong>更新 RPM 数据库</strong>：</li>
+<li>在 <code>/var/lib/rpm/</code>中记录包的元数据（文件列表、版本等）。</li>
+<li><strong>执行 <code>%post</code>脚本</strong>：</li>
+<li>运行安装后的命令（如启动服务或更新系统配置）。</li>
+</ol>
+<p><strong>查询流程：</strong></p>
+<ol>
+<li><strong>读取 RPM 数据库</strong>：<code>rpm -q</code></li>
+<li>从 <code>/var/lib/rpm/</code>中检索已安装包的元数据。</li>
+<li><strong>返回结果</strong>：</li>
+<li>例如 <code>rpm -qi nginx</code>显示包的详细信息（版本、安装时间等）。</li>
+</ol>
+<p><strong>卸载流程：</strong> <code>rpm -e package-name</code></p>
+<ol>
+<li><strong>执行 <code>%preun</code>脚本</strong>：</li>
+<li>运行卸载前的命令（如停止服务）。</li>
+<li><strong>删除文件</strong>：</li>
+<li>根据数据库记录，清理包安装的所有文件。</li>
+<li><strong>更新 RPM 数据库</strong>：</li>
+<li>删除该包的元数据记录。</li>
+<li><strong>执行 <code>%postun</code>脚本</strong>：</li>
+<li>运行卸载后的清理命令（如删除临时文件）。</li>
+</ol>
+<hr />
+<h5 id="124rpm">1.2.4.RPM的依赖管理</h5>
+<p>依赖是指软件在<code>Linux</code>上运行所必须的外部组件，就像空气、水和食物对我们的意义。常见的依赖类型如下：</p>
+<ol>
+<li><strong>库依赖：</strong>提供基础功能，如加密、图形渲染。</li>
+<li><code>libssl.so.1.1</code>（OpenSSL 库，用于 HTTPS 加密）</li>
+<li><code>libpng16.so</code>（处理 PNG 图像）</li>
+<li><strong>工具依赖：</strong>运行时需要调用其他程序。</li>
+<li><code>python3</code>（Python 解释器）</li>
+<li><code>bash</code>（Shell 脚本解释器）</li>
+<li><strong>服务依赖：</strong>依赖后台服务才能工作。</li>
+<li>MySQL 客户端依赖 <code>mysqld</code>服务</li>
+<li>Docker 依赖 <code>containerd</code>服务</li>
+</ol>
+<p><strong>依赖的声明方式：</strong></p>
+<p>在<code>RPM</code>包元数据中的<code>Requires</code>字段，声明了该<code>RPM</code>在安装前，系统里必须预先存在的软件或者库。</p>
+<div class="highlight"><pre><span></span><code>Requires: libssl &gt;= 1.1.1
+Requires: python3
+</code></pre></div>
+<p>所以在安装<code>RPM</code>包时，系统会根据<code>RPM</code>报的依赖字段检查系统是否已经存在依赖的内容，如果存在则可以安装。如果不存在则提示用户，用户需要手动将依赖安装完毕。</p>
+<p>但是，在实际使用的过程中，安装<code>A</code>软件可能需要<code>B</code>依赖，安装<code>B</code>可能需要<code>C</code>依赖，这样就导致整个安装过程非常繁琐，这也是直接使用<code>RPM</code>安装的最大缺点。</p>
+<hr />
+<h5 id="125rpm">1.2.5.RPM的获取方式</h5>
+<ol>
+<li>在<code>openEuler</code>社区中下载<code>RPM</code>包：</li>
+<li>例如：<code>wget https://mirrors.aliyun.com/openeuler/openEuler-20.03-LTS-SP3/everything/x86_64/Packages/vsftpd-3.0.3-32.oe1.x86_64.rpm</code></li>
+<li>通过第三方<code>RPM</code>包网站进行下载：</li>
+<li><code>https://rpmfind.net/</code></li>
+<li>通过本地光盘镜像（安装介质）安装<code>RPM</code>包</li>
+<li>需要把镜像挂载到<code>Linux</code>的具体目录</li>
+</ol>
+<hr />
+<h5 id="126rpm">1.2.6.RPM的验证机制</h5>
+<p>对于<code>RPM</code>包我们需要有对应的验证机制，假设这个<code>RPM</code>包是通过第三方获取到的，有可能这个<code>RPM</code>包内部就是一个恶意脚本（<code>rm -rf /</code>），一旦我们使用<code>RPM</code>对其安装，脚本也会运行造成危害。</p>
+<p><code>RPM</code>的验证机制是确保软件包完整性和安全性的核心功能，主要用于：</p>
+<ol>
+<li><strong>检测文件篡改</strong>（如配置文件被修改）</li>
+<li><strong>验证软件来源可信度</strong>（<code>GPG</code>签名）</li>
+<li><strong>排查软件安装异常</strong>（如文件丢失或权限错误）</li>
+</ol>
+<hr />
+<p><strong>GPG数字签名</strong></p>
+<p>对公钥和对RPM下发的软件中心是没有验证机制的</p>
+<p><code>GPG</code>是<code>RPM</code>包验证的核心机制，用于确保软件包的<strong>真实性</strong>（来源可信）和<strong>完整性</strong>（未被篡改）。它的工作原理基于<strong>非对称加密</strong>和<strong>数字签名</strong>技术。公钥加密，私钥解密</p>
+<p><img alt="image-20251011133938083" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251011133938150.png" /></p>
+<ol>
+<li>开发者生成自己的<code>GPG</code>密钥对（验证身份）</li>
+<li><strong>私钥</strong>（<code>~/.gnupg/secring.gpg</code>）：严格保密，用于<strong>签名包</strong>。</li>
+<li><strong>公钥</strong>（<code>~/.gnupg/pubring.gpg</code>）：公开分发，供用户验证签名。</li>
+<li>开发者将公钥导出为文件，并分发给用户或软件仓库</li>
+<li>
+<p>公钥位置：<code>/etc/pki/rpm-gpg/RPM-GPG-KEY-openEuler</code></p>
+</li>
+<li>
+<p>开发者在打包时使用私钥生成签名，签名会被写入<code>RPM</code>包的头部元数据中</p>
+</li>
+<li>使用哈希函数计算文件摘要，确保数据一致性</li>
+<li>使用私钥加密哈希值，生成签名</li>
+<li>生成的签名包含加密后的哈希值和时间戳，防止篡改和重放攻击</li>
+<li>用户从可信来源获取公钥并导入<code>RPM</code>数据库：</li>
+<li><code>rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-openEuler</code></li>
+<li>用户验证签名：</li>
+<li>使用公钥解密签名，获取原始的哈希值</li>
+<li>计算下载文件的哈希值，并于解密出的哈希值对比<ul>
+<li>一致代表文件未篡改</li>
+<li>不一致代表文件可能被修改或伪造</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h5 id="127rpm">1.2.7.RPM命令介绍</h5>
+<p><strong>安装RPM包：</strong></p>
+<div class="highlight"><pre><span></span><code>rpm -ivh [包名.rpm]      # 标准安装（i: install, v: 详细信息, h: 进度条）
+</code></pre></div>
+<ul>
+<li><code>--nodeps</code>：忽略依赖检查（可能导致软件无法运行）</li>
+<li><code>--force</code>：强制覆盖已安装的包</li>
+<li><code>--test</code>：仅测试安装，不实际执行</li>
+</ul>
+<p><strong>安装示例：</strong></p>
+<ol>
+<li>下载<code>vsftpd</code>安装包</li>
+</ol>
+<div class="highlight"><pre><span></span><code>wget https://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP3/everything/x86_64/Packages/vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm
+</code></pre></div>
+<ol>
+<li>安装<code>vsftpd</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -ivh vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm
+警告：vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm: 头V4 RSA/SHA256 Signature, 密钥 ID fb37bc6f: NOKEY
+Verifying...                          ################################# [100%]
+准备中...                          ################################# [100%]
+正在升级/安装...
+   1:vsftpd-3.0.3-33.oe2203sp3        ################################# [100%]
+</code></pre></div>
+<hr />
+<p><strong>升级RPM包：</strong></p>
+<div class="highlight"><pre><span></span><code>rpm -Uvh [包名.rpm]      # 升级包（若未安装则自动安装）
+</code></pre></div>
+<ul>
+<li><code>-U</code>会保留旧版配置文件（如 <code>/etc/nginx/nginx.conf.rpmsave</code>）。</li>
+</ul>
+<hr />
+<p><strong>卸载RPM包：</strong></p>
+<div class="highlight"><pre><span></span><code>rpm -e [包名]            # 卸载包（只需包名，无需版本号）
+</code></pre></div>
+<ul>
+<li><code>--nodeps</code>：忽略依赖检查</li>
+<li><code>--test</code>：模拟卸载</li>
+</ul>
+<p><strong>示例：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -evh vsftpd
+准备中...                          ################################# [100%]
+正在清理/删除...
+   1:vsftpd-3.0.3-33.oe2203sp3        ################################# [100%]
+</code></pre></div>
+<hr />
+<p><strong>查询操作：</strong></p>
+<p><strong>查询包是否安装：</strong></p>
+<div class="highlight"><pre><span></span><code>rpm -q [包名]            # 查询单个包
+rpm -qa                  # 列出所有已安装包
+</code></pre></div>
+<p><strong>示例：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -q openssh  # 检查 ssh 是否安装
+openssh-8.8p1-23.oe2203sp3.x86_64
+
+[root@qyt-gujun ~]# rpm -qa | grep ssh  # 查询所有含ssh的包
+libssh-0.9.6-7.oe2203sp3.x86_64
+libssh2-1.10.0-5.oe2203sp3.x86_64
+openssh-8.8p1-23.oe2203sp3.x86_64
+openssh-server-8.8p1-23.oe2203sp3.x86_64
+openssh-clients-8.8p1-23.oe2203sp3.x86_64
+</code></pre></div>
+<p><strong>查看包详细信息：</strong></p>
+<div class="highlight"><pre><span></span><code>rpm -qi [包名]           # 查看包的元信息（版本、作者、安装时间等）
+
+[root@qyt-gujun ~]# rpm -qi openssh
+Name        : openssh   # 软件名称
+Version     : 8.8p1 # 软件版本号
+Release     : 23.oe2203sp3  # 这是 openEuler 为这个特定版本的 OpenSSH 软件包分配的构建版本号。当软件包有更新（例如修复安全漏洞）但上游版本不变时，这个数字会增加。
+Architecture: x86_64
+Install Date: 2025年09月18日 星期四 20时44分23秒 # 安装日期
+Group       : Unspecified   # 软件包的维护者
+Size        : 1573186   # 安装后的大小
+License     : BSD   # 开源许可证
+Signature   : RSA/SHA256, 2023年12月28日 星期四 13时52分58秒, Key ID 007fb747fb37bc6f # 构建时间
+Source RPM  : openssh-8.8p1-23.oe2203sp3.src.rpm    # 源自软件包
+Build Date  : 2023年12月28日 星期四 13时49分47秒 # 构建日期
+Build Host  : dc-64g.compass-ci # 构建主机名
+Packager    : http://openeuler.org  # 打包者
+URL         : http://www.openssh.com/portable.html  # 官方网址
+Summary     : An open source implementation of SSH protocol version 2   # 摘要
+Description :   # 描述
+OpenSSH is the premier connectivity tool for remote login with the SSH protocol. \
+It encrypts all traffic to eliminate eavesdropping, connection hijacking, and \
+other attacks. In addition, OpenSSH provides a large suite of secure tunneling \
+capabilities, several authentication methods, and sophisticated configuration options.
+</code></pre></div>
+<p><strong>列出软件包内文件：</strong></p>
+<div class="highlight"><pre><span></span><code>rpm -ql [包名]           # 列出包安装的所有文件
+
+[root@qyt-gujun ~]# rpm -ql openssh
+/etc/bash_completion.d/ssh-keygen-bash-completion.sh
+/etc/ima/digest_lists.tlv/0-metadata_list-compact_tlv-openssh-8.8p1-23.oe2203sp3.x86_64
+/etc/ima/digest_lists/0-metadata_list-compact-openssh-8.8p1-23.oe2203sp3.x86_64
+/etc/ssh
+/etc/ssh/moduli
+/usr/bin/ssh-keygen
+/usr/libexec/openssh
+/usr/libexec/openssh/ssh-keysign
+/usr/share/doc/openssh
+/usr/share/doc/openssh/CREDITS
+/usr/share/doc/openssh/README.platform
+/usr/share/licenses/openssh
+/usr/share/licenses/openssh/LICENCE
+</code></pre></div>
+<p><strong>查询文件属于哪个包：</strong></p>
+<div class="highlight"><pre><span></span><code>rpm -qf [文件路径]       # 反向查找文件所属的包
+
+[root@qyt-gujun ~]# rpm -qf /etc/ssh/sshd_config
+openssh-server-8.8p1-23.oe2203sp3.x86_64
+</code></pre></div>
+<p><strong>查看包中的脚本：</strong></p>
+<div class="highlight"><pre><span></span><code>rpm -q --scripts [包名]  # 查看包的预安装/卸载脚本
+
+[root@qyt-gujun ~]# rpm -q --scripts vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm
+警告：vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm: 头V4 RSA/SHA256 Signature, 密钥 ID fb37bc6f: NOKEY
+postinstall scriptlet (using /bin/sh):
+
+
+if [ $1 -eq 1 ] &amp;&amp; [ -x /usr/bin/systemctl ]; then
+    # Initial installation
+    /usr/bin/systemctl --no-reload preset vsftpd.service || :
+fi
+preuninstall scriptlet (using /bin/sh):
+
+
+if [ $1 -eq 0 ] &amp;&amp; [ -x /usr/bin/systemctl ]; then
+    # Package removal, not upgrade
+    if [ -d /run/systemd/system ]; then
+          /usr/bin/systemctl --no-reload disable --now vsftpd.service || :
+    else
+          /usr/bin/systemctl --no-reload disable vsftpd.service || :
+    fi
+fi
+
+
+
+if [ $1 -eq 0 ] &amp;&amp; [ -x /usr/bin/systemctl ]; then
+    # Package removal, not upgrade
+    if [ -d /run/systemd/system ]; then
+          /usr/bin/systemctl --no-reload disable --now vsftpd.target || :
+    else
+          /usr/bin/systemctl --no-reload disable vsftpd.target || :
+    fi
+fi
+postuninstall scriptlet (using /bin/sh):
+
+
+if [ $1 -ge 1 ] &amp;&amp; [ -x /usr/bin/systemctl ]; then
+    # Package upgrade, not uninstall
+    /usr/bin/systemctl try-restart vsftpd.service || :
+fi
+</code></pre></div>
+<hr />
+<p><strong>GPG公钥路径：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# ll /etc/pki/rpm-gpg/RPM-GPG-KEY-openEuler
+-rw-r--r--. 1 root root 3033 12月 17  2023 /etc/pki/rpm-gpg/RPM-GPG-KEY-openEuler
+</code></pre></div>
+<p><strong>导入公钥：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-openEuler
+</code></pre></div>
+<p><strong>查看证书名称：</strong></p>
+<ul>
+<li><code>GPG</code>公钥本身也是一个<code>RPM</code>包</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -qa | grep gpg-pubkey
+gpg-pubkey-b675600b-63913a47
+</code></pre></div>
+<p><strong>查看证书内容：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -qi gpg-pubkey-b675600b-63913a47
+Name        : gpg-pubkey
+Version     : b675600b
+Release     : 63913a47
+Architecture: (none)
+Install Date: 2025年10月11日 星期六 14时39分03秒
+Group       : Public Keys
+Size        : 0
+License     : pubkey
+Signature   : (none)
+Source RPM  : (none)
+Build Date  : 2022年12月08日 星期四 09时13分43秒
+Build Host  : localhost
+Packager    : openeuler &lt;openeuler@compass-ci.com&gt;
+Summary     : openeuler &lt;openeuler@compass-ci.com&gt; public key
+Description :
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+</code></pre></div>
+<p><strong>验证RPM包是否通过验证：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -K vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm
+vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm: digests signatures 确定
+</code></pre></div>
+<p><strong>卸载数字证书：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -e gpg-pubkey-b675600b-63913a47
+</code></pre></div>
+<hr />
+<h5 id="128">1.2.8.小实验</h5>
+<p>安装软件后，如果对软件对应的配置文件进行了修改，那么在重新安装软件包时，<code>RPM</code>为防止修改后的配置文件丢失，所以不会覆盖配置文件。除非手动删除掉配置文件，才能够获取新的配置文件。</p>
+<ol>
+<li>安装<code>vsftpd</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -ivh vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm
+警告：vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm: 头V4 RSA/SHA256 Signature, 密钥 ID fb37bc6f: NOKEY
+Verifying...                          ################################# [100%]
+准备中...                          ################################# [100%]
+        软件包 vsftpd-3.0.3-33.oe2203sp3.x86_64 已经安装
+</code></pre></div>
+<ol>
+<li>修改<code>vsftpd</code>的配置文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# echo 111 &gt; /etc/vsftpd/
+</code></pre></div>
+<ol>
+<li>重新安装<code>vsftpd</code>软件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -ivh --reinstall vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm
+警告：vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm: 头V4 RSA/SHA256 Signature, 密钥 ID fb37bc6f: NOKEY
+Verifying...                          ################################# [100%]
+准备中...                          ################################# [100%]
+正在升级/安装...
+   1:vsftpd-3.0.3-33.oe2203sp3        ################################# [ 50%]
+正在清理/删除...
+   2:vsftpd-3.0.3-33.oe2203sp3        ################################# [100%]
+</code></pre></div>
+<ol>
+<li>查看<code>vsftpd</code>配置文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# cat /etc/vsftpd/vsftpd.conf
+111
+</code></pre></div>
+<ol>
+<li>删除<code>vsftpd</code>配置文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rm -rf /etc/vsftpd/vsftpd.conf
+</code></pre></div>
+<ol>
+<li>重新安装<code>vsftpd</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm -ivh --reinstall vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm
+警告：vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm: 头V4 RSA/SHA256 Signature, 密钥 ID fb37bc6f: NOKEY
+Verifying...                          ################################# [100%]
+准备中...                          ################################# [100%]
+正在升级/安装...
+   1:vsftpd-3.0.3-33.oe2203sp3        ################################# [ 50%]
+正在清理/删除...
+   2:vsftpd-3.0.3-33.oe2203sp3        ################################# [100%]
+</code></pre></div>
+<ol>
+<li>查看配置文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# cat /etc/vsftpd/vsftpd.conf
+</code></pre></div>
+<p>除了上述的方法之外，还可以通过<code>RPM</code>软件包转换工具，提取出<code>RPN</code>包中的配置文件。<code>rpm2cpio</code>命令可以用于将<code>rpm</code>格式的文件转为<code>cpio</code>格式的文件。</p>
+<p><code>cpio</code>是用来建立，还原备份档的工具程序，它可以加入，解开<code>cpio</code>或<code>tar</code>备份档内的文件。</p>
+<ul>
+<li><code>-d</code>或<code>--make-directories</code>如有需要<code>cpio</code>会自行建立目录。</li>
+<li><code>-i</code>或<code>--extract</code>执行<code>copy-in</code>模式，还原备份档。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# rpm2cpio vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm | cpio -id
+437 块
+</code></pre></div>
+<p><code>rpm2cpio vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm</code></p>
+<ul>
+<li><strong>作用</strong>：将 RPM 包转换为 cpio 归档格式</li>
+<li><strong>输入</strong>：<code>vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm</code>（FTP 服务器的 RPM 包）</li>
+<li><strong>输出</strong>：cpio 格式的数据流（通过管道传递给下一个命令）</li>
+</ul>
+<p><code>| cpio -id</code></p>
+<ul>
+<li><strong>作用</strong>：从 cpio 归档中提取文件</li>
+<li><strong>选项说明</strong>：</li>
+<li><code>-i</code>：从归档中提取文件</li>
+<li><code>-d</code>：根据需要创建目录</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# ll
+总用量 208
+-rw-------. 1 root root  1131  9月 18 20:46 anaconda-ks.cfg
+drwxr-xr-x  6 root root  4096 10月 11 14:52 etc
+drwxr-xr-x  5 root root  4096 10月 11 14:52 usr
+drwxr-xr-x  3 root root  4096 10月 11 14:52 var
+-rw-r--r--  1 root root 96481  1月  2  2024 vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm
+-rw-r--r--  1 root root 95569 12月 31  2024 vsftpd-3.0.5-2.oe2403sp1.x86_64.rpm
+</code></pre></div>
+<hr />
+<h3 id="2yumdnf">2.YUM与DNF</h3>
+<h4 id="21yum">2.1.YUM</h4>
+<p>你可以把<code>YUM</code>理解成一个高级版的<code>RPM</code>包管理器，它的核心作用是解决<code>RPM</code>包之间的依赖关系，并提供一个便捷的软件安装、更新、删除的自动化管理方式。</p>
+<h5 id="211">2.1.1.工作原理</h5>
+<ol>
+<li>仓库是远端还是本地（定义了<code>repo</code>仓库文件）</li>
+<li>本地：需要自己配置对应的文件</li>
+<li>远端：需要定义远端仓库的仓库文件，需要保证该仓库可以正常连接</li>
+<li><code>yum</code>命令</li>
+</ol>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251011150645577.png" /></p>
+<ol>
+<li><strong>仓库（Repository）</strong>：</li>
+<li>YUM 不直接管理单个的 <code>.rpm</code>文件，而是从一个或多个<strong>软件仓库</strong>获取信息。</li>
+<li>仓库是集中存放大量 RPM 包及其元数据（如依赖关系、版本信息）的服务器。<ul>
+<li>元数据信息保存在<code>repodata</code>目录中，在安装软件前，会先查找<code>repodata</code>这个目录，确定依赖关系。</li>
+</ul>
+</li>
+<li>系统的仓库文件配置在 <code>/etc/yum.repos.d/</code>目录下的 <code>.repo</code>文件中。</li>
+<li><strong>元数据缓存</strong>：</li>
+<li>当您执行 <code>yum update</code>或 <code>yum makecache</code>时，YUM 会从配置的仓库下载元数据（如所有可用包的列表、依赖关系等）并缓存在本地（<code>/var/cache/yum/</code>）。</li>
+<li>这使得后续的搜索、安装等操作非常快速，因为不需要每次都去远程服务器查询。</li>
+<li><strong>依赖关系解析</strong>：</li>
+<li>当您要安装软件包 A 时，YUM 会从本地缓存中查询软件包 A 依赖哪些包（比如 B 和 C），并且 B 和 C 可能又依赖其他包。</li>
+<li>YUM 会自动计算出所有需要安装的包，并生成一个事务，询问用户是否确认执行。</li>
+<li><strong>事务性操作</strong>：</li>
+<li>YUM 的操作是事务性的。这意味着它会先检查整个操作（包括所有依赖项的安装和冲突）是否可能成功。如果任何一步出错，整个操作都会回滚，系统将保持原状，这保证了系统的稳定性。</li>
+</ol>
+<hr />
+<h5 id="212">2.1.2.软件仓库</h5>
+<p>使用的仓库是通过<code>Linux</code>系统上的<strong>仓库配置文件</strong>定义：</p>
+<ul>
+<li><code>/etc/yum.repos.d/</code>，仓库配置文件格式为<code>*.repo</code></li>
+</ul>
+<p>根据<code>RPM</code>包的获取方式，分为网络源和本地源。</p>
+<p><strong>yum本地源配置：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# mount /dev/cdrom /mnt/      # 将本地光盘挂载到目录
+mount: /mnt: WARNING: source write-protected, mounted read-only.
+
+[root@qyt-gujun ~]# vim /etc/yum.repos.d/local.repo     # 编辑本地源文件
+[cdrom] # 仓库的名称
+name=cdrom  # 仓库的描述
+gpgcheck=0  # 是否校验软件的完整性，如果开启需要写公钥的位置
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-openEuler    # GPG公钥的位置
+enabled=1   # 仓库是否启用，为1表示开启，为0表示关闭
+baseurl=file:///mnt/    # 软件仓库的位置，本地镜像挂载目录
+[root@qyt-gujun ~]# yum clean all   # 清除yum仓库缓存
+17 files removed
+
+[root@qyt-gujun ~]# yum makecache   # 生成新的缓存
+cdrom                                                                                          86 MB/s | 3.4 MB     00:00
+Metadata cache created.
+</code></pre></div>
+<p><strong>网络源配置：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# vim /etc/yum.repos.d/local.repo
+[openEuler-everything]
+name=openEuler-everything
+baseurl=https://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP3/everything/x86_64/
+enabled=1
+gpgcheck=0
+gpgkey=https://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP3/everything/x86_64/RPM-GPG-KEY-openEuler
+
+[openEuler-EPOL]
+name=openEuler-epol
+baseurl=https://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP3/EPOL/main/x86_64/
+enabled=1
+gpgcheck=0
+
+[openEuler-update]
+name=openEuler-update
+baseurl=https://mirrors.huaweicloud.com/openeuler/openEuler-22.03-LTS-SP3/update/x86_64/
+enabled=1
+gpgcheck=0
+
+[root@qyt-gujun ~]# yum clean all   # 清除yum仓库缓存
+17 files removed
+
+[root@qyt-gujun ~]# yum makecache   # 生成新的缓存
+cdrom                                                                                          86 MB/s | 3.4 MB     00:00
+Metadata cache created
+</code></pre></div>
+<hr />
+<h5 id="213yum">2.1.3.yum命令介绍</h5>
+<p><strong>软件包安装与删除：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>yum install &lt;package_name&gt;</code></td>
+<td style="text-align: left;"><strong>安装</strong>一个软件包及其所有依赖。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum remove &lt;package_name&gt;</code></td>
+<td style="text-align: left;"><strong>删除</strong>一个软件包及其依赖它的包（如果不再被需要）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum reinstall &lt;package_name&gt;</code></td>
+<td style="text-align: left;"><strong>重新安装</strong>一个已存在的包。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum update</code></td>
+<td style="text-align: left;"><strong>更新</strong>所有已安装的包到最新版本。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum update &lt;package_name&gt;</code></td>
+<td style="text-align: left;"><strong>更新</strong>指定的软件包。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>查询与搜索：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>yum search &lt;keyword&gt;</code></td>
+<td style="text-align: left;"><strong>搜索</strong>软件包名称和描述中包含关键字的包。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum list</code></td>
+<td style="text-align: left;">列出所有<strong>可用</strong>、<strong>已安装</strong>或<strong>可更新</strong>的包。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum list installed</code></td>
+<td style="text-align: left;">列出所有<strong>已安装</strong>的包。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum list available</code></td>
+<td style="text-align: left;">列出所有<strong>可安装</strong>但尚未安装的包。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum list updates</code></td>
+<td style="text-align: left;">列出所有<strong>可更新</strong>的包。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum info &lt;package_name&gt;</code></td>
+<td style="text-align: left;"><strong>显示</strong>一个软件包的详细信息（版本、大小、描述等）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum provides &lt;file_name&gt;</code></td>
+<td style="text-align: left;"><strong>查找</strong>哪个软件包提供了指定的文件或命令。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>系统仓库与管理：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>yum check-update</code></td>
+<td style="text-align: left;">检查可用的更新，但不实际执行更新。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum clean all</code></td>
+<td style="text-align: left;"><strong>清理</strong>缓存中的元数据和软件包，释放磁盘空间。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum makecache</code></td>
+<td style="text-align: left;"><strong>重建</strong>元数据缓存，确保本地信息是最新的。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum repolist all</code></td>
+<td style="text-align: left;"><strong>列出</strong>所有已配置的仓库（启用和禁用的）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>yum history</code></td>
+<td style="text-align: left;">查看 YUM 操作历史，可以用于撤销操作。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="214">2.1.4.示例</h5>
+<ol>
+<li><strong>搜索 nginx 包</strong>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>yum search nginx
+</code></pre></div>
+<ol>
+<li><strong>查看 nginx 包的详细信息</strong>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>yum info nginx
+</code></pre></div>
+<ol>
+<li><strong>安装 nginx</strong>（YUM 会自动解决依赖关系）：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>yum install nginx
+</code></pre></div>
+<ul>
+<li>
+<p>执行后，YUM 会列出所有将要安装的包（包括 nginx 及其依赖），并询问 <code>Is this ok [y/d/N]:</code>。输入 <code>y</code>并按回车确认。</p>
+</li>
+<li>
+<p><strong>查看已安装的 nginx</strong>：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>yum list installed | grep nginx
+</code></pre></div>
+<ol>
+<li><strong>如果需要删除 nginx</strong>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>yum remove nginx
+</code></pre></div>
+<hr />
+<h4 id="22dnf">2.2.DNF</h4>
+<p><strong>DNF</strong>（<code>Dandified YUM</code>）是 YUM 的下一代版本，在 <code>RHEL 8+、CentOS 8+、Fedora 22+、openEuler</code> 等系统中取代了<code>YUM</code>。</p>
+<p><strong>DNF 的优势：</strong></p>
+<ul>
+<li><strong>兼容性</strong>：YUM只能使用python进行调用，而DNF可以使用任何语言开发插件并调用</li>
+<li><strong>性能</strong>：DNF的内存占用更小，解析RPM包索引的速度更快</li>
+<li><strong>轻量</strong>：DNF的代码量更少，只有不到5千行</li>
+</ul>
+<p>在<code>openEuler</code>中，<code>yum</code>和<code>dnf</code>这两个命令都指向<code>dnf -3</code>这个可执行程序，所以无论使用<code>yum</code>还是<code>dnf</code>命令，实际上都是调用<code>dnf</code>。</p>
+<div class="highlight"><pre><span></span><code>[root@gugujun ~]# ls -l /usr/bin/yum
+lrwxrwxrwx. 1 root root 5 Dec 27  2023 /usr/bin/yum -&gt; dnf-3
+[root@gugujun ~]# ls -l /usr/bin/dnf
+lrwxrwxrwx. 1 root root 5 Dec 27  2023 /usr/bin/dnf -&gt; dnf-3
+</code></pre></div>
+<h5 id="221dnf">2.2.1.DNF本地源配置</h5>
+<div class="highlight"><pre><span></span><code>[root@gugujun ~]# mkdir /mnt/cdrom  # 创建被挂载的目录
+
+[root@gugujun ~]# mount /dev/cdrom /mnt/cdrom   # 将本地镜像挂载
+mount: /mnt/cdrom: WARNING: source write-protected, mounted read-only.
+
+[root@gugujun ~]# cd /etc/yum.repos.d/  # 进入yum的配置目录
+
+[root@gugujun yum.repos.d]# mv openEuler.repo openEuler.repo.bak    # 备份默认仓库文件
+
+[root@gugujun ~]# vim /etc/dnf/dnf.conf
+  [main]
+  gpgcheck=1
+  installonly_limit=3
+  clean_requirements_on_remove=True
+  best=True
+  skip_if_unavailable=False
+  [openEuler]   # 仓库的名字
+  name=openEuler Packages   # 仓库的描述
+  baseurl=file:///mnt/cdrom/    # 软件仓库的位置，本地镜像挂载目录
+  enable=1  # 仓库是否启用，为1表示开启，为0表示关闭，则在安装软件时系统不会在这个仓库下查找软件
+  gpgcheck=1    # 是否校验软件的完整性，如果开启需要写公钥的位置
+  gpgkey=/mnt/cdrom/RPM-GPG-KEY-openEuler   # RPM公钥的路径
+
+[root@gugujun ~]# dnf clean all # 清除全部缓存
+6 files removed
+
+[root@gugujun ~]# dnf makecache # 生成新的缓存
+openEuler Packages                                                                      224 MB/s |  17 MB     00:00
+Last metadata expiration check: 0:00:03 ago on Sun 30 Jun 2024 03:45:31 AM CST.
+Metadata cache created.
+</code></pre></div>
+<hr />
+<h4 id="23repo">2.3.搭建repo服务</h4>
+<p><img alt="2690314770-59bcd9da79a0a_fix732.webp" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251014184230220.webp" /></p>
+<ol>
+<li><code>yum</code>服务器创建<code>repo</code>仓库：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# mkdir /opt/repo
+
+[root@qyt-gujun ~]# mkdir /opt/repo/Packages
+
+[root@qyt-gujun ~]# cd /opt/repo
+
+[root@qyt-gujun repo]# yum install --downloadonly --downloaddir ./Packages vsftpd
+Last metadata expiration check: 0:02:35 ago on 2025年10月11日 星期六 15时35分49秒.
+Dependencies resolved.
+==============================================================================================================================
+ Package                    Architecture               Version                                Repository                 Size
+==============================================================================================================================
+Installing:
+ vsftpd                     x86_64                     3.0.3-33.oe2203sp3                     cdrom                      94 k
+
+Transaction Summary
+==============================================================================================================================
+Install  1 Package
+
+Total size: 94 k
+Installed size: 215 k
+YUM will only download packages for the transaction.
+Is this ok [y/N]: y
+Downloading Packages:
+Complete!
+
+[root@qyt-gujun repo]# ll Packages/
+总用量 96
+-r--r--r-- 1 root root 96481 10月 11 15:38 vsftpd-3.0.3-33.oe2203sp3.x86_64.rpm
+
+[root@qyt-gujun repo]# dnf install createrepo -y
+
+[root@qyt-gujun repo]# createrepo ./ # 创建元数据信息
+[root@qyt-gujun repo]# ll ./repodata/
+总用量 28
+-rw-r--r-- 1 root root 1061 10月 11 15:39 4192afd159e01a7cd5723c140a65beac74c64cad27620866cbabc2dcf37580cf-other.sqlite.bz2
+-rw-r--r-- 1 root root  531 10月 11 15:39 59c68fb6be0ecc7c5d86e67dcea5a48317e008573f2e4f118ea0e94021895888-filelists.xml.gz
+-rw-r--r-- 1 root root 2797 10月 11 15:39 6d71d221ae4da781217d70c0168f10dacb9ceed2983a2766cd40adeb2cb47156-primary.sqlite.bz2
+-rw-r--r-- 1 root root 1055 10月 11 15:39 915a77c7c6b9c557b4db394e844c3cc33cbd596a1c97497dd8796e881951f9f1-primary.xml.gz
+-rw-r--r-- 1 root root 1374 10月 11 15:39 b7bfe99fdf05102f91a15203c1f64a83a5777eb023b1ed617a3a8b739ba58084-filelists.sqlite.bz2
+-rw-r--r-- 1 root root  549 10月 11 15:39 c632420026bfc619bb6871a1b42ca5957637d25fa74d37976c79727e6bd3f058-other.xml.gz
+-rw-r--r-- 1 root root 3074 10月 11 15:39 repomd.xml
+</code></pre></div>
+<ol>
+<li>部署<code>httpd</code>服务，将仓库共享出去</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# yum install httpd -y
+
+[root@qyt-gujun repo]# vim /etc/httpd/conf/httpd.conf
+....
+121 DocumentRoot &quot;/opt/repo&quot;
+....
+126 &lt;Directory &quot;/opt/repo&quot;&gt;
+127     Options Indexes FollowSymLinks  # 设置目录没有index文件时，允许显示目录列表
+128     AllowOverride all   # 允许该目录下的.htaccess文件覆盖当前配置
+129     # Allow open access:    
+130     Require all granted # 表示允许所有请求
+131 &lt;/Directory&gt;
+
+[root@qyt-gujun repo]# systemctl restart httpd
+
+[root@qyt-gujun repo]# rm -f /etc/httpd/conf.d/welcome.conf 
+
+[root@qyt-gujun repo]# systemctl stop firewalld
+
+[root@qyt-gujun repo]# setenforce 0
+</code></pre></div>
+<ol>
+<li>测试：</li>
+</ol>
+<p><img alt="image-20251011154627847" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251011154627942.png" /></p>
+<ol>
+<li>客户端测试：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@localhost yum.repos.d]# vim openEuler.repo
+  [cdrom]
+  name=cdrom
+  baseurl=http://192.168.80.100
+  enabled=1
+  gpgcheck=0
+
+[root@localhost yum.repos.d]# yum clean all
+43 files removed
+
+[root@localhost yum.repos.d]# yum makecache
+cdrom                                                                                                      261 kB/s | 1.6 kB     00:00
+Metadata cache created.
+
+[root@localhost yum.repos.d]# yum install vsftpd
+Last metadata expiration check: 0:00:07 ago on Sun 30 Jun 2024 04:51:11 PM CST.
+Dependencies resolved.
+.....
+Complete!
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

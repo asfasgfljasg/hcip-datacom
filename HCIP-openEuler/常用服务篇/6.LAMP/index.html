@@ -1,0 +1,2514 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../5.DNS%E4%B8%BB%E4%BB%8E/">
+      
+      
+        <link rel="next" href="../7.LNMP/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>LAMP - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6lamp" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LAMP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1lamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.LAMP架构概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.LAMP架构概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11lamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.什么是LAMP？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12lamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.LAMP工作流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.用户查看文章的过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.数据存放
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2lamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.LAMP配置演示
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1lamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.LAMP架构概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.LAMP架构概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11lamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.什么是LAMP？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12lamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.LAMP工作流程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.用户查看文章的过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.数据存放
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2lamp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.LAMP配置演示
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="6lamp">6.LAMP</h1>
+<h3 id="1lamp">1.LAMP架构概述</h3>
+<h4 id="11lamp">1.1.什么是LAMP？</h4>
+<p><code>LAMP</code>是一个经典的<code>Web</code>应用技术栈，由四个开源组件组成：</p>
+<ul>
+<li><code>Linux</code>：操作系统。</li>
+<li><code>Apache</code>：<code>Web</code>服务器。负责处理<code>HTTP</code>请求，提供静态文件和动态内容。</li>
+<li><code>MySQL/Mariadb</code>：数据库管理系统。存储和管理网站数据。</li>
+<li><code>PHP/Python/Perl</code>：编程语言（通常指<code>PHP</code>）。服务器端脚本语言，处理动态内容。</li>
+</ul>
+<hr />
+<h4 id="12lamp">1.2.LAMP工作流程</h4>
+<ol>
+<li>用户浏览器中输入<code>URL</code>，通过<code>DNS</code>正向解析出目标<code>IP</code>地址。</li>
+<li>用户向目标服务器发送<code>HTTP</code>请求到<code>Web</code>服务器。</li>
+<li><code>Apache</code>判断请求类型：</li>
+<li>如果是静态资源（如<code>HTML</code>、<code>CSS</code>、图片）直接处理并返回。</li>
+<li>
+<p>如果是动态资源（如<code>PHP</code>脚本）将请求交给<code>PHP</code>。</p>
+</li>
+<li>
+<p><code>PHP</code>查询数据库获取文章内容、评论、作者等信息。</p>
+</li>
+<li>
+<p><code>PHP</code>将内容进行整合，发送给<code>Apache</code>。</p>
+</li>
+<li>
+<p><code>Apache</code>生成网页响应给客户端。</p>
+</li>
+<li>浏览器显示网页内容。</li>
+</ol>
+<hr />
+<h4 id="13">1.3.用户查看文章的过程</h4>
+<ol>
+<li>访问 <code>example.com/blog/my-article</code></li>
+<li><code>Apache</code>交给<code>PHP</code>处理</li>
+<li><code>PHP</code>查询数据库：<code>SELECT * FROM wp_posts WHERE 标题='my-article'</code></li>
+<li>从数据库获取文章内容</li>
+<li><code>PHP</code>将内容填充到主题模板</li>
+<li>生成<code>HTML</code>返回给用户</li>
+</ol>
+<hr />
+<h4 id="14">1.4.数据存放</h4>
+<p>在<code>LAMP</code>部署<code>wordpress</code>中，<code>Linux</code>文件系统中主要存储的是<code>wordpress</code>的程序文件：</p>
+<div class="highlight"><pre><span></span><code>/wordpress/
+├── wp-admin/      # 管理后台代码
+├── wp-includes/   # 核心函数库
+├── wp-content/    # 主题、插件、上传的图片
+│   └── uploads/   # 用户上传的图片文件
+├── index.php      # 入口文件
+└── wp-config.php  # 配置文件
+</code></pre></div>
+<p>对于真正和博客相关的数据，例如：用户、密码、文章等都存放在数据库中：</p>
+<div class="highlight"><pre><span></span><code>MySQL数据库 → wp_posts表
+├── ID: 1
+├── 标题: &quot;我的第一篇博客&quot;
+├── 内容: &quot;这是文章正文...&quot;
+├── 作者: admin
+├── 发布时间: 2024-01-01
+├── 分类: 技术
+└── 标签: PHP,教程
+</code></pre></div>
+<hr />
+<h3 id="2lamp">2.LAMP配置演示</h3>
+<p>当前实验基于云服务器<code>centos steam9</code>，使用<code>LAMP</code>架构搭建<code>wordpress</code>博客系统。</p>
+<ol>
+<li>在云服务器上安装<code>apache</code>、<code>Mariadb</code>、<code>PHP</code>。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@LAMP ~]# yum install httpd mod_ssl mariadb-server mariadb php -y
+</code></pre></div>
+<ol>
+<li>启动并初始化<code>mariadb</code>。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@LAMP ~]# systemctl start mariadb  # 开启mariadb数据库服务
+
+[root@LAMP ~]# mysql_secure_installation    # 启动mariadb安全配置向导
+
+NOTE: RUNNING ALL PARTS OF THIS SCRIPT IS RECOMMENDED FOR ALL MariaDB
+      SERVERS IN PRODUCTION USE!  PLEASE READ EACH STEP CAREFULLY!
+
+In order to log into MariaDB to secure it, we&#39;ll need the current
+password for the root user. If you&#39;ve just installed MariaDB, and
+haven&#39;t set the root password yet, you should just press enter here.
+
+Enter current password for root (enter for none):   # 让你输入当前root密码，直接回车
+OK, successfully used password, moving on...
+
+Setting the root password or using the unix_socket ensures that nobody
+can log into the MariaDB root user without the proper authorisation.
+
+You already have your root account protected, so you can safely answer &#39;n&#39;.
+
+Switch to unix_socket authentication [Y/n] y    # 开启socket认证，代表用户root密码还需要系统权限才能登录
+Enabled successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+You already have your root account protected, so you can safely answer &#39;n&#39;.
+
+Change the root password? [Y/n] y   # 修改当前root密码
+New password:
+Re-enter new password:
+Password updated successfully!
+Reloading privilege tables..
+ ... Success!
+
+
+By default, a MariaDB installation has an anonymous user, allowing anyone
+to log into MariaDB without having to have a user account created for
+them.  This is intended only for testing, and to make the installation
+go a bit smoother.  You should remove them before moving into a
+production environment.
+
+Remove anonymous users? [Y/n] y # 是否要删除匿名用户
+ ... Success!
+
+Normally, root should only be allowed to connect from &#39;localhost&#39;.  This
+ensures that someone cannot guess at the root password from the network.
+
+Disallow root login remotely? [Y/n] n   # 是否禁止root用户远程登录
+ ... skipping.
+
+By default, MariaDB comes with a database named &#39;test&#39; that anyone can
+access.  This is also intended only for testing, and should be removed
+before moving into a production environment.
+
+Remove test database and access to it? [Y/n] n  # 是否删除测试数据库
+ ... skipping.
+
+Reloading the privilege tables will ensure that all changes made so far
+will take effect immediately.
+
+Reload privilege tables now? [Y/n] y    # 重新加载权限表
+ ... Success!
+
+Cleaning up...
+
+All done!  If you&#39;ve completed all of the above steps, your MariaDB
+installation should now be secure.
+
+Thanks for using MariaDB!
+</code></pre></div>
+<ol>
+<li>下载并配置<code>wordpress</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@LAMP ~]# wget https://wordpress.org/latest.tar.gz # 从官网下载wordpress
+
+[root@LAMP ~]# mkdir /lamp  # 创建wordpress目录
+
+[root@LAMP ~]# mv latest.tar.gz /lamp   # 移动wordpress文件至/lamp目录
+
+[root@LAMP lamp]# cd /lamp/ # 进入目录
+
+[root@LAMP ~]# tar -zxvf latest.tar.gz  # 解压缩
+
+[root@LAMP ~]# chown -R apache:apache /lamp     # 修改目录所属 
+
+[root@LAMP ~]# chmod -R 755 /lamp   # 修改权限
+
+[root@LAMP lamp]# cd wordpress/ # 进入wordpress配置目录
+
+[root@LAMP wordpress]# cp -a wp-config-sample.php wp-config.php     # 复制配置模板
+
+[root@LAMP wordpress]# vim wp-config.php    # 编辑修改wp配置文件
+    define( &#39;DB_NAME&#39;, &#39;wordpress&#39; );   # 指定数据库名称
+    define( &#39;DB_USER&#39;, &#39;wp_user&#39; );     # 指定数据库用户
+    define( &#39;DB_PASSWORD&#39;, &#39;Huawei@123&#39; );  # 指定数据库密码
+</code></pre></div>
+<ol>
+<li>创建<code>wordpress</code>需要使用的数据库和数据库用户</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@LAMP wordpress]# mysql -u root -p
+    MariaDB [(none)]&gt; CREATE DATABASE wordpress;    # 创建数据库
+
+    ### 创建wordpress数据库用户，localhost代表只能本机登录
+    MariaDB [(none)]&gt; CREATE USER &#39;wp_user&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;Huawei@123&#39;;
+
+    ### 授予权限，ALL代表所有权限，ON是范围只针对wordpress数据库，TO给予用户
+    MariaDB [(none)]&gt; GRANT ALL PRIVILEGES ON wordpress.* TO &#39;wp_user&#39;@&#39;localhost&#39;;
+
+    ### 刷新权限让Mysql立即重新加载权限表，使授权生效 
+    MariaDB [(none)]&gt; FLUSH PRIVILEGES;
+
+    ### 退出数据库
+    MariaDB [(none)]&gt; EXIT;
+</code></pre></div>
+<ol>
+<li>上传网站证书至服务器</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@LAMP ~]# mkdir /opt/pki   # 创建证书存放目录
+
+[root@LAMP ~]# cp gugujun.site.zip /opt/pki/    # 复制证书压缩包至目录
+
+[root@LAMP ~]# cd /opt/pki  # 进入该目录
+
+[root@LAMP pki]# unzip gugujun.site.zip # 解压缩
+</code></pre></div>
+<ol>
+<li>配置<code>apache HTTPS</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@LAMP pki]# vim /etc/httpd/conf.d/ssl.conf # 编辑HTTPS虚拟站点
+&lt;VirtualHost _default_:443&gt;
+ServerName www.gugujun.site # 绑定域名
+DocumentRoot /lamp/wordpress/   # 网站根目录
+SSLCertificateFile /opt/pki/certificate.crt # 证书
+SSLCertificateKeyFile /opt/pki/private.key  # 私钥
+&lt;Directory /lamp/wordpress&gt; # 网站目录及权限设置
+        options Indexes FollowSymLinks
+        Require all granted
+&lt;/Directory&gt;
+
+[root@LAMP wordpress]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>测试并解决报错问题：</li>
+<li>提示<code>PHP</code>没有安装或没有安装<code>Mysql</code>数据库连接扩展：</li>
+</ol>
+<p><img alt="image-20251208160417922" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251208160417966.png" /></p>
+<div class="highlight"><pre><span></span><code>### 安装第三方EPEL仓库，该仓库中包含CentOS官方仓库额外的软件包
+[root@LAMP wordpress]# dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm -y
+
+### 安装Remi仓库，该仓库专门提供最新版本的PHP及相关扩展
+[root@LAMP wordpress]# dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm -y
+
+### 安装php与扩展
+[root@LAMP wordpress]# yum install php php-cli php-mysqlnd php-xml php-gd php-mbstring php-curl -y
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">扩展名称</th>
+<th style="text-align: left;">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>php-mysqlnd</code></td>
+<td style="text-align: left;"><strong>必须</strong>！MySQL数据库连接驱动（没有它WordPress无法连接数据库）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>php-xml</code></td>
+<td style="text-align: left;"><strong>必须</strong>！解析XML文件（WordPress更新、RSS订阅等功能需要）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>php-gd</code></td>
+<td style="text-align: left;"><strong>推荐</strong>！图片处理（缩略图生成、图片编辑等）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>php-mbstring</code></td>
+<td style="text-align: left;"><strong>必须</strong>！多字节字符串支持（非英文内容正常显示必需）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>php-curl</code></td>
+<td style="text-align: left;"><strong>推荐</strong>！远程HTTP请求（插件更新、API调用等需要）</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="image-20251208160821636" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251208160821702.png" /></p>
+<ol>
+<li>浏览器中初始化<code>wordpress</code>：</li>
+</ol>
+<p><img alt="image-20251208161806152" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251208161806212.png" /></p>
+<p><img alt="image-20251208161819032" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251208161819074.png" /></p>
+<p><img alt="image-20251208161834470" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251208161834522.png" /></p>
+<p><img alt="image-20251208161906332" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251208161906382.png" /></p>
+<hr />
+<ol>
+<li>查看数据库结构与内容：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@LAMP ~]# mysql -u root -p
+
+MariaDB [(none)]&gt; USE wordpress;
+
+MariaDB [wordpress]&gt; SHOW TABLES;
++-----------------------+
+| Tables_in_wordpress   |
++-----------------------+
+| wp_commentmeta        |
+| wp_comments           |
+| wp_links              |
+| wp_options            |
+| wp_postmeta           |
+| wp_posts              |
+| wp_term_relationships |
+| wp_term_taxonomy      |
+| wp_termmeta           |
+| wp_terms              |
+| wp_usermeta           |
+| wp_users              |
++-----------------------+
+12 rows in set (0.000 sec)
+
+MariaDB [wordpress]&gt; SELECT ID FROM wp_posts;
++----+
+| ID |
++----+
+|  1 |
+|  2 |
+|  3 |
+|  4 |
+|  5 |
+|  6 |
+|  7 |
+|  8 |
++----+
+
+### 查看所有已经发布的文章：
+SELECT 
+    ID, 
+    post_title AS 标题,
+    post_date AS 发布时间,
+    post_author AS 作者ID
+FROM wp_posts 
+WHERE post_type = &#39;post&#39; 
+AND post_status = &#39;publish&#39;
+ORDER BY post_date DESC;
+
++----+--------------+---------------------+----------+
+| ID | 标题         | 发布时间            | 作者ID   |
++----+--------------+---------------------+----------+
+|  5 | 测试         | 2025-12-08 08:27:26 |        1 |
+|  1 | Hello world! | 2025-12-08 08:18:11 |        1 |
++----+--------------+---------------------+----------+
+
+
+### 查看具体文章内容：
+SELECT 
+    ID,
+    post_title AS 标题,
+    post_content AS 内容,
+    post_date AS 发布时间
+FROM wp_posts 
+WHERE ID = 5;
+
++----+--------+---------------------------------------------------------------------------------------+---------------------+
+| ID | 标题   | 内容                                                                                  | 发布时间            |
++----+--------+---------------------------------------------------------------------------------------+---------------------+
+|  5 | 测试   | &lt;!-- wp:paragraph --&gt;
+&lt;p&gt;你好这是一个测试文章！&lt;/p&gt;
+&lt;!-- /wp:paragraph --&gt;            | 2025-12-08 08:27:26 |
++----+--------+---------------------------------------------------------------------------------------+---------------------+
+1 row in set (0.000 sec)
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">表名</th>
+<th style="text-align: left;">主要用途</th>
+<th style="text-align: left;">存储内容示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>wp_posts</strong></td>
+<td style="text-align: left;"><strong>核心表</strong> - 存储所有内容</td>
+<td style="text-align: left;">文章、页面、附件、导航菜单</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_postmeta</strong></td>
+<td style="text-align: left;">文章的扩展信息</td>
+<td style="text-align: left;">自定义字段、特色图片、浏览量等</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_users</strong></td>
+<td style="text-align: left;">用户信息</td>
+<td style="text-align: left;">用户名、邮箱、密码哈希</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_usermeta</strong></td>
+<td style="text-align: left;">用户的扩展信息</td>
+<td style="text-align: left;">用户角色、个人设置、头像等</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_comments</strong></td>
+<td style="text-align: left;">评论信息</td>
+<td style="text-align: left;">评论内容、作者、时间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_commentmeta</strong></td>
+<td style="text-align: left;">评论的扩展信息</td>
+<td style="text-align: left;">评论评分、审核状态等</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_terms</strong></td>
+<td style="text-align: left;">分类/标签/术语</td>
+<td style="text-align: left;">分类名称、标签名称</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_term_taxonomy</strong></td>
+<td style="text-align: left;">术语分类法</td>
+<td style="text-align: left;">区分是分类(category)还是标签(tag)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_term_relationships</strong></td>
+<td style="text-align: left;">关联表</td>
+<td style="text-align: left;">文章和分类/标签的关联关系</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_termmeta</strong></td>
+<td style="text-align: left;">术语扩展信息</td>
+<td style="text-align: left;">分类描述、缩略图等</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_options</strong></td>
+<td style="text-align: left;">网站设置</td>
+<td style="text-align: left;">站点标题、固定链接、主题设置</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>wp_links</strong></td>
+<td style="text-align: left;">友情链接</td>
+<td style="text-align: left;">博客链接功能（已很少用）</td>
+</tr>
+</tbody>
+</table>
+<p>在<code>wordpress</code>中所有和博客相关的内容数据都是记录在<strong>数据库</strong>中的，包括文章内容不是以文件形式存放在系统中，而是数据库数据。所以，对于<code>wordpress</code>最重要的是<strong>数据库</strong>，当你需要重新部署<code>wordpress</code>或迁移只要保证数据库内容完整，其余的随便改。</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

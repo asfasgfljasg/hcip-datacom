@@ -1,0 +1,3598 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../3.Nginx/">
+      
+      
+        <link rel="next" href="../5.DNS%E4%B8%BB%E4%BB%8E/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>DNS - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dns" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DNS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        域名服务器结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="域名服务器结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 根域名服务器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 顶级域名服务器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 权威域名服务器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 本地 DNS 服务器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        域名结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="域名结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见的顶级域名以及用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS的查询方式（正向解析）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DNS的查询方式（正向解析）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        递归查询
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        迭代查询
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结合使用递归和迭代
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反向解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="反向解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcnamedconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        主配置文件解析 (/etc/named.conf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varnamed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /var/named 下的文件目录的作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcnamedrfc1912zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/named.rfc1912.zones 配置文件解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        区域配置文件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="区域配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正向区域配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反向区域配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS的记录类型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        云DNS解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="云DNS解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线路类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TTL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        日志
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS的客户端工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DNS的客户端工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nslookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nslookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dig（最强）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        host
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 服务器安装DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 服务器配置DNS主配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 客户端指定DNS服务器，并测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 配置正向解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 配置反向解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 创建正向和反向区域文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 配置正向区域文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 配置反向区域文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 检查主配置文件和区域文件的正确性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        概述
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        域名服务器结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="域名服务器结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 根域名服务器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 顶级域名服务器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 权威域名服务器
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 本地 DNS 服务器
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        域名结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="域名结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        常见的顶级域名以及用途
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS的查询方式（正向解析）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DNS的查询方式（正向解析）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        递归查询
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        迭代查询
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        结合使用递归和迭代
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反向解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="反向解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        使用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#etcnamedconf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        主配置文件解析 (/etc/named.conf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varnamed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /var/named 下的文件目录的作用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcnamedrfc1912zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        /etc/named.rfc1912.zones 配置文件解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        区域配置文件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="区域配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        正向区域配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        反向区域配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS的记录类型
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        云DNS解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="云DNS解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        线路类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ttl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TTL
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        日志
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS的客户端工具
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DNS的客户端工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nslookup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        nslookup
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dig（最强）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#host" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        host
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        配置演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="配置演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 服务器安装DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 服务器配置DNS主配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 客户端指定DNS服务器，并测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 配置正向解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 配置反向解析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 创建正向和反向区域文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 配置正向区域文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 配置反向区域文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 检查主配置文件和区域文件的正确性
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="dns">DNS</h1>
+<h2 id="_1">概述</h2>
+<p>DNS（Domain Name System），DNS域名解析服务，最核心的功能是将域名解析为IP地址。因为互联网上的各种访问都需要通过IP地址进行，用户很难直接通过IP地址的方式访问连接，所以就有了DNS。用户想要访问连接时，只需要输入域名，域名相对IP地址来说更好记忆。</p>
+<p>Windows系统判断网络是否正常时，就需要使用到DNS的检测。当开启网卡后，Windows会发送对 <code>www.msftncsi.com</code> 的DNS查询，如果查询失败，则说明此Windows无法正常进行域名解析，通常此时网卡会呈现黄色感叹号。</p>
+<p>DNS采用C/S（客户端/服务器）架构，监听在 <strong>UDP/TCP 53</strong> 端口：</p>
+<ul>
+<li><strong>UDP 53</strong>：这是DNS最常用的端口。大多数情况下，DNS 查询和响应使用 UDP 协议通过端口 53 进行通信。因为 UDP 协议开销较小，效率较高，适用于大多数简单的域名查询。</li>
+<li><strong>TCP 53</strong>：当DNS的数据包长度超过UDP最大长度（512字节）和响应数据量较大或者区域查询时（DNS服务器之间同步数据），会使用TCP 53通信。</li>
+</ul>
+<hr />
+<h2 id="_2">域名服务器结构</h2>
+<p>DNS服务器通常采用分布式的多层架构，主要包括以下几个层次：</p>
+<h3 id="1">1. 根域名服务器</h3>
+<ul>
+<li>用 <code>.</code> 表示根域是 DNS 层次结构的最顶层，负责管理顶级域名（如 <code>.com</code>、<code>.org</code>、<code>.net</code> 等）的 DNS 信息。全球共有 13 组根域名服务器，它们的地址是固定的。根域名服务器中只保存了顶级域名服务器的信息。</li>
+<li>当查询一个未知的顶级域名时，首先会向根域名服务器发起请求。</li>
+<li>Linux中的 <code>/var/named/named.ca</code> 文件中，记录了13台根域名服务器的IP地址。</li>
+</ul>
+<h3 id="2">2. 顶级域名服务器</h3>
+<ul>
+<li>负责管理各自顶级域名服务器中所属的权威域的DNS 信息。顶级域名服务器只保存对应权威DNS服务器的信息。顶级域名服务器一般情况下，只提供权威域名服务器的信息。</li>
+</ul>
+<h3 id="3">3. 权威域名服务器</h3>
+<ul>
+<li>负责保存并提供该域名及其子域名的 DNS 记录。</li>
+<li>权威域名服务器是真正管理并回应DNS记录的服务器。</li>
+</ul>
+<h3 id="4-dns">4. 本地 DNS 服务器</h3>
+<ul>
+<li>通常由网络服务提供商（ISP）提供，是用户计算机首先接触的 DNS 服务器。</li>
+<li>它会缓存之前查询过的 DNS 记录，以提高查询效率。当本地 DNS 服务器没有所需的 DNS 记录时，会按照层次结构向上级服务器发起查询。</li>
+<li>在家中或公司内，通常由家庭路由器或企业网络管理员分配的，DHCP的方式自动下发到我们的电脑中。</li>
+<li>我们也可以手动指定DNS服务器的地址，例如 <code>114.114.114.114</code>，这时我们就使用公共DNS服务器代替了本地DNS服务器。</li>
+</ul>
+<hr />
+<h2 id="_3">域名结构</h2>
+<p>域名结构是分层的，从右到左，依次为顶级域名、二级域名、子域名等，具有层次化和易于管理的特点。</p>
+<p>常见的域名结构示例： <code>www.example.com.</code></p>
+<ul>
+<li><code>.</code> 是根域名</li>
+<li><code>.com</code> 是顶级域名（Top-Level Domain，TLD）</li>
+<li><code>example</code> 是二级域名（Second-Level Domain，SLD），由域名所有者自行定义，通常反映了网站或组织的名称</li>
+<li><code>www</code> 是子域名（Subdomain），它是二级域名的细分（三级域名），用于区分同一域名下的不同服务或功能。例如，<code>mail.example.com</code> 可能用于指向邮件服务，<code>blog.example.com</code> 可能用于指向博客页面</li>
+<li>还可以有更多层级子域名</li>
+</ul>
+<h3 id="_4">常见的顶级域名以及用途</h3>
+<table>
+<thead>
+<tr>
+<th>顶级域名</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.com</code></td>
+<td>商业用途，适用于各类公司和企业</td>
+</tr>
+<tr>
+<td><code>.org</code></td>
+<td>通常用于非营利组织</td>
+</tr>
+<tr>
+<td><code>.net</code></td>
+<td>常用于网络服务提供商</td>
+</tr>
+<tr>
+<td><code>.gov</code></td>
+<td>政府机构专用</td>
+</tr>
+<tr>
+<td><code>.edu</code></td>
+<td>教育机构使用</td>
+</tr>
+<tr>
+<td><code>.info</code></td>
+<td>提供信息服务的网站</td>
+</tr>
+<tr>
+<td><code>.biz</code></td>
+<td>商业用途，尤其适用于中小企业</td>
+</tr>
+<tr>
+<td><code>.name</code></td>
+<td>个人域名</td>
+</tr>
+<tr>
+<td><code>.mobi</code></td>
+<td>专门用于手机等移动设备的网站</td>
+</tr>
+<tr>
+<td><code>.pro</code></td>
+<td>适用于专业人士，如医生、律师等</td>
+</tr>
+<tr>
+<td><code>.co</code></td>
+<td>常用于公司或商业目的，在某些国家较为流行</td>
+</tr>
+<tr>
+<td><code>.cn</code></td>
+<td>是中国的国家顶级域名，代表中国。适用于在中国境内注册和运营的各类组织和个人，包括企业、政府机构、社会团体、个人等，以展示其在中国的身份和业务存在</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dns_1">DNS的查询方式（正向解析）</h2>
+<h3 id="_5">递归查询</h3>
+<p>递归查询中，客户端会认为自己只是通过本地DNS获取到的，对于递归查询的过程是没有感知的，不需要客户端进行参与，全程只有本地DNS服务器会进行回应。适用于网络环境比较简单的情况下。</p>
+<p><strong>查询步骤：</strong></p>
+<ol>
+<li>客户端查询DNS时，首先会查找本地hosts文件是否有对应解析，如果没有解析才会向本地服务器发起解析。</li>
+<li>本地DNS服务器会检查自己的缓存中是否有所需的记录。如果没有，则向根域名服务器发起查询。</li>
+<li>根域名服务器返回顶级域名服务器的地址，本地DNS服务器再向顶级域名服务器查询。</li>
+<li>顶级域名服务器返回权威域名服务器的地址，本地DNS服务器接着向权威域名服务器查询。</li>
+<li>权威域名服务器查找记录，若有则把DNS记录返回给本地DNS服务器，若没有则告诉本地DNS服务器没有找到对应记录。</li>
+<li>本地DNS服务器把DNS记录或是失败消息，转发给客户端，到此DNS递归查询结束。</li>
+</ol>
+<p><strong>优点：</strong></p>
+<ul>
+<li><strong>对客户端友好</strong>：客户端无需了解复杂的 DNS 架构和查询过程，只需向本地 DNS 服务器发送请求并等待结果，使用简单方便。减少了客户端的处理负担和复杂性。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><strong>增加本地 DNS 服务器负担</strong>：本地 DNS 服务器需要处理所有的查询步骤，可能会消耗大量的资源和时间，尤其在大量并发查询时可能会出现性能瓶颈。</li>
+<li><strong>可能存在单点故障</strong>：如果本地 DNS 服务器出现故障，客户端的所有查询都将受到影响。</li>
+<li><strong>潜在的安全风险</strong>：由于本地 DNS 服务器需要与多个外部服务器交互，存在受到攻击或被劫持的风险。</li>
+</ul>
+<p><img alt="image-20260524224751549" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524224751631.png" /></p>
+<h3 id="_6">迭代查询</h3>
+<p>迭代查询中一直是由客户端介入的，向每一个层级进行查询，和递归查询的区别是，本来由本地DNS服务器干的活，都需要客户端自己干了。适用于大型企业网络或具有特殊安全和策略要求的网络环境，可更灵活地控制查询流程。</p>
+<p><strong>查询步骤：</strong></p>
+<ol>
+<li>客户端查询 DNS 时，首先会查找本地 hosts 文件是否有对应解析，如果没有解析才会向本地服务器发起解析。</li>
+<li>本地 DNS 服务器会检查自己的缓存中是否有所需的记录。如果没有，则向客户端返回根域名服务器的地址。</li>
+<li>客户端向根域名服务器发起查询。</li>
+<li>根域名服务器返回顶级域名服务器的地址给客户端。</li>
+<li>客户端再向顶级域名服务器查询。</li>
+<li>顶级域名服务器返回权威域名服务器的地址给客户端。</li>
+<li>客户端接着向权威域名服务器查询。</li>
+<li>权威域名服务器查找记录，若有则把 DNS 记录返回给客户端，若没有则告诉客户端没有找到对应记录。</li>
+<li>到此 DNS 迭代查询结束。</li>
+</ol>
+<p><img alt="image-20260524224803500" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524224803564.png" /></p>
+<p><strong>优点：</strong></p>
+<ul>
+<li><strong>减轻 DNS 服务器负担</strong>：本地 DNS 服务器不需要承担完整的查询工作，只需提供指引，降低了其资源消耗和工作压力，有助于在高并发情况下保持稳定性能。</li>
+<li><strong>提高系统可扩展性</strong>：由于客户端参与了查询过程，分散了查询任务，使得整个 DNS 系统能够更好地应对大规模的查询请求，便于系统的扩展和升级。</li>
+<li><strong>降低单点故障影响</strong>：客户端不依赖于单个本地 DNS 服务器完成所有查询，即使本地 DNS 服务器出现故障，客户端仍有可能通过其他途径获取 DNS 信息。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><strong>对客户端要求较高</strong>：客户端需要参与查询过程，自行与多个不同层级的域名服务器进行交互，这对于一些不具备相关知识或技术能力的客户端来说可能存在困难。增加了客户端的复杂性和处理负担。</li>
+<li><strong>响应时间可能较长</strong>：客户端需要依次向不同的服务器发起查询，每个步骤都可能引入一定的延迟，导致整体响应时间相对较长。</li>
+</ul>
+<h3 id="_7">结合使用递归和迭代</h3>
+<p>在实际的 DNS 架构中，可以结合使用递归和迭代查询，常见的方式如下：</p>
+<ol>
+<li><strong>对于内部关键服务或特定域名</strong>：可以配置本地 DNS 服务器采用递归查询，以确保快速准确地获取解析结果，保证服务的稳定性和响应速度。</li>
+<li><strong>对于一般性的公共域名查询</strong>：本地 DNS 服务器可以先尝试在缓存中查找，如果没有，则采用迭代查询方式，引导客户端逐步向各级域名服务器获取结果。</li>
+<li><strong>根据网络区域划分</strong>：在不同的网络区域，根据其重要性和性能需求，灵活配置递归和迭代查询的使用策略。例如，总部网络可能更多使用递归查询，而分支机构网络部分使用迭代查询。</li>
+<li><strong>基于时间或流量策略</strong>：在网络负载较低的时间段或对于流量较小的查询请求，采用递归查询；在高峰时段或流量较大时，对于非关键域名的查询切换为迭代查询。</li>
+<li><strong>结合用户权限</strong>：根据用户的权限级别或所属部门，为不同用户的查询请求配置不同的查询方式。</li>
+</ol>
+<hr />
+<h2 id="_8">反向解析</h2>
+<p>DNS正向解析是通过域名获取IP地址，那么反向解析就是通过IP地址获取域名的过程。</p>
+<h3 id="_9">使用场景</h3>
+<ol>
+<li><strong>邮件服务器验证</strong></li>
+<li>帮助邮件服务器确认发送邮件的服务器是否合法，减少垃圾邮件的产生。</li>
+<li>如果发送邮件的服务器的IP地址没有正确的反向解析记录，则被视为垃圾邮件。</li>
+<li>
+<p>例如：当你收到一封来自某个IP的邮件，通过反向解析可以确定该IP对应的域名，从而判断邮件来源的可靠性。</p>
+</li>
+<li>
+<p><strong>网络访问控制</strong></p>
+</li>
+<li>一些网络安全策略基于IP地址的反向解析结果来决定是否允许访问。</li>
+</ol>
+<h3 id="_10">工作原理</h3>
+<p>DNS 数据库中存储了正向和反向的映射信息。在反向解析中，IP 地址被反转（例如，<code>192.168.1.1</code> 变为 <code>1.1.168.192</code>），然后在特定的反向解析区域（通常称为 <code>in-addr.arpa</code> 域）中查找对应的域名记录。</p>
+<p>反向解析的配置通常由网络服务提供商（ISP）或拥有 IP 地址块的组织负责。需要在相应的 DNS 服务器上正确设置反向解析区域和记录。</p>
+<p>例如，假设您的服务器的 IP 地址是 <code>123.45.67.89</code>，在配置反向解析时，会在 <code>89.67.45.123.in-addr.arpa</code> 区域中创建指向您服务器域名（如 <code>yourserver.example.com</code>）的 PTR 记录。</p>
+<hr />
+<h2 id="_11">配置</h2>
+<p><img alt="image-20260524224832440" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524224832521.png" /></p>
+<h3 id="etcnamedconf">主配置文件解析 (<code>/etc/named.conf</code>)</h3>
+<div class="highlight"><pre><span></span><code>options {
+    listen-on port 53 { 127.0.0.1; };
+    listen-on-v6 port 53 { ::1; };
+    directory          &quot;/var/named&quot;;
+    dump-file          &quot;/var/named/data/cache_dump.db&quot;;
+    statistics-file    &quot;/var/named/data/named_stats.txt&quot;;
+    memstatistics-file &quot;/var/named/data/named_mem_stats.txt&quot;;
+    secroots-file      &quot;/var/named/data/named.secroots&quot;;
+    recursing-file     &quot;/var/named/data/named.recursing&quot;;
+    allow-query        { localhost; };
+    recursion yes;
+    dnssec-validation yes;
+    managed-keys-directory &quot;/var/named/dynamic&quot;;
+    pid-file &quot;/run/named/named.pid&quot;;
+    session-keyfile &quot;/run/named/session.key&quot;;
+    include &quot;/etc/crypto-policies/back-ends/bind.config&quot;;
+};
+
+logging {
+    channel default_debug {
+        file &quot;data/named.run&quot;;
+        severity dynamic;
+    };
+};
+
+zone &quot;.&quot; IN {
+    type hint;
+    file &quot;named.ca&quot;;
+};
+
+include &quot;/etc/named.rfc1912.zones&quot;; # 引入区域文件（正向和反向）
+include &quot;/etc/named.root.key&quot;;  # 根域列表
+</code></pre></div>
+<p><strong><code>options</code> 部分：</strong></p>
+<ul>
+<li><code>listen-on port 53 { 127.0.0.1; };</code>：指定 DNS 服务器在端口 53 上监听的地址为本地环回地址 <code>127.0.0.1</code>。如果改为 <code>any</code>，则表示在所有可用的网络接口上监听。</li>
+<li><code>listen-on-v6 port 53 { ::1; };</code>：指定在 IPv6 下在端口 53 上监听的地址为本地环回地址 <code>::1</code>。</li>
+<li><code>directory "/var/named";</code>：指定 DNS 服务器的数据目录。</li>
+<li><code>dump-file "/var/named/data/cache_dump.db";</code>：指定缓存转储文件的路径。</li>
+<li><code>statistics-file "/var/named/data/named_stats.txt";</code>：指定统计信息文件的路径。</li>
+<li><code>memstatistics-file "/var/named/data/named_mem_stats.txt";</code>：指定内存统计信息文件的路径。</li>
+<li><code>secroots-file "/var/named/data/named.secroots";</code>：指定安全根文件的路径。</li>
+<li><code>recursing-file "/var/named/data/named.recursing";</code>：指定递归相关文件的路径。</li>
+<li><code>allow-query { localhost; };</code>：当前仅允许本地主机进行查询，通常更倾向于在防火墙进行此类限制。</li>
+<li><code>recursion yes;</code>：启用递归查询功能。</li>
+<li><code>dnssec-validation yes;</code>：启用 DNSSEC 验证。</li>
+<li><code>managed-keys-directory "/var/named/dynamic";</code>：指定管理密钥的目录。</li>
+<li><code>pid-file "/run/named/named.pid";</code>：指定进程 ID 文件的路径。</li>
+<li><code>session-keyfile "/run/named/session.key";</code>：指定会话密钥文件的路径。</li>
+<li><code>include "/etc/crypto-policies/back-ends/bind.config";</code>：包含指定的配置文件。</li>
+</ul>
+<p><strong><code>logging</code> 部分：</strong></p>
+<ul>
+<li>定义了一个名为 <code>default_debug</code> 的日志通道，将日志输出到 <code>data/named.run</code> 文件，日志级别为动态。</li>
+</ul>
+<p><strong><code>zone "." IN</code> 部分：</strong></p>
+<ul>
+<li>
+<p>定义了根区域，类型为 <code>hint</code>，数据文件为 <code>named.ca</code>。</p>
+</li>
+<li>
+<p><code>include "/etc/named.rfc1912.zones";</code>：引入区域配置文件。</p>
+</li>
+<li><code>include "/etc/named.root.key";</code>：引入根域的相关密钥文件。</li>
+</ul>
+<h3 id="varnamed"><code>/var/named</code> 下的文件目录的作用</h3>
+<ul>
+<li><code>named.ca</code>：存放根域名服务器的地址（IPv4、IPv6）</li>
+<li><code>named.localhost</code>：正向区域配置文件模板</li>
+<li><code>named.loopback</code>：反向区域配置文件模板</li>
+<li><code>named.empty</code>：模板</li>
+<li><code>slaves</code>：用于主从</li>
+<li><code>data</code>：用于存放数据</li>
+<li><code>dynamic</code>：通常用于存放与动态 DNS 相关的信息</li>
+</ul>
+<h3 id="etcnamedrfc1912zones"><code>/etc/named.rfc1912.zones</code> 配置文件解析</h3>
+<p>该文件用于定义DNS区域的相关信息，包括区域的名称、类型（如主区域、从区域、正向区域、反向区域）以及对应的区域数据文件的路径。</p>
+<p>例（正向区域）：</p>
+<div class="highlight"><pre><span></span><code>zone &quot;example.com&quot; IN {          # 定义了正向区域的名字
+    type master;                  # 表示这是一个主区域
+    file &quot;example.com.zone&quot;;      # 指定正向区域配置文件的位置
+};
+</code></pre></div>
+<p>例（反向区域）：</p>
+<div class="highlight"><pre><span></span><code>zone &quot;100.168.192.in-addr.arpa&quot; IN {   # 反向区域，需要反写IP，并接上in-addr.arpa
+    type master;
+    file &quot;192.168.100.zone&quot;;
+};
+</code></pre></div>
+<hr />
+<h2 id="_12">区域配置文件</h2>
+<p>区域配置文件是 DNS 服务器中用于定义特定区域（如域名区域或反向 IP 区域）相关信息和资源记录的文件。</p>
+<h3 id="_13">正向区域配置文件</h3>
+<div class="highlight"><pre><span></span><code>$TTL 1D
+@   IN SOA  @ rname.invalid. (
+                    0          ; serial
+                    1D         ; refresh
+                    1H         ; retry
+                    1W         ; expire
+                    3H )       ; minimum
+    NS      @
+    A       127.0.0.1
+    AAAA    ::1
+</code></pre></div>
+<p>可将多个不同子网的IP进行解析，不需要写在多个正向区域文件。</p>
+<ul>
+<li><code>$TTL 1D</code>：设置默认的生存时间（Time To Live）为 1 天，当下级DNS解析到该服务器的记录后，缓存一天时间。</li>
+<li><code>@ IN SOA @ rname.invalid. (...)</code>：</li>
+<li><code>@</code> 表示当前区域，代表此区域文件为单独的，与其他域无关系。</li>
+<li><code>IN</code> 表示 Internet 类别。</li>
+<li><code>SOA</code> 是起始授权机构记录。代表该域为权威域。</li>
+<li><code>@</code> 在这里作为主域名服务器的名称。</li>
+<li><code>rname.invalid.</code> 是管理员的邮箱（将 <code>@</code> 替换为 <code>.</code>）。</li>
+<li>括号内：<ul>
+<li><code>0</code>：版本号（serial）</li>
+<li><code>1D</code>：表示从服务器向主服务器同步记录的时间间隔（refresh）</li>
+<li><code>1H</code>：表示从服务器向主服务器同步记录的重试时间（retry）</li>
+<li><code>1W</code>：表示从服务器判断主服务器是否失效的时间间隔（expire）</li>
+<li><code>3H</code>：无效域名的缓存时间（minimum）。在这段时间内，用户查询无效域名，服务器将会直接返回无法解析，不进行查询</li>
+</ul>
+</li>
+<li><code>NS @</code>：指定名称服务器为当前区域。</li>
+<li><code>A 127.0.0.1</code>：将当前区域解析到 IPv4 地址 <code>127.0.0.1</code>。</li>
+<li><code>AAAA ::1</code>：将当前区域解析到 IPv6 地址 <code>::1</code>。</li>
+</ul>
+<h3 id="_14">反向区域配置文件</h3>
+<div class="highlight"><pre><span></span><code>$TTL 1D
+@   IN SOA  @ rname.invalid. (
+                    0          ; serial
+                    1D         ; refresh
+                    1H         ; retry
+                    1W         ; expire
+                    3H )       ; minimum
+    NS      @
+    A       127.0.0.1
+    AAAA    ::1
+    PTR     localhost.
+</code></pre></div>
+<p>其他都和正向区域配置文件一致，只是记录是PTR记录。需要注意：==如果不同网段的反向记录，要有多个反向区域配置文件，一个反向区域配置文件，只能配置一个子网的反向记录。==</p>
+<ul>
+<li><code>$TTL 1D</code>：表示默认的生存时间（Time To Live）为 1 天。</li>
+<li><code>@ IN SOA @ rname.invalid. (...)</code>：</li>
+<li><code>@</code> 代表当前区域。</li>
+<li><code>IN</code> 表示 Internet 类别。</li>
+<li><code>SOA</code> 是起始授权机构记录。</li>
+<li>第一个 <code>@</code> 表示主域名服务器，第二个 <code>rname.invalid.</code> 是管理员的邮箱（将 <code>@</code> 替换为 <code>.</code>）。括号中的数字分别表示序列号、刷新间隔、重试间隔、过期时间和最小生存时间。</li>
+<li><code>NS @</code>：指定名称服务器为当前区域。</li>
+<li><code>A 127.0.0.1</code>：将当前区域解析到 IPv4 地址 <code>127.0.0.1</code>。</li>
+<li><code>AAAA ::1</code>：将当前区域解析到 IPv6 地址 <code>::1</code>。</li>
+<li><code>PTR localhost.</code>：创建一个指针（PTR）记录，将 IP 地址与主机名 <code>localhost</code> 关联。</li>
+</ul>
+<hr />
+<h2 id="dns_2">DNS的记录类型</h2>
+<ol>
+<li><strong>A 记录</strong>（Address Record）：将域名映射到 IPv4 地址。</li>
+<li>
+<p>例如：<code>www.example.com. A 192.168.1.10</code> 表示当用户访问 <code>www.example.com</code> 时，将被引导到 <code>192.168.1.10</code> 这个 IPv4 地址。</p>
+</li>
+<li>
+<p><strong>AAAA 记录</strong>（IPv6 Address Record）：将域名映射到 IPv6 地址。</p>
+</li>
+<li>
+<p>例如：<code>www.example.com. AAAA 2001:0db8:85a3:0000:0000:8a2e:0370:7334</code></p>
+</li>
+<li>
+<p><strong>CNAME 记录</strong>（Canonical Name Record）：为域名创建别名。</p>
+</li>
+<li>例如：<code>alias.example.com. CNAME www.example.com.</code> 意味着访问 <code>alias.example.com</code> 时，实际上会被重定向到 <code>www.example.com</code>。</li>
+<li><code>www.baidu.com</code> 就是一个别名记录。</li>
+</ol>
+<p><img alt="image-20260524225005041" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225005115.png" /></p>
+<ol>
+<li><strong>MX 记录</strong>（Mail Exchanger Record）：指定负责接收该域电子邮件的邮件服务器。</li>
+<li>当有邮件发送到某个域名（例如 <code>example.com</code>）时，邮件服务器会查询该域名的 MX 记录，以确定将邮件路由到哪个具体的邮件服务器进行处理。</li>
+<li>
+<p>例如，如果 <code>example.com</code> 的 MX 记录设置为 <code>MX 10 mail.example.com</code>，这意味着邮件应该优先发送到 <code>mail.example.com</code> 这个邮件服务器。数字 10 表示优先级，数值越小优先级越高。如果存在多个 MX 记录，邮件服务器会根据优先级来选择首先尝试投递邮件的服务器。</p>
+</li>
+<li>
+<p><strong>NS 记录</strong>（Name Server Record）：指定负责该区域的域名服务器。</p>
+</li>
+<li>
+<p>例如：<code>example.com. NS ns1.example.com.</code> 表明 <code>ns1.example.com</code> 是 <code>example.com</code> 区域的域名服务器（权威域名服务器）。</p>
+</li>
+<li>
+<p><strong>SOA 记录</strong>（Start of Authority Record）：包含有关区域的权威信息，如主服务器、管理员邮箱、序列号等。</p>
+</li>
+<li>
+<p><strong>PTR 记录</strong>（Pointer Record）：用于反向 DNS 解析，将 IP 地址映射到域名。</p>
+</li>
+<li>
+<p><strong>TXT 记录</strong>（Text Record）：可用于提供任意文本信息，常用于验证域名所有权、设置 SPF 记录等。</p>
+</li>
+<li>
+<p><strong>SRV 记录</strong>（Service Record）：用于指定特定服务的服务器位置和端口。</p>
+</li>
+<li>
+<p><strong>CAA 记录</strong>（Certificate Authority Authorization，证书颁发机构授权）：是 DNS 中的一种新型记录类型，用于指定哪些证书颁发机构（CA）被授权为域名颁发 SSL/TLS 证书。</p>
+<ul>
+<li>通过设置 CAA 记录，域名所有者可以明确指定允许的 CA，防止未经授权的 CA 为其域名颁发证书，从而降低域名被恶意或错误颁发证书的风险。</li>
+</ul>
+</li>
+<li>
+<p><strong>泛记录</strong>：通过使用通配符 <code>*</code> 来匹配子域名的DNS记录。</p>
+<ul>
+<li>例如：<code>*.example.com</code>，指的是当有任何未知的 <code>example.com</code> 的子域名都会被解析到 <code>*.example.com</code> 这条记录。</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h2 id="dns_3">云DNS解析</h2>
+<h3 id="_15">线路类型</h3>
+<ul>
+<li><strong>全网默认</strong>：如果没有设置其他线路，则返回默认解析结果。</li>
+<li><strong>运营商线路</strong>：根据访问的用户所在的运营商网络调度到对应的线路。</li>
+<li><strong>地域线路</strong>：根据访问的用户所处地理位置调度到对应的线路。</li>
+</ul>
+<p><img alt="image-20260524225037332" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225037393.png" /></p>
+<h3 id="ttl">TTL</h3>
+<p><img alt="image-20260524225051166" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225051229.png" /></p>
+<p>指记录在本地DNS服务器的缓存时间。也就是修改了记录后，需要等待TTL超时，才能够更新到新的DNS记录。</p>
+<p><strong>举例：</strong> 配置中 <code>www.example.com</code> 指向 <code>192.168.1.100</code>，修改成 <code>192.168.10.100</code> 后：</p>
+<p><img alt="image-20260524225120506" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225120586.png" /></p>
+<ul>
+<li>通过 <code>ping</code> 命令发现记录已经被修改过来</li>
+<li>但如果通过DNS工具进行解析，发现还是原来的记录，需要 TTL 过期后才可以解析到最新的记录</li>
+</ul>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225145825.png" /></p>
+<hr />
+<h2 id="_16">日志</h2>
+<p>主配置文件中通过 <code>logging</code> 字段定义了日志，默认的日志位置为 <code>/var/named/data/named.run</code>。</p>
+<p><img alt="image-20260524225159503" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225159564.png" /></p>
+<p><img alt="image-20260524225303882" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225303954.png" /></p>
+<hr />
+<h2 id="dns_4">DNS的客户端工具</h2>
+<h3 id="nslookup">nslookup</h3>
+<ol>
+<li>
+<p><strong>查询域名对应的 IP 地址</strong>：直接输入 <code>nslookup 域名</code>，例如：<code>nslookup www.example.com</code>，它将返回该域名对应的 IP 地址。</p>
+</li>
+<li>
+<p><strong>指定 DNS 服务器进行查询</strong>：<code>nslookup 域名 DNS服务器地址</code>，例如：<code>nslookup www.example.com 8.8.8.8</code>，使用指定的 <code>8.8.8.8</code> 这个 DNS 服务器来查询。</p>
+</li>
+</ol>
+<p><img alt="image-20260524225329895" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225329966.png" /></p>
+<ol>
+<li>
+<p><strong>交互式模式</strong>：输入 <code>nslookup</code> 进入交互式模式，然后可以输入域名进行查询。在交互式模式下，可以使用 <code>set</code> 命令设置一些参数，例如：</p>
+</li>
+<li>
+<p><code>set type=mx</code>：查询 MX 记录</p>
+</li>
+<li>
+<p><code>set type=cname</code>：查询 CNAME 记录</p>
+</li>
+</ol>
+<p><img alt="image-20260524225355535" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225355700.png" /></p>
+<h3 id="dig">dig（最强）</h3>
+<ol>
+<li><strong>基本查询</strong>：要查询域名的 A 记录，可输入：<code>dig example.com A</code>。类似地，可指定其他记录类型，如 <code>MX</code>、<code>CNAME</code> 等。</li>
+</ol>
+<p><img alt="image-20260524225416545" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225416622.png" /></p>
+<ol>
+<li><strong>指定 DNS 服务器</strong>：<code>dig @8.8.8.8 example.com</code>，使用 <code>8.8.8.8</code> 这台 DNS 服务器进行查询。</li>
+</ol>
+<p><img alt="image-20260524225428603" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225428680.png" /></p>
+<ol>
+<li><strong>查看详细信息</strong>：添加 <code>+trace</code> 选项可以查看 DNS 解析的详细跟踪过程，例如：<code>dig +trace example.com</code></li>
+</ol>
+<p><img alt="image-20260524225442311" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225442404.png" /></p>
+<ol>
+<li><strong>批量查询</strong>：可以将多个域名放在一个文件中，然后使用 <code>-f</code> 选项进行批量查询。</li>
+</ol>
+<p><img alt="image-20260524225451297" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225451372.png" /></p>
+<ol>
+<li><strong>输出格式控制</strong>：使用 <code>+short</code> 选项只输出简洁的结果。</li>
+</ol>
+<p><img alt="image-20260524225459711" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225459783.png" /></p>
+<h3 id="host">host</h3>
+<ol>
+<li><strong>基本域名查询</strong>：输入 <code>host example.com</code>，它将返回 <code>example.com</code> 的 IP 地址。</li>
+</ol>
+<p><img alt="image-20260524225509803" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225509871.png" /></p>
+<ol>
+<li><strong>指定查询类型</strong>：</li>
+<li>
+<p><code>host -t MX example.com</code> 用于查询 MX 记录</p>
+<p><img alt="image-20260524225521061" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225521128.png" />
+   - <code>host -t CNAME example.com</code> 用于查询 CNAME 记录</p>
+<p><img alt="image-20260524225535640" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225535700.png" /></p>
+</li>
+<li>
+<p><strong>显示详细信息</strong>：使用 <code>-v</code> 选项获取更详细的输出。</p>
+</li>
+</ol>
+<p><img alt="image-20260524225546165" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225546252.png" /></p>
+<hr />
+<h2 id="_17">配置演示</h2>
+<p>以 <code>example.com</code> 这个域为例进行解析。</p>
+<h3 id="1-dns">1. 服务器安装DNS</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 安装DNS</span>
+<span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># yum install bind -y</span>
+<span class="c1"># 启动DNS服务</span>
+<span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl start named</span>
+<span class="c1"># 开启自启动</span>
+<span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl enable named</span>
+Created<span class="w"> </span>symlink<span class="w"> </span>/etc/systemd/system/multi-user.target.wants/named.service
+→<span class="w"> </span>/usr/lib/systemd/system/named.service.
+</code></pre></div>
+<h3 id="2-dns">2. 服务器配置DNS主配置文件</h3>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># vim /etc/named.conf</span>
+...
+
+listen-on<span class="w"> </span>port<span class="w"> </span><span class="m">53</span><span class="w"> </span><span class="o">{</span><span class="w"> </span>any<span class="p">;</span><span class="w"> </span><span class="o">}</span><span class="p">;</span><span class="w">    </span><span class="c1"># 监听在所有端口</span>
+...
+allow-query<span class="w">     </span><span class="o">{</span><span class="w"> </span>any<span class="p">;</span><span class="w"> </span><span class="o">}</span><span class="p">;</span><span class="w">      </span><span class="c1"># 允许所有人进行解析</span>
+...
+
+<span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># systemctl restart named</span>
+</code></pre></div>
+<h3 id="3-dns">3. 客户端指定DNS服务器，并测试</h3>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@client<span class="w"> </span>~<span class="o">]</span><span class="c1"># vi /etc/resolv.conf</span>
+nameserver<span class="w"> </span><span class="m">192</span>.168.100.100
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@client<span class="w"> </span>~<span class="o">]</span><span class="c1"># nslookup www.baidu.com</span>
+Server:<span class="w">         </span><span class="m">192</span>.168.100.100
+Address:<span class="w">        </span><span class="m">192</span>.168.100.100#53
+
+Non-authoritative<span class="w"> </span>answer:
+www.baidu.com<span class="w">   </span>canonical<span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>www.a.shifen.com.
+Name:<span class="w">   </span>www.a.shifen.com
+Address:<span class="w"> </span><span class="m">180</span>.101.50.188
+Name:<span class="w">   </span>www.a.shifen.com
+Address:<span class="w"> </span><span class="m">180</span>.101.50.242
+Name:<span class="w">   </span>www.a.shifen.com
+Address:<span class="w"> </span>240e:e9:6002:15a:0:ff:b05c:1278
+Name:<span class="w">   </span>www.a.shifen.com
+Address:<span class="w"> </span>240e:e9:6002:15c:0:ff:b015:146f
+</code></pre></div>
+<blockquote>
+<p><strong>疑问：为什么我们在服务端什么都没有配置却可以解析出公网的域名呢？</strong></p>
+<p>因为在 <code>/etc/named.conf</code> 配置文件里，默认开启了递归查询 <code>recursion yes;</code>。当我们发送了一个公网DNS查询后，DNS服务器就会向根域名服务器发送DNS查询。</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># cat /etc/named.conf | grep &#39;recursion no;&#39;</span>
+recursion<span class="w"> </span>no<span class="p">;</span>
+<span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># nslookup baidu.com</span>
+Server:<span class="w">         </span><span class="m">192</span>.168.100.100
+Address:<span class="w">        </span><span class="m">192</span>.168.100.100#53
+**<span class="w"> </span>server<span class="w"> </span>can<span class="err">&#39;</span>t<span class="w"> </span>find<span class="w"> </span>baidu.com:<span class="w"> </span>REFUSED
+</code></pre></div>
+<h3 id="4">4. 配置正向解析</h3>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># vim /etc/named.rfc1912.zones</span>
+zone<span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="w"> </span>IN<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">type</span><span class="w"> </span>master<span class="p">;</span>
+<span class="w">    </span>file<span class="w"> </span><span class="s2">&quot;example.com.zone&quot;</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="5">5. 配置反向解析</h3>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># vim /etc/named.rfc1912.zones</span>
+zone<span class="w"> </span><span class="s2">&quot;100.168.192.in-addr.arpa&quot;</span><span class="w"> </span>IN<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">type</span><span class="w"> </span>master<span class="p">;</span>
+<span class="w">    </span>file<span class="w"> </span><span class="s2">&quot;100.168.192.zone&quot;</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="6">6. 创建正向和反向区域文件</h3>
+<ul>
+<li>正向区域文件模板：<code>/var/named/named.localhost</code></li>
+<li>反向区域文件模板：<code>/var/named/named.loopback</code></li>
+<li>复制时需要加上 <code>-a</code> 选项，否则 <code>named</code> 虚拟用户没有权限，无法使用区域文件。若没有使用 <code>-a</code> 选项，则需要手动给予权限。</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># cp -a /var/named/named.localhost /var/named/example.com.zone</span>
+<span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># cp -a /var/named/named.loopback /var/named/100.168.192.zone</span>
+</code></pre></div>
+<h3 id="7">7. 配置正向区域文件</h3>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># vim /var/named/example.com.zone</span>
+<span class="nv">$TTL</span><span class="w"> </span>1D
+@<span class="w">       </span>IN<span class="w"> </span>SOA<span class="w">  </span>ns.example.com<span class="w"> </span>admin.example.com<span class="w"> </span><span class="o">(</span>
+<span class="w">                    </span><span class="m">0</span><span class="w">          </span><span class="p">;</span><span class="w"> </span>serial
+<span class="w">                    </span>1D<span class="w">         </span><span class="p">;</span><span class="w"> </span>refresh
+<span class="w">                    </span>1H<span class="w">         </span><span class="p">;</span><span class="w"> </span>retry
+<span class="w">                    </span>1W<span class="w">         </span><span class="p">;</span><span class="w"> </span>expire
+<span class="w">                    </span>3H<span class="w"> </span><span class="o">)</span><span class="w">       </span><span class="p">;</span><span class="w"> </span>minimum
+<span class="w">        </span>NS<span class="w">      </span>ns.example.com.<span class="w">    </span><span class="c1"># 声明DNS权威服务器是ns.example.com</span>
+<span class="w">        </span>A<span class="w">       </span><span class="m">192</span>.168.100.100<span class="w">    </span><span class="c1"># 将当前区域example.com解析到192.168.100.100</span>
+ns<span class="w">      </span>A<span class="w">       </span><span class="m">192</span>.168.100.100<span class="w">    </span><span class="c1"># 将权威服务器解析到192.168.100.100</span>
+www<span class="w">     </span>A<span class="w">       </span><span class="m">192</span>.168.100.100
+qyt<span class="w">     </span>A<span class="w">       </span><span class="m">192</span>.168.100.100
+shqytang<span class="w"> </span>CNAME<span class="w">  </span>qyt.example.com.
+mail<span class="w">    </span>A<span class="w">       </span><span class="m">192</span>.168.100.100
+@<span class="w">       </span>MX<span class="w"> </span><span class="m">5</span><span class="w">    </span>mail.example.com
+</code></pre></div>
+<ul>
+<li><code>ns.example.com</code>：权威域名服务器的名称</li>
+<li><code>admin.example.com</code>：管理员的电子邮件地址（将 <code>@</code> 替换为 <code>.</code>，防止冲突）</li>
+</ul>
+<h3 id="8">8. 配置反向区域文件</h3>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># vim /var/named/100.168.192.zone</span>
+<span class="nv">$TTL</span><span class="w"> </span>1D
+@<span class="w">       </span>IN<span class="w"> </span>SOA<span class="w">  </span>ns.example.com<span class="w"> </span>admin.example.com.<span class="w"> </span><span class="o">(</span>
+<span class="w">                    </span><span class="m">0</span><span class="w">          </span><span class="p">;</span><span class="w"> </span>serial
+<span class="w">                    </span>1D<span class="w">         </span><span class="p">;</span><span class="w"> </span>refresh
+<span class="w">                    </span>1H<span class="w">         </span><span class="p">;</span><span class="w"> </span>retry
+<span class="w">                    </span>1W<span class="w">         </span><span class="p">;</span><span class="w"> </span>expire
+<span class="w">                    </span>3H<span class="w"> </span><span class="o">)</span><span class="w">       </span><span class="p">;</span><span class="w"> </span>minimum
+<span class="w">        </span>NS<span class="w">      </span>ns.example.com.
+<span class="m">100</span><span class="w">     </span>PTR<span class="w">     </span>www.example.com
+<span class="m">101</span><span class="w">     </span>PTR<span class="w">     </span>gugujun.example.com
+<span class="m">102</span><span class="w">     </span>PTR<span class="w">     </span>qyt.example.com
+</code></pre></div>
+<h3 id="9">9. 检查主配置文件和区域文件的正确性</h3>
+<p>验证命令：</p>
+<p><img alt="image-20260524225638053" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225638120.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 验证区域配置文件</span>
+named-checkzone<span class="w"> </span>example.com<span class="o">(</span>域名<span class="o">)</span><span class="w"> </span>example.com.zone（区域文件）
+
+<span class="c1"># 验证主配置文件（如果没有错误，则没有任何回显）</span>
+named-checkconf<span class="w"> </span>/etc/named.conf
+</code></pre></div>
+<p><img alt="image-20260524225650968" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225651037.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>root@server<span class="w"> </span>~<span class="o">]</span><span class="c1"># named-checkzone example.com /var/named/example.com.zone</span>
+/var/named/example.com.zone:15:<span class="w"> </span>warning:<span class="w"> </span><span class="s1">&#39;192.168.100.100&#39;</span>:<span class="w"> </span>MX<span class="w"> </span>is<span class="w"> </span>an<span class="w"> </span>address
+zone<span class="w"> </span>example.com/IN:<span class="w"> </span>example.com/MX<span class="w"> </span><span class="s1">&#39;192.168.100.100.example.com&#39;</span><span class="w"> </span>has<span class="w"> </span>no<span class="w"> </span>address<span class="w"> </span>records<span class="w"> </span><span class="o">(</span>A<span class="w"> </span>or<span class="w"> </span>AAAA<span class="o">)</span>
+zone<span class="w"> </span>example.com/IN:<span class="w"> </span>loaded<span class="w"> </span>serial<span class="w"> </span><span class="m">0</span>
+OK
+</code></pre></div>
+<h3 id="10">10. 验证</h3>
+<p><img alt="image-20260524225708958" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260524225709056.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

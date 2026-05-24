@@ -1,0 +1,3126 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/">
+      
+      
+        <link rel="next" href="../02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>防火墙基本概念 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#01_" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              防火墙基本概念
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.防火墙基础知识
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.防火墙基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.防火墙的发展历史
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12enspweb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.ensp中防火墙Web界面
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.防火墙安全策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.防火墙安全策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.安全区域
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.安全区域">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.区域的基本概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.本地区域
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.安全级别
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.安全策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.安全策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.安全策略的基本概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.安全域间与报文流动方向
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.安全策略的匹配过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.安全策略实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.状态检测与会话机制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.状态检测与会话机制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.背景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.会话机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24aspf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.ASPF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.ASPF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.技术背景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242aspf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.ASPF介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243server-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.Server-map表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244ftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.FTP概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5.实验分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#246aspf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.6.ASPF命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.安全策略补
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.防火墙基础知识
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.防火墙基础知识">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.防火墙的发展历史
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12enspweb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.ensp中防火墙Web界面
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.防火墙安全策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.防火墙安全策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.安全区域
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.安全区域">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.区域的基本概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.本地区域
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.安全级别
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.安全策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.安全策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.安全策略的基本概念
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.安全域间与报文流动方向
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.安全策略的匹配过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.安全策略实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.状态检测与会话机制
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.状态检测与会话机制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.背景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.会话机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24aspf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.ASPF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.ASPF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.技术背景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242aspf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.ASPF介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243server-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.Server-map表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244ftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.FTP概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5.实验分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#246aspf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.6.ASPF命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.安全策略补
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="01_">01_防火墙基本概念</h1>
+<h3 id="1">1.防火墙基础知识</h3>
+<p>防火墙属于网络安全设备，其主要作用是通过各种配置，拒绝非授权的访问，保护网络安全。防火墙作为一个独立的硬件设备，可以通过访问控制、身份验证、数据加密、<code>vpn</code>技术等安全功能，形成一个信息进出的“屏障”。</p>
+<p>防火墙不仅可以确保内部网络安全地访问互联网，同时还可以保护内部网络的安全。</p>
+<p><img alt="image-20250902151040442" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902151040472.png" /></p>
+<h4 id="11">1.1.防火墙的发展历史</h4>
+<p><img alt="image-20250902152730898" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902152730929.png" /></p>
+<p><strong>包过滤防火墙</strong></p>
+<p>包过滤防火墙属于第一代防火墙。这种防火墙通过配置访问控制列表对数据报文进行过滤，并根据策略转发或丢弃数据报文，其设计简单且易于实现。但是包过滤不检查会话状态且不分析数据，攻击者可以使用假冒地址进行欺骗，然后通过防火墙。</p>
+<p><strong>代理防火墙</strong></p>
+<p>代理防火墙属于第二代防火墙。代理检查来自用户的请求，匹配安全策略后代表外部用户与真正的服务器建立连接，转发外部用户请求。代理防火墙安全性较高，但软件限制处理速度，同时需要为每一种应用开发对应的代理服务，开发周期长且升级困难。</p>
+<p><strong>状态检测防火墙</strong></p>
+<p>状态检测防火墙属于第三代防火墙。状态检测属于包过滤技术的延申，对基于连接状态的数据报文进行检查时，它会考虑数据报文前后的关系，这意味着每个数据报文都不是独立存在的，而是前后有状态联系的。基于这样的状态联系，发展出了状态检测技术。状态检测防火墙通过动态分析激活的<code>TCP</code>会话和<code>UDP</code>会话状态采取动作，处理速度快且安全性高。</p>
+<p><strong>统一威胁管理管理防火墙</strong></p>
+<p>统一威胁管理（<code>United Threat Management,UTM</code>）防火墙属于新一代防火墙。除了具备基本防火墙功能外，它还将入侵检测、访问控制、防病毒、<code>URL</code>过滤等功能继承于一身，实现全面的安全防护功能。</p>
+<p><strong>下一代防火墙</strong></p>
+<p>下一代防火墙（<code>Next Generation Firewall,NFGW</code>）最初的目的是解决<code>UTM</code>防火墙运行多个功能后性能下降的问题。<code>2009</code>年<code>Gartner</code>对下一代防火墙重新进行了定义，明确了下一代防火墙除了具有<code>UTM</code>防火墙功能外，还可以基于用户、应用、内容进行管控。</p>
+<hr />
+<h4 id="12enspweb">1.2.ensp中防火墙Web界面</h4>
+<p><strong>导入防火墙镜像：</strong>在<code>ensp</code>中选择<code>USG6000v</code>设备，右键运行会出现如下弹框，点击浏览选择我分享的镜像即可。</p>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250912162447940.png" /></p>
+<p><strong>拓扑：</strong></p>
+<p><img alt="image-20250912162428369" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250912162428431.png" /></p>
+<p><strong>设置Cloud：</strong></p>
+<p><img alt="image-20250912162348329" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250912162348400.png" /></p>
+<p><strong>防火墙默认密码：</strong><code>Admin@123</code></p>
+<p><img alt="image-20250912162752317" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250912162752383.png" /></p>
+<p><strong>配置管理口：</strong></p>
+<div class="highlight"><pre><span></span><code>interface GigabitEthernet0/0/0
+ undo shutdown
+ ip binding vpn-instance default    # 绑定虚拟系统（VPN实例）
+ ip address 192.168.10.100 255.255.255.0    # 地址，与你的cloud配置一个网段
+ alias GE0/METH # 别名，为物理端口设置了一个易于识别和记忆的别名。
+ service-manage http permit
+ service-manage https permit
+ service-manage ping permit
+ service-manage ssh permit
+ service-manage snmp permit
+ service-manage telnet permit
+</code></pre></div>
+<p><strong>网页访问：</strong><code>https://&lt;ip&gt;:8443</code></p>
+<hr />
+<h3 id="2">2.防火墙安全策略</h3>
+<h4 id="21">2.1.安全区域</h4>
+<p>防火墙不仅仅是一个入口的屏障，更应该是多个网络的接入控制点。所有进出内网的数据流都应该首先经过防火墙，形成一个信息进出的关口。</p>
+<p>如下图，此时以防火墙为中心，网络拓扑其实分为三个区域：内网、服务器区、外网。那么防火墙此时的作用就是控制不同区域之间的流量通行。</p>
+<p><img alt="image-20250902171013244" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902171013266.png" /></p>
+<p>我们现在根据上图，可以很轻松的做出规划，例如市场部不允许访问服务器区。但是，防火墙是怎么知道该数据包是从哪来，访问哪里的呢？此时，需要用到区域的概念。</p>
+<hr />
+<h5 id="211">2.1.1.区域的基本概念</h5>
+<p>安全区域（<code>Security Zone</code>），它是一个或多个接口的集合，是防火墙区别于路由器的主要特征，防火墙通过安全区域来划分网络、标识报文流动的”路线“。防火墙需要提前将接口划分到某个安全区域，然后再配合<strong>安全策略</strong>实现流量控制。</p>
+<p><strong>一般来说，同一区域间的数据报文不使用安全策略进行控制，只有当数据报文在不同区域间传送时才会使用安全策略进行控制。如果你需要对同区域的流量进行控制，就需要配置区域内的安全策略</strong></p>
+<p>华为<code>USG</code>防火墙默认保留<code>4</code>个安全区域：</p>
+<ul>
+<li>本地<code>Local</code>区域：该区域代表防火墙本身，默认安全级别为<code>100</code>。</li>
+<li>信任<code>Trust</code>区域：该区域一般用于定义内部网络，默认安全级别为<code>85</code>。</li>
+<li>非信任<code>Untrust</code>区域：该区域一般用于定义非内部网络或互联网，默认安全级别为<code>5</code>。</li>
+<li>隔离区域<code>DMZ</code>：该区域一般用于定义内部服务器所在的网络，默认安全级别为<code>50</code>。</li>
+</ul>
+<p>在生产环境中，可以根据实际情况定义多个区域，如果是较小的生产环境，可以直接使用默认的安全区域。华为<code>USG</code>防火墙每个安全区域（包括自定义）都有一个级别，该级别是唯一的，用数字<code>1-100</code>进行表示，数字越大，表示该区域的可信度越高。</p>
+<p><img alt="image-20250903140020419" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903140020455.png" /></p>
+<hr />
+<h5 id="212">2.1.2.本地区域</h5>
+<p>其他厂商的防火墙可能不存在<strong>本地区域</strong>的概念，而华为<code>USG</code>防火墙提供本地区域，代表防火墙本身。</p>
+<p>凡是由防火墙主动发出的报文均认为是<code>Local</code>区域发出的，凡是需要防火墙相应并处理（非转发）的报文均认为是由<code>Local</code>区域接收。</p>
+<p>防火墙上所有业务接口本身都属于<code>Local</code>区域，<code>Local</code>区域中不能认为添加</p>
+<p><strong>注意：</strong></p>
+<p>如下图，你有没有产生一个疑问，假设我在<code>FW</code>上将<code>G1/0/0</code>接口划分到<code>Trust</code>区域，<code>G1/0/1</code>接口划分到<code>Untrust</code>区域。那么现在<code>G1/0/0</code>接口和<code>G1/0/1</code>接口到底属于<strong>本地区域</strong>呢？还是<code>Trust、Untrust</code>区域呢？</p>
+<p><img alt="image-20250903141531398" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903141531424.png" /></p>
+<p>解决这个问题你得搞清楚<strong>流量</strong>：</p>
+<ul>
+<li>如果你当前这个流量的始发或目的是防火墙本身，那<code>G1/0/0</code>接口的身份就是<code>Local</code>区域。</li>
+<li>例如<code>AR1</code>访问<code>USG</code>的<code>G1/0/1</code>的流量，此时这条流量的目的安全区域为<code>Local</code>。</li>
+<li>如果当前防火墙的作用是<strong>转发</strong>，也就是说流量是经过防火墙，而不以防火墙为始发或目的，那么它就是<code>Trust</code>。</li>
+<li>例如<code>AR1</code>访问<code>AR2</code>的流量，此时<code>USG</code>的<code>G1/0/1</code>接口身份为<code>Untrust</code>，<code>G1/0/0</code>接口身份为<code>Trust</code>。</li>
+</ul>
+<hr />
+<h5 id="213">2.1.3.安全级别</h5>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903144701333.png" /></p>
+<p>每个安全区域包括自定义区域都有一个值——安全级别。安全级别的作用除了用来区分安全程度之外，还可以用来判断<strong>安全区域之间流量的走向</strong>：</p>
+<ol>
+<li><strong>入方向：</strong>数据报文从低级别安全区域向高级别安全区域流动时为入方向。</li>
+<li><strong>出方向：</strong>数据报文从高级别安全区域向低级别安全区域流动时为出方向。</li>
+</ol>
+<p>华为<code>USG</code>防火墙最多支持<code>32</code>个安全区域。</p>
+<p><strong>注意：</strong>只能为自定义的安全区域设定安全级别。若新建的安全区域没有设定安全级别，该安全区域不可用。安全级别一旦设定，不允许更改。</p>
+<hr />
+<h5 id="214">2.1.4.实验</h5>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903141838250.png" /></p>
+<p><strong>实验一：将接口划入安全区域</strong></p>
+<p>将<code>USG</code>的<code>G1/0/0</code>接口划入<code>Trust</code>区域：</p>
+<div class="highlight"><pre><span></span><code>[USG]firewall zone trust
+[USG-zone-trust]add interface G1/0/0
+[USG-zone-trust]quit
+</code></pre></div>
+<p><img alt="image-20250903141957744" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903141957776.png" /></p>
+<p><strong>实验二：自定义区域</strong></p>
+<ol>
+<li>创建区域</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[USG]firewall zone ?    # 需要加上name参数，代表新建区域。
+  dmz      Specify dmz security zone
+  local    Specify local security zone
+  name     Indicate a security zone name to be created or deleted
+  trust    Specify trust security zone
+  untrust  Specify untrust security zone
+
+[USG]firewall zone name newzone ?   # id为区域标识符，每个安全区域需要分配一个4-99范围内的唯一数字ID，用于系统内部识别和管理不同区域。若不指定则自动分配。
+  id    Indicate security zone id
+  &lt;cr&gt;
+
+[USG]firewall zone name newzone
+</code></pre></div>
+<ol>
+<li>设置新区域的安全级别，划分接口</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[USG]firewall zone newzone
+[USG-zone-newzone]set priority 60
+[USG-zone-newzone]description newzone   # 区域说明，无实际作用
+[USG-zone-newzone]add interface g1/0/1  # 将G1/0/1接口加入该区域
+</code></pre></div>
+<ol>
+<li>验证</li>
+</ol>
+<p><img alt="image-20250903144232449" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903144232489.png" /></p>
+<hr />
+<h4 id="22">2.2.安全策略</h4>
+<h5 id="221">2.2.1.安全策略的基本概念</h5>
+<p>防火墙的基本作用是对区域与区域之间的访问行为进行控制，保护特定网络免受<strong>不信任</strong>网络的攻击，但同时还必须允许区域之间的合法通信。防火墙使用<strong>安全策略</strong>实现上述功能。</p>
+<p>安全策略和<code>Router-Policy</code>很像是由<strong>匹配条件</strong>（五元组、用户、时间段等）和<strong>动作</strong>（允许、不允许）组成的控制规则，防火墙收到流量后，对流量的属性（五元组、用户、时间段等）进行识别，并将流量的属性与安全策略的匹配条件进行匹配，最终决定该流量是否放行。</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p><strong>五元组：</strong>源<code>IP</code>地址、目标<code>IP</code>地址、源端口、目标端口、传输协议（<code>TCP/UDP</code>）</p>
+</blockquote>
+<p><img alt="image-20250903153311335" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903153311366.png" /></p>
+<hr />
+<h5 id="222">2.2.2.安全域间与报文流动方向</h5>
+<p><strong>安全域间</strong>用来描述流量的传输通告，它是两个<code>zone</code>之间的唯一道路。如下图中，当一段流量需要从<code>Trust</code>区域到达<code>Untrust</code>区域时，此时就出现了<strong>安全域间</strong>，如果需要对这条通告的流量进行检测，就必须在<strong>防火墙</strong>上配置对应的<strong>安全策略</strong>，用来允许流量的同行。</p>
+<p><img alt="image-20250903153530065" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903153530096.png" /></p>
+<p><strong>安全域间</strong>的数据流动具有<strong>方向性</strong>：</p>
+<ul>
+<li><strong>入方向</strong>（<code>Inbound</code>）：安全级别低的区域去往安全级别高的区域的流量。</li>
+<li><strong>出方向</strong>（<code>Outbound</code>）：安全级别高的区域去往安全级别低的区域的流量。</li>
+</ul>
+<hr />
+<h5 id="223">2.2.3.安全策略的匹配过程</h5>
+<p>防火墙作为一台网络<strong>安全</strong>设备，最基本的设计原则一般是<strong>没有明确允许的流量默认都会被禁止</strong>，这样能够去背啊防火墙一旦介入网络就能保护网络的安全。</p>
+<p>当你需要放行某条流量时，需要创建一条相应的安全策略。一般针对不同的业务流量，设备上会配置多条安全策略。安全策略之间是<strong>有顺序的</strong>，自上而下的进行匹配（编号从小到大），在这个过程中如果流量已经被某一条安全策略匹配上了，则不会再继续向下匹配，如果所有自定义的安全策略都没有匹配上该流量，则被默认策略拒绝。</p>
+<p><img alt="image-20250903155243330" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903155243374.png" /></p>
+<hr />
+<h5 id="224">2.2.4.安全策略实验</h5>
+<p><img alt="image-20250903162324455" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903162324495.png" /></p>
+<p>当前内网有两台<code>PC</code>地址分别是<code>192.168.1.1、192.168.1.2</code>，它们的网关是防火墙的<code>G1/0/0</code>接口地址为<code>192.168.1.254</code>。外网有一台<code>PC</code>机地址是<code>192.168.2.1</code>，网关为防火墙的<code>G1/0/1</code>接口，地址为<code>192.168.2.254</code>。</p>
+<p>其中防火墙的<code>G1/0/0</code>接口划分为<code>Tust</code>区域，<code>G1/0/1</code>接口划分为<code>Untrust</code>区域。</p>
+<p><strong>要求：</strong><code>192.168.1.0/24</code>能够访问<code>PC3</code>，<code>192.168.1.1</code>拒绝访问<code>PC3</code>。</p>
+<p><strong>安全策略配置思路：</strong></p>
+<ol>
+<li>管理员应首先明确需要划分哪几个安全区域，接口如何连接，分别加入哪些安全区域；</li>
+<li>管理员选择可以根据哪种条件区分流量；</li>
+<li>管理员决定策略的最终动作，允许或拒绝；</li>
+<li>将以上步骤规划出的安全策略的参数一一列出，并将所有安全策略<strong>按照先精确（条件细化的、特殊的策略）再宽泛（条件为大范围测策略）的顺序排序</strong>。在配置安全策略时需要按照此顺序进行配置。</li>
+</ol>
+<p><img alt="image-20250903183518468" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903183518512.png" /></p>
+<p><strong>准备工作：</strong></p>
+<ol>
+<li>为三台<code>PC</code>机配置<code>IP</code>地址：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>VPCS&gt; ip 192.168.1.1 24 192.168.1.254
+Checking for duplicate address...
+VPCS : 192.168.1.1 255.255.255.0 gateway 192.168.1.254
+
+VPCS&gt; ip 192.168.1.2 24 192.168.1.254
+Checking for duplicate address...
+VPCS : 192.168.1.2 255.255.255.0 gateway 192.168.1.254
+
+VPCS&gt; ip 192.168.2.1 24 192.168.2.254
+Checking for duplicate address...
+VPCS : 192.168.2.1 255.255.255.0 gateway 192.168.2.254
+</code></pre></div>
+<ol>
+<li>为防火墙接口划分安全区域：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[USG]firewall zone trust
+[USG-zone-trust]add interface g1/0/0
+[USG-zone-trust]quit
+
+[USG]firewall zone untrust
+[USG-zone-untrust]add interface g1/0/1
+[USG-zone-untrust]quit
+</code></pre></div>
+<p><img alt="image-20250903162911405" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903162911450.png" /></p>
+<ol>
+<li>为防火墙的两个接口配置<code>IP</code>地址：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[USG]int g1/0/0
+[USG-GigabitEthernet1/0/0]ip add 192.168.1.254 24
+[USG-GigabitEthernet1/0/0]quit
+
+[USG]int g1/0/1
+[USG-GigabitEthernet1/0/1]ip add 192.168.2.254 24
+[USG-GigabitEthernet1/0/1]quit
+</code></pre></div>
+<p><strong>要求：</strong></p>
+<p>要求<code>192.168.1.0/24</code>网段能够访问<code>PC3</code>，而<code>PC1</code>禁止访问<code>PC3</code>。</p>
+<ol>
+<li>
+<p>测试当前<code>PC2</code>是否能够访问<code>PC3</code>：</p>
+</li>
+<li>
+<p>由于<code>FW</code>的默认策略为拒绝，所以现在是无法<code>ping</code>通的。</p>
+</li>
+</ol>
+<p><img alt="image-20250903163425303" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903163425336.png" /></p>
+<ol>
+<li>在防火墙上根据要求配置<strong>安全策略</strong>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[USG]security-policy #进入安全策略视图
+[USG-policy-security]rule name deny_PC1_to_PC3   # 创建规则
+[USG-policy-security-rule-deny_PC1_to_PC3]source-zone trust  # 指定源区域
+[USG-policy-security-rule-deny_PC1_to_PC3]destination-zone untrust   # 指定目标区域
+[USG-policy-security-rule-deny_PC1_to_PC3]source-address 192.168.1.1 32  # 指定源地址
+[USG-policy-security-rule-deny_PC1_to_PC3]destination-address 192.168.2.1 32 #指定目标地址
+[USG-policy-security-rule-deny_PC1_to_PC3]action deny  # 指定动作
+[USG-policy-security-rule-deny_PC1_to_PC3]quit
+[USG-policy-security]rule name permit_1.0_to_pc3
+[USG-policy-security-rule-permit_1.0_to_pc3]source-zone trust
+[USG-policy-security-rule-permit_1.0_to_pc3]destination-zone untrust 
+[USG-policy-security-rule-permit_1.0_to_pc3]source-address 192.168.1.0 24
+[USG-policy-security-rule-permit_1.0_to_pc3]destination-address 192.168.2.1 32
+[USG-policy-security-rule-permit_1.0_to_pc3]action permit
+[USG-policy-security-rule-permit_1.0_to_pc3]quit
+</code></pre></div>
+<p>此时，在<code>PC2</code>上测试，成功<code>ping</code>通<code>PC3</code>，而<code>PC1</code>仍无法<code>ping</code>通<code>PC3</code>。</p>
+<p><img alt="image-20250903164039667" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903164039705.png" /></p>
+<p><img alt="image-20250903164117559" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903164117599.png" /></p>
+<hr />
+<p><strong>安全策略查看方式：</strong></p>
+<p><img alt="image-20250903165026201" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903165026246.png" /></p>
+<p>上图中是当前在防火墙上配置的策略详情：</p>
+<ul>
+<li><code>display security-policy rule name &lt;name&gt;</code>：查看单条策略详细内容。</li>
+<li><code>display security-policy rule all</code>：查看防火墙当前全部策略及先后顺序。</li>
+</ul>
+<p><strong>注解：</strong></p>
+<ul>
+<li>查看单条策略时，<code>matched</code>代表当前策略被匹配数量。</li>
+<li>
+<p>查看全部策略时，<code>HITS</code>代表当前策略被匹配数量。</p>
+</li>
+<li>
+<p>为什么现在都是<code>5</code>呢？因为默认<code>ping</code>命令会发送<code>5</code>个<code>ICMP</code>数据包。</p>
+</li>
+</ul>
+<hr />
+<p><strong>做法与现象分析：</strong></p>
+<p>因为题目要求，在允许<code>192.168.1.0/24</code>访问<code>PC3</code>的前提下拒绝<code>192.168.1.1</code>访问<code>PC3</code>，所以需要有两条安全策略，一条允许，一条拒绝。</p>
+<p>但是，顺序非常非常重要，因为<strong>安全策略</strong>默认是从上往下匹配的，所以你必须将<code>deny</code>的策略写在上面，<code>permit</code>的策略写在下面。如果你的顺序不对，那就会导致<code>192.168.1.1</code>的流量直接匹配到<code>permit</code>，永远匹配不到<code>deny</code>，那么现象就不对了。</p>
+<p>综上所述，在写安全策略时书写顺序是非常非常重要的，建议提前规划好。</p>
+<p><img alt="image-20250903162324455" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903165606844.png" /></p>
+<hr />
+<p><strong>删除安全策略：</strong></p>
+<div class="highlight"><pre><span></span><code>[USG-policy-security]undo rule all  #删除全部安全策略
+[USG-policy-security]undo rule name &lt; name &gt; # 根据策略名指定删除安全策略
+</code></pre></div>
+<hr />
+<p><strong>调整安全策略的顺序：</strong></p>
+<p>刚刚已经和大家介绍了<strong>安全策略顺序</strong>的重要性，虽然提前规划可以避免问题的出现，但是现网中安全策略的变化可能非常大，还是无法完全避免需要调整顺序的情况出现。此时我们就可以通过命令来调整安全策略的顺序。</p>
+<p>在<code>security</code>视图下通过<code>rule move</code>即可实现调整策略顺序的需求，有如下几种动作：</p>
+<ul>
+<li><code>after</code>：将源规则移动到指定规则之后。</li>
+<li><code>before</code>：将源规则移动到指定规则之前。</li>
+<li><code>top</code>：将源规则移动到整个策略列表的最顶端。</li>
+<li><code>bottom</code>：将源规则移动到整个策略列表的最底部。</li>
+<li><code>up</code>：将源规则向上移动一位。</li>
+<li><code>down</code>：将源规则向下移动一位。</li>
+</ul>
+<p>假设防火墙上有如下五条安全策略：</p>
+<p><img alt="image-20250903182013838" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903182013893.png" /></p>
+<p><strong>需求一：</strong>使用<code>after</code>将<code>rule 1</code>调整到<code>rule 3</code>之后：</p>
+<div class="highlight"><pre><span></span><code>[USG-policy-security]rule move 1 after 3
+</code></pre></div>
+<p><img alt="image-20250903182203511" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903182203552.png" /></p>
+<p><strong>需求二：</strong>使用<code>before</code>将<code>rule1</code>调整到<code>rule2</code>之前：</p>
+<div class="highlight"><pre><span></span><code>[USG-policy-security]display security-policy rule all
+</code></pre></div>
+<p><img alt="image-20250903182303351" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903182303400.png" /></p>
+<p><strong>需求三：</strong>使用<code>top</code>将<code>rule 5</code>调整到当前列表的最顶端：</p>
+<div class="highlight"><pre><span></span><code>[USG-policy-security]rule move 5 top
+</code></pre></div>
+<p><img alt="image-20250903182354750" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903182354799.png" /></p>
+<p><strong>需求四：</strong>使用<code>bottom</code>将<code>rule 2</code>调整到当前列表的最末端：</p>
+<div class="highlight"><pre><span></span><code>[USG-policy-security]rule move 2 bottom 
+</code></pre></div>
+<p><img alt="image-20250903182450353" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903182450403.png" /></p>
+<p><strong>需求五：</strong>使用<code>up</code>将<code>rule 3</code>向上调整一位：</p>
+<div class="highlight"><pre><span></span><code>[USG-policy-security]rule move 3 up
+</code></pre></div>
+<p><img alt="image-20250903182536999" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903182537051.png" /></p>
+<p><strong>需求六：</strong>使用<code>down</code>将<code>rule 5</code>向下调整一位：</p>
+<div class="highlight"><pre><span></span><code>[USG-policy-security]rule move 5 down
+</code></pre></div>
+<p><img alt="image-20250903182614532" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250903182614582.png" /></p>
+<hr />
+<p>最后关于<strong>安全策略</strong>还有一个非常重要的内容，如果你针对某个条件没有要求，那么你就可以忽略不写。比如，我现在要求所有目标地址是<code>192.168.100.100/32</code>的流量全都拒绝同行，策略如下：</p>
+<div class="highlight"><pre><span></span><code>rule name deny
+    destination-address 192.168.100.100 32
+</code></pre></div>
+<p>这条策略没有写任何其他条件，比如源地址、源目端口、区域等。你如果没有明确书写具体条件的值，则意味该条件任何值都被匹配。</p>
+<hr />
+<h4 id="23">2.3.状态检测与会话机制</h4>
+<p>状态检测和会话机制是从第三代防火墙——状态检测防火墙开始才拥有的功能。</p>
+<p>状态检测防火墙使用基于连接状态的检测机制，将通信双方之间交互的属于同一连接的所有报文都作为整个数据流来对待。在状态检测防火墙看来，同一个数据流内的报文不再是孤立的个体，而是存在联系的。</p>
+<p>状态检测机制开启状态下，只有首包通过设备才能建立会话表项，后续包直接匹配会话表现进行转发。</p>
+<h5 id="231">2.3.1.背景</h5>
+<p>如下图，<code>PC</code>和<code>Server</code>位于不同的网络，分别与防火墙相连，收到防火墙的管控。当前<code>PC</code>需要访问<code>Server</code>的<code>80</code>端口实现<code>Web</code>服务。</p>
+<p><img alt="image-20250904135643234" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250904142920925.png" /></p>
+<p>此时需要在防火墙上配置第一条规则，该规则中<strong>源端口</strong>为<code>any</code>，因为<code>PC</code>在访问<code>Web</code>服务器时它的操作系统决定了使用的源端口，一般是一个随机高端口，在<code>Windows</code>中范围是<code>1024-65535</code>。</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>源地址</th>
+<th>源端口</th>
+<th>目的地址</th>
+<th>目的端口</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>192.168.0.1</td>
+<td>ANY</td>
+<td>172.16.0.1</td>
+<td>80</td>
+<td>允许通过</td>
+</tr>
+</tbody>
+</table>
+<p>另外，流量一定是有来有回的，所以还得在防火墙上再写第二条规则，用来方向<code>Server</code>回复<code>PC</code>的流量。此时规则表如下：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>源地址</th>
+<th>源端口</th>
+<th>目的地址</th>
+<th>目的端口</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>192.168.0.1</td>
+<td>ANY</td>
+<td>172.16.0.1</td>
+<td>80</td>
+<td>允许通过</td>
+</tr>
+<tr>
+<td>2</td>
+<td>172.16.0.1</td>
+<td>80</td>
+<td>192.168.0.1</td>
+<td>ANY</td>
+<td>允许通过</td>
+</tr>
+</tbody>
+</table>
+<p>现在分析这两条规则，第一条规则代表允许<code>PC</code>的任何端口访问<code>Server</code>的<code>80</code>端口，第二条规则代表允许<code>Server</code>的<code>80</code>端口访问<code>PC</code>的任何端口。</p>
+<p>这样配置规则会带来很大的安全问题，如果有外部的恶意攻击者伪装成<code>Web</code>服务器，就可以畅通无阻地穿过防火墙，<code>PC</code>将会面临严重的安全风险。</p>
+<hr />
+<p><strong>状态检测防火墙的解决方法</strong></p>
+<p><img alt="image-20250904135643234" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250904143928954.png" /></p>
+<p>依旧是该场景，如果是状态检测防火墙只需要配置一条策略，用来允许<code>PC</code>访问<code>Server</code>的流量：</p>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>源地址</th>
+<th>源端口</th>
+<th>目的地址</th>
+<th>目的端口</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>192.168.0.1</td>
+<td>ANY</td>
+<td>172.16.0.1</td>
+<td>80</td>
+<td>允许通过</td>
+</tr>
+</tbody>
+</table>
+<p>当<code>PC</code>访问<code>Server</code>的流量经过防火墙时，防火墙会根据策略允许报文通过，并针对该流量建立会话（<code>session</code>），会话中包含<code>PC</code>发出的报文信息入地址和端口等。</p>
+<p><img alt="image-20250904192924837" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250904192924890.png" /></p>
+<p>当<code>Server</code>的汇报到达防火墙后，防火墙会把报文中的信息与会话中的信息进行比对。如果发现报文中的信息与会话中的信息相匹配，并且该报文符合<code>HTTP</code>协议规范的规定，则认为这个报文属于<code>PC</code>访问<code>Server</code>的后续回应报文，直接允许这个报文通过。</p>
+<p>举个例子，当我以访客的身份到某学校参与学习交流，在大门口我会被保安要求做访客登记，将我的个人信息填写在该表格上，我才能顺利进入。当我要从该学校出去的时候，保安也可以要求我再次填写登记表，两次对比一致我就可以顺利出去。</p>
+<p>当<code>Server</code>主动发送数据包访问<code>PC</code>时，就不会被防火墙允许通过了，因为没有对应的策略，也没有对应的会话。</p>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250904171026104.png" /></p>
+<p><strong>总结</strong></p>
+<p>包过滤防火墙只根据设定好的静态规则来判断是否允许报文通过，他认为报文都是无状态的孤立个体，不关注报文产生的前因后果。这就要求包过滤防火墙必须针对每一个方向上的报文都配置一条规则，转发效率低下且容易带来安全风险。</p>
+<p>状态检测防火墙使用基于连接状态的检测机制，将通信双方之间交互的属于同一连接的所有报文都作为整体的数据流来对待。在状态检测防火墙看来，同一个数据流内的报文不再是孤立的个体，而是存在联系的。</p>
+<p>例如，为数据流的第一个报文建立会话，数据流内的后续报文就会直接匹配会话转发，不需要再进行规则的检查，提高了转发效率。</p>
+<hr />
+<h5 id="232">2.3.2.会话机制</h5>
+<p>防火墙将属于同一连接的所有报文作为一个整体的数据流（会话）来对待。会话表是用来记录<code>TCP、UDP、ICMP</code>等协议连接状态的表项，是防火墙转发报文的重要依据。</p>
+<p><img alt="image-20250904170951408" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250904170951467.png" /></p>
+<p>会话是通信双方的连接在防火墙上的具体表现，代表两者的连接状态，一条会话就表示通信双方的一个连接。</p>
+<ul>
+<li>通过会话中的五元组信息可以唯一确定通信双方的一条连接；</li>
+<li>防火墙将要删除会话的时间称为会话的老化时间；</li>
+<li>一条会话表示通信双方的一个连接，多条会话的集合叫做会话表。</li>
+</ul>
+<p><img alt="image-20250904171314177" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250904171314230.png" /></p>
+<ul>
+<li><code>http</code>：此时显示的是应用层协议。</li>
+<li><code>1.1.1.1</code>：源地址。</li>
+<li><code>2049</code>：源端口</li>
+<li><code>2.2.2.2</code>：目的地址。</li>
+<li><code>80</code>：目的端口</li>
+</ul>
+<p>会话表使用<code>--&gt;</code>代表方向，该符号的前面是源，符号后面的是目的。</p>
+<p>五元组是会话的重要信息，只要五元组相同的报文即可认为属于同一条流，在防火墙上通过无原则可以唯一确定一条连接。</p>
+<p>还有一些协议它们的报文中没有端口信息，比如<code>ICMP</code>协议，防火墙此时会把<code>ICMP</code>报文头中<code>ID</code>字段值作为<code>ICMP</code>会话的源端口，会以固定值<code>2048</code>作为<code>ICMP</code>会话的目的端口。而<code>IPSec</code>中的<code>AS</code>和<code>ESP</code>，也没有端口信息，防火墙会直接将这两个协议的会话中的源和目的端口都记录为<code>0</code>。</p>
+<hr />
+<p>在防火墙上通过<code>display firewall session table</code>命令可以看到正常建立的会话：</p>
+<p><img alt="image-20250904192924837" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250904193056245.png" /></p>
+<p>在防火墙上通过<code>display firewall session table verbose</code>可以显示会话表详细信息。</p>
+<p><img alt="image-20250904193049648" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250904193049709.png" /></p>
+<hr />
+<h4 id="24aspf">2.4.ASPF</h4>
+<h5 id="241">2.4.1.技术背景</h5>
+<p>在<code>TCP/IP</code>模型中，应用层提供常见的网络应用服务，如<code>Telnet、HTTP、FTP</code>等协议。而应用层协议根据占用的端口数量可以分为单通道应用层协议与多通道应用层协议。</p>
+<ul>
+<li><strong>单通道应用层协议：</strong>通信过程中只需占用一个端口的协议。</li>
+<li>例如：<code>Telnet</code>只需占用<code>23</code>端口，<code>HTTP</code>只需占用<code>80</code>端口。</li>
+<li><strong>多通道应用层协议：</strong>通信过程中需要占用两个或两个以上端口的协议。</li>
+<li>例如：<code>FTP</code>被动模式下需要占用<code>21</code>端口以及一个随机端口。</li>
+</ul>
+<p>单通道应用层协议使用状态检测与会话机制已经能够满足基本的安全需求与通信需求，而多通道应用层协议仅使用状态检测机制的话并不足够。</p>
+<p>以<code>FTP</code>为例：</p>
+<ul>
+<li><strong>控制通道：</strong>客户端使用端口<code>21</code>连接到服务器，发送<code>LIST、GET</code>等命令。</li>
+<li><strong>数据通道：</strong>当需要传输文件或列表时，服务器会动态告诉客户端：使用你的某个端口，连接到我的某个端口来获取数据。这个数据端口都是<strong>临时协商</strong>的。</li>
+</ul>
+<p>那根据<strong>状态检测和会话机制</strong>的原理，客户端与<code>FTP</code>服务器文件传输时产生的数据包都会被防火墙过滤掉，导致<code>FTP</code>传输失败。</p>
+<hr />
+<h5 id="242aspf">2.4.2.ASPF介绍</h5>
+<p><code>ASPF(Application Specific Packet Filter)</code>是针对应用层的包过滤。通过检测协商报文的应用层携带的地址和端口信息，自动生成相应的<code>Server-map</code>表，当数据通道的首包经过防火墙时，防火墙根据<code>Server-map</code>生成一条<code>session</code>，用于放行后续数据通道的报文。</p>
+<p>相当于自动创建了一条精细的“安全策略”。对于特定应用协议的所有连接，每一个连接状态信息都将被<code>ASPF</code>维护并用于动态的决定数据包是否被允许通过防火墙。</p>
+<p><img alt="image-20250905145218673" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905145218742.png" /></p>
+<hr />
+<h5 id="243server-map">2.4.3.Server-map表</h5>
+<ol>
+<li>防火墙根据<code>ASPF</code>技术，获取客户端与服务端在控制通道协商的<strong>数据通道信息（端口）</strong>。</li>
+<li>防火墙将该信息放入<code>Server-map</code>表中。</li>
+<li>当防火墙收到报文先检查是否命中会话表，如果没有命中则检查是否命中<code>Server-map</code>表。</li>
+<li>命中<code>Server-map</code>表的报文不受安全策略控制，防火墙为命中<code>Server-map</code>的数据创建会话表。</li>
+<li>该数据流的后续报文会命中会话表被放心。</li>
+</ol>
+<p><img alt="image-20250905145848970" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905145849032.png" /></p>
+<p>所以，<code>Server-map</code>表记录的并不是当前的连接信息，而是防火墙对当前连接分析后得到的即将到来的报文的预测。最终，报文能够被防火墙放行，其实依赖的还是会话表。<code>Server-map</code>的作用是创建<strong>会话表</strong>。</p>
+<hr />
+<h5 id="244ftp">2.4.4.FTP概述</h5>
+<p><code>FTP</code>是一款基于<code>TCP</code>的文件传输协议，有两个工作模式<strong>主动模式（<code>POST</code>）</strong>与<strong>被动模式（<code>PASV</code>）</strong>。<code>FTP</code>是多通道协议，一个数据端口和一个控制端口。通常控制端口为<code>21</code>，数据端口为<code>20</code>，但根据工作模式的不同，数据端口也会改变。</p>
+<p><strong>主动模式：</strong></p>
+<p>客户端连接到服务器的<code>21</code>端口，发送用户名和密码登录，登录成功后当客户端需要读取数据时，客户端随机开放一个端口（<code>1024</code>以上）。发送<code>PORT</code>命令到服务器，告诉服务器客户端采用主动模式并开放端口。<code>FTP</code>服务器收到<code>PORT</code>命令和端口号后，通过服务器的<code>20</code>端口和客户端开放的端口连接并发送数据。</p>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905151829954.jpeg" /></p>
+<p><strong>被动模式：</strong></p>
+<p>客户端连接到服务器的<code>21</code>端口，发送用户名和密码登录，登录成功后当客户端需要读取数据时，发送<code>PASV</code>命令到服务器。服务器在本地随机开放一个端口（1024以上），然后把开放的端口告诉客户端，客户端再连接到服务器开放的端口进行数据传输。</p>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905152022969.jpeg" /></p>
+<hr />
+<h5 id="245">2.4.5.实验分析</h5>
+<p>如下图，<code>Server1</code>充当<code>FTP</code>服务器使用主动模式，<code>Client</code>为<code>FTP</code>客户端。防火墙的<code>G1/0/0</code>接口为<code>Trust</code>区域，<code>G1/0/1</code>接口为<code>DMZ</code>区域。</p>
+<p><img alt="image-20250905153149315" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905153149372.png" /></p>
+<p>防火墙配置如下：</p>
+<div class="highlight"><pre><span></span><code>[USG]firewall zone trust
+[USG-zone-trust]add interface g1/0/0
+[USG-zone-trust]quit
+
+[USG]firewall zone dmz
+[USG-zone-dmz]add interface g1/0/1
+[USG-zone-dmz]quit
+
+[USG]int g1/0/0
+[USG-GigabitEthernet1/0/0]ip add 192.168.10.254 24
+[USG-GigabitEthernet1/0/0]quit
+
+[USG]int g1/0/1
+[USG-GigabitEthernet1/0/1]ip add 192.168.20.254 24
+[USG-GigabitEthernet1/0/1]quit
+
+[USG]security-policy 
+[USG-policy-security]rule name ftp  
+[USG-policy-security-rule-ftp]source-zone trust 
+[USG-policy-security-rule-ftp]destination-zone dmz  
+[USG-policy-security-rule-ftp]source-address 192.168.10.0 24    
+[USG-policy-security-rule-ftp]destination-address 192.168.20.0 24   
+[USG-policy-security-rule-ftp]service ftp
+[USG-policy-security-rule-ftp]action permit
+[USG-policy-security-rule-ftp]quit
+</code></pre></div>
+<p><strong>注意：</strong>在<code>USG6000v</code>中<code>FTP</code>的<code>ASPF</code>功能已经自动开启，通过如下命令可关闭：</p>
+<div class="highlight"><pre><span></span><code>[USG]undo firewall detect ftp
+</code></pre></div>
+<p>测试<code>client</code>能否成功访问<code>FTP</code>服务：</p>
+<p><img alt="image-20250905153510743" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905153510808.png" /></p>
+<p><strong>失败原因分析</strong></p>
+<p>此时客户端使用随机端口<code>xxxx</code>向<code>FTP</code>服务器的<code>21</code>端口发起连接请求建立控制连接，然后使用<code>PORT</code>命令协商两者进行数据连接的端口，协商出来的是<code>yyyy</code>端口。</p>
+<p>然后<code>FTP</code>服务器主动向客户端<code>yyyy</code>端口发起连接请求，建立数据连接，数据连接建立成功后，才能进行数据传输。</p>
+<p>但是，防火墙上只配置允许<code>FTP</code>客户端访问<code>FTP</code>服务器的安全策略，即控制连接能成功建立。但是当<code>FTP</code>服务器访问<code>FTP</code>客户端<code>YYYY</code>端口的报文到达防火墙后，对于防火墙来说，这并不是前一条连接的后续报文（不满足会话机制），而是一条新的连接，但是又没有对应的安全策略，所以导致<code>FTP</code>访问失败。</p>
+<p><strong>解决方法1：</strong></p>
+<p>你肯定能想到，那我再配置一条反放行的策略不就行了么？</p>
+<p>对！这是一个方法。</p>
+<div class="highlight"><pre><span></span><code>[USG]security-policy 
+[USG-policy-security]rule name FTP_IN   
+[USG-policy-security-rule-FTP_IN]source-zone dmz    
+[USG-policy-security-rule-FTP_IN]destination-zone trust 
+[USG-policy-security-rule-FTP_IN]action permit 
+[USG-policy-security-rule-FTP_IN]quit
+</code></pre></div>
+<p><img alt="image-20250905154458608" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905154458684.png" /></p>
+<p>虽然能够使<code>FTP</code>成功交互，但是你现在就必须配置<code>FTP</code>服务器到达<code>FTP</code>客户端任何端口的策略，这是一条非常宽泛的策略，那不就丧失了状态检测防火墙的优势了么，不还是出现安全隐患了吗？</p>
+<p><strong>解决方法2：</strong></p>
+<p>最好的方法一定是开启<code>ASPF</code>，使用<code>Server-map</code>。</p>
+<div class="highlight"><pre><span></span><code>[USG]firewall detect ftp
+</code></pre></div>
+<p>当开启了针对<code>FTP</code>的<code>ASPF</code>后，流量经过防火墙时，会生成<code>server-map</code>表，下图中<code>server-map</code>表的含义是，源地址<code>192.168.20.100</code>目的地址<code>192.168.10.1</code>，目的端口为<code>2062</code>，协议为<code>TCP</code>承载<code>FTP Data</code>。</p>
+<p><img alt="image-20250905154631577" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905154631643.png" /></p>
+<p>当<code>FTP</code>服务器主动访问<code>FTP</code>客户端时，首包经过防火墙，防火墙根据<code>server-map</code>表生成会话表。如下图中第一条会话：</p>
+<p><img alt="image-20250905154816965" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905154817030.png" /></p>
+<hr />
+<h5 id="246aspf">2.4.6.ASPF命令</h5>
+<ol>
+<li>执行命令<code>system-view</code>，进入系统视图。</li>
+<li>执行命令<code>firewall interzone zone-name1 zone-name2</code>，进入安全域间视图。</li>
+<li>执行命令<code>detect aspf {ftp| rtsp | sip}</code>配置<code>ASPF</code>。</li>
+<li>应用层协议基本都具有双向交互过程，因此在配置ASPF时，无需配置方向，设备自动对双向的数据报文都进行状态检查。</li>
+<li>缺省情况下，安全域间未配置<code>ASPF</code>。</li>
+</ol>
+<hr />
+<h4 id="25">2.5.安全策略补</h4>
+<p>缺省情况下防火墙是不针对基础协议<code>BGP、LDP、BFD、DHCP、DHCPv6、OSPF、OSPFv3</code>的单播报文进行安全策略检查的。</p>
+<p>另外，防火墙也是不针对组播报文进行安全策略检查的。</p>
+<p>以<code>OSPF</code>为例，在建立<code>OSPF</code>邻居关系时，会有单播报文的交互过程，防火墙默认不会针对其进行任何的安全策略检查，只要其目的地址是防火墙自身接口皆放行。</p>
+<p>可以通过<code>firewall packet-filter basic-protocol enable</code>打开对基础协议的安全策略控制开关，在开启之后基础协议的单播报文将无法再被防火墙放行，需要通过安全策略的放行。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3650 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/">
+      
+      
+        <link rel="next" href="../07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>管理文件系统及存储 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#06_" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              管理文件系统及存储
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.文件系统基础概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.文件系统基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.磁盘类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.磁盘标识
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.分区
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.分区">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.分区的好处
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.什么是分区表？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.MBR分区表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.4.MBR分区表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1341" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.1.工作原理与结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1342" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.2.扩展分区与逻辑分区
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.GPT分区表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#136linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.6.Linux主流分区工具：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#137fdisk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.7.fdisk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#138gdisk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.8.gdisk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#139parted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.9.parted
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.文件系统
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.文件系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1.文件系统工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142inode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2.inode工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143ext4xfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3.EXT4与XFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.4.格式化（创建文件系统）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.挂载
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.挂载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151mount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.mount命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152fstab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.2.fstab
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.LVM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.LVM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.理论概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.理论概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.LVM的主要组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212lepe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.LE和PE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.文件系统基础概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.文件系统基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.磁盘类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.磁盘标识
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.分区
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.分区">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.分区的好处
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.什么是分区表？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134mbr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.MBR分区表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.4.MBR分区表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1341" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.1.工作原理与结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1342" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.2.扩展分区与逻辑分区
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135gpt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.GPT分区表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#136linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.6.Linux主流分区工具：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#137fdisk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.7.fdisk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#138gdisk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.8.gdisk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#139parted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.9.parted
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.文件系统
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.文件系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1.文件系统工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142inode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2.inode工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143ext4xfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3.EXT4与XFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#144" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.4.格式化（创建文件系统）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.挂载
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.挂载">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151mount" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.mount命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152fstab" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.2.fstab
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.LVM
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.LVM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.理论概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.理论概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211lvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.LVM的主要组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212lepe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.LE和PE
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="06_">06_管理文件系统及存储</h1>
+<h3 id="1">1.文件系统基础概念</h3>
+<h4 id="11">1.1.磁盘类型</h4>
+<p><strong>根据硬盘材质：</strong></p>
+<ul>
+<li><code>IDE</code>（集成电路接口，并口）：已淘汰，笨重且磁盘容量小。</li>
+<li><code>SCSI</code>（小型计算机系统接口，并口）：用于服务器，噪音大、稳定性强、支持热插拔、价格略贵。</li>
+<li><code>SATA</code>（串行ATA，串口）：主流家用/桌面级接口，性价比高、普及度广。</li>
+<li><code>SAS</code>（串行连接SCSI，串口）：用于服务器，结合了<code>SCSI</code>的高可靠性和<code>SATA</code>的串行技术优点，性能更强且兼容SATA硬盘。</li>
+<li><code>FC</code>（光纤通道）：需要专用光纤通道卡和交换机，用于构建高性能、高可靠的企业级存储网络（SAN），成本极高。</li>
+<li><code>Virtio</code>（虚拟I/O）：不是物理接口，是虚拟化环境中用于加速虚拟机I/O性能的半虚拟化驱动标准。</li>
+</ul>
+<p><strong>根据硬盘材质：</strong></p>
+<ul>
+<li><code>HDD</code>（机械硬盘）：容量大、价格低，适合存放不常用的文件，稳定耐造。</li>
+<li><code>SSD</code>（固态硬盘）：速度快、价格高、体积小，适合作为系统盘使用。</li>
+</ul>
+<hr />
+<h4 id="12">1.2.磁盘标识</h4>
+<p>在<code>Linux</code>中<strong>硬盘</strong>等硬件设备也以文件的形式存在，系统内核中的<code>udev</code>设备管理器会自动规范硬件的名称，目的是让用户通过设备的文件名可以了解设备的大致信息。</p>
+<p><code>udev</code>设备管理器会以守护进程的形式运行并侦听内核发出的信号来管理<code>/dev/</code>目录下的设备文件。</p>
+<p><code>Linux</code>系统是以硬盘等设备的接口判断其硬盘类型，然后给予相应的文件名，如下表：</p>
+<table>
+<thead>
+<tr>
+<th>硬盘</th>
+<th>文件名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IDE设备</td>
+<td>/dev/hd[a-d]</td>
+</tr>
+<tr>
+<td>SCSI/SATA/U盘</td>
+<td>/dev/sd[a-p]</td>
+</tr>
+<tr>
+<td>virtIO</td>
+<td>/dev/vda</td>
+</tr>
+</tbody>
+</table>
+<p><code>hd、sd、vds</code>代表的是硬盘的类型，<code>a-p</code>代表硬盘的序号（顺序），但是硬盘的序号不是由服务器上的硬盘插槽决定的，而是系统内核的识别顺序来决定的。默认从<code>a</code>开始分配。</p>
+<p>在<code>Linux</code>中可使用<code>lsblk</code>命令查看系统的磁盘使用情况：</p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# lsblk
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda      8:0    0  100G  0 disk
+├─sda1   8:1    0    1G  0 part /boot
+├─sda2   8:2    0    2G  0 part [SWAP]
+└─sda3   8:3    0   97G  0 part /
+sr0     11:0    1  3.5G  0 rom
+</code></pre></div>
+<ul>
+<li><code>name</code>：标识设备的名称。</li>
+<li><code>MAJ:MIN</code>：显示主次设备号。</li>
+<li><strong>主设备号（Major Number）</strong>：标识<strong>设备类型</strong>（如硬盘、终端、声卡等），由内核分配给不同的设备驱动程序。</li>
+<li><strong>次设备号（Minor Number）</strong>：标识<strong>同一设备类型下的具体实例</strong>（如第几块硬盘、第几个分区等）。<ul>
+<li><strong>主设备号 <code>8</code></strong>：表示这是一个 <strong>SCSI/SATA 磁盘设备</strong>（内核中 SCSI 磁盘驱动的主设备号通常是 8）。</li>
+<li><strong>次设备号 <code>0</code></strong>：表示这是系统中的<strong>第一块 SCSI/SATA 磁盘</strong>（<code>sda</code>）。</li>
+</ul>
+</li>
+<li><code>RM</code>：标识是否是移动设备，<code>1</code>代表是移动设备，<code>0</code>代表不是。</li>
+<li><code>SIZE</code>：代表硬盘的大小。</li>
+<li><code>RO</code>：代表该设备是否是只读设备。</li>
+<li><code>TYPE</code>：代表设备的类型。</li>
+<li><code>MOUNTPOINTS</code>：代表设备被挂载的路径。</li>
+</ul>
+<hr />
+<h4 id="13">1.3.分区</h4>
+<p>分区（<code>Partition</code>）是指将一块<strong>物理硬盘</strong>在逻辑上划分为<strong>多个独立的存储区域</strong>，每个分区可以视为一个独立的<strong>逻辑磁盘</strong>，拥有自己的文件系统、目录结构和存储空间。<strong>但是硬盘不是必须分区才能使用的。</strong></p>
+<h5 id="131">1.3.1.分区的好处</h5>
+<ol>
+<li><strong>隔离数据</strong></li>
+<li>将系统文件、用户数据、应用程序分开存放，避免互相干扰（例如系统崩溃时用户数据不受影响）。</li>
+<li><strong>多系统共存</strong></li>
+<li>在同一块硬盘上安装多个操作系统（如 Windows + Linux），每个系统占用独立分区。</li>
+<li><strong>性能优化</strong></li>
+<li>将频繁读写的目录（如 <code>/home</code>、<code>/var</code>）单独分区，减少磁盘碎片。</li>
+<li><strong>安全控制</strong></li>
+<li>为不同分区设置不同的访问权限（如只读、加密）。</li>
+<li><strong>灵活管理</strong></li>
+<li>可以单独格式化、挂载、备份或调整某个分区，而无需影响其他分区。</li>
+</ol>
+<hr />
+<h5 id="133">1.3.3.什么是分区表？</h5>
+<p>分区表类似于一块硬盘的<strong>目录</strong>或<strong>地图</strong>，物理硬盘是一个原始的、巨大的存储空间。</p>
+<p>硬盘<strong>最开始的扇区</strong>存在一段特殊的数据，告诉操作系统：</p>
+<ol>
+<li>这块硬盘被分成了几个部分（分区）？</li>
+<li>每个分区从哪里开始，到哪里结束？</li>
+<li>每个分区是什么类型的（比如，是 Windows 的 NTFS 分区，还是 Linux 的 EXT4 分区）？</li>
+<li>哪个分区是可以启动操作系统的？</li>
+</ol>
+<p><strong>如果没有分区表</strong>，操作系统就无法识别和管理硬盘上的分区，就像一本书没有目录，你无法直接找到具体的章节。</p>
+<hr />
+<h5 id="134mbr">1.3.4.MBR分区表</h5>
+<p><code>MBR</code>是传统的分区表方案，从<code>1983</code>年沿用至今，它位于硬盘的第一个扇区（<code>512</code>字节）。</p>
+<p>在<code>MBR</code>分区方案中，由<strong>主分区、扩展分区、逻辑分区</strong>三种分区组成，其缺点是最多只支持<code>4</code>个主分区，最大只支持<code>2TB</code>的硬盘，对于大于<code>2TB</code>的硬盘，<code>MBR</code>无法管理超出的空间。</p>
+<h6 id="1341">1.3.4.1.工作原理与结构</h6>
+<p><code>MBR</code>这个<code>512</code>字节的区域包含三部分：</p>
+<ol>
+<li><strong>引导代码（446字节）</strong>：存储一小段程序，用于启动操作系统。</li>
+<li><strong>分区表（64字节）</strong>：这就是核心，只能记录 <strong>4 个主分区的信息</strong>，记录一个分区就需要使用<code>16</code>字节，所以最大只支持<code>4</code>个主分区。</li>
+<li><strong>结束标志（55 AA，2字节）</strong>：用于标记<code>MBR</code>有效。</li>
+</ol>
+<p><img alt="image.png" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251012214938817.png" /></p>
+<hr />
+<h6 id="1342">1.3.4.2.扩展分区与逻辑分区</h6>
+<p>只有四个主分区很明显是不够用的，很多时候我们都需要更多的分区。这个时候就需要配合<strong>扩展分区与逻辑分区</strong>。</p>
+<ul>
+<li><code>SCSI</code>接口硬盘最多有<code>4</code>个主分区，<code>12</code>个逻辑分区，总共<code>15</code>个分区。</li>
+<li><code>IDE</code>接口硬盘最多有<code>4</code>个主分区，逻辑分区<code>60</code>个，总共<code>63</code>个分区</li>
+</ul>
+<p>扩展分区本质上也属于主分区的一种，它的作用是产生逻辑分区。</p>
+<p><img alt="image.png" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251012215453096.png" /></p>
+<p><strong>实现方式：</strong></p>
+<ol>
+<li>将第四个主分区设置为扩展分区，扩展分区不存储数据，作为<strong>逻辑分区</strong>的容器。</li>
+<li>扩展分区只是<strong>指向一个链表结构</strong>，用于管理逻辑分区。这样一来只需要占用一个主分区的位置，就可以有多个逻辑分区。</li>
+<li>扩展分区的起始位置存储了一个<code>EBR(Extended Boot Record)</code>，类似于<code>MBR</code>，它只记录：</li>
+<li>当前逻辑分区的信息。</li>
+<li>下一个 EBR 的位置（形成链表）。</li>
+<li>每个逻辑分区的起始位置都对应一个<code>EBR</code>，通过链表连接。</li>
+<li>最后一个<code>EBR</code>的下一指针为<code>NULL</code>，表示链表结束。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>MBR
+├─主分区1
+├─主分区2
+├─主分区3
+└─扩展分区（指向 EBR1）
+    ├─EBR1（逻辑分区1 + 指向 EBR2）
+    ├─EBR2（逻辑分区2 + 指向 EBR3）
+    └─EBR3（逻辑分区3 + NULL）
+</code></pre></div>
+<hr />
+<h5 id="135gpt">1.3.5.GPT分区表</h5>
+<p><code>GPT（GUID Partition Table）</code>是一种现代的分区表标准，用于替代传统的 <code>MBR（Master Boot Record）</code>。它解决了<code>MBR</code>的诸多限制，并提供了更高的灵活性、安全性和对大容量硬盘的支持。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>支持大容量硬盘</strong></td>
+<td style="text-align: left;">理论最大支持 <strong>18 EB（Exabytes，1 EB = 100万 TB）</strong>，远超 MBR 的 2TB 限制。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>分区数量无严格限制</strong></td>
+<td style="text-align: left;">通常支持 <strong>128 个主分区</strong>（Windows 默认），Linux 可支持更多。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>更高的安全性</strong></td>
+<td style="text-align: left;">使用 <strong>CRC32 校验</strong> 和 <strong>备份分区表</strong>，防止数据损坏。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>唯一标识符（GUID）</strong></td>
+<td style="text-align: left;">每个分区都有一个 <strong>全局唯一标识符（GUID）</strong>，避免冲突。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>兼容 UEFI 启动</strong></td>
+<td style="text-align: left;">现代计算机使用 <strong>UEFI + GPT</strong> 组合，替代传统的 <strong>BIOS + MBR</strong>。</td>
+</tr>
+</tbody>
+</table>
+<p><code>GPT</code>的分区信息存储在硬盘的两个位置：</p>
+<ol>
+<li><strong>主 GPT 头（Primary GPT Header）</strong>：位于硬盘的 <strong>LBA 1</strong>（第 2 个扇区，LBA 0 是保护性 MBR）。</li>
+<li><strong>备份 GPT 头（Backup GPT Header）</strong>：位于硬盘的 <strong>最后一个扇区</strong>。</li>
+</ol>
+<hr />
+<h5 id="136linux">1.3.6.Linux主流分区工具：</h5>
+<ol>
+<li><code>fdisk</code>：旧版本仅适用于<code>MBR(MS-DOS)</code>分区表，新版本也可适用于<code>GPT</code>分区表。交互式命令行工具，手动保存后才会对硬盘进行修改。</li>
+<li><code>gdisk</code>：适用于<code>GPT</code>分区表，交互式命令行工具，手动保存后才会对硬盘进行修改。</li>
+<li><code>parted</code>：同时支持<code>GPT</code>和<code>MBR</code>分区表，支持非交互式命令行操作（适合脚本自动化）。</li>
+</ol>
+<hr />
+<h5 id="137fdisk">1.3.7.fdisk</h5>
+<p>使用<code>fdisk</code>工具对硬盘进行分区，三个主分区，一个扩展分区，两个逻辑分区，每个分区分配<code>20G</code>容量。</p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# fdisk /dev/sdb
+
+欢迎使用 fdisk (util-linux 2.37.2)。
+更改将停留在内存中，直到您决定将更改写入磁盘。
+使用写入命令前请三思。
+
+设备不包含可识别的分区表。
+创建了一个磁盘标识符为 0x239dd5ec 的新 DOS 磁盘标签。
+
+命令(输入 m 获取帮助)：n
+分区类型
+   p   主分区 (0 primary, 0 extended, 4 free)
+   e   扩展分区 (逻辑分区容器)
+选择 (默认 p)：p
+分区号 (1-4, 默认  1): 1
+第一个扇区 (2048-209715199, 默认 2048):
+最后一个扇区，+/-sectors 或 +size{K,M,G,T,P} (2048-209715199, 默认 209715199): +20G
+
+创建了一个新分区 1，类型为“Linux”，大小为 20 GiB。
+
+命令(输入 m 获取帮助)：n
+分区类型
+   p   主分区 (1 primary, 0 extended, 3 free)
+   e   扩展分区 (逻辑分区容器)
+选择 (默认 p)：p
+分区号 (2-4, 默认  2): 2
+第一个扇区 (41945088-209715199, 默认 41945088):
+最后一个扇区，+/-sectors 或 +size{K,M,G,T,P} (41945088-209715199, 默认 209715199): +20G
+
+创建了一个新分区 2，类型为“Linux”，大小为 20 GiB。
+
+命令(输入 m 获取帮助)：n
+分区类型
+   p   主分区 (2 primary, 0 extended, 2 free)
+   e   扩展分区 (逻辑分区容器)
+选择 (默认 p)：p
+分区号 (3,4, 默认  3): 3
+第一个扇区 (83888128-209715199, 默认 83888128):
+最后一个扇区，+/-sectors 或 +size{K,M,G,T,P} (83888128-209715199, 默认 209715199): +20G
+
+创建了一个新分区 3，类型为“Linux”，大小为 20 GiB。
+
+命令(输入 m 获取帮助)：n
+分区类型
+   p   主分区 (3 primary, 0 extended, 1 free)
+   e   扩展分区 (逻辑分区容器)
+选择 (默认 e)：e
+
+已选择分区 4
+第一个扇区 (125831168-209715199, 默认 125831168):
+最后一个扇区，+/-sectors 或 +size{K,M,G,T,P} (125831168-209715199, 默认 209715199):
+
+创建了一个新分区 4，类型为“Extended”，大小为 40 GiB。
+
+命令(输入 m 获取帮助)：n
+所有主分区都在使用中。
+添加逻辑分区 5
+第一个扇区 (125833216-209715199, 默认 125833216):
+最后一个扇区，+/-sectors 或 +size{K,M,G,T,P} (125833216-209715199, 默认 209715199): +20G
+
+创建了一个新分区 5，类型为“Linux”，大小为 20 GiB。
+
+命令(输入 m 获取帮助)：n
+所有主分区都在使用中。
+添加逻辑分区 6
+第一个扇区 (167778304-209715199, 默认 167778304):
+最后一个扇区，+/-sectors 或 +size{K,M,G,T,P} (167778304-209715199, 默认 209715199):
+
+创建了一个新分区 6，类型为“Linux”，大小为 20 GiB。
+
+命令(输入 m 获取帮助)：p
+Disk /dev/sdb：100 GiB，107374182400 字节，209715200 个扇区
+磁盘型号：VMware Virtual S
+单元：扇区 / 1 * 512 = 512 字节
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：dos
+磁盘标识符：0x239dd5ec
+
+设备       启动      起点      末尾     扇区 大小 Id 类型
+/dev/sdb1            2048  41945087 41943040  20G 83 Linux
+/dev/sdb2        41945088  83888127 41943040  20G 83 Linux
+/dev/sdb3        83888128 125831167 41943040  20G 83 Linux
+/dev/sdb4       125831168 209715199 83884032  40G  5 扩展
+/dev/sdb5       125833216 167776255 41943040  20G 83 Linux
+/dev/sdb6       167778304 209715199 41936896  20G 83 Linux
+
+命令(输入 m 获取帮助)：w
+分区表已调整。
+将调用 ioctl() 来重新读分区表。
+正在同步磁盘。
+</code></pre></div>
+<p>删除分区：</p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# fdisk /dev/sdb
+
+欢迎使用 fdisk (util-linux 2.37.2)。
+更改将停留在内存中，直到您决定将更改写入磁盘。
+使用写入命令前请三思。
+
+
+命令(输入 m 获取帮助)：d
+分区号 (1-6, 默认  6): 6
+
+分区 6 已删除。
+
+命令(输入 m 获取帮助)：d
+分区号 (1-5, 默认  5): 5
+
+分区 5 已删除。
+
+命令(输入 m 获取帮助)：d
+分区号 (1-4, 默认  4): 4
+
+分区 4 已删除。
+
+命令(输入 m 获取帮助)：d
+分区号 (1-3, 默认  3): 3
+
+分区 3 已删除。
+
+命令(输入 m 获取帮助)：d
+分区号 (1,2, 默认  2): 2
+
+分区 2 已删除。
+
+命令(输入 m 获取帮助)：d
+已选择分区 1
+分区 1 已删除。
+
+命令(输入 m 获取帮助)：w
+
+分区表已调整。
+将调用 ioctl() 来重新读分区表。
+正在同步磁盘。
+</code></pre></div>
+<hr />
+<h5 id="138gdisk">1.3.8.gdisk</h5>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# gdisk /dev/sdc
+GPT fdisk (gdisk) version 1.0.8
+
+Partition table scan:
+  MBR: not present
+  BSD: not present
+  APM: not present
+  GPT: not present
+
+Creating new GPT entries in memory.
+
+Command (? for help): ?
+b       back up GPT data to a file
+c       change a partition&#39;s name
+d       delete a partition
+i       show detailed information on a partition
+l       list known partition types
+n       add a new partition
+o       create a new empty GUID partition table (GPT)
+p       print the partition table
+q       quit without saving changes
+r       recovery and transformation options (experts only)
+s       sort partitions
+t       change a partition&#39;s type code
+v       verify disk
+w       write table to disk and exit
+x       extra functionality (experts only)
+?       print this menu
+
+Command (? for help): n
+Partition number (1-128, default 1): 1
+First sector (34-209715166, default = 2048) or {+-}size{KMGTP}:
+Last sector (2048-209715166, default = 209715166) or {+-}size{KMGTP}: +20G
+Current type is 8300 (Linux filesystem)
+Hex code or GUID (L to show codes, Enter = 8300):
+Changed type of partition to &#39;Linux filesystem&#39;
+
+Command (? for help): n
+Partition number (2-128, default 2): 2
+First sector (34-209715166, default = 41945088) or {+-}size{KMGTP}:
+Last sector (41945088-209715166, default = 209715166) or {+-}size{KMGTP}: +20G
+Current type is 8300 (Linux filesystem)
+Hex code or GUID (L to show codes, Enter = 8300):
+Changed type of partition to &#39;Linux filesystem&#39;
+
+Command (? for help): n
+Partition number (3-128, default 3): 3
+First sector (34-209715166, default = 83888128) or {+-}size{KMGTP}:
+Last sector (83888128-209715166, default = 209715166) or {+-}size{KMGTP}: +20G
+Current type is 8300 (Linux filesystem)
+Hex code or GUID (L to show codes, Enter = 8300):
+Changed type of partition to &#39;Linux filesystem&#39;
+
+Command (? for help): n
+Partition number (4-128, default 4): 4
+First sector (34-209715166, default = 125831168) or {+-}size{KMGTP}:
+Last sector (125831168-209715166, default = 209715166) or {+-}size{KMGTP}: +20G
+Current type is 8300 (Linux filesystem)
+Hex code or GUID (L to show codes, Enter = 8300):
+Changed type of partition to &#39;Linux filesystem&#39;
+
+Command (? for help): p
+Disk /dev/sdc: 209715200 sectors, 100.0 GiB
+Model: VMware Virtual S
+Sector size (logical/physical): 512/512 bytes
+Disk identifier (GUID): B1178BA5-D75E-4588-A11E-3111C274D968
+Partition table holds up to 128 entries
+Main partition table begins at sector 2 and ends at sector 33
+First usable sector is 34, last usable sector is 209715166
+Partitions will be aligned on 2048-sector boundaries
+Total free space is 41942973 sectors (20.0 GiB)
+
+Number  Start (sector)    End (sector)  Size       Code  Name
+   1            2048        41945087   20.0 GiB    8300  Linux filesystem
+   2        41945088        83888127   20.0 GiB    8300  Linux filesystem
+   3        83888128       125831167   20.0 GiB    8300  Linux filesystem
+   4       125831168       167774207   20.0 GiB    8300  Linux filesystem
+
+Command (? for help): t
+Partition number (1-4): 1
+Current type is 8300 (Linux filesystem)
+Hex code or GUID (L to show codes, Enter = 8300): L
+Type search string, or &lt;Enter&gt; to show all codes: lvs
+
+Hex code or GUID (L to show codes, Enter = 8300): L
+Type search string, or &lt;Enter&gt; to show all codes:
+0700 Microsoft basic data                0701 Microsoft Storage Replica
+0702 ArcaOS Type 1                       0c01 Microsoft reserved
+2700 Windows RE                          3000 ONIE boot
+3001 ONIE config                         3900 Plan 9
+4100 PowerPC PReP boot                   4200 Windows LDM data
+4201 Windows LDM metadata                4202 Windows Storage Spaces
+7501 IBM GPFS                            7f00 ChromeOS kernel
+7f01 ChromeOS root                       7f02 ChromeOS reserved
+8200 Linux swap                          8300 Linux filesystem
+8301 Linux reserved                      8302 Linux /home
+8303 Linux x86 root (/)                  8304 Linux x86-64 root (/)
+8305 Linux ARM64 root (/)                8306 Linux /srv
+8307 Linux ARM32 root (/)                8308 Linux dm-crypt
+8309 Linux LUKS                          830a Linux IA-64 root (/)
+830b Linux x86 root verity               830c Linux x86-64 root verity
+830d Linux ARM32 root verity             830e Linux ARM64 root verity
+830f Linux IA-64 root verity             8310 Linux /var
+8311 Linux /var/tmp                      8312 Linux user&#39;s home
+8313 Linux x86 /usr                      8314 Linux x86-64 /usr
+8315 Linux ARM32 /usr                    8316 Linux ARM64 /usr
+8317 Linux IA-64 /usr                    8318 Linux x86 /usr verity
+</code></pre></div>
+<hr />
+<h5 id="139parted">1.3.9.parted</h5>
+<p><code>parted</code>除了提供给我们交互式的配置方式外，也可以使用命令行的方式进行分区，适合用于脚本的方式。</p>
+<p><strong>命令行操作演示：</strong></p>
+<ol>
+<li>查看当前磁盘情况：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# parted -l
+型号：VMware, VMware Virtual S (scsi)
+磁盘 /dev/sda：107GB
+扇区大小 (逻辑/物理)：512B/512B
+分区表：msdos
+磁盘标志：
+
+编号  起始点  结束点  大小    类型     文件系统        标志
+ 1    1049kB  1075MB  1074MB  primary  ext4            启动
+ 2    1075MB  3222MB  2147MB  primary  linux-swap(v1)  交换
+ 3    3222MB  107GB   104GB   primary  ext4
+
+
+型号：VMware, VMware Virtual S (scsi)
+磁盘 /dev/sdb：107GB
+扇区大小 (逻辑/物理)：512B/512B
+分区表：gpt
+磁盘标志：
+
+编号  起始点  结束点  大小  文件系统  名称  标志
+
+
+错误: /dev/sdc: 无法辨识的磁盘卷标
+型号：VMware, VMware Virtual S (scsi)
+磁盘 /dev/sdc：107GB
+扇区大小 (逻辑/物理)：512B/512B
+分区表：unknown
+磁盘标志：
+
+警告: 无法以读写方式打开 /dev/sr0 (Read-only file system)。/dev/sr0 已按照只读方式打开。
+型号：NECVMWar VMware IDE CDR10 (scsi)
+磁盘 /dev/sr0：3720MB
+扇区大小 (逻辑/物理)：2048B/2048B
+分区表：msdos
+磁盘标志：
+
+编号  起始点  结束点  大小    类型     文件系统  标志
+ 2    3908kB  33.3MB  29.4MB  primary            esp
+</code></pre></div>
+<ol>
+<li>为<code>/dev/sdb</code>创建<code>GPT</code>分区表</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# parted /dev/sdb mklabel gpt
+警告: 现有 /dev/sdb 上的磁盘卷标将被销毁，而所有在这个磁盘上的数据将会丢失。您要继续吗？
+是/Yes/否/No? yes
+信息: 你可能需要 /etc/fstab。
+</code></pre></div>
+<ol>
+<li>创建分区</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# parted /dev/sdb mkpart primary ext4 1Mib 100%
+信息: 你可能需要 /etc/fstab。
+</code></pre></div>
+<ol>
+<li>验证：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# parted /dev/sdb print
+型号：VMware, VMware Virtual S (scsi)
+磁盘 /dev/sdb：107GB
+扇区大小 (逻辑/物理)：512B/512B
+分区表：gpt
+磁盘标志：
+
+编号  起始点  结束点  大小   文件系统  名称     标志
+ 1    1049kB  107GB   107GB            primary
+</code></pre></div>
+<ol>
+<li>设置标志：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# parted /dev/sdb set 1 lvm on
+信息: 你可能需要 /etc/fstab。
+
+[root@qyt-gujun ~]# parted /dev/sdb print
+型号：VMware, VMware Virtual S (scsi)
+磁盘 /dev/sdb：107GB
+扇区大小 (逻辑/物理)：512B/512B
+分区表：gpt
+磁盘标志：
+
+编号  起始点  结束点  大小   文件系统  名称     标志
+ 1    1049kB  107GB   107GB            primary  lvm
+</code></pre></div>
+<p><strong>常用标志：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">标志</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">典型用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>boot</code></td>
+<td style="text-align: left;">启动标志</td>
+<td style="text-align: left;">标记可启动分区(BIOS启动)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>esp</code></td>
+<td style="text-align: left;">EFI系统分区</td>
+<td style="text-align: left;">EFI/UEFI系统启动分区</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>raid</code></td>
+<td style="text-align: left;">RAID成员</td>
+<td style="text-align: left;">标记该分区是RAID阵列的一部分</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>lvm</code></td>
+<td style="text-align: left;">LVM物理卷</td>
+<td style="text-align: left;">标记该分区用作LVM物理卷</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>hidden</code></td>
+<td style="text-align: left;">隐藏分区</td>
+<td style="text-align: left;">在某些操作系统中隐藏该分区</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>legacy_boot</code></td>
+<td style="text-align: left;">传统启动</td>
+<td style="text-align: left;">类似boot标志，用于某些特殊场景</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>删除分区</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# parted /dev/sdb set 1 lvm on
+信息: 你可能需要 /etc/fstab。
+</code></pre></div>
+<hr />
+<h4 id="14">1.4.文件系统</h4>
+<p>文件系统（<code>File System</code>）是操作系统用于明确存储设备或分区上的文件存储和检索方式的一套机制。作用如下：</p>
+<ol>
+<li><strong>数据组织方式</strong>：如何将数据分割为文件和目录</li>
+<li><strong>存储方法</strong>：如何在物理介质上安排和存储这些文件</li>
+<li><strong>元数据管理</strong>：如何记录文件属性（名称、大小、权限等）</li>
+<li><strong>访问控制</strong>：如何控制对文件的读写权限</li>
+</ol>
+<p><strong>文件系统的核心组件：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">组件</th>
+<th style="text-align: left;">功能描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>超级块(Superblock)</strong></td>
+<td style="text-align: left;">存储文件系统的元信息（如大小、状态、块大小等）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>索引节点(Inode)</strong></td>
+<td style="text-align: left;">存储文件元数据（权限、所有者、大小、位置等）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>目录结构</strong></td>
+<td style="text-align: left;">组织文件和子目录的层次结构</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>数据块</strong></td>
+<td style="text-align: left;">实际存储文件内容的区域</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>分配表</strong></td>
+<td style="text-align: left;">记录哪些块已被使用/空闲（如FAT、位图等）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="141">1.4.1.文件系统工作原理</h5>
+<p>当我们在<code>Linux</code>中创建一个新文件时：</p>
+<ol>
+<li><strong>分配inode</strong>：文件系统为新文件分配一个inode，存储元数据</li>
+<li><strong>更新目录项</strong>：在父目录中添加新条目，关联文件名和inode</li>
+<li><strong>分配数据块</strong>：根据文件大小分配一个或多个数据块</li>
+<li><strong>更新分配表</strong>：标记这些数据块为已使用</li>
+<li><strong>写入数据</strong>：将文件内容写入分配的数据块</li>
+</ol>
+<hr />
+<h5 id="142inode">1.4.2.inode工作原理</h5>
+<p>用户创建文件过程：</p>
+<ol>
+<li>在父目录中分配一个新的目录项</li>
+<li>文件系统分配一个空闲<code>inode</code></li>
+<li>将文件名与<code>inode</code>编号关联写入目录项</li>
+<li>初始化<code>inode</code>元数据（权限、所有者等）</li>
+<li>为文件数据分配存储块并更新<code>inode</code>指针</li>
+</ol>
+<p>用户请求访问 "<code>/home/user/file.txt</code>"
+1. 在目录"<code>/home/user</code>"中找到"<code>file.txt</code>"对应的<code>inode</code>编号
+2. 通过<code>inode</code>编号读取<code>inode</code>内容
+3. 从<code>inode</code>获取权限信息进行访问控制
+4. 通过<code>inode</code>中的块指针定位文件数据
+5. 读取/修改数据块内容</p>
+<hr />
+<h5 id="143ext4xfs">1.4.3.EXT4与XFS</h5>
+<p>在<code>Linux</code>的文件系统中<code>XFS</code>和<code>EXT4</code>是最常见的两个选项。</p>
+<p><strong>EXT4：</strong></p>
+<ul>
+<li><strong>优势：</strong></li>
+<li><strong>兼容性强：</strong>支持几乎所有的<code>Linux</code>发行版，即使是较老的系统也能稳定运行。</li>
+<li><strong>碎片化管理好：</strong>对于小文件和频繁读写场景，<code>EXT4</code>具有较好的碎片整理能力，性能稳定。</li>
+<li><strong>支持文件系统检查（fsck）：</strong>在系统崩溃后，<code>EXT4</code>允许运行<code>fsck</code>工具进行数据恢复。</li>
+<li><strong>支持动态缩小分区：</strong>可在不格式化的情况下缩小分区，这对存储管理非常灵活。</li>
+<li><strong>缺点：</strong></li>
+<li><strong>大文件性能不如XFS：</strong>如果存储的是大文件（如视频、数据库），<code>EXT4</code>在写入速度上略慢。</li>
+<li><strong>在线扩展支持有限：</strong>扩展<code>EXT4</code>分区需要先卸载文件系统，影响可用性。</li>
+</ul>
+<p>在日常办公、开发环境或者小型网站服务器，选择<code>EXT4</code>是最稳妥的方案。</p>
+<p><strong>XFS：</strong></p>
+<ul>
+<li><strong>优势：</strong></li>
+<li><strong>大文件处理能力强：</strong><code>XFS设计之初就考虑了高性能，并行写入能力远胜于</code>EXT4`。</li>
+<li><strong>在线扩展更简单：</strong>可以在系统运行时直接扩展<code>XFS</code>分区，无需卸载。</li>
+<li><strong>适合高并发写入：</strong>如果你的服务器需要同时处理大量读写请求，<code>XFS</code>通过日志结构优化了<code>I/O</code>性能。</li>
+<li><strong>支持超大存储：</strong>单个<code>XFS</code>分区可达<code>8EB</code>，适用于企业级存储。</li>
+<li><strong>缺点：</strong></li>
+<li><strong>不支持文件系统检查（fsck）：</strong><code>XFS</code>文件系统损坏后，无法使用<code>fsck</code>进行修复，只能通过备份恢复。</li>
+<li><strong>不适合作为根文件系统：</strong>许多<code>Linux</code>发行版不建议将<code>XFS</code>作为根系统分区，可能会遇到兼容性问题。</li>
+<li><strong>不能缩小分区：</strong><code>XFS</code>只支持扩展，不支持缩小，因此在分区时需要慎重考虑大小。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>使用场景</th>
+<th>推荐文件系统</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>个人 PC / 开发环境</td>
+<td>EXT4</td>
+</tr>
+<tr>
+<td>数据库服务器（<code>Mysql</code>）</td>
+<td>XFS</td>
+</tr>
+<tr>
+<td>大数据存储（如视频、日志、备份）</td>
+<td>XFS</td>
+</tr>
+<tr>
+<td>小型网站、应用服务器</td>
+<td>EXT4</td>
+</tr>
+<tr>
+<td>RAID + 高并发写入（如企业存储）</td>
+<td>XFS</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="144">1.4.4.格式化（创建文件系统）</h5>
+<div class="highlight"><pre><span></span><code>mkfs [选项] [-t 文件系统类型] [文件系统选项] 设备 [大小]
+</code></pre></div>
+<p>创建<code>ext4</code>文件系统：</p>
+<div class="highlight"><pre><span></span><code># 基本用法
+sudo mkfs -t ext4 /dev/sdb1
+
+# 等价专用命令
+sudo mkfs.ext4 /dev/sdb1
+
+# 带卷标和块大小
+sudo mkfs.ext4 -L &quot;mydata&quot; -b 4096 /dev/sdb1
+</code></pre></div>
+<p>创建<code>XFS</code>文件系统：</p>
+<div class="highlight"><pre><span></span><code># 基本用法
+sudo mkfs -t xfs /dev/sdb1
+
+# 带日志大小设置
+sudo mkfs.xfs -l size=128m /dev/sdb1
+
+# 带条带化参数（适合RAID）
+sudo mkfs.xfs -d su=64k,sw=4 /dev/sdb1
+</code></pre></div>
+<hr />
+<h4 id="15">1.5.挂载</h4>
+<p>挂载是将<strong>存储设备上的文件系统</strong>与<strong>Linux目录树</strong>中的某个目录（称为挂载点）关联的过程，使得该文件系统的内容可以通过这个目录访问。</p>
+<p>挂载的操作就像是将<code>USB</code>驱动器插入电脑：</p>
+<ul>
+<li><strong>存储设备</strong> = <code>USB</code>驱动器本身</li>
+<li><strong>文件系统</strong> = <code>USB</code>上的数据组织结构</li>
+<li><strong>挂载点</strong> = 电脑上显示的"可移动磁盘"图标</li>
+<li><strong>挂载操作</strong> = 插入<code>USB</code>后系统使其可用的过程</li>
+</ul>
+<hr />
+<h5 id="151mount">1.5.1.mount命令</h5>
+<div class="highlight"><pre><span></span><code>mount [-选项] [设备] [挂载点]
+mount [-选项] [-t 文件系统类型] [-o 挂载选项] 设备 挂载点
+</code></pre></div>
+<ol>
+<li>挂载设备到目录</li>
+</ol>
+<div class="highlight"><pre><span></span><code>sudo mount /dev/sdb1 /mnt/data
+</code></pre></div>
+<ol>
+<li>指定文件系统类型</li>
+</ol>
+<div class="highlight"><pre><span></span><code>sudo mount -t ext4 /dev/sdb1 /mnt/data
+sudo mount -t xfs /dev/sdc1 /mnt/backup
+sudo mount -t ntfs /dev/sdd1 /mnt/windows
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选项</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>-t</code></td>
+<td style="text-align: left;">指定文件系统类型</td>
+<td style="text-align: left;"><code>-t ext4</code>, <code>-t nfs</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-o</code></td>
+<td style="text-align: left;">指定挂载选项</td>
+<td style="text-align: left;"><code>-o ro</code>, <code>-o noexec</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-a</code></td>
+<td style="text-align: left;">挂载 <code>/etc/fstab</code>中的所有文件系统</td>
+<td style="text-align: left;"><code>mount -a</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-r</code></td>
+<td style="text-align: left;">只读挂载（等同于 <code>-o ro</code>）</td>
+<td style="text-align: left;"><code>mount -r /dev/sdb1 /mnt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-v</code></td>
+<td style="text-align: left;">显示详细输出</td>
+<td style="text-align: left;"><code>mount -v /dev/sdb1 /mnt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-n</code></td>
+<td style="text-align: left;">不写入 <code>/etc/mtab</code>文件</td>
+<td style="text-align: left;"><code>mount -n /dev/sdb1 /mnt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-l</code></td>
+<td style="text-align: left;">显示文件系统标签</td>
+<td style="text-align: left;"><code>mount -l</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>--bind</code></td>
+<td style="text-align: left;">绑定挂载（目录到目录）</td>
+<td style="text-align: left;"><code>mount --bind /old /new</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="152fstab">1.5.2.fstab</h5>
+<p>使用<code>mount</code>命令进行挂载是临时的方式，如果需要永久定义挂载操作，需要将配置写入到<code>/etc/fstab</code>文件中。</p>
+<p><code>/etc/fstab</code>(文件系统表) 是<code>Linux</code>系统中用于定义自动挂载文件系统的配置文件，它决定了系统启动时哪些文件系统会被自动挂载以及如何挂载。</p>
+<p><strong>基本格式</strong></p>
+<p>每行定义一个挂载项，包含6个字段，字段间用空格或制表符分隔：</p>
+<div class="highlight"><pre><span></span><code>&lt;设备&gt; &lt;挂载点&gt; &lt;文件系统类型&gt; &lt;挂载选项&gt; &lt;dump备份标志&gt; &lt;fsck检查顺序&gt;
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段位置</th>
+<th style="text-align: left;">名称</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">设备</td>
+<td style="text-align: left;">要挂载的设备或资源</td>
+<td style="text-align: left;"><code>/dev/sdb1</code>, <code>UUID=xxx</code>, <code>LABEL=mydata</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">挂载点</td>
+<td style="text-align: left;">挂载到的目录路径</td>
+<td style="text-align: left;"><code>/mnt/data</code>, <code>/home</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">文件系统类型</td>
+<td style="text-align: left;">文件系统类型</td>
+<td style="text-align: left;"><code>ext4</code>, <code>xfs</code>, <code>nfs</code>, <code>swap</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">挂载选项</td>
+<td style="text-align: left;">挂载时的选项</td>
+<td style="text-align: left;"><code>defaults</code>, <code>noatime</code>, <code>ro</code></td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">dump备份</td>
+<td style="text-align: left;">是否被dump备份工具使用</td>
+<td style="text-align: left;"><code>0</code>(不备份), <code>1</code>(备份)</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">fsck检查</td>
+<td style="text-align: left;">文件系统检查顺序</td>
+<td style="text-align: left;"><code>0</code>(不检查), <code>1</code>(根), <code>2</code>(其他)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>查看设备UUID：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# blkid /dev/sdb
+/dev/sdb: PTUUID=&quot;8bbddf0a-ac00-4709-ab41-ef1a1cdce2e4&quot; PTTYPE=&quot;gpt&quot;
+</code></pre></div>
+<p><strong>常用挂载选项：</strong></p>
+<ol>
+<li><strong>访问权限控制：</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选项</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ro</code></td>
+<td style="text-align: left;">只读挂载</td>
+<td style="text-align: left;">保护重要数据不被修改</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>rw</code></td>
+<td style="text-align: left;">读写挂载（默认）</td>
+<td style="text-align: left;">常规数据分区</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>noexec</code></td>
+<td style="text-align: left;">禁止执行程序</td>
+<td style="text-align: left;">数据存储分区，增强安全</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>nosuid</code></td>
+<td style="text-align: left;">忽略SUID/SGID权限位</td>
+<td style="text-align: left;">防止权限提升攻击</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>nodev</code></td>
+<td style="text-align: left;">不解释设备文件</td>
+<td style="text-align: left;">安全敏感挂载点</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>时间戳处理：</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选项</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">性能影响</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>atime</code></td>
+<td style="text-align: left;">更新访问时间（默认）</td>
+<td style="text-align: left;">高I/O开销</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>noatime</code></td>
+<td style="text-align: left;">不更新访问时间</td>
+<td style="text-align: left;">显著提升性能</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>relatime</code></td>
+<td style="text-align: left;">相对时间更新（推荐）</td>
+<td style="text-align: left;">平衡方案</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>strictatime</code></td>
+<td style="text-align: left;">严格更新访问时间</td>
+<td style="text-align: left;">最高准确性</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>性能优化选项：</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选项</th>
+<th style="text-align: left;">描述</th>
+<th style="text-align: left;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>sync</code></td>
+<td style="text-align: left;">同步写入（数据立即写入磁盘）</td>
+<td style="text-align: left;">数据安全优先</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>async</code></td>
+<td style="text-align: left;">异步写入（默认）</td>
+<td style="text-align: left;">性能优先</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>data=writeback</code></td>
+<td style="text-align: left;">ext4的宽松日志模式</td>
+<td style="text-align: left;">最高性能</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>data=ordered</code></td>
+<td style="text-align: left;">ext4的默认日志模式</td>
+<td style="text-align: left;">平衡方案</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>data=journal</code></td>
+<td style="text-align: left;">ext4的完全日志模式</td>
+<td style="text-align: left;">数据安全</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="2lvm">2.LVM</h3>
+<h4 id="21">2.1.理论概念</h4>
+<p><code>LVM (Logical Volume Manager)</code>是<code>Linux</code>环境下对磁盘分区进行管理的一种机制，它提供了比传统磁盘分区更灵活、更强大的存储管理能力。<code>LVM</code>的核心概念是将物理存储设备抽象化，形成一个更易于管理的逻辑视图。</p>
+<p><code>LVM</code>的创建初衷是为了解决硬盘设备在创建分区后不易修改分区大小的缺陷。尽管对传统的硬盘分区进行强制扩容或缩容从理论上来讲是可行的，但是却可能造成数据的丢失。而<code>LVM</code>技术是在硬盘分区和文件系统之间添加了一个逻辑层，它提供了一个抽象的卷组，可以把多块硬盘进行卷组合并。这样一来，用户不必关心物理硬盘设备的低层架构和布局，就可以实现对硬盘分区的动态调整。</p>
+<h5 id="211lvm">2.1.1.LVM的主要组件</h5>
+<ol>
+<li><strong>物理卷 (Physical Volume, PV)</strong>：实际的物理存储设备（如硬盘、分区或 RAID 设备）</li>
+<li><strong>卷组 (Volume Group, VG)</strong>：由一个或多个物理卷组成的存储池</li>
+<li><strong>逻辑卷 (Logical Volume, LV)</strong>：从卷组中划分出来的逻辑存储单元，可以像普通分区一样使用</li>
+</ol>
+<p><img alt="image.png" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251013225632275.png" /></p>
+<hr />
+<h5 id="212lepe">2.1.2.LE和PE</h5>
+<p><strong>PE（Physical Extent）物理区域：</strong></p>
+<ul>
+<li><strong>PE</strong> 是卷组（<code>VG</code>）中空间分配的基本单位</li>
+<li>每个物理卷（<code>PV</code>）被划分为多个大小相等的<code>PE</code></li>
+<li><code>PE</code>大小在创建卷组时确定，默认通常为 4<code>MB</code></li>
+</ul>
+<p><strong>PE的特点：</strong></p>
+<ol>
+<li><strong>固定大小</strong>：一个卷组中的所有<code>PE</code>大小相同</li>
+<li><strong>不可分割</strong>：是<code>LVM</code>管理的最小存储单元</li>
+<li><strong>连续分配</strong>：在物理卷上连续分布</li>
+</ol>
+<p><strong>设置方式：</strong></p>
+<div class="highlight"><pre><span></span><code># 创建卷组时指定 PE 大小（默认为 4MB）
+sudo vgcreate -s 8M my_vg /dev/sdb    # 设置 PE 大小为 8MB
+sudo vgcreate -s 64M my_vg /dev/sdb   # 设置 PE 大小为 64MB
+
+# 查看卷组的 PE 信息
+sudo vgdisplay my_vg
+</code></pre></div>
+<hr />
+<p><strong>LE（Logical Extent）逻辑区域：</strong></p>
+<ul>
+<li><code>LE</code>是逻辑卷（<code>LV</code>）中空间分配的基本单位</li>
+<li>每个逻辑卷被划分为多个大小相等的<code>LE</code></li>
+<li><code>LE</code>大小与<code>PE</code>大小相同</li>
+</ul>
+<p><strong>LE的特点：</strong></p>
+<ol>
+<li><strong>与 PE 一一对应</strong>：每个<code>LE</code>映射到一个或多个<code>PE</code></li>
+<li><strong>逻辑视图</strong>：在逻辑卷层面提供连续的存储视图</li>
+<li><strong>可跨物理卷</strong>：<code>LE</code>可以映射到不同物理卷上的<code>PE</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>逻辑卷 (LV)       卷组 (VG)       物理卷 (PV)
++----------+     +----------+    +----------+
+|   LE 0   | --&gt; |   PE 0   |    | 物理位置 |
++----------+     +----------+    +----------+
+|   LE 1   | --&gt; |   PE 1   |    | 物理位置 |
++----------+     +----------+    +----------+
+|   LE 2   | --&gt; |   PE 5   |    | 跨物理卷 |
++----------+     +----------+    +----------+
+|   LE 3   | --&gt; |   PE 2   |    | 物理位置 |
++----------+     +----------+    +----------+
+</code></pre></div>
+<p><strong>查看PE/LE信息：</strong></p>
+<div class="highlight"><pre><span></span><code># 查看物理卷的 PE 信息
+sudo pvdisplay /dev/sdb
+
+# 查看卷组的 PE 信息
+sudo vgdisplay my_vg
+
+# 查看逻辑卷的 LE 信息
+sudo lvdisplay /dev/my_vg/my_lv
+</code></pre></div>
+<p><strong>创建逻辑卷时的PE/LE计算：</strong></p>
+<div class="highlight"><pre><span></span><code># 当 PE 大小为 4MB 时
+sudo lvcreate -L 10G -n my_lv my_vg
+# 10GB = 10240MB，需要 PE 数量：10240 / 4 = 2560 个 PE/LE
+
+# 使用 PE 数量创建（更精确）
+sudo lvcreate -l 2560 -n my_lv my_vg  # -l 指定 LE 数量
+</code></pre></div>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

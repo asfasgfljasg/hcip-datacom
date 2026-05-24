@@ -1,0 +1,6091 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/">
+      
+      
+        <link rel="next" href="../06_MPLS/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>BGP详解 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#05_bgp" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BGP详解
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.BGP的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.BGP的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11as" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.AS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.BGP 概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.BGP 概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.查看全球BGP路由条目
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.对等体关系类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.TCP连接源地址
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.BGP报文详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.BGP报文详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.报文类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.通用头部
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.Open报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.Update报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.Notification报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#136keepalive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.6.Keepalive报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#137route-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.7.Route-refresh报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.BGP状态机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.BGP状态机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1.总结报文与状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2.邻居关系建立过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3.抓包分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.对等体关系建立演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.对等体关系建立演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151ibgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.iBGP直连口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152ibgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.2.iBGP回环口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153ebgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.3.eBGP直连接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154ebgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.4.eBGP回环口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.5.对等体表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.6.路由表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.BGP路由生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6.BGP路由生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.1.Network注入路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162import-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.2.import-route注入路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.路由通告原则
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.7.路由通告原则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.1.水平分割
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.2路由黑洞
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.3.同步规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#174" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.4.作业
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18router-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.Router-ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.路径属性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.路径属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.路径属性分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.路径属性详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.路径属性详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221as_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.AS_Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.Origin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223next_hopppt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.Next_Hop（看PPT）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224local_preference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.Local_Preference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225community" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5.Community
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226med" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.6.MED
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#227atomic_aggreagteaggregator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.7.Atomic_Aggreagte及Aggregator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#228preferred-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.8.Preferred-Value
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.路由汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.路由汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.自动汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.手动汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.手动汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1.普通手动汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322detail-suppressed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2.detail-suppressed参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323as-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3.as-set参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324suppress-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4.suppress-policy参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325origin-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.5.origin-policy参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#326attribute-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.6.attribute-policy参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.复位BGP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ibgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.IBGP防环
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.IBGP防环">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.路由反射器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1.路由反射器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1.规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.2.路由环路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.3.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.联邦
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2.联邦">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521as_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.1.AS_PATH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.2.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.BGP路由优选
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.BGP路由优选">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.最优路径选择算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#621preferred_value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2.案例1：Preferred_Value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#632local_preference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3.案例2：Local_Preference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#643" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.案例3：本地始发最优
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4.案例3：本地始发最优">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#641" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.1.本地最优
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#642" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.2.本地始发中最优选的
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#654as_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5.案例4：AS_Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#665origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6.案例5：Origin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#676med" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7.案例6：MED
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#687ebgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8.案例7：优选EBGP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#698igp-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.9.案例8：IGP Cost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#610bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10.BGP路由负载分担
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.10.BGP路由负载分担">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10.1.负载分担条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10.2.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6119cluster_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.11.案例9：优选Cluster_List最短的路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#61210router-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.12.案例10：优选Router-ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#61310origin-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.13.案例10：优选Origin-ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#61411ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.14.案例11：优选IP地址最小的
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.补充
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.补充">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.关于联邦下一跳问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2.引入问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.BGP的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.BGP的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11as" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.AS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.BGP 概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.BGP 概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.查看全球BGP路由条目
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.对等体关系类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123tcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.TCP连接源地址
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.BGP报文详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.BGP报文详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.报文类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.通用头部
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.Open报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.Update报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135notification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.Notification报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#136keepalive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.6.Keepalive报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#137route-refresh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.7.Route-refresh报文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.BGP状态机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.BGP状态机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1.总结报文与状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2.邻居关系建立过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3.抓包分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.对等体关系建立演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.对等体关系建立演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151ibgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.iBGP直连口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152ibgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.2.iBGP回环口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153ebgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.3.eBGP直连接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154ebgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.4.eBGP回环口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.5.对等体表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.6.路由表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.BGP路由生成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6.BGP路由生成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.1.Network注入路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162import-route" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.2.import-route注入路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.路由通告原则
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.7.路由通告原则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#171" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.1.水平分割
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#172" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.2路由黑洞
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#173" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.3.同步规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#174" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.4.作业
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18router-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.Router-ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.路径属性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.路径属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.路径属性分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.路径属性详解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.路径属性详解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221as_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.AS_Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.Origin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223next_hopppt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.Next_Hop（看PPT）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224local_preference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.Local_Preference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225community" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5.Community
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226med" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.6.MED
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#227atomic_aggreagteaggregator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.7.Atomic_Aggreagte及Aggregator
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#228preferred-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.8.Preferred-Value
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.路由汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.路由汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.自动汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.手动汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.手动汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1.普通手动汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322detail-suppressed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2.detail-suppressed参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323as-set" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3.as-set参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324suppress-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4.suppress-policy参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325origin-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.5.origin-policy参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#326attribute-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.6.attribute-policy参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.复位BGP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5ibgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.IBGP防环
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.IBGP防环">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.路由反射器
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1.路由反射器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.1.规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.2.路由环路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1.3.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.联邦
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2.联邦">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521as_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.1.AS_PATH
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2.2.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.BGP路由优选
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.BGP路由优选">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1.最优路径选择算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#621preferred_value" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2.案例1：Preferred_Value
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#632local_preference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3.案例2：Local_Preference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#643" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.案例3：本地始发最优
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.4.案例3：本地始发最优">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#641" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.1.本地最优
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#642" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4.2.本地始发中最优选的
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#654as_path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5.案例4：AS_Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#665origin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6.案例5：Origin
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#676med" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7.案例6：MED
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#687ebgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8.案例7：优选EBGP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#698igp-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.9.案例8：IGP Cost
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#610bgp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10.BGP路由负载分担
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6.10.BGP路由负载分担">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#6101" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10.1.负载分担条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10.2.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6119cluster_list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.11.案例9：优选Cluster_List最短的路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#61210router-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.12.案例10：优选Router-ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#61310origin-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.13.案例10：优选Origin-ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#61411ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.14.案例11：优选IP地址最小的
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.补充
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.补充">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1.关于联邦下一跳问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2.引入问题
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="05_bgp">05_BGP详解</h1>
+<h3 id="1bgp">1.BGP的基本概念</h3>
+<h4 id="11as">1.1.AS</h4>
+<p><code>OSPF、IS-IS</code>等<code>IGP</code>路由协议在<strong>组织机构内部</strong>广泛应用，随着网络规模扩大，网络中路由数量不断增长，<code>IGP</code>已无法管理大规模网络，<code>AS</code>的概念由此诞生。</p>
+<p><code>AS</code>指的是由一个单一的机构或组织所管理的一系列<code>IP</code>网络及其设备所构成的集合。可以简单的将<code>AS</code>理解为一个独立的机构或者企业所管理的网络，例如一家网络运营商的网络等。另一个关于<code>AS</code>的例子是，一家全球性的大型企业在其网络的规划上将全球各个区域划分为一个个的<code>AS</code>，例如中国区是一个<code>AS</code>，韩国区是另一个<code>AS</code>。</p>
+<p><img alt="image-20250825135758555" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336507.png" /></p>
+<p>例如上图，总部是<code>AS100</code>分部是<code>AS200</code>，现在总部和分部的路由器通过专线连接并建立<code>BGP</code>邻居关系，随后因为运行了<code>BGP</code>路由协议的路由器，同时也运行了各自公司内部的<code>IGP</code>协议，公司内部路由都会出现在其路由表中。通过<code>BGP</code>将自己公司的路由通告给对方，然后再使用重分发让公司内部的其他路由器学习到对方的路由。</p>
+<hr />
+<p>不同<code>AS</code>通过<code>AS</code>号区分，<code>AS</code>号存在<code>16 bit</code>、<code>32bit</code>两种表示方式。<code>LANA</code>负责<code>AS</code>号的分发。你需要明白一点不管是<code>IP</code>地址还是<code>AS</code>号，都根据你使用的场景分为私有和公有。如果是在公网范围使用的一定要通过机构申请，如果是私有的那无所谓你用什么。</p>
+<p>当不同的<code>AS</code>之间需要进行通信时，就需要使用<code>BGP</code>路由协议进行路由传递。</p>
+<ul>
+<li>
+<p>两字节的<code>AS</code>范围为：<code>1-65535</code></p>
+</li>
+<li>
+<p>四字节的<code>AS</code>范围为：<code>65536-4294967295</code></p>
+</li>
+</ul>
+<p>华为默认使用的还是两字节的。使用命令：<code>private-4-byte-as enable</code>可开启四字节范围。</p>
+<p>其中，<code>64512-65534</code>是私有范围</p>
+<hr />
+<h4 id="12bgp">1.2.BGP 概述</h4>
+<p><code>BGP(Border Gateway Protocol)</code>边界网关协议，几乎是当前唯一被用于在不同<code>AS</code>之间实现路由交互的<code>EGP</code>协议。<code>BGP</code>适用于大型的网络环境，例如运营商网络，或者大型企业网等。<code>BGP</code>支持<code>VLSM</code>、<code>CIDR</code>，支持自动路由汇总、手工路由汇总。</p>
+<p><code>BGP</code>是一种实现自治系统<code>AS</code>之间的路由可达，并选择最佳路由的<strong>矢量性协议</strong>。</p>
+<p><code>BGP</code>使用<code>TCP</code>作为传输层协议，这使得协议报文的交互更加可靠和有序。<code>BGP</code>使用目的<code>TCP</code>端口<code>179</code>，两台互为对等体的<code>BGP</code>路由器首先会建立<code>TCP</code>连接，随后协商各项参数并建立对等体关系。</p>
+<p>初始情况下，两者会同步双方的<code>BGP</code>路由表，在<code>BGP</code>路由表同步完成后，路由器不会周期性地发送<code>BGP</code>路由更新，而只发送增量更新或在需要时进行触发性更新，这大大减小了设备的负担及网络带宽损耗，由于<code>BGP</code>往往被用于承载大批量的路由信息，如果依然像<code>IGP</code>协议那样，周期性地交互路由信息，显然是相当低效和不切实际的。</p>
+<p><code>BGP</code>定义了多种路径属性（<code>Path Attribute</code>）用于描述路由，就像一个人的身高、体重、学历、特征和经历等属性一样，一条<code>BGP</code>路由同样携带者多种属性，路径属性将影响<code>BGP</code>路由的优选。</p>
+<p><code>BGP</code>的发展过程中，经历了数个版本，目前在<code>IPv4</code>环境中，<code>BGPv4(BGP Version 4)</code>被广泛使用。</p>
+<p><img alt="image-20250825155223670" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336510.png" /></p>
+<hr />
+<h5 id="121bgp">1.2.1.查看全球BGP路由条目</h5>
+<p><strong>远程路由器查看</strong></p>
+<ol>
+<li>
+<p>通过<code>telnet</code>登录镜像路由器，地址为<code>route-views.routeviews.org</code>，用户为<code>rviews</code>。</p>
+</li>
+<li>
+<p>输入命令：<code>show bgp all summary</code>查看<code>IPv4 BGP</code>路由表信息。</p>
+</li>
+</ol>
+<p><img alt="image-20250825154424396" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336500.png" /></p>
+<ul>
+<li><strong>网络条目 (Network entries):</strong> <code>1,026,032</code> 条</li>
+<li><strong>路径条目 (Path entries):</strong> <code>18,110,895</code> 条 (到达同一目的网络可能存在多条路径)</li>
+<li><strong>BGP路径/最佳路径属性:</strong> <code>2,970,774 / 178,442</code> 条 (当前优选的最佳路径为178,442条)</li>
+<li><strong>AS路径信息 (AS-PATH entries):</strong> <code>2,776,468</code> 条</li>
+<li><strong>团体属性 (Community entries):</strong> <code>260,406</code> 条</li>
+<li><strong>扩展团体属性 (Extended community entries):</strong> <code>2,926</code> 条</li>
+</ul>
+<p><strong>网站查看</strong></p>
+<p>可以通过网站http://www.cidr-report.org/as2.0/查看到各大机构路由发布和汇聚情况。</p>
+<p>从下图可看出最新的全球<code>BGP</code>路由表中，路由前缀与汇总的条目：</p>
+<p><img alt="image-20250825154608314" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336522.png" /></p>
+<hr />
+<h5 id="122">1.2.2.对等体关系类型</h5>
+<p><code>BGP</code>建立对等体关系与<code>IGP</code>建立邻居关系区别很大，<code>IGP</code>要求建立邻居关系的两台设备必须是直连的，而<code>BGP</code>采用<code>TCP</code>，两台路由器只要能够通信，并且能够基于<code>TCP 179</code>端口建立连接，就可以建立<code>BGP</code>对等体关系，因此<code>BGP</code>的对等体关系是可以<strong>跨设备</strong>建立的。</p>
+<p><code>BGP</code>由两种对等体关系类型：</p>
+<ul>
+<li><code>EBGP</code>：位于不同<code>AS</code>的<code>BGP</code>路由器之间的<code>BGP</code>对等体关系。两台路由器之间要建立<code>EBGP</code>对等体关系，必须满足两个条件：</li>
+<li>两个路由器所属<code>AS</code>不同</li>
+<li>在配置<code>EBGP</code>时，<code>peer</code>命令所指定的对等体<code>IP</code>地址要求路由可达，并且<code>TCP</code>连接能够正确建立。</li>
+<li><code>IBGP</code>：位于相同<code>AS</code>的<code>BGP</code>路由器之间的<code>BGP</code>对等体关系。</li>
+</ul>
+<p><img alt="image-20250825160222191" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336516.png" /></p>
+<hr />
+<h5 id="123tcp">1.2.3.TCP连接源地址</h5>
+<p>缺省情况下，<code>BGP</code>使用报文出接口作为<code>TCP</code>连接的本地接口。在部署<code>IBGP</code>对等体关系时，建议使用<code>LoopBack</code>地址作为更新源地址。因为<code>LoopBack</code>接口非常稳定，而且可以借助<code>AS</code>内的<code>IGP</code>和冗余拓扑来保证可靠性。</p>
+<p>一般而言在<code>AS</code>内部，网络具备一定的冗余性。在<code>R1</code>与<code>R3</code>之间，如果采用直连接口建<code>IBGP</code>邻居关系，那么一旦接口或者直连链路发生故障，<code>BGP</code>会话也就断了，但是事实上，由于冗余链路的存在，<code>R1</code>与<code>R3</code>之间的<code>IP</code>连通性其实并没有<code>DOWN</code>（仍然可以通过<code>R4</code>到达彼此）。</p>
+<p><img alt="image-20250825164830336" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336503.png" /></p>
+<p>在部署<code>EBGP</code>对等体关系时，通常使用直连接口的<code>IP</code>地址作为源地址，如若使用<code>Loopback</code>接口建立<code>EBGP</code>对等体关系，需要考虑<code>TTL</code>。因为默认<code>EBGP</code>对等体发送的报文<code>TTL</code>为<code>1</code>。</p>
+<hr />
+<h4 id="13bgp">1.3.BGP报文详解</h4>
+<h5 id="131">1.3.1.报文类型</h5>
+<p><code>BGP</code>有五种报文，分别是：<code>Open、Updata、Notification、Keepalive、Route-refresh</code>。</p>
+<p><img alt="image-20250826123603925" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336732.png" /></p>
+<hr />
+<h5 id="132">1.3.2.通用头部</h5>
+<p><code>BGP</code>报文属于应用层，所以<code>BGP</code>所有报文都是封装<code>TCP</code>里的，依赖<code>TCP</code>通道进行传输。</p>
+<p><img alt="image-20250826130413396" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336738.png" /></p>
+<ul>
+<li><code>Marker</code>：<code>16 Byte</code>，用于标明<code>BGP</code>报文边界，所有<code>bit</code>均为<code>1</code>。</li>
+<li>主要有两个作用：<ul>
+<li><strong>定界符：</strong> 在TCP流中标识BGP报文的开始。</li>
+<li><strong>差错检测：</strong> 通过检查全 <code>0xFF</code> 的值来快速发现严重错误，并重置连接。</li>
+</ul>
+</li>
+<li><code>Length</code>：<code>2 Byte</code>，<code>BGP</code>报文总长度（包括报文头在内），以<code>Byte</code>为单位。</li>
+<li><code>Type</code>：<code>1 Byte</code>，用于表明携带的<code>BGP</code>报文的类型。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>TYPE值</th>
+<th>报文类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>OPEN</td>
+</tr>
+<tr>
+<td>2</td>
+<td>UPDATE</td>
+</tr>
+<tr>
+<td>3</td>
+<td>NOTIFICATION</td>
+</tr>
+<tr>
+<td>4</td>
+<td>KEEPALIVE</td>
+</tr>
+<tr>
+<td>5</td>
+<td>REFRESH</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="133open">1.3.3.Open报文</h5>
+<p><code>Open</code>报文是<code>TCP</code>连接建立之后发送的第一个报文，用于建立<code>BGP</code>对等体之间的连接关系，报文格式如下：</p>
+<p><img alt="image-20250826131540464" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336734.png" /></p>
+<ul>
+<li><code>Version</code>：<code>BGP</code>的版本号。对于<code>BGP 4</code>来说，其值为<code>4</code>。</li>
+<li><code>My AS(autonomous system)</code>：本地<code>AS</code>号。通过比较两端的<code>AS</code>号可以判断对端是否和本段处于相同<code>AS</code>。换句话说，通过该字段知道是建立<code>iBGP</code>还是<code>eBGP</code>。</li>
+<li><code>Hold Time</code>：保持时间。在建立对等体关系时两端要协商<code>Hold Time</code>，并保持一致。如果在这个时间内未收到对端发来的<code>Keepalive</code>报文或<code>Update</code>报文，则认为<code>BGP</code>连接中断。</li>
+<li><code>BGP Identifier</code>：<code>BGP</code>标识符（<code>Router-ID</code>），以<code>IP</code>地址的形式表示，用来识别<code>BGP</code>路由器。</li>
+</ul>
+<p><img alt="image-20250826151258438" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336737.png" /></p>
+<hr />
+<h5 id="134update">1.3.4.Update报文</h5>
+<p><code>Update</code>报文用于在对等体之间传递路由信息，可以用于发布、撤销路由。一个<code>Update</code>报文可以通告具有相同路径属性的多条路由，这些路由保存在<code>NLRI</code>（网络层可达信息）中。</p>
+<p>同时<code>Update</code>报文还可以携带多条不可达路由，用于告知对方撤销路由，这些保存在<code>Withdrawn routes</code>字段中。</p>
+<p><img alt="image-20250826131959917" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336742.png" /></p>
+<ul>
+<li><code>Withdrawn Routes Length</code>：用来表明当前的<code>Update</code>报文是更新路由还是撤销路由。</li>
+<li>当该字段为<code>0</code>时，表示<strong>更新路由</strong>，路由条目将出现在<code>NLRI</code>字段。</li>
+<li>当该字段非<code>0</code>时，表示<strong>撤销路由</strong>，被撤销的路由条目出现在<code>Withdrawn Routes</code>字段。</li>
+<li><code>Path attributes</code>：与<code>NLRI</code>相关的所有路径属性列表，每个路径属性由一个<code>TLV</code>组成。</li>
+<li><code>NLRI</code>：更新路由的前缀和掩码。</li>
+<li><code>Withdrawn Routes</code>：撤销路由的前缀和掩码。</li>
+</ul>
+<p><strong>通告路由</strong></p>
+<p><img alt="image-20250826134720041" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336739.png" /></p>
+<p><strong>撤销路由</strong></p>
+<p><img alt="image-20250826134758556" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336895.png" /></p>
+<hr />
+<h5 id="135notification">1.3.5.Notification报文</h5>
+<p>当<code>BGP</code>检测到错误状态时（对等体关系建立时、建立之后都可能发生），就会向对等体发送<code>Notification</code>，报纸对端错误原因。之后<code>BGP</code>连接将会立即中断。</p>
+<p>简单来讲，就是当出现任何问题影响到对等体建立时，只要通道还保持畅通，就会向对端发送<code>Notification</code>。</p>
+<p><img alt="image-20250826140731450" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336879.png" /></p>
+<ul>
+<li><code>Error code、Error subcode</code>：差错码、差错子码，用于告知对端具体的错误类型。</li>
+<li><code>Data</code>：用于辅助描述详细的错误内容，长度不固定。</li>
+</ul>
+<p>当你主动断开对等体关系时，也会产生<code>Notification</code>，如下：</p>
+<p><img alt="image-20250826140843013" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336897.png" /></p>
+<hr />
+<h5 id="136keepalive">1.3.6.Keepalive报文</h5>
+<p><code>BGP</code>路由器收到对端发送的<code>Keepalive</code>报文，将对等体状态置为已建立，同时后需定期发送<code>Keepalive</code>报文用于保持连接。</p>
+<p><code>Keepalive</code>报文格式中只包含报文头，没有附加其他任何字段。</p>
+<p><img alt="image-20250826141830262" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336894.png" /></p>
+<hr />
+<h5 id="137route-refresh">1.3.7.Route-refresh报文</h5>
+<p><code>Route-refresh</code>报文用来要求对等体重新发送指定地址族的路由信息，一般为本端修改了相关路由策略之后让对方重新发送<code>Update</code>报文，本端执行新的路由策略重新计算<code>BGP</code>路由。</p>
+<ul>
+<li><code>AFI</code>：<code>Address Family Identifier</code>，地址族标识，如<code>IPv4</code>。</li>
+<li><code>Res</code>：保留，<code>8 bit</code>必须为<code>0</code>。</li>
+<li><code>SAFI</code>：<code>Subsequent Address Family Identifier</code>，子地址族标识。</li>
+</ul>
+<p><img alt="image-20250826142215302" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336911.png" /></p>
+<p><img alt="image-20250826153420866" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135336924.png" /></p>
+<hr />
+<h4 id="14bgp">1.4.BGP状态机</h4>
+<p><img alt="image-20250826142849229" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337112.png" /></p>
+<ol>
+<li>
+<p><strong>Idle (空闲状态)</strong></p>
+</li>
+<li>
+<p><strong>描述</strong>：这是BGP初始状态。BGP进程正在检测是否有足够的资源来建立对等连接（例如，是否配置了邻居）。如果没有资源，它会保持在Idle状态。同时，路由器会拒绝所有进入的BGP连接请求。</p>
+</li>
+<li>
+<p><strong>动作</strong>：BGP进程启动后，会初始化资源，并<strong>启动一个连接重传计时器（ConnectRetry timer）</strong>，然后尝试发起一个TCP连接到其对等体。成功后，状态转换为 <strong>Connect</strong>。</p>
+</li>
+<li>
+<p><strong>触发转换的事件</strong>：管理员手动启动BGP进程或重置一个已有的对等会话。</p>
+</li>
+<li>任何状态中收到<code>Notification</code>报文或<code>TCP</code>连接断开等<code>Error</code>事件后，<code>BGP</code>都会切换到<code>Idle</code>状态。</li>
+</ol>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337064.png" /></p>
+<ol>
+<li>
+<p><strong>Connect (连接状态)</strong></p>
+</li>
+<li>
+<p>在该阶段<code>BGP</code>启动连接重传定时器（<code>Connect Retry</code>，默认<code>32s</code>），并等待<code>TCP</code>三次握手完成。</p>
+</li>
+<li>
+<p><strong>如果TCP连接成功建立</strong>：BGP会向对端发送一个<strong>OPEN报文</strong>，并转换到 <strong>OpenSent</strong> 状态。</p>
+</li>
+<li><strong>如果TCP连接建立失败</strong>（例如，对端未响应、端口<code>179</code>不可达）：状态转换为 <strong>Active</strong> 状态，并重启<code>ConnectRetry</code>计时器。</li>
+<li>
+<p><strong>如果ConnectRetry计时器超时</strong>：状态仍转换为 <strong>Active</strong>，并重启<code>ConnectRetry</code>计时器。</p>
+</li>
+<li>
+<p><strong>注意</strong>：在此状态下，任何其他的事件（如收到其他BGP消息）都会导致TCP连接中断，并回到<code>Idle</code>状态。</p>
+</li>
+<li>
+<p><strong>Active(活跃状态)</strong></p>
+</li>
+<li>
+<p>从<code>Connect</code>转换到<code>Active</code>状态后<code>BGP</code>继续试图建立<code>TCP</code>连接</p>
+<ul>
+<li>
+<p><strong>如果TCP连接成功建立</strong>：BGP会向对端发送一个<strong>OPEN消息</strong>，关闭ConnectRetry计时器，并转换到 <strong>OpenSent</strong> 状态。</p>
+</li>
+<li>
+<p><strong>如果ConnectRetry计时器超时</strong>：BGP会重启该计时器，并<strong>同时尝试重新发起TCP连接</strong>，然后状态转换回 <strong>Connect</strong> 状态。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>如果TCP连接始终无法建立</strong>，<code>BGP</code>会在<code>Connect</code>和<code>Active</code>状态之间来回振荡，直到底层网络问题被解决。重传定时器从<code>Connect</code>状态到<code>Active</code>状态时不会重置会一直倒计时。</p>
+</li>
+<li>
+<p><strong>排查重点</strong>：邻居长时间停留在Active状态通常意味着<strong>IP层连通性问题</strong>（错误的对端IP地址、ACL阻止了TCP 179端口、中间防火墙拦截等）。</p>
+</li>
+</ol>
+<p><img alt="在这里插入图片描述" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337071.png" /></p>
+<hr />
+<ol>
+<li><strong>OpenSent</strong></li>
+<li><strong>描述</strong>：BGP已经发送了自己的OPEN消息，并正在等待对端发来的OPEN消息。</li>
+<li><strong>动作：</strong><ul>
+<li><strong>当收到对端的OPEN消息：</strong>BGP会检查消息中的参数（例如，AS号、版本号、Hold Time、BGP标识符等）。</li>
+<li><strong>如果参数均可接受</strong>：BGP会发送一个<strong>KEEPALIVE消息</strong>，并协商Hold Time（取两者中较小的值），然后状态转换为 <strong>OpenConfirm</strong>。</li>
+<li><strong>如果参数有错误</strong>（例如，对端AS号与配置不匹配）：BGP会发送一个<strong>NOTIFICATION消息</strong>（说明错误原因）并断开TCP连接，状态回到 <strong>Idle</strong>。</li>
+<li><strong>在此状态下，任何其他BGP消息（如KEEPALIVE）的到达都被视为错误</strong>，会触发NOTIFICATION消息并复位连接。</li>
+<li><strong>如果TCP连接中断</strong>：状态会回到 <strong>Idle</strong>。</li>
+</ul>
+</li>
+</ol>
+<p><img alt="在这里插入图片描述" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337077.png" /></p>
+<hr />
+<ol>
+<li><strong>OpenConfirm</strong></li>
+<li><strong>描述</strong>：BGP已经交换并接受了彼此的OPEN消息，正在等待对端发来的KEEPALIVE消息（或自己先发送，然后等待确认）以最终确认会话参数。</li>
+<li><strong>动作：</strong><ul>
+<li>BGP会启动一个<strong>保持计时器（Hold Timer）</strong>。</li>
+<li><strong>如果收到KEEPALIVE消息</strong>：这意味着对端也认可我们的OPEN消息参数。BGP会<strong>重置Hold Timer</strong>，状态转换为最终的 <strong>Established</strong> 状态。</li>
+<li><strong>如果Hold Timer超时</strong>：BGP会认为对端失效，发送NOTIFICATION消息并断开连接，状态回到 <strong>Idle</strong>。</li>
+<li><strong>如果收到NOTIFICATION消息</strong>：处理错误，断开连接，回到 <strong>Idle</strong>。</li>
+</ul>
+</li>
+</ol>
+<p><img alt="在这里插入图片描述" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337083.png" /></p>
+<hr />
+<ol>
+<li>
+<p><strong>Established</strong></p>
+</li>
+<li>
+<p><strong>描述</strong>：<strong>BGP对等会话已成功建立！</strong> 这是唯一可以交换UPDATE消息（包含路由信息）的状态。</p>
+</li>
+<li><strong>动作：</strong></li>
+<li>BGP可以与其对等体交换<strong>UPDATE</strong>（通告/撤销路由）、<strong>KEEPALIVE</strong>（保活）和<strong>NOTIFICATION</strong>（错误通知）消息。</li>
+<li><strong>每当收到KEEPALIVE或UPDATE消息</strong>，都会<strong>重置Hold Timer</strong>。如果Hold Timer超时，就意味着与对端的连接已中断。</li>
+<li><strong>如果收到NOTIFICATION消息</strong>：处理错误，断开连接，回到 <strong>Idle</strong>。</li>
+<li><strong>如果发生任何错误</strong>（例如，收到格式错误的消息）：BGP会发送NOTIFICATION消息并断开连接，回到 <strong>Idle</strong>。</li>
+</ol>
+<hr />
+<h5 id="141">1.4.1.总结报文与状态机</h5>
+<ol>
+<li>交互<code>TCP</code>报文</li>
+<li><code>Idle</code></li>
+<li><code>Connect</code></li>
+<li><code>Active</code></li>
+<li>交互<code>Open</code>报文</li>
+<li><code>OpenSent</code></li>
+<li>交互<code>Keepalive</code>报文</li>
+<li><code>OpenConfirm</code></li>
+<li>交互<code>Update、Keepalive</code></li>
+<li><code>Established</code></li>
+</ol>
+<hr />
+<h5 id="142">1.4.2.邻居关系建立过程</h5>
+<ol>
+<li>设备使用命令指定对等体地址进入<code>Idle</code>状态。</li>
+<li>本端设备发送<code>TCP SYN</code>请求建立连接，进入<code>Connect</code>状态。</li>
+<li>若<code>TCP</code>连接建立失败，进入<code>Active</code>状态继续尝试建立<code>TCP</code>。</li>
+<li>若<code>TCP</code>连接建立成功，进入<code>OpenSent</code>状态，并发送<code>Open</code>报文。</li>
+<li>当本端收到正确的<code>Open</code>报文后，进入<code>OpenConfirm</code>状态并发送<code>Keepalive</code>报文。</li>
+<li>当收到正确的<code>Keepalive</code>报文之后进入<code>Established</code>状态，开始交互<code>Update</code>报文相互学习路由条目。</li>
+</ol>
+<p>在任意状态机中，如果发生了<code>Error</code>错误，即收到<code>Notification</code>报文将直接切换到<code>Idle</code>状态。</p>
+<p><img alt="image-20250826142857814" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337121.png" /></p>
+<hr />
+<p><strong>对等体建立过程</strong></p>
+<p><img alt=" " src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337227.png" /></p>
+<p><strong>路由交互过程</strong></p>
+<p><img alt="在这里插入图片描述" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337232.png" /></p>
+<hr />
+<h5 id="143">1.4.3.抓包分析</h5>
+<p><img alt="image-20250826152320808" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337244.png" /></p>
+<p>此实验中，<code>AR1</code>和<code>AR2</code>使用直连接口建立<code>iBGP</code>邻居关系，并且<code>AR1</code>将<code>1.1.1.1/32</code>宣告到<code>BGP</code>中。命令如下：</p>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 65000  
+[AR1-bgp]peer 12.1.1.2 as-number 65000
+[AR1-bgp]network 1.1.1.1 32
+[AR1-bgp]quit
+
+[AR2]bgp 65000
+[AR2-bgp]peer 12.1.1.1 as-number 65000
+[AR2-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250826153021329" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337269.png" /></p>
+<hr />
+<p>在<code>AR2</code>执行<code>refresh bgp all import</code>，触发路由更新：</p>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337292.png" /></p>
+<hr />
+<p>在<code>AR1</code>执行<code>undo peer 12.1.1.2</code>，观察<code>Notification</code>报文：</p>
+<p><img alt="image-20250826153534380" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337302.png" /></p>
+<hr />
+<h4 id="15">1.5.对等体关系建立演示</h4>
+<p>在<code>BGP</code>中对等体关系分为<code>iBGP</code>与<code>eBGP</code>两种，<code>iBGP</code>用在相同<code>AS</code>的路由器之间，<code>eBGP</code>用在不同<code>AS</code>的路由器之间。</p>
+<p>通常在<code>iBGP</code>中推荐使用<code>LoopBack</code>接口建立对等体关系，因为其非常稳定。</p>
+<p><img alt="image-20250826154611987" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337395.png" /></p>
+<p>在<code>eBGP</code>中一般都是使用直连接口地址建立邻居，少数情况会使用<code>LoopBack</code>或其他接口，但是默认情况下<code>eBGP</code>发送的报文中<code>TTL</code>为1。所以你必须修改参数才能实现。</p>
+<h5 id="151ibgp">1.5.1.iBGP直连口</h5>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 65000  
+[AR1-bgp]peer 12.1.1.2 as-number 65000
+[AR1-bgp]quit
+
+[AR2]bgp 65000
+[AR2-bgp]peer 12.1.1.1 as-number 65000
+[AR2-bgp]quit
+</code></pre></div>
+<h5 id="152ibgp">1.5.2.iBGP回环口</h5>
+<p>需要先使用<code>IGP</code>打通设备之间的<code>LoopBack</code>。</p>
+<div class="highlight"><pre><span></span><code>[AR1]ospf 1
+[AR1-ospf-1]area 0
+[AR1-ospf-1-area-0.0.0.0]network 12.1.1.1 0.0.0.0
+[AR1-ospf-1-area-0.0.0.0]network 1.1.1.1 0.0.0.0
+[AR1-ospf-1-area-0.0.0.0]quit
+[AR1-ospf-1]quit
+
+[AR2]ospf 1
+[AR2-ospf-1]area 0
+[AR2-ospf-1-area-0.0.0.0]network 12.1.1.2 0.0.0.0
+[AR2-ospf-1-area-0.0.0.0]network 2.2.2.2 0.0.0.0
+[AR2-ospf-1-area-0.0.0.0]quit
+[AR2-ospf-1]quit
+</code></pre></div>
+<p>然后配置<code>BGP</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 65000
+[AR1-bgp]peer 2.2.2.2 as-number 65000
+[AR1-bgp]peer 2.2.2.2 connect-interface LoopBack 0
+
+[AR2]bgp 65000  
+[AR2-bgp]peer 1.1.1.1 as-number 65000
+[AR2-bgp]peer 1.1.1.1 connect-interface loo0
+</code></pre></div>
+<p><img alt="image-20250826162251115" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337394.png" /></p>
+<h5 id="153ebgp">1.5.3.eBGP直连接口</h5>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 65000
+[AR1-bgp]peer 12.1.1.2 as-number 65001
+
+[AR2]bgp 65001
+[AR2-bgp]peer 12.1.1.1 as-number 65000
+</code></pre></div>
+<p><img alt="image-20250826162449451" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337413.png" /></p>
+<h5 id="154ebgp">1.5.4.eBGP回环口</h5>
+<p><img alt="image-20250826162635865" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337478.png" /></p>
+<div class="highlight"><pre><span></span><code>bgp 65000
+ peer 2.2.2.2 as-number 65001 
+ peer 2.2.2.2 ebgp-max-hop 255 
+ peer 2.2.2.2 connect-interface LoopBack0
+ #
+ ipv4-family unicast
+  undo synchronization
+  peer 2.2.2.2 enable
+
+bgp 65001
+ peer 1.1.1.1 as-number 65000 
+ peer 1.1.1.1 ebgp-max-hop 255 
+ peer 1.1.1.1 connect-interface LoopBack0
+ #
+ ipv4-family unicast
+  undo synchronization
+  peer 1.1.1.1 enable
+</code></pre></div>
+<p><img alt="image-20250826164210816" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337485.png" /></p>
+<hr />
+<h5 id="155">1.5.5.对等体表</h5>
+<p><img alt="image-20250826164236761" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337497.png" /></p>
+<ul>
+<li><code>Peer</code>：对等体地址</li>
+<li><code>V</code>：<code>Version</code>版本号</li>
+<li><code>AS</code>：对等体<code>AS</code>号</li>
+<li><code>Up/Down</code>：该对等体已经存在<code>Up</code>或者<code>Down</code>的时间</li>
+<li><code>State</code>：对等体状态，这里显示的为<code>BGP</code>状态机的状态</li>
+<li><code>PrefRcv</code>：<code>prefix received</code>，从该对等体收到的路由前缀数目。</li>
+</ul>
+<hr />
+<h5 id="156">1.5.6.路由表</h5>
+<p><img alt="image-20250826164703107" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337579.png" /></p>
+<ul>
+<li><code>valid</code>：有效的。</li>
+<li><code>best</code>：最优。</li>
+<li><code>internal</code>：从<code>IBGP</code>学到的路由。</li>
+<li><code>damped</code>：这是<code>BGP</code>的惩罚机制，用于惩罚频繁<code>up/down</code>的不稳定路由，用来减少路由震荡。</li>
+<li>当该路由的惩罚值超过抑制阈值时，它会被“阻尼”（抑制），<strong>路由器不会将其通告给其他BGP邻居</strong>。</li>
+<li><code>history</code>：路由器检测到某条路由发生翻动，将其标记为“历史”状态，并开始计算惩罚值。<strong>处于此状态的路由不会被使用</strong>。</li>
+<li><code>suppressed</code>：表示路由被抑制。</li>
+<li><code>Stale</code>：这个状态码与BGP的<strong>无中断重启（Graceful Restart）</strong> 功能相关。它表示这条路由信息是从一个正在重启中的对等体那里保留下来的“陈旧”信息。路由器会暂时保留这条路由，等待对等体重启完成后更新它，从而避免路由中断。<strong>你的路由表中没有出现这个状态码。</strong></li>
+</ul>
+<p><img alt="image-20250826164647981" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337576.png" /></p>
+<hr />
+<h4 id="16bgp">1.6.BGP路由生成</h4>
+<p>与<code>IGP</code>路由协议不同，<code>BGP</code>自身并不会发现并计算产生路由，<code>BGP</code>将<code>IGP</code>路由表中的路由注入到<code>BGP</code>路由表中，并通过<code>Update</code>报文传递给<code>BGP</code>对等体。</p>
+<p>所以，<code>BGP</code>不生产路由，它只是路由的搬运工。</p>
+<p><img alt="image-20250826165929498" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337591.png" /></p>
+<p><code>BGP</code>注入路由的方式有两种：</p>
+<ul>
+<li><code>Network</code></li>
+<li><code>import-route</code></li>
+<li>聚合路由(路由汇总)</li>
+</ul>
+<hr />
+<h5 id="161network">1.6.1.Network注入路由</h5>
+<p><img alt="image-20250826170525689" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337656.png" /></p>
+<ol>
+<li><code>AS200</code>内的<code>BGP</code>路由器通过<code>IGP</code>协议学习到了两条路有，在<code>BGP</code>进程内通过<code>network</code>命令注入这两台路由，这两条路由将会出现在本地的<code>BGP</code>路由表中。</li>
+</ol>
+<hr />
+<p><img alt="image-20250826170630442" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337673.png" /></p>
+<ol>
+<li><code>AS200</code>内的<code>BGP</code>路由器通过<code>Update</code>报文将路由传递给<code>AS300</code>内的<code>BGP</code>路由器。</li>
+<li><code>AS300</code>内的<code>BGP</code>路由器收到路由后，将这两条路由加入到本地的<code>BGP</code>路由表中。</li>
+</ol>
+<hr />
+<h5 id="162import-route">1.6.2.import-route注入路由</h5>
+<p><code>network</code>方式注入路由虽然精准，但是只能一条条<code>network</code>，如果路由条目比较多那就比较麻烦，所以可以使用<code>import-route</code>方式将其他协议的路由注入到<code>BGP</code>路由表中，比如：</p>
+<ul>
+<li>直连路由</li>
+<li>静态路由</li>
+<li><code>OSPF</code>路由</li>
+<li><code>IS-IS</code>路由</li>
+</ul>
+<p>但是不能在<code>BGP</code>里引入<code>BGP</code>，为啥？因为，一台设备上只能有一个<code>BGP</code>进程。</p>
+<p><img alt="image-20250826170927289" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337674.png" /></p>
+<hr />
+<h4 id="17">1.7.路由通告原则</h4>
+<p><code>BGP</code>通过<code>Netowrk</code>、<code>import-route</code>、聚合路由生成<code>BGP</code>路由后，通过<code>Update</code>报文将<code>BGP</code>路由传递给对等体。</p>
+<ul>
+<li>只发布最优路由</li>
+<li>只发布最优且有效（下一跳地址可达）路由。</li>
+<li><img alt="image-20250826193303736" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337751.png" /></li>
+<li>从<code>EBGP</code>对等体获取的路由，会发布给所有对等体。</li>
+</ul>
+<p><img alt="image-20250826193357791" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337761.png" /></p>
+<ul>
+<li><code>IBGP</code>水平分割</li>
+<li><code>BGP</code>同步规则：</li>
+<li>如果同步规则开启，当一台路由器从自己的<code>IBGP</code>对等体学习到一条<code>BGP</code>路由时，它将不能使用这条路由或吧这条路有通告给自己的<code>EBGP</code>对等体，除非它又从<code>IGP</code>协议学习到这条路由，也就是要求<code>IBGP</code>路由域<code>IGP</code>路由同步。同步规则主要用于规避<code>BGP</code><strong>路由黑洞问题</strong>。</li>
+</ul>
+<hr />
+<h5 id="171">1.7.1.水平分割</h5>
+<p>水平分割指的是<strong>从<code>IBGP</code>对等体获取的<code>BGP</code>路由，不会再发送给其他<code>IBGP</code>对等体</strong>。这个概念非常好理解，但是水平分割的存在会极大的影响路由的传递，它的存在究竟是否有意义呢？</p>
+<p><img alt="image-20250826193716131" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337765.png" /></p>
+<p>如上图，<code>R1</code>与<code>R2</code>和<code>R3</code>分别建立了<code>EBGP</code>邻居关系，<code>AS 64513</code>内部的路由器两两建立了<code>IBGP</code>邻居关系。当前<code>R1</code>将<code>10.1.1.0/24</code>发布到<code>BGP</code>后，<code>R2</code>会将这条路由通告给<code>R3</code>与<code>R4</code>。此时，如果没有水平分割，<code>R4</code>会将这条路有再次通告给<code>R3</code>，<code>R3</code>会将这条路有通告给<code>R2</code>。那现在，<code>R2</code>就会从<code>IBGP</code>内部学到<code>10.1.1.0/24</code>的路由，环路产生。</p>
+<p>所以，水平分割的存在是有很大意义的，那我们应该怎么保留它并解决它所造成的问题呢，方法有三种：</p>
+<ol>
+<li><strong>全互联：</strong>一个<code>AS</code>内部的所有<code>BGP</code>路由器两两之间建立<code>iBGP</code>邻居关系。注意，<code>iBGP</code>邻居关系非直连也可以建立。</li>
+<li>虽然这种方式可以顺利解决，但是这种方法会衍生出另一个问题，以及当网络非常庞大时，这种方式明显是很低效的。</li>
+</ol>
+<p><img alt="image-20250826194430144" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337863.png" /></p>
+<ol>
+<li><strong>BGP联邦</strong></li>
+<li><strong>反射器</strong></li>
+</ol>
+<hr />
+<h5 id="172">1.7.2路由黑洞</h5>
+<p>从上面的学习过程我们知道，两台<code>BGP</code>路由器之间可以跨设备建立<code>IBGP</code>邻居关系。但是它会带来一个麻烦：<strong>路由黑洞</strong>。</p>
+<p><img alt="image-20250826195820089" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337853.png" /></p>
+<p>如上图，<code>R1、R2、R3、R7</code>这四台路由器都运行了<code>BGP</code>，其中<code>R1</code>与<code>R3</code>、<code>R2</code>与<code>R7</code>建立了<code>EBGP</code>邻居关系。<code>R3</code>和<code>R7</code>跨设备建立了<code>IBGP</code>邻居关系。<code>AS 34567</code>内使用<code>OSPF</code>实现全互联。</p>
+<p>现在<code>R1</code>将<code>1.0.0.0/8</code>路由发布到<code>BGP</code>并通告给了<code>R3</code>，<code>R3</code>会将这条<code>BGP</code>路由通过<code>IBGP</code>通告给<code>R7</code>并且这条路由的<code>Next_Hop</code>是<code>R3</code>建立邻居的地址，<code>R7</code>再将其通告给<code>R2</code>，最终<code>R2</code>成功学习到这条路由，并加载到自己的路由表中。</p>
+<p>现在<code>R2</code>收到一个去往<code>1.0.0.0/8</code>的数据包，<code>R2</code>将这个数据包转发给<code>R7</code>。<code>R7</code>收到后查看路由表发现下一跳是<code>R3</code>，触发递归查询（不是直连），假设是下一跳是<code>R4</code>。</p>
+<p>当<code>R4</code>收到这个目的地址是<code>1.0.0.0/8</code>的数据包时，麻烦来了。因为<code>R4</code>并没有运行<code>BGP</code>，所以它的路由表里不存在<code>1.0.0.0/8</code>的路由，所以<strong>路由黑洞</strong>产生了。因为<code>R4</code>查找不到路由，所以会将这个数据包丢弃。同样的问题在<code>R6</code>上也会存在。</p>
+<hr />
+<h5 id="173">1.7.3.同步规则</h5>
+<p>为了规避<strong>路由黑洞</strong>问题，<code>BGP</code>引入了同步规则（<code>BGP Synchronization</code>）。</p>
+<p>同步规则指的是：当一台路由器从自己的<code>IBGP</code>对等体学习到一条<code>BGP</code>路由时，它将不能直接使用这条路由或把这条路由通告给自己的<code>EBGP</code>邻居（包括<code>IBGP</code>水平分割）。除非它又从<code>IGP</code>协议学习到这条路有，也就是要求<code>IBGP</code>路由与<code>IGP</code>路由同步。</p>
+<p><img alt="image-20250826195820089" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337857.png" /></p>
+<p>如上图，现在因为有了<strong>同步规则</strong>后，<code>R7</code>从<code>R3</code>学习到的这条<code>BGP</code>路由不能放到路由表里，也不会发送给<code>R2</code>。你如果想完美的规避同步规则和路由黑洞，现在的方式就是在<code>R3</code>上将<code>BGP</code>路由<code>1.0.0.0/8</code>引入到<code>OSPF</code>中。那么此时，<code>AS 34567</code>内的所有路由器都有了这条路有，那路由黑洞就消失了。</p>
+<p>但你现在看完，你肯定觉得这个<strong>同步规则</strong>有点太<em>了，所以在华为或者绝大多数设备上</em><em>同步规则</em>*都是默认关闭的。打开的命令如下：</p>
+<p><code>synchronization</code></p>
+<hr />
+<p>实际上在这个例子中，想要规避掉路由黑洞有很多种方法：</p>
+<ol>
+<li>实现全互联：<code>AS 34567</code>内的所有路由器都开启<code>BGP</code>，并使用全互联的方式打破水平分割。</li>
+<li>路由同步：<code>IGP</code>路由与<code>BGP</code>同步。</li>
+<li><code>MPLS</code>：通过标签的方式替代传统<code>IP</code>寻址。</li>
+</ol>
+<p>但是，其实在这里有更好的方式，只是因为还没学，所以没有将他放在上面。</p>
+<p>我们现在应该把这个例子中的问题分为两部分：</p>
+<p><strong>第一部分：</strong>出现路由黑洞的根本原因是因为当前的<code>IBGP</code>邻居关系不连贯（非直连），导致路由表不同步。那还是很简单啊，咱们就让这里域内所有的路由器都运行<code>BGP</code>不就好了吗。</p>
+<p><strong>第二部分：</strong>但是水平分割的问题还存在啊，你难道要全互联么？太麻烦了吧！！真正的工作场景中，打破水平分割的方式，一定不是全互联。而是<strong>联邦</strong>或<strong>路由反射器</strong>（用的最多）。</p>
+<hr />
+<h5 id="174">1.7.4.作业</h5>
+<p><img alt="image-20250826203422575" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337922.png" /></p>
+<p><strong>第一步观察路由黑洞现象：</strong>将图中的<code>OSPF</code>邻居与<code>BGP</code>对等体都先创建好，并在<code>AR1</code>宣告<code>1.0.0.0/8</code>的路由。观察现象：</p>
+<p>此时，你会遇到一个问题，<code>AR7</code>收到路由后并不是有效的，因为下一跳不可达。注意：从<code>EBGP</code>邻居学习到的路由，转发给<code>IBGP</code>邻居时，下一跳不会改变依旧是<code>EBGP</code>邻居的接口地址。</p>
+<p><img alt="image-20250826204242284" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337919.png" /></p>
+<p>通过下述命令实现<code>AR3</code>将<code>EBGP</code>路由传递给<code>IBGP</code>邻居时修改下一跳：</p>
+<div class="highlight"><pre><span></span><code>[AR3-bgp]peer 7.7.7.7 next-hop-local
+</code></pre></div>
+<p><img alt="image-20250826204645697" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135337953.png" /></p>
+<hr />
+<p>此时，在<code>AR2</code>的路由表中已经成功通过<code>BGP</code>学习到<code>1.0.0.0/8</code>的路由。</p>
+<p><img alt="image-20250826204755282" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338060.png" /></p>
+<p>使用<code>tracert</code>发现数据包到达<code>AR7</code>后就没有然后了：</p>
+<p><img alt="image-20250826204923471" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338046.png" /></p>
+<p>这是因为数据包达到<code>AR7</code>后，<code>AR7</code>查看路由表发现<code>1.0.0.0/8</code>的下一跳是<code>3.3.3.3</code>，触发路由递归原则，查看<code>3.3.3.3</code>发现下一跳是<code>AR4</code>，遂数据包发送到<code>AR4</code>。</p>
+<p><img alt="image-20250826204846332" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338066.png" /></p>
+<p>但是<code>AR4</code>上压根就没有<code>1.0.0.0/8</code>的路由，所以数据包被丢弃。</p>
+<p><img alt="image-20250826205105004" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338109.png" /></p>
+<hr />
+<p><strong>第二步开启路由同步规则</strong>：在<code>AR3</code>上开启路由同步规则。</p>
+<ul>
+<li>尴尬，你虽然可以在模拟器上看到<code>undo synchronization</code>但是，不支持你启用同步规则！</li>
+</ul>
+<hr />
+<p><strong>第三步：重分布</strong>：</p>
+<ul>
+<li>在<code>AR3</code>把<code>BGP</code>引入到<code>OSPF</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR3]ospf 1 
+[AR3-ospf-1]import-route bgp
+</code></pre></div>
+<p>可是现在依旧<code>ping</code>不通为啥呢？</p>
+<ul>
+<li><code>AR1</code>上并没有<code>AR7</code>或<code>AR2</code>的接口地址，所以你需要在<code>AR3</code>把<code>OSPF</code>引入到<code>BGP</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR3]bgp 34567
+[AR3-bgp]import-route ospf 1
+[AR3-bgp]quit
+</code></pre></div>
+<ul>
+<li>此时在<code>AR7</code>上可以成功<code>ping</code>通<code>1.0.0.1</code>了，但是<code>AR2</code>依旧不行，因为<code>AR1</code>没有<code>AR2</code>的接口地址</li>
+</ul>
+<p><img alt="image-20250826205904826" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338094.png" /></p>
+<ul>
+<li>在<code>AR7</code>上将直连引入<code>BGP</code>和<code>OSPF</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR7]bgp 34567
+[AR7-bgp]import-route direct 
+[AR7-bgp]quit
+
+[AR7]ospf 1 
+[AR7-ospf-1]import-route direct 
+[AR7-ospf-1]quit
+</code></pre></div>
+<p><img alt="image-20250826210015007" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338123.png" /></p>
+<hr />
+<h4 id="18router-id">1.8.Router-ID</h4>
+<p><code>BGP Router-ID</code>是网络设备的<code>BGP</code>协议标识符，长度为<code>32bit</code>，与<code>IPv4</code>地址的格式相同，例如<code>192.168.1.1</code>。在规划<code>BGP</code>网络是，需确保设备的<code>Router-ID</code>的唯一性。</p>
+<p><code>BGP</code>的<code>Router-ID</code>可以通过两种方式获取：</p>
+<ol>
+<li>让<code>BGP</code>自动获取</li>
+<li>选择<code>LoopBack</code>接口中地址最大的</li>
+<li>选择物理接口中地址最大的</li>
+<li>手动配置（推荐）</li>
+</ol>
+<hr />
+<h3 id="2">2.路径属性</h3>
+<p>任何一条<code>BGP</code>路由都拥有多个<strong>路径属性</strong>（<code>Path Attributes</code>），当路由器将<code>BGP</code>路由通告给它的对等体时，一并被通告的还有路由所携带的各个路径属性。</p>
+<p>当<code>BGP</code>发现了多条到达同一个目的网段的路由时，每条<code>BGP</code>路由的路径属性值将会作为该路由是否被优选的依据，<code>BGP</code>将按照一定的规则进行决策，最终在这些路由中选择一条最优的路由。</p>
+<p>我们也可以根据实际需求，对<code>BGP</code>路由的路径属性进行修改，从而影响<code>BGP</code>路由优选的决策。</p>
+<p><img alt="image-20250827133720457" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338204.png" /></p>
+<hr />
+<h4 id="21">2.1.路径属性分类</h4>
+<p><img alt="image-20250827140919023" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338229.png" /></p>
+<p><strong><code>BGP</code>路径属性分为两大类：</strong></p>
+<ul>
+<li><strong>公认（Well-known）</strong>：公认属性是所有<code>BGP</code>路由器都必须能够识别的属性。</li>
+<li><strong>可选（Optional）</strong>：可选属性不要求所有的<code>BGP</code>路由器都必须能够识别。</li>
+</ul>
+<p><strong>公认属性可以分为两类：</strong></p>
+<ul>
+<li><strong>公认必遵：</strong><code>BGP</code>路由器使用<code>Update</code>报文通告路由更新时必须携带的路径属性。</li>
+<li><strong>公认任意</strong>：不要求<code>Update</code>报文通告路由更新时必须携带的路径属性。</li>
+</ul>
+<p><strong>可选属性可以分为两类：</strong></p>
+<ul>
+<li><strong>可选过渡（传递）：</strong>即使<code>BGP</code>路由器不能够识别该路径属性，依然会接受携带该路径属性的路由更新，且当需要将该路由通告给其他对等体时必须携带该路径属性。</li>
+<li><strong>可选非过度（不传递）：</strong>如果<code>BGP</code>路由器不能识别该路径属性，那么路由器就会忽略携带该路径属性的路由，且不会通告给其他对等体。</li>
+</ul>
+<p><img alt="image-20250827140045557" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338246.png" /></p>
+<hr />
+<p>从上述内容中，我们可以总结出<strong>公认属性</strong>规定的是通告的路由必须<strong>携带</strong>或可选的属性。<strong>可选属性</strong>规定的是<strong>接收</strong>路由时遇到无法识别的属性，是接收且传递，还是不接收不传递。</p>
+<p>举个例子，公认必遵就类似于<strong>简体字</strong>在一定范围内，大家的书面文件一定得是以<strong>简体字</strong>形式呈现。而<strong>公认任意</strong>则类似于<strong>繁体字</strong>虽然没要求你必须写，但是你如果想在你的文件里用<strong>繁体字</strong>书写，也是可以的。</p>
+<p>而<strong>可选过度</strong>类似于<strong>英文</strong>，虽然我可能看不懂具体内容，但我知道它是有效的，所以我会接收并同步给其他人，因为我看不懂，不代表别人也看不懂。</p>
+<p>但是<strong>可选非过度</strong>就类似于<strong>甲骨文、象形语言</strong>，如果我看不懂，当我收到后我不会进行接收，也不会进行传播。</p>
+<hr />
+<h4 id="22">2.2.路径属性详解</h4>
+<h5 id="221as_path">2.2.1.AS_Path</h5>
+<p><img alt="image-20250827143354346" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338269.png" /></p>
+<p><code>AS_Path</code>是<strong>公认必遵属性</strong>，它描述了一条<code>BGP</code>路由在传递过程中所经过的<code>AS</code>号。一台路由器在将<code>BGP</code>路由通告给自己的<code>EBGP</code>邻居时，会将本地的<code>AS</code>号插入到该路由原有<code>AS_Path</code>之前。一条<code>BGP</code>路由在一个<code>AS</code>内（<code>IBGP</code>）传递时，该路由所携带的<code>AS_Path</code>属性不会改变。只有在<code>EBGP</code>对等体之间才会改变。</p>
+<p><strong>作用一：</strong></p>
+<p>通过<code>AS_Path</code>可以避免<code>EBGP</code>路由的环路，如果路由器收到一条<code>BGP</code>路由并且发现该路由携带的<code>AS_Path</code>中出现了自己的<code>AS</code>号，该路由器会忽略这条路由的更新，避免环路产生。</p>
+<p><strong>作用二：</strong></p>
+<p><code>AS_path</code>可以用于<code>BGP</code>路由选路，<code>AS_path</code>本身是一个列表，所以这个列表越短该路由约优。</p>
+<hr />
+<p><strong>举例：</strong></p>
+<p>如果一台<code>BGP</code>路由器收到一条路由的<code>AS_Path</code>是<code>300 500 100 200 400</code>，那么对于这台路由器来说，他如果要访问这条路由，他需要依次经过<code>AS 300 500 100 200 400</code>，所以<code>300</code>离他最近，<code>400</code>离他最远。</p>
+<p>如果现在这台路由器本地<code>AS</code>为<code>1000</code>，当他把这条路由通告给它的<code>EBGP</code>邻居时，会在<code>AS_Path</code>加上自己的本地<code>AS</code>号，<code>AS 1000 300 500 100 200 400</code>。</p>
+<hr />
+<p><img alt="image-20250827143721640" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338330.png" /></p>
+<p>如上图，请问<code>R4</code>会通过哪个邻居学习<code>10.3.0.0/16</code>。</p>
+<hr />
+<p><strong>AS_Path类型</strong></p>
+<p><code>AS_Path</code>默认使用的类型是<code>AS_SEQENCE</code>，标识<code>AS_Path</code>内的<code>AS</code>号是一个有序的列表。</p>
+<p>当使用<code>BGP</code>聚合路由时可以选择使用<code>AS_SET</code>类型。</p>
+<p>如下图，<code>R3</code>针对<code>R1</code>和<code>R2</code>的<code>EBGP</code>路由做了路由聚合，默认情况下汇总后的路由只会携带当前<code>AS</code>号，也就是在哪做的聚合，就携带哪个<code>AS</code>的<code>AS</code>号。但是这样很容易引发路由环路，所以可以在做路由聚合时，加上参数<code>as-set</code>参数，使<code>R3</code>向外更新路由时携带明细路由的<code>AS</code>号，但此时这些明细路由的<code>AS</code>会被放在一个大括号里，并且部分先后顺序。</p>
+<p><img alt="image-20250827144846351" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338296.png" /></p>
+<hr />
+<p><code>AS_Path</code>属性可以用来匹配路由，使用<code>as-path-filter</code>工具即可做到。另外，搭配上<strong>正则表达式</strong>即可通过匹配<code>AS_Path</code>属性匹配路由。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>语法/模式</strong></th>
+<th style="text-align: center;"><strong>含义</strong></th>
+<th style="text-align: center;"><strong>示例</strong></th>
+<th style="text-align: center;"><strong>示例解释</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>基本元字符</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>^</code></td>
+<td style="text-align: center;">匹配 AS 路径的开始</td>
+<td style="text-align: center;"><code>^100</code></td>
+<td style="text-align: center;">路径<strong>起始于</strong> AS 100</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>$</code></td>
+<td style="text-align: center;">匹配 AS 路径的结束</td>
+<td style="text-align: center;"><code>100$</code></td>
+<td style="text-align: center;">路径<strong>结束于</strong> AS 100</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>_</code></td>
+<td style="text-align: center;">匹配任意一个 AS 号（空格或路径起止）</td>
+<td style="text-align: center;"><code>_100_</code></td>
+<td style="text-align: center;">路径中<strong>包含</strong> AS 100</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.</code></td>
+<td style="text-align: center;">匹配任意单个字符（慎用）</td>
+<td style="text-align: center;"><code>65.</code></td>
+<td style="text-align: center;">匹配如 <code>650</code>, <code>651</code>, <code>65x</code>等</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>*</code></td>
+<td style="text-align: center;">匹配前一个字符或模式<strong>0次或多次</strong></td>
+<td style="text-align: center;"><code>123*</code></td>
+<td style="text-align: center;">匹配 <code>12</code>, <code>123</code>, <code>1233</code>...</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>+</code></td>
+<td style="text-align: center;">匹配前一个字符或模式<strong>1次或多次</strong></td>
+<td style="text-align: center;"><code>123+</code></td>
+<td style="text-align: center;">匹配 <code>123</code>, <code>1233</code>, <code>12333</code>...</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>?</code></td>
+<td style="text-align: center;">匹配前一个字符或模式<strong>0次或1次</strong></td>
+<td style="text-align: center;"><code>123?</code></td>
+<td style="text-align: center;">匹配 <code>12</code>或 <code>123</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>\|</code></td>
+<td style="text-align: center;"><strong>或</strong> 操作符</td>
+<td style="text-align: center;"><code>^(100\|200)</code></td>
+<td style="text-align: center;">路径起始于 AS 100 <strong>或</strong> AS 200</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>( )</code></td>
+<td style="text-align: center;">将模式分组</td>
+<td style="text-align: center;"><code>(123 456)+</code></td>
+<td style="text-align: center;">匹配一次或多次 <code>123 456</code>序列</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>[ ]</code></td>
+<td style="text-align: center;">匹配括号内任意<strong>单个</strong>字符</td>
+<td style="text-align: center;"><code>65[0-5]</code></td>
+<td style="text-align: center;">匹配 <code>650</code>到 <code>655</code></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>常用模式</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>^$</code></td>
+<td style="text-align: center;">匹配<strong>空</strong> AS 路径（本地起源路由）</td>
+<td style="text-align: center;"><code>ip as-path access-list 10 permit ^$</code></td>
+<td style="text-align: center;">允许本路由器始发的路由</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>.*</code></td>
+<td style="text-align: center;">匹配<strong>任意</strong> AS 路径</td>
+<td style="text-align: center;"><code>ip as-path access-list 20 permit .*</code></td>
+<td style="text-align: center;">允许所有路由（常用在最后）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>^ASN$</code></td>
+<td style="text-align: center;">匹配<strong>直接来自</strong>该 ASN 的路由</td>
+<td style="text-align: center;"><code>^65001$</code></td>
+<td style="text-align: center;">匹配从 EBGP 邻居 AS 65001 学来的路由</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>_ASN_</code></td>
+<td style="text-align: center;">匹配<strong>经过</strong>该 ASN 的路由</td>
+<td style="text-align: center;"><code>_65400_</code></td>
+<td style="text-align: center;">匹配路径中任何位置包含 AS 65400 的路由</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>^ASN_</code></td>
+<td style="text-align: center;">匹配<strong>起源于</strong>该 ASN 或其下游的路由</td>
+<td style="text-align: center;"><code>^65001_</code></td>
+<td style="text-align: center;">匹配源自 AS 65001 的路由（可能经过其他AS）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>_ASN$</code></td>
+<td style="text-align: center;">匹配<strong>下一跳是</strong>该 ASN 的路由</td>
+<td style="text-align: center;"><code>_65001$</code></td>
+<td style="text-align: center;">匹配下一个 AS 是 65001 的路由（即从它学来的）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>^AS1 AS2$</code></td>
+<td style="text-align: center;">匹配<strong>精确的 AS 路径序列</strong></td>
+<td style="text-align: center;"><code>^100 200$</code></td>
+<td style="text-align: center;">匹配精确路径为 <code>100 → 200</code>的路由</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>_AS1 AS2_</code></td>
+<td style="text-align: center;">匹配路径中包含<strong>该序列</strong>的路由</td>
+<td style="text-align: center;"><code>_100 200_</code></td>
+<td style="text-align: center;">匹配路径中包含 <code>... → 100 → 200 → ...</code>的路由</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>高级模式</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>^([0-9]+ ){n}[0-9]+$</code></td>
+<td style="text-align: center;">匹配特定<strong>长度</strong>的 AS 路径</td>
+<td style="text-align: center;"><code>^([0-9]+ ){2}[0-9]+$</code></td>
+<td style="text-align: center;">匹配恰好包含 <strong>3 个 AS</strong> 的路径</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>^65[0-9]{2}</code></td>
+<td style="text-align: center;">匹配 AS 号范围（正则匹配，非数值比较）</td>
+<td style="text-align: center;"><code>^65[0-9]{2}</code></td>
+<td style="text-align: center;">匹配 AS 号 <code>6500</code>- <code>6599</code><strong>开头</strong>的路径</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>_123(45)?_</code></td>
+<td style="text-align: center;">组合使用元字符</td>
+<td style="text-align: center;"><code>_123(45)?_</code></td>
+<td style="text-align: center;">匹配包含 <code>123</code><strong>或</strong> <code>12345</code>的路径</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="image-20250831172804078" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338365.png" /></p>
+<p><strong>实验一：</strong></p>
+<p>在<code>AR3</code>上匹配路由始发<code>AS 100</code>的路由将其过滤掉。</p>
+<div class="highlight"><pre><span></span><code>[AR3]ip as-path-filter 1 deny _100$
+[AR3]ip as-path-filter 1 permit .*
+
+[AR3]bgp 300
+[AR3-bgp]peer 23.1.1.1 as-path-filter 1 import 
+[AR3-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250831173035983" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338426.png" /></p>
+<p><strong>实验二：</strong></p>
+<p>在<code>AR3</code>上匹配路由始发<code>AS 200</code>的路由将其<code>MED</code>值设置为<code>1000</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR3]ip as-path-filter 2 permit _200$
+
+[AR3]route-policy MED permit node 10    
+[AR3-route-policy]if-match as-path-filter 2
+[AR3-route-policy]apply cost 1000
+[AR3-route-policy]quit  
+
+[AR3]route-policy MED permit node 20
+[AR3-route-policy]quit
+
+[AR3]bgp 300    
+[AR3-bgp]peer 34.1.1.2 route-policy MED export 
+[AR3-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250831173301494" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338423.png" /></p>
+<hr />
+<h5 id="222origin">2.2.2.Origin</h5>
+<p><code>Origin</code>属性是<strong>公认必遵</strong>属性，用于描述<code>BGP</code>路由的来源。根据路由被引入到<code>BGP</code>的方式不同，存在三种类型的<code>Origin</code>。</p>
+<p><img alt="image-20250827151246949" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338428.png" /></p>
+<p>当去往同一个目的地存在多条不同<code>Origin</code>属性的路由时，在其他条件都相同的情况下，<code>BGP</code>将按照如下顺序优选路由：<code>IGP &gt; EGP &gt; Incomplete</code>。</p>
+<p>对于<code>Origin</code>名称你很有可能会对他产生误解，首先<code>IGP</code>不代表是通过<code>IGP</code>学习到的，而是只要使用<code>network</code>方式注入路由的都是<code>IGP</code>。<code>EGP</code>指的是通过<code>EGP</code>路由协议学习到的，但现在已经不使用<code>EGP</code>了。<code>Incomplete</code>指的是通过<code>import-route</code>注入路由。</p>
+<p><img alt="image-20250827151825547" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338474.png" /></p>
+<hr />
+<h5 id="223next_hopppt">2.2.3.Next_Hop（看PPT）</h5>
+<p><code>Next_Hop</code>是一个<strong>公认必遵</strong>属性，用于指定到达目标网络的下一跳地址。</p>
+<p>当路由器学习到<code>BGP</code>路由后，需对<code>BGP</code>路由的<code>Next_Hop</code>属性进行检查，该属性指（<code>IP</code>地址）必须在本地路由可达，如果不可达，则这条<code>BGP</code>路由不可用。</p>
+<p>在不同的场景中，设备对<code>BGP</code>路由的缺省<code>Next_Hop</code>属性值的设置规则如下：</p>
+<ul>
+<li>
+<p>当<code>BGP</code>路由器将本地路由表中的路由通过<code>network</code>或<code>import-route</code>命令发布到<code>BGP</code>时，在该路由器的<code>BGP</code>路由表中，这些路由的<code>Next_Hop</code>属性显示<code>0.0.0.0</code>，因为该路由器是这些路由的始发者。</p>
+</li>
+<li>
+<p>当<code>BGP</code>路由器使用<code>aggregate</code>命令通告一条<code>BGP</code>汇总路由时，在该路由器的<code>BGP</code>路由表中，该汇总路由的<code>Next_Hop</code>属性显示<code>127.0.0.1</code>。</p>
+</li>
+<li>当<code>BGP</code>路由器将本地始发的<code>BGP</code>路由通告给自己的<code>IBGP</code>对等体时，路由的<code>Next_Hop</code>属性值将被设置为这台路由器的<code>BGP</code>更新源<code>IP</code>地址。</li>
+<li>当<code>BGP</code>路由器将非本地始发的<code>BGP</code>路由通告给自己的<code>IBGP</code>对等体时，缺省情况下该路由原有的<code>Next_Hop</code>属性不会被改变。</li>
+<li>
+<p>当路由将一条<code>EBGP</code>路由通告给自己的<code>IBGP</code>对等体时，缺省情况下，该路由器不会改变该路由原有的<code>Next_Hop</code>属性值。</p>
+</li>
+<li>
+<p>当路由器将一条<code>BGP</code>路由通告给自己的<code>EBGP</code>对等体时，无论这条路由是否为该路由器始发，路由的<code>Next_Hop</code>属性值都被设置为这台路由器的更新源<code>IP</code>地址。</p>
+</li>
+</ul>
+<p>==更新源<code>IP</code>地址是设备建立对等体使用的接口<code>IP</code>地址。==</p>
+<hr />
+<h5 id="224local_preference">2.2.4.Local_Preference</h5>
+<p><code>Local_Preference</code>（本地优先级），该属性是<strong>公认任意属性</strong>，可以用于告诉<code>AS</code>中的路由器，哪条路径是离开本<code>AS</code>的首选路径。该值越大则<code>BGP</code>路由越优，缺省情况下值为<code>100</code>。该属性只能传递给<code>IBGP</code>对等体，不能传递给<code>EBGP</code>对等体。</p>
+<p><img alt="image-20250827154100316" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338538.png" /></p>
+<p><img alt="image-20250827154147237" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338607.png" /></p>
+<p><img alt="image-20250827154317804" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338589.png" /></p>
+<hr />
+<h5 id="225community">2.2.5.Community</h5>
+<p>如下图，当<code>AS 100</code>内有大量的路由被引入<code>BGP</code>，这些路由分别用于生产及办公网络。现在<code>AS200</code>的<code>BGP</code>路由器需要分别针对这些路由执行不同的策略，如果使用<code>ACL、IP-Prefix</code>这些工具，效率非常地下。</p>
+<p>有了<code>Community</code>属性后，可以为不同种类的路由打上不同的<code>Community</code>属性值，这些属性会伴随着<code>BGP</code>路由更新给<code>AS 200</code>，那么<code>AS200</code>的<code>BGP</code>路由器只需要根据<code>Community</code>来执行差异化的策略即可，而不用去关心路由前缀。</p>
+<p><img alt="image-20250827164506901" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338610.png" /></p>
+<hr />
+<p><code>Community</code>（团体）属性为可选过渡属性，是一种路由标记，用于简化路由策略的执行。可以将某些路由分配一个特定的<code>Community</code>属性值，之后就可以基于<code>Community</code>的值而不是网络前缀和掩码信息来匹配路由并执行相应的策略了。</p>
+<p><code>Community</code>属性值长度为<code>32bit</code>，可以使用两种形式呈现：</p>
+<ul>
+<li>十进制整数格式。</li>
+<li><code>AA:NN</code>格式，其中<code>AA</code>表示<code>AS</code>号，<code>NN</code>是自定义的编号。</li>
+</ul>
+<p><img alt="image-20250827165100014" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338601.png" /></p>
+<p><code>RFC1997</code>定义了几个公认的<code>Community</code>属性值：</p>
+<p><img alt="image-20250827165215062" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338648.png" /></p>
+<hr />
+<p><strong>实验一</strong></p>
+<p>在下图中，<code>R1、R2、R3</code>分别建立了<code>EBGP</code>邻居关系，<code>R1</code>将业务<code>A</code>与业务<code>B</code>的路由通过<code>EBGP</code>传递到其他两个<code>AS</code>中。为了对这两种不同业务的路由做区分，在<code>R1</code>上部署路由策略，是其通告的业务<code>A</code>路由携带<code>100:1</code>的<code>Community</code>属性，业务<code>B</code>路由携带<code>100:2</code>的<code>Community</code>属性。</p>
+<p><img alt="image-20250831163714228" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338737.png" /></p>
+<p><strong>network方法：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]route-policy comm1 permit node 10
+[AR1-route-policy]apply community 100:1
+[AR1-route-policy]quit
+
+[AR1]route-policy comm2 permit node 20
+[AR1-route-policy]apply community 100:2
+[AR1-route-policy]quit
+
+[AR1]bgp 100
+[AR1-bgp]network 172.16.1.0 24 route-policy comm1
+[AR1-bgp]network 172.16.2.0 24 route-policy comm1
+[AR1-bgp]network 172.16.3.0 24 route-policy comm2   
+[AR1-bgp]networ
+</code></pre></div>
+<p><img alt="image-20250831164226397" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338763.png" /></p>
+<p><strong>import-route方法：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]ip ip-prefix comm1 permit 172.16.1.0 24
+[AR1]ip ip-prefix comm1 permit 172.16.2.0 24
+[AR1]ip ip-prefix comm2 permit 172.16.3.0 24
+[AR1]ip ip-prefix comm2 permit 172.16.4.0 24
+
+[AR1]route-policy comm1 permit node 10  
+[AR1-route-policy]if-match ip-prefix comm1
+[AR1-route-policy]apply community 100:1
+[AR1-route-policy]quit  
+
+[AR1]route-policy comm1 permit node 20
+[AR1-route-policy]if-match ip-prefix comm2
+[AR1-route-policy]apply community 100:2
+[AR1-route-policy]quit
+
+[AR1]bgp 100
+[AR1-bgp]import-route direct route-policy comm1
+[AR1-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250831164733945" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338776.png" /></p>
+<p>但此时，<code>R2</code>和<code>R3</code>学习到的路由并没有携带任何<code>community</code>属性，需要在<code>R1</code>增加如下命令，允许通告带有<code>community</code>属性。</p>
+<p><img alt="image-20250831164853207" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338779.png" /></p>
+<div class="highlight"><pre><span></span><code>[AR1-bgp]peer 12.1.1.2 advertise-community
+</code></pre></div>
+<p>同理，在<code>R2</code>上也要针对<code>R3</code>配置该命令：</p>
+<div class="highlight"><pre><span></span><code>[AR2-bgp]peer 23.1.1.2 advertise-community
+</code></pre></div>
+<p><img alt="image-20250831165046900" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338817.png" /></p>
+<p><img alt="image-20250831165026403" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338834.png" /></p>
+<hr />
+<p><strong>实验二：</strong></p>
+<p><img alt="image-20250831165515531" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338931.png" /></p>
+<p>在上个实验中已经成功通过<code>community</code>属性区分开两个业务了，现在<code>R2</code>上要求通过<code>route-policy</code>根据<code>community</code>属性把业务<code>A</code>的路由过滤掉。并且在业务<code>B</code>原有<code>community</code>属性的基础上增加<code>no-export</code>属性。</p>
+<div class="highlight"><pre><span></span><code>[AR2]ip community-filter 1 permit 100:1 
+[AR2]ip community-filter 2 permit 100:2
+
+[AR2]route-policy FromR1 deny node 10
+[AR2-route-policy]if-match community-filter 1
+[AR2-route-policy]quit
+[AR2]route-policy FromR1 permit node 20
+[AR2-route-policy]quit
+
+[AR2]route-policy ToR3 permit node 10
+[AR2-route-policy]if-match community-filter 2
+[AR2-route-policy]apply community no-export additive 
+[AR2-route-policy]quit
+
+[AR2]bgp 200
+[AR2-bgp]peer 12.1.1.1 route-policy FromR1 import 
+[AR2-bgp]peer 23.1.1.2 route-policy ToR3 export 
+</code></pre></div>
+<p><img alt="image-20250831170015579" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338941.png" /></p>
+<hr />
+<p><strong>实验三：</strong></p>
+<p>当然你如果想实现上述过滤路由的目的，可以依赖其他工具，比如<code>Filter-Policy</code>。先记得还原上个实验的环境。</p>
+<p><img alt="image-20250831170159478" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338951.png" /></p>
+<p>要求在<code>AR2</code>上使用<code>Filter-Policy</code>过滤掉业务<code>A</code>的路由。</p>
+<div class="highlight"><pre><span></span><code>[AR2]acl 2000
+[AR2-acl-basic-2000]rule deny source 172.16.1.0 0.0.0.0
+[AR2-acl-basic-2000]rule deny source 172.16.2.0 0.0.0.0
+[AR2-acl-basic-2000]rule permit
+[AR2-acl-basic-2000]quit
+
+[AR2]bgp 200    
+[AR2-bgp]peer 12.1.1.1 filter-policy 2000 import 
+[AR2-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250831170550120" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338962.png" /></p>
+<p>上述的演示是过滤掉如方向的路由，我们也可以过滤掉出方向，现在要求<code>R2</code>不发送<code>172.16.3.0</code>的路由给<code>R3</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR2]acl 2001
+[AR2-acl-basic-2001]rule deny source 172.16.3.0 0.0.0.255
+[AR2-acl-basic-2001]rule permit
+[AR2-acl-basic-2001]quit
+
+[AR2]bgp 200    
+[AR2-bgp]peer 23.1.1.2 filter-policy 2001 export 
+[AR2-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250831170743398" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338989.png" /></p>
+<hr />
+<p><strong>实验四</strong></p>
+<p><img alt="image-20250831170159478" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135338951.png" /></p>
+<p>同样的需求使用<code>ip-prefix</code>也可以做到，要求<code>AR3</code>使用<code>ip-prefix</code>将<code>172.16.4.0/24</code>过滤掉。</p>
+<div class="highlight"><pre><span></span><code>[AR3]ip ip-prefix deny deny 172.16.4.0 24
+
+[AR3]bgp 300    
+[AR3-bgp]peer 23.1.1.1 ip-prefix deny import 
+[AR3-bgp]quit
+</code></pre></div>
+<hr />
+<h5 id="226med">2.2.6.MED</h5>
+<p><code>MED(Multi-Exit Discriminator)</code>属性是一个<strong>可选非过渡属性</strong>，是一种度量值。当到达同一个目的网段存在多条<code>BGP</code>路由时，在其他条件相同的情况下，<code>MED</code>属性值越小的<code>BGP</code>路由将被优选。</p>
+<p><code>MED</code>属性用于向外部对等体指出进入本<code>AS</code>的首选路径，即当进入本<code>AS</code>的入口有多个时，<code>AS</code>可以使用<code>MED</code>动态地影响其他<code>AS</code>进入地路径。</p>
+<p><img alt="image-20250828191154260" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339040.png" /></p>
+<p>如上图，<code>AS100 R4</code>可以通过<code>R2</code>和<code>R3</code>学习到<code>AS200</code>的路由。当我们希望<code>R4</code>可以优先通过<code>R3</code>学习到<code>AS200</code>的路由，当发生故障再从<code>R2</code>进入<code>AS200</code>。此时，就可以在<code>R3</code>上通过<code>Route-Policy</code>设置其通告给<code>R4</code>的路由<code>MED</code>值比<code>R2</code>小，那么<code>R4</code>默认情况下，优选<code>R3</code>通告的路由。</p>
+<p>缺省情况下，只有当路由来自同一个相邻的<code>AS</code>时，<code>BGP</code>才会进行<code>MED</code>属性的比较。可以通过<code>compare-different-as-med</code>命令，使<code>BGP</code>路由器在收到不同<code>AS</code>号的<code>EBGP</code>邻居通告的相同前缀和掩码的路由通过<code>MED</code>属性进行比较。</p>
+<hr />
+<p>一台<code>BGP</code>路由器将路由通告给<code>EBGP</code>对等体时，是否携带<code>MED</code>属性，需要根据以下条件进行判断（不对<code>EBGP</code>对等体使用策略的情况下）：</p>
+<ul>
+<li>
+<p>如果该<code>BGP</code>路由是本地始发（本地通过<code>network</code>或<code>import-route</code>命令引入）的，则缺省携带<code>MED</code>属性发送给<code>EBGP</code>对等体。</p>
+</li>
+<li>
+<p>如果路由器通过<code>IGP</code>学习到一条路由，并通过<code>network</code>或<code>import-route</code>的方式将路由引入<code>BGP</code>，产生的<code>BGP</code>路由的<code>MED</code>值继承路由在<code>IGP</code>中的<code>metric(cost)</code>。例如下图中，如果<code>R2</code>通过<code>OSPF</code>学习到<code>10.0.1.0/24</code>，并且该路由在<code>R2</code>的全局路由表中<code>Cost</code>为<code>100</code>，那么当<code>R2</code>将路由<code>network</code>进<code>BGP</code>后，产生的<code>BGP</code>路由的<code>MED</code>值为<code>100</code>。</p>
+<p><img alt="image-20250828193803206" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339112.png" /></p>
+</li>
+<li>
+<p>如果路由器将本地直连、静态路由通过<code>network</code>或<code>import-route</code>引入到<code>BGP</code>，那么这条<code>BGP</code>路由的<code>MED</code>为<code>0</code>，因为直连、静态的<code>COST</code>为<code>0</code>。</p>
+</li>
+<li>
+<p>如果该<code>EBGP</code>路由从对等体学到，那么该路由传递给<code>EBGP</code>对等体时缺省不会携带<code>MED</code>属性。</p>
+</li>
+<li>
+<p>例如下图中， <code>R3</code>从<code>R2</code>学习到一条携带了<code>MED</code>属性的<code>BGP</code>路由，则它将该路由通告给<code>R4</code>时，缺省是不会携带<code>MED</code>属性的。这就是所谓的：<code>MED</code>不会跨<code>AS</code>传递。</p>
+</li>
+</ul>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339212.png" /></p>
+<ul>
+<li>
+<p>可以使用<code>default med</code>命令修改缺省的<code>MED</code>值，<code>default med</code>命令只对本设备上用<code>import-route</code>命令引入的路由和<code>BGP</code>的聚合路由生效。例如在<code>R2</code>上配置<code>default med 999</code>，那么<code>R2</code>通过<code>import-route</code>及<code>aggregate</code>命令产生的路由传递给<code>R3</code>时，路由携带的<code>MED</code>为<code>999</code>。</p>
+</li>
+<li>
+<p>在<code>IBGP</code>对等体之间传递路由时，<code>MED</code>值会被保留并传递，除非部署了策略，否则<code>MED</code>值在传递过程中不会发生改变也不会丢失。</p>
+</li>
+</ul>
+<hr />
+<h5 id="227atomic_aggreagteaggregator">2.2.7.Atomic_Aggreagte及Aggregator</h5>
+<p><code>Atomic_aggreagte</code>属于<strong>公认任意属性</strong>，而<code>Aggregator</code>属于<strong>可选过渡属性</strong>。</p>
+<hr />
+<p><strong>Atomic_Aggreagte</strong></p>
+<p>这是一个<strong>警告标识</strong>，他的唯一作用是向<code>BGP</code>对等体发出信号：“这条路由是经过聚合的，其<code>AS</code>路径信息可能不完整，因此可能会丢失<code>AS_Path</code>。”</p>
+<p>这个属性本身不携带任何信息，要么存在要么不存在。</p>
+<hr />
+<p><strong>Aggregator</strong></p>
+<p><strong>这个属性记录了是谁执行了这次路由聚合操作，通常与<code>Atomic_Aggregate</code>一同出现：</strong></p>
+<ol>
+<li><strong>执行聚合的路由器的AS号</strong> (AS Number)</li>
+<li><strong>执行聚合的路由器的BGP Router ID</strong> (IP Address)</li>
+</ol>
+<p>这个属性存在的意义是，当网络管理员需要溯源这个聚合路由是谁汇总的，为什么没有携带<code>AS_Path</code>时，可通过这个属性精准确定位置。</p>
+<p><img alt="image-20250828224847774" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339219.png" /></p>
+<hr />
+<h5 id="228preferred-value">2.2.8.Preferred-Value</h5>
+<p><code>Preferred-Value</code>（协议首选值）是华为设备的特有属性，该属性仅在本地有效。</p>
+<p>当<code>BGP</code>路由表中存在到相同目的地的路由时，将优先选择<code>Preferred-Value</code>值高的路由。</p>
+<hr />
+<h3 id="3">3.路由汇总</h3>
+<p><strong>路由汇总</strong>几乎是每一种动态路由协议都支持的功能，而<code>BGP</code>路由协议本身承载的路由条目就是极大的，所以<strong>路由汇总</strong>对于<code>BGP</code>显得尤为重要。</p>
+<p><code>BGP</code>支持路由<strong>自动汇总</strong>和<strong>手动汇总</strong>。对于<code>BGP</code>路由的自动汇总，是受限于特定的场景的，首先要求路由器打开<code>BGP</code>路由自动汇总的开关（通过在<code>BGP</code>配置视图下使用<code>summary automatic</code>命令开启，缺省未配置），另外，<code>BGP</code>的自动汇总功能仅对使用<code>import-route</code>方式引入<code>BGP</code>的路由有效。</p>
+<h4 id="31">3.1.自动汇总</h4>
+<p><img alt="image-20250829145801438" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339240.png" /></p>
+<p>如上图，<code>AR1</code>与<code>AR2</code>建立<code>EBGP</code>邻居关系，<code>AR1</code>中通过<code>import-route direct</code>引入直连，并开启自动汇总。</p>
+<div class="highlight"><pre><span></span><code>bgp 65000
+ router-id 1.1.1.1
+ peer 12.1.1.2 as-number 65001 
+ #
+ ipv4-family unicast
+  undo synchronization
+  summary automatic
+  import-route direct
+  peer 12.1.1.2 enable
+
+bgp 65001
+ router-id 2.2.2.2
+ peer 12.1.1.1 as-number 65000 
+ #
+ ipv4-family unicast
+  undo synchronization
+  peer 12.1.1.1 enable
+</code></pre></div>
+<p><img alt="image-20250829145745216" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339242.png" /></p>
+<p>如果要完美一些，记得加上<code>Route-Policy</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR1]ip ip-prefix bgp permit 172.16.0.0 16 less-equal 24    
+[AR1]route-policy bgp permit node 10
+[AR1-route-policy]if-match ip-prefix bgp
+[AR1]bgp 65000  
+[AR1-bgp]import-route direct route-policy bgp
+</code></pre></div>
+<p><img alt="image-20250829150239809" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339268.png" /></p>
+<hr />
+<h4 id="32">3.2.手动汇总</h4>
+<p>自动汇总仅对使用<code>import-route</code>命令引入到<code>BGP</code>的路由产生作用，另外<code>BGP</code>自动汇总后的路由只能是主类网络路由（<code>A、B、C</code>类）。</p>
+<p>当你需要更精确的控制时，手工路由汇总就是一个最佳的解决方案。<code>BGP</code>支持手工路由汇总，而且配置非常简单，在<code>BGP</code>配置视图下使用<code>aggregate</code>命令即可配置手工路由汇总，<code>aggregate</code>命令包含着多个可选参数。</p>
+<hr />
+<p>如下图，<code>AR1</code>使用<code>import-route</code>的方式将四条路由通告给<code>EBGP</code>对等体<code>AR2</code>。<code>AR2</code>在将该路由通告给<code>AR3</code>。现在使用<code>AR2</code>执行手动路由汇总。</p>
+<p><img alt="image-20250829151537955" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339389.png" /></p>
+<h5 id="321">3.2.1.普通手动汇总</h5>
+<div class="highlight"><pre><span></span><code>[AR2]bgp 65001
+[AR2-bgp]aggregate 172.16.0.0 16
+</code></pre></div>
+<p><strong>现象：</strong></p>
+<p>此时在<code>AR3</code>上查看<code>BGP</code>路由表，会发现明细路由依旧存在，只是多了一条汇总后的路由。从路由汇总的角度来说，其实意义并不大，不仅没有做到减少路由，还额外增加了一条。</p>
+<p><img alt="image-20250829151758734" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339415.png" /></p>
+<p>另外，<code>AR2</code>做完路由汇总后，因为这条路有丢失了<code>AS_Path</code>属性，所以这条路由还会被通告给<code>AR1</code>，并且加载到了<code>AR1</code>的路由表中，产生了环路的风险。</p>
+<p><img alt="image-20250829152144637" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339432.png" /></p>
+<p><img alt="image-20250829153119035" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339428.png" /></p>
+<hr />
+<h5 id="322detail-suppressed">3.2.2.detail-suppressed参数</h5>
+<div class="highlight"><pre><span></span><code>[AR2]bgp 65001
+[AR2-bgp]aggregate 172.16.0.0 16 detail-suppressed 
+</code></pre></div>
+<p>当在汇总时加上这个参数后，<code>R2</code>只通告汇总路由，抑制明细路由。</p>
+<p><img alt="image-20250829153303561" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339436.png" /></p>
+<p><img alt="image-20250829154010261" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339460.png" /></p>
+<p>此时，在<code>AR2</code>的<code>BGP</code>路由表中明细路由前都打上了<code>S</code>标记，代表被抑制，不能通告给其他邻居。</p>
+<p><img alt="image-20250829153349084" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339566.png" /></p>
+<hr />
+<h5 id="323as-set">3.2.3.as-set参数</h5>
+<p>虽然，我们现在通过<code>detail-suppressed</code>参数实现了明细路由抑制，但是汇总路由的<code>AS_Path</code>依旧没有携带汇总前的信息，导致可能出现环路。</p>
+<p>当我们增加<code>as-set</code>参数后，产生的汇总路由将会继承明细路由的路径属性，其中<code>AS_Path</code>最为关键。</p>
+<div class="highlight"><pre><span></span><code>[AR2]bgp 65001
+[AR2-bgp]aggregate 172.16.0.0 255.255.0.0 detail-suppressed as-set
+</code></pre></div>
+<p>此时，<code>AR3</code>学习到的汇总路由会明确继承明细路由的<code>AS</code>号，需要注意的是即使你增加了<code>as-set</code>参数，<code>Aggregator</code>以及<code>Atoic-aggregate</code>依旧存在。</p>
+<p><img alt="image-20250829154322270" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339605.png" /></p>
+<p>当前<code>AR1</code>上就已经学习不到这条汇总路由了，因为它在这条路有的<code>AS_path</code>属性上看到了自己的<code>AS</code>号，所以将其忽略。</p>
+<p><img alt="image-20250829154518753" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339620.png" /></p>
+<hr />
+<h5 id="324suppress-policy">3.2.4.suppress-policy参数</h5>
+<p>这个参数可以实现有选择的抑制明细路由，而不是一刀切全部抑制掉。我们可以通过搭配<code>Route-Policy</code>实现这个需求。</p>
+<p><img alt="image-20250829151537955" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339612.png" /></p>
+<p>要求<code>R2</code>将汇总路由以及除<code>172.16.1.0/24</code>之外的明细路由通告给<code>AR3</code>，使用<code>suppress-policy</code>可实现。<code>suppress-policy</code>叫做抑制策略，所以在<code>Route-Policy</code>中被匹配上的路由将会被抑制。</p>
+<div class="highlight"><pre><span></span><code>[AR2]ip ip-prefix no-subnet permit 172.16.1.0 24
+[AR2]route-policy no-subnet permit node 10
+Info: New Sequence of this List.
+[AR2-route-policy]if-match ip-prefix no-subnet
+[AR2-route-policy]quit
+
+[AR2]bgp 65001
+[AR2-bgp]aggregate 172.16.0.0 16 suppress-policy no-subnet
+</code></pre></div>
+<p><img alt="image-20250829163939234" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339637.png" /></p>
+<hr />
+<h5 id="325origin-policy">3.2.5.origin-policy参数</h5>
+<p>当我们在<code>R2</code>上配置<code>aggregate 172.16.0.0 16</code>时，只要<code>R2</code>的路由表中存在<code>172.16.1.0/24</code>或<code>172.16.2.0/24</code>，只要有任意一条路由存在，汇总路由都会产生。只有当所有<code>172.16.</code>开头的明细路由都消失了，路由汇总才会失败。</p>
+<p><img alt="image-20250829151537955" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339661.png" /></p>
+<p>那现在我有一个需求，在我当前的环境中，我认为<code>172.16.3.0/24</code>这条路由非常重要，如果这条明细路由在汇总点消失了，那么汇总路由也应该消失，而其他的明细路由是否存在我并不关心。实现这个需求就可以使用<code>origin-policy</code>参数。</p>
+<div class="highlight"><pre><span></span><code>[AR2]ip ip-prefix test1 permit 172.16.3.0 24
+
+[AR2]route-policy test1 permit node 10
+[AR2-route-policy]if-match ip-prefix test1
+[AR2-route-policy]quit
+
+[AR2]bgp 65001  
+[AR2-bgp]aggregate 172.16.0.0 255.255.0.0 origin-policy test1
+[AR2-bgp]quit
+</code></pre></div>
+<p>此时<code>AR3</code>是可以学习到汇总路由的：</p>
+<p><img alt="image-20250829165830950" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339739.png" /></p>
+<p>当<code>AR2</code>路由表中的<code>172.16.3.0/24</code>消失，那么<code>AR3</code>就无法学习到汇总路由：</p>
+<p><img alt="image-20250829165916804" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339807.png" /></p>
+<hr />
+<p>此时，有个非常有意思的现象，当我在刚刚的例子中，加上<code>detail-suppressed</code>参数后，那么<code>R2</code>只针对<code>172.16.3.0/24</code>进行抑制，因为你使用了<code>origin-policy</code>后，只有这条路由被认为与该汇总路由强相关。</p>
+<div class="highlight"><pre><span></span><code>[AR2-bgp]aggregate 172.16.0.0 255.255.0.0 origin-policy test1 detail-suppressed
+</code></pre></div>
+<p><img alt="image-20250829170235665" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339853.png" /></p>
+<hr />
+<p>另外，如果你再添加上<code>as-set</code>参数，那么<code>R2</code>产生的汇总路由只会继承<code>Route-Policy test1</code>匹配的明细路由的路径属性。</p>
+<hr />
+<h5 id="326attribute-policy">3.2.6.attribute-policy参数</h5>
+<p><img alt="image-20250829170719269" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339856.png" /></p>
+<p>在汇总时通过<code>attribute-policy</code>参数调用一个<code>Route-Policy</code>，可以设置汇总路由的路径属性。例如要将<code>R2</code>所产生的汇总路由的<code>MED</code>数值值设置为<code>200</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR2]route-policy test2 permit node 10
+[AR2-route-policy]apply cost 200
+[AR2-route-policy]quit
+
+[AR2]bgp 65001
+[AR2-bgp]aggregate 172.16.0.0 16 detail-suppressed attribute-policy test2
+[AR2-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250829170654628" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339861.png" /></p>
+<hr />
+<h3 id="4bgp">4.复位BGP</h3>
+<p>在上述的很多实验中我们发现一个现象，当我给路由添加或修改了路径属性后，该属性在对等体的路由表中没有立马生效。这个现象的原因是因为<code>BGP</code>不是<strong>周期性更新</strong>的，而你修改路径属性的操作也不会使本机向外通告路由。</p>
+<p>此时，我们就可以通过手动复位<code>BGP</code>的方式，让对方或本机再次通告<code>BGP</code>路由，复位分为两种：</p>
+<ul>
+<li><strong>硬复位：</strong>通过拆除并重新建立<code>TCP</code>会话来实现。</li>
+<li><strong>reset bgp all：</strong>该命令将复位路由器的所有<code>BGP</code>连接。</li>
+<li><strong>reset bgp as-number：</strong>该命令将复位路由器与特定<code>AS</code>的<code>BGP</code>连接。</li>
+<li><strong>reset bgp peer-address：</strong>该命令将复位路由器与特定对等体的<code>BGP</code>连接。</li>
+<li><strong>reset bgp internal：</strong>该命令将复位路由器的所有<code>IBGP</code>连接。</li>
+<li><strong>reset bgp external：</strong>该命令将复位路由器的所有<code>EBGP</code>连接。</li>
+<li><strong>软复位：</strong>在不中断<code>TCP</code>会话的情况下，重新通告所有路由。</li>
+<li><strong>refresh bgp all import</strong>: 该命令将使路由器的所有<code>BGP</code>连接在入方向触发软复位。</li>
+<li><strong>refresh bgp all export</strong>: 该命令将使路由器的所有<code>BGP</code>连接在出方向触发软复位。</li>
+<li><strong>refresh bgp external import</strong>: 该命令将使路由器的所有<code>EBGP</code>连接在入方向触发软复位。</li>
+<li><strong>refresh bgp external export</strong>: 该命令将使路由器的所有<code>EBGP</code>连接在出方向触发软复位。</li>
+<li><strong>refresh bgp internal import</strong>: 该命令将使路由器的所有<code>IBGP</code>连接在入方向触发软复位。</li>
+<li><strong>refresh bgp internal export</strong>: 该命令将使路由器的所有<code>IBGP</code>连接在出方向触发软复位。</li>
+<li><code>import</code>用在从邻居收到的路由执行策略时的复位。</li>
+<li><code>export</code>用在对发送给邻居的路由执行策略时的复位。</li>
+</ul>
+<hr />
+<p>在路由上使用<code>display bgp peer verbose</code>命令，可查看<code>BGP</code>对等体是否支持<code>Route-refresh</code>特性：</p>
+<p><img alt="image-20250831174612363" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339884.png" /></p>
+<hr />
+<h3 id="5ibgp">5.IBGP防环</h3>
+<p>通告上述的学习我们已经了解到<code>EBGP</code>的防环是使用<code>AS_PATH</code>路径属性实现的，而<code>IBGP</code>的防环是使用<strong>水平分割</strong>实现的。<strong>水平分割</strong>导致路由器无法将从<code>IBGP</code>对等体学习到的路由传递给另一个<code>IBGP</code>对等体，如果想解决这个问题可以使用<strong>全互联</strong>。但是<strong>全互联</strong>在<code>AS</code>内<code>BGP</code>路由器数量较多的情况下，会增加设备的负担、降低网络的扩展性。</p>
+<p><img alt="image-20250831190607112" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339941.png" /></p>
+<p>当前<code>BGP</code>提供了两种方式来解决<strong>水平分割</strong>的问题：</p>
+<ul>
+<li><strong>路由反射器</strong></li>
+<li><strong>联邦</strong></li>
+</ul>
+<hr />
+<h4 id="51">5.1.路由反射器</h4>
+<p>路由反射器（<code>Route Reflector,RR</code>）是一种用于解决<code>AS</code>内部<code>BGP</code>路由传递问题的技术，在一些大型的<code>BGP</code>组网中常被应用。如下图的例子中就可以使用<strong>路由反射器</strong>解决，将<code>R1</code>指定为路由反射器，而<code>R2、R3</code>被指定为它的客户（<code>client</code>），此时<code>R1</code>便会将自己学习到的<code>IBGP</code>路由在遵循规则的情况下进行<strong>反射</strong>。</p>
+<p><img alt="image-20250831191042352" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135339998.png" /></p>
+<p>我们将<code>RR</code>以及它的<code>client</code>所构成的系统称为<strong>路由反射簇(Cluster)</strong>，如下图中<code>R2、R3、R4、R5</code>就组成了一个<code>Cluster</code>，<code>RR</code>与所有的客户建立<code>IBGP</code>对等体关系，而<code>client</code>之间则无需建立<code>IBGP</code>对等体关系，优化了网络中<code>IBGP</code>对等体关系数量。实际上，所有的路由反射器配置都是在<code>RR</code>路由器上完成的，而<code>client</code>是不需要做任何额外配置的，甚至<code>client</code>并不知道自己是<code>RR</code>的<code>client</code>。所以，<code>RR</code>对比联邦配置非常简单。</p>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340022.png" /></p>
+<hr />
+<h5 id="511">5.1.1.规则</h5>
+<p>在路由反射器场景中，有以下几种角色：</p>
+<ul>
+<li><code>RR</code>：路由反射器</li>
+<li><code>client</code>：路由反射器的客户</li>
+<li>非<code>client</code></li>
+</ul>
+<p><strong>路由反射器</strong>并不是在任何场景下都会将<code>BGP</code>路由进行反射的，否则<code>IBGP</code>路由的传递将变得混乱不堪。</p>
+<ul>
+<li>如果<code>RR</code>从自己的<code>client</code>学习到一条<code>IBGP</code>路由，则它会将路由反射给所有除该对等体之外的所有<code>IBGP</code>邻居。</li>
+<li>
+<p>在<code>BGP</code>视图下执行<code>undo reflect between-clients</code>命令可关闭路由在客户之间的反射行为。</p>
+</li>
+<li>
+<p>如果<code>RR</code>从自己的非<code>client</code>学习到一条<code>IBGP</code>路由则它会将路由反设备所有除该<code>client</code>之外的所有<code>IBGP</code>邻居。</p>
+</li>
+<li>
+<p>当路由反射器执行路由反射时，它只将自己使用的、最优的<code>BGP</code>路由进行反射。</p>
+</li>
+</ul>
+<p><strong>总结：</strong>非非不传，<code>RR</code>不会将非<code>client</code>的路由传递给非<code>client</code>。</p>
+<hr />
+<h5 id="512">5.1.2.路由环路</h5>
+<p><strong>路由反射器</strong>解决的是<strong>水平分割</strong>产生的路由不传递问题，但是<strong>环路问题</strong>怎么解决呢？</p>
+<p><code>RR</code>的设定使得<code>IBGP</code>水平分割原则失效，这就可能导致环路的产生，为此<code>RR</code>会为<code>BGP</code>路由添加两个特殊的路径属性来避免出现环路：</p>
+<ul>
+<li><code>Originator_ID</code></li>
+<li><code>Cluster_List</code></li>
+</ul>
+<p>这两个属性都属于<strong>可选非过渡</strong>类型。</p>
+<hr />
+<p><strong>Originator_ID</strong></p>
+<p><code>Originator_ID</code>是一个<strong>可选非过渡</strong>属性，该属性长度为<code>32bit</code>，其格式与<code>ipv4</code>地址格式相同。</p>
+<p>当一条<code>BGP</code>路由被<code>RR</code>反射给其他路由器时，如果该条路由已经携带了<code>Originator_ID</code>属性，则保留该属性，否则<code>RR</code>为这条路有添加<code>Originator_ID</code>属性，并将该属性设置为该路由在本地<code>AS</code>内的始发路由器的<code>Router-ID</code>。</p>
+<p>当路由器从对等体收到一条<code>IBGP</code>路由，并且该路由所携带的<code>Originator_ID</code>与自己的<code>BGP Router-ID</code>相同时，它意识到从自己始发的路由又被通告回来了，它就会忽略这条路由的更新。</p>
+<p><img alt="image-20250831213603945" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340037.png" /></p>
+<p>如上图，假设<code>R3</code>和<code>R2</code>都是<code>RR</code>，当<code>R1</code>通告<code>10.1.0.0/16</code>的路由后，<code>R3</code>会将这条路由加上<code>Originator_ID=1.1.1.1</code>并传递给邻居<code>R2</code>，当<code>R2</code>收到这条路由后，因为<code>Originator_ID</code>已经在这条路由上存在，所以他会原封不动的给到<code>R1</code>。<code>R1</code>收到后发现<code>Originator_ID</code>与自己的<code>Router-ID</code>一致，忽略这条路由。</p>
+<hr />
+<p><strong>Cluster_List</strong></p>
+<p><code>Cluster_List</code>也是一个<strong>可选非过渡</strong>属性，该属性的值是可变长的，它可以包含一个或者多个<code>Cluster-ID</code>（路由反射簇标识符）。</p>
+<p>路由反射簇是路由反射器与其客户一起构成的，在一个<code>AS</code>内可以有多个路由反射簇，每个路由反射簇都拥有自己的<code>Cluster-ID</code>。</p>
+<p><code>Cluster-ID</code>是一个可配置的<code>32bit</code>数值，缺省为<code>RR</code>的<code>Router-ID</code>。当一条<code>BGP</code>路由被<code>RR</code>反射时，如果该条路由已经存在<code>Cluster_List</code>属性，那么<code>RR</code>会将本地的<code>Cluster-ID</code>添加到路由的<code>Cluster_List</code>属性值之前，而如果该路由并不存在<code>Cluster_List</code>，那么<code>RR</code>会为其创建并将<code>Cluster-ID</code>添加上去。</p>
+<p>当<code>RR</code>收到一条<code>BGP</code>路由后，若发现该条路由携带<code>Cluster_List</code>属性，并且<code>Cluster_List</code>属性值中包含着自己的<code>Cluster-ID</code>时，它意识到自己反射出去的<code>BGP</code>路由又被通告回来了，此时它将忽略关于这条路由的更新。</p>
+<p><img alt="image-20250831214603434" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340032.png" /></p>
+<p>如上图，<code>R1、R2、R3</code>是<code>RR</code>，<code>R4</code>是<code>R1</code>的<code>client</code>，<code>R2</code>是<code>R3</code>的<code>client</code>，<code>R1</code>是<code>R2</code>的<code>client</code>。此时<code>R4</code>通告路由<code>10.1.0.0/16</code>给<code>R1</code>，<code>R1</code>会为该路由添加<code>Originator_ID=4.4.4.4</code>和<code>Cluster_List=1.1.1.1</code>属性，然后传递给<code>R3</code>。<code>R3</code>收到后，发现该路由已经存在<code>Cluster_List</code>遂将自己的<code>Cluster-ID</code>添加到<code>Cluster_List</code>列表中，然后传递给<code>R2</code>。<code>R2</code>收到后也重复该动作，<code>R1</code>收到后发现<code>Cluster_List</code>中存在自己的<code>Cluster-ID</code>，所以将该路由忽略。</p>
+<p>需要注意的是，当<code>RR</code>收到<code>EBGP</code>邻居的路由后，并不会为该路由创建<code>Originator_ID</code>和<code>Cluster_List</code>属性，因为这不是路由反射的行为，而是一个正常通告行为。</p>
+<p>另外，当携带<code>Originator_ID</code>和<code>Cluster_List</code>属性的路由通告给<code>EBGP</code>对等体时，这条路有的这两个属性会被移除。</p>
+<hr />
+<h5 id="513">5.1.3.实验</h5>
+<p>如下图，<code>AR3</code>理所当然的是<code>RR</code>，但是你至少要为其配置两个<code>client</code>，此例中<code>AR2</code>和<code>AR4</code>为<code>client</code>。在<code>AR1</code>通告<code>192.168.1.0/24</code>的路由，最终观察是否在<code>AR4</code>和<code>AR5</code>上学到，并且是否有路由属性。</p>
+<p><img alt="image-20250831220213025" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340068.png" /></p>
+<p><strong>步骤一：配置基本BGP</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 100
+[AR1-bgp]router-id 1.1.1.1
+[AR1-bgp]peer 12.1.1.2 as-number 200
+[AR1-bgp]network 192.168.1.0 24
+[AR1-bgp]quit
+
+[AR2]bgp 200
+[AR2-bgp]router-id 2.2.2.2
+[AR2-bgp]peer 12.1.1.1 as-number 100
+[AR2-bgp]peer 23.1.1.2 as-number 200
+[AR2-bgp]peer 23.1.1.2 next-hop-local
+[AR2-bgp]quit
+
+[AR3]bgp 200
+[AR3-bgp]router-id 3.3.3.3
+[AR3-bgp]peer 23.1.1.1 as-number 200
+[AR3-bgp]peer 34.1.1.2 as-number 200
+[AR3-bgp]peer 35.1.1.2 as-number 200
+[AR3-bgp]quit
+
+[AR4]bgp 200
+[AR4-bgp]router-id 4.4.4.4
+[AR4-bgp]peer 34.1.1.1 as-number 200
+[AR4-bgp]quit
+
+[AR5]bgp 200
+[AR5-bgp]router-id 5.5.5.5
+[AR5-bgp]peer 35.1.1.1 as-number 200
+[AR5-bgp]quit
+</code></pre></div>
+<p><strong>步骤二：配置路由反射器</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3-bgp]peer 23.1.1.1 reflect-client 
+[AR3-bgp]peer 34.1.1.2 reflect-client
+</code></pre></div>
+<p><strong>验证：</strong></p>
+<p>因为我在做的时候用的都是直连接口建立的对等体关系，所以<code>AR3</code>通告给<code>AR4</code>和<code>AR5</code>的路由下一跳默认是<code>R1</code>建立对等体的地址。</p>
+<p><img alt="image-20250831221525384" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340122.png" /></p>
+<p><img alt="image-20250831221928780" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340200.png" /></p>
+<p>此时，观察路由的详细信息中，可发现<code>Originator=2.2.2.2</code>，<code>Cluster_List=3.3.3.3</code>。</p>
+<hr />
+<h4 id="52">5.2.联邦</h4>
+<p>除了路由反射器可以解决<strong>水平分割</strong>带来的路由传递问题之外，<strong>联邦</strong>也可以达到同样的效果。联邦（<code>Confederation</code>）也被称为<strong>联盟</strong>，大致的思想是在一个大的<code>AS</code>内创建若干个小的<code>AS</code>（类似于子<code>AS</code>），是的<code>AS</code>内部出现一种特殊的<code>EBGP</code>对等体关系，从而解决<code>IBGP</code>路由在<code>AS</code>内的传递问题。</p>
+<hr />
+<p><img alt="image-20250831222813052" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340204.png" /></p>
+<p>如上图，<code>R3</code>收到收到<code>R1</code>的路由后，会将该路由传递给<code>R4</code>，而<code>R4</code>因为水平分割不会将该路由传递给<code>R5</code>。如果需要用<strong>联邦</strong>解决该问题的话，需要将其分割成多个子<code>AS</code>：</p>
+<p><img alt="image-20250831222939988" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340219.png" /></p>
+<p>如上图，<code>AS 3456</code>由两个子<code>AS</code>组成，<code>R3</code>收到<code>R1</code>的路由后传递给<code>IBGP</code>对等体<code>R4</code>，<code>R4</code>将该路由传递给自己的<code>EBGP</code>对等体<code>R5</code>，随后<code>R5</code>将该路由传递给自己的<code>EBGP</code>和<code>IBGP</code>对等体，从而实现将路由传递到整个<code>BGP</code>。</p>
+<p>需要注意，<code>AS 3456</code>内部部署联邦时，<code>R3、R4、R5、R6</code>创建<code>BGP</code>进程时所使用的<code>AS</code>号是其所属的成员<code>AS</code>号。在它们与<code>AS</code>外部的路由器建立对等体关系时，实际上用的是<code>AS 3456</code>，也就是联邦<code>AS</code>。</p>
+<p>从这里你就能感觉到，联邦需要你一开始就细致的规划好你的整个拓扑，不是你一拍脑门子就能配置的。</p>
+<hr />
+<h5 id="521as_path">5.2.1.AS_PATH</h5>
+<p>当家一定还记得着重介绍的<code>AS_Path</code>路径属性，该属性的作用是<code>EBGP</code>防环与选路。那在联邦的场景中多个子<code>AS</code>之间是不是也可以利用<code>AS_Path</code>属性进行防环呢？</p>
+<p><code>BGP</code>设计了四种<code>AS_Path</code>类型：</p>
+<ul>
+<li><code>AS_Sequence</code></li>
+<li><code>AS_Set</code></li>
+<li><code>AS_Confed_Sequence</code></li>
+<li><code>AS_Confed_Set</code></li>
+</ul>
+<p>前面两种前文已经介绍过了。联邦使用了后面两种类型，它们的作用和前两种类似，只不过它们被用于联邦。</p>
+<p>当路由在联邦<code>EBGP</code>对等体之间传递时，子<code>AS</code>号被写入这种特殊类型的<code>AS_Path</code>片段中。而当路由被传出联邦时，成员<code>AS</code>号会从<code>AS_Path</code>里移除。</p>
+<p><img alt="image-20250831224215407" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340244.png" /></p>
+<ol>
+<li><code>R1</code>向<code>EBGP</code>对等体<code>R3</code>通告<code>10.10.0.0/16</code>路由条目，此时该路由的<code>AS_Path</code>属性值为<code>100</code>，该<code>AS_Path</code>属性的类型是<code>AS_Sequence</code>。</li>
+<li>
+<p><code>R3</code>将该<code>EBGP</code>路由传递给<code>IBGP</code>对等体<code>R4</code>，此时的<code>AS_Path</code>值依旧为<code>100</code>。</p>
+</li>
+<li>
+<p>当<code>R4</code>将该路由传递给它的联邦<code>EBGP</code>对等体<code>R5</code>时，将在路由原有<code>AS_Path</code>属性的基础上，增加一个<code>AS_Confed_Sequence</code>类型的片段（列表）值为<code>64512</code>。</p>
+</li>
+<li><code>R5</code>收到后这条路由的<code>AS_Path</code>为<code>(64512) 100</code>。</li>
+<li>发送给<code>R6</code>时需要在<code>AS_Confed_Sequence</code>片段上增加自己的成员<code>AS</code>号<code>64513</code>，此时这条路由的<code>AS_Path</code>为<code>(64513 64512) 100</code>。</li>
+<li>发送给<code>EBGP</code>对等体<code>R2</code>时，因为其不是联邦成员，所以<code>R5</code>会将<code>AS_Path</code>属性中的<code>AS_Confed_Sequence</code>片段移除，并在<code>AS_Sequence</code>中增加联邦<code>AS</code>号<code>3456</code>，此时这条路由的<code>AS_Path</code>为<code>3456 100</code>。</li>
+</ol>
+<hr />
+<h5 id="522">5.2.2.实验</h5>
+<p><img alt="image-20250831225637633" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340250.png" /></p>
+<p><strong>命令分析：</strong></p>
+<p>配置联邦时会涉及到两条命令：</p>
+<ul>
+<li><code>confederation id</code>：该命令用来指定当前的<strong>联邦AS</strong>。</li>
+<li>
+<p><code>COnfederation peer-as</code>：该命令用来指定同属一个联邦的邻居成员<code>AS</code>，如果路由器不与其他成员<code>AS</code>建立<code>EBGP</code>邻居关系，则不需要配置。</p>
+</li>
+<li>
+<p><code>AR1</code></p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/0]ip add 13.1.1.1 30
+[AR1-GigabitEthernet0/0/0]quit
+
+[AR1]int loo0
+[AR1-LoopBack0]ip add 192.168.1.1 24
+[AR1-LoopBack0]quit
+
+[AR1]bgp 100
+[AR1-bgp]router-id 1.1.1.1
+[AR1-bgp]peer 13.1.1.2 as 300
+[AR1-bgp]network 192.168.1.0 24
+[AR1-bgp]quit
+</code></pre></div>
+<ul>
+<li><code>AR2</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR2]int g0/0/0
+[AR2-GigabitEthernet0/0/0]ip add 25.1.1.1 30
+[AR2-GigabitEthernet0/0/0]quit
+
+[AR2]bgp 200
+[AR2-bgp]router-id 2.2.2.2
+[AR2-bgp]peer 25.1.1.2 as-number 300
+[AR2-bgp]quit
+</code></pre></div>
+<ul>
+<li><code>AR3</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR3]int g0/0/0
+[AR3-GigabitEthernet0/0/0]ip add 13.1.1.2 30
+[AR3-GigabitEthernet0/0/0]quit
+
+[AR3]int g0/0/1
+[AR3-GigabitEthernet0/0/1]ip add 34.1.1.1 30
+[AR3-GigabitEthernet0/0/1]quit
+
+[AR3]int loo0
+[AR3-LoopBack0]ip add 3.3.3.3 32
+[AR3-LoopBack0]quit
+
+[AR3]ospf 1 router-id 3.3.3.3
+[AR3-ospf-1]area 0
+[AR3-ospf-1-area-0.0.0.0]network 34.1.1.1 0.0.0.0
+[AR3-ospf-1-area-0.0.0.0]network 3.3.3.3 0.0.0.0
+[AR3-ospf-1-area-0.0.0.0]quit
+[AR3-ospf-1]quit
+
+[AR3]bgp 64512
+[AR3-bgp]router-id 3.3.3.3
+[AR3-bgp]confederation id 300
+[AR3-bgp]peer 13.1.1.1 as 100
+[AR3-bgp]peer 4.4.4.4 as 64512  
+[AR3-bgp]peer 4.4.4.4 connect-interface loo0    
+[AR3-bgp]peer 4.4.4.4 next-hop-local
+[AR3-bgp]quit
+</code></pre></div>
+<ul>
+<li><code>AR4</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR4]int g0/0/0
+[AR4-GigabitEthernet0/0/0]ip add 34.1.1.2 30
+[AR4-GigabitEthernet0/0/0]quit
+
+[AR4]int g0/0/1
+[AR4-GigabitEthernet0/0/1]ip add 45.1.1.1 30
+[AR4-GigabitEthernet0/0/1]quit
+
+[AR4]int loo0
+[AR4-LoopBack0]ip add 4.4.4.4 32
+[AR4-LoopBack0]quit
+
+[AR4]ospf 1 router-id 4.4.4.4
+[AR4-ospf-1]area 0
+[AR4-ospf-1-area-0.0.0.0]network 34.1.1.2 0.0.0.0
+[AR4-ospf-1-area-0.0.0.0]network 45.1.1.1 0.0.0.0
+[AR4-ospf-1-area-0.0.0.0]network 4.4.4.4 0.0.0.0
+[AR4-ospf-1-area-0.0.0.0]quit
+[AR4-ospf-1]quit
+
+[AR4]bgp 64512
+[AR4-bgp]router-id 4.4.4.4
+[AR4-bgp]confederation id 300       
+[AR4-bgp]confederation peer-as 64513
+[AR4-bgp]peer 3.3.3.3 as 64512
+[AR4-bgp]peer 3.3.3.3 connect-interface loo0
+[AR4-bgp]peer 5.5.5.5 as 64513  
+[AR4-bgp]peer 5.5.5.5 connect-interface loo0
+[AR4-bgp]peer 5.5.5.5 ebgp-max-hop 2
+[AR4-bgp]quit
+</code></pre></div>
+<ul>
+<li><code>AR5</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR5]int g0/0/0
+[AR5-GigabitEthernet0/0/0]ip add 45.1.1.2 30
+[AR5-GigabitEthernet0/0/0]quit
+
+[AR5]int g0/0/1
+[AR5-GigabitEthernet0/0/1]ip add 56.1.1.1 30
+[AR5-GigabitEthernet0/0/1]quit
+
+[AR5]int g0/0/2
+[AR5-GigabitEthernet0/0/2]ip add 25.1.1.2 30
+[AR5-GigabitEthernet0/0/2]quit
+
+[AR5]int loo0
+[AR5-LoopBack0]ip add 5.5.5.5 32
+[AR5-LoopBack0]quit
+
+[AR5]ospf 1 router-id 5.5.5.5
+[AR5-ospf-1]area 0
+[AR5-ospf-1-area-0.0.0.0]network 45.1.1.2 0.0.0.0
+[AR5-ospf-1-area-0.0.0.0]network 56.1.1.1 0.0.0.0
+[AR5-ospf-1-area-0.0.0.0]network 5.5.5.5 0.0.0.0
+[AR5-ospf-1-area-0.0.0.0]quit
+[AR5-ospf-1]quit
+
+[AR5]bgp 64513
+[AR5-bgp]router-id 5.5.5.5
+[AR5-bgp]confederation id 300   
+[AR5-bgp]confederation peer-as 64512
+[AR5-bgp]peer 4.4.4.4 as 64512
+[AR5-bgp]peer 4.4.4.4 connect-interface loo0
+[AR5-bgp]peer 4.4.4.4 ebgp-max-hop 2
+[AR5-bgp]peer 4.4.4.4 next-hop-local
+[AR5-bgp]peer 6.6.6.6 as 64513
+[AR5-bgp]peer 6.6.6.6 connect-interface loo0
+[AR5-bgp]peer 6.6.6.6 next-hop-local
+[AR5-bgp]peer 25.1.1.1 as 200
+[AR5-bgp]quit
+</code></pre></div>
+<ul>
+<li><code>AR6</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR6]int g0/0/0
+[AR6-GigabitEthernet0/0/0]ip add 56.1.1.2 30
+[AR6-GigabitEthernet0/0/0]quit
+
+[AR6]int loo0
+[AR6-LoopBack0]ip add 6.6.6.6 32
+[AR6-LoopBack0]quit
+
+[AR6]ospf 1 router-id 6.6.6.6
+[AR6-ospf-1]area 0
+[AR6-ospf-1-area-0.0.0.0]network 6.6.6.6 0.0.0.0
+[AR6-ospf-1-area-0.0.0.0]network 56.1.1.2 0.0.0.0
+[AR6-ospf-1-area-0.0.0.0]quit
+[AR6-ospf-1]quit
+
+[AR6]bgp 64513
+[AR6-bgp]router-id 6.6.6.6
+[AR6-bgp]confederation id 300   
+[AR6-bgp]peer 5.5.5.5 as 64513
+[AR6-bgp]peer 5.5.5.5 connect-interface loo0
+[AR6-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250831233036002" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340302.png" /></p>
+<p><img alt="image-20250831233049138" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340425.png" /></p>
+<hr />
+<h3 id="6bgp">6.BGP路由优选</h3>
+<p><code>BGP</code>是一个应用非常广泛且用于大规模网络场景下的路由协议，<code>BGP</code>定义了多种路径属性，并且拥有丰富的路由策略工具，这些特点使得<code>BGP</code>在路由操控和路径决策上非常灵活。</p>
+<p>当一台路由器学习到多条到达相同目的网段的<code>BGP</code>路由时，它将进行路由优选的决策，在这些路由中选择出一条最优的路由，如下图：</p>
+<p><img alt="image-20250901144233537" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340418.png" /></p>
+<hr />
+<p><code>BGP</code>定义了一整套详细的<strong>最优路径选择算法（<code>Best Path Selection Algorithm</code>）</strong>，这使得<code>BGP</code>路由器能够在任何复杂的、高冗余性的网络环境下选择出路由路径。当到达同一个目的网段存在多条路由时，<code>BGP</code>会通过<strong>最优路径算法</strong>定义的次序进行路由选路。</p>
+<p>但是，任何一条<code>BGP</code>路由在参与优选之前都必须先经过检查。设备会检查<code>BGP</code>路由的<code>Next_Hop</code>是否可达，如果不可达，则<code>BGP</code>路由被视为不可用，该路由无论如何不会被优选，也不会被设备使用或通告给其他对等体。</p>
+<h4 id="61">6.1.最优路径选择算法</h4>
+<ol>
+<li>优选<code>Preferred_Value</code>属性值最大的路由。</li>
+<li>优选<code>Local_Preference</code>属性值最大的路由。</li>
+<li>本地始发的<code>BGP</code>路由优于从其他对等体学习到的路由。</li>
+<li>本地始发的路由类型按优先级从高到低的排列顺序为：<ul>
+<li>通过手工汇总的方式发布的路由</li>
+<li>通过自动汇总的方式发布的路由</li>
+<li>通过<code>network</code>命令发布的路由</li>
+<li>通过<code>import-route</code>命令发布的路由</li>
+</ul>
+</li>
+<li>优选<code>AS_Path</code>属性值最短的路由。</li>
+<li>优选<code>Origin</code>属性最优的路由，按优先级从高到低的排列顺序为：</li>
+<li><code>IGP</code></li>
+<li><code>EGP</code></li>
+<li><code>Incomplete</code></li>
+<li>优选<code>MED</code>属性值最小的路由。</li>
+<li>优选从<code>EBGP</code>对等体学来的路由（<code>EBGP</code>路由优先级高于<code>IBGP</code>路由）。</li>
+<li>
+<p>优选到<code>Next_Hop</code>的<code>IGP</code>度量值最小的路由。</p>
+</li>
+<li>
+<p>优选<code>Cluster_List</code>最短的路由。</p>
+</li>
+<li>优选<code>Router-ID(Originator_ID)</code>最小的设备通告的路由。</li>
+<li>优选具有最小<code>IP</code>地址（<code>Peer</code>命令所指定的地址）的对等体通告的路由。</li>
+</ol>
+<p>这些规则依序排列，<code>BGP</code>进行路由优选时，从第一条规则开始执行。如果根据第一条规则无法做出判断（值一样），则继续执行下一条规则。如果当前的规则可以决策出最优的路由，则不再继续往下执行。</p>
+<hr />
+<h4 id="621preferred_value">6.2.案例1：Preferred_Value</h4>
+<p>当到达同一个目的网段存在多条<code>BGP</code>路由时，路由器首先会比较这些路由的<code>Preferred_Value</code>属性值，优选<code>Preferred_Value</code>属性值最大的路由。</p>
+<p>这是一个华为私有的路径属性，只在本地有效，这个属性值不会被传递给任何<code>BGP</code>对等体。</p>
+<p>接下来会使用<code>EBGP</code>邻居进 行演示，但是<code>Preferred_value</code>也可以使用在<code>IBGP</code>之间。</p>
+<p><img alt="image-20250901151026397" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340422.png" /></p>
+<p>如上图，<code>R4</code>与<code>R2</code>和<code>R3</code>分别建立了<code>EBGP</code>邻居，现要求<code>R4</code>学习到的<code>192.168.10.0/24</code>这条路由有选<code>AR3</code>，通过<code>Preferred_Value</code>属性控制。</p>
+<p><img alt="image-20250901152351749" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340471.png" /></p>
+<p>此时，可观察到虽然当前<code>R4</code>优选<code>R2</code>为下一跳，但当前的<code>PrefVal</code>为<code>0</code>。通过命令使<code>R4</code>通过<code>PrefVal</code>优选<code>R3</code>作为下一跳。</p>
+<div class="highlight"><pre><span></span><code>[AR4]bgp 400
+[AR4-bgp]peer 34.1.1.1 preferred-value 6000
+[AR4-bgp]quit
+</code></pre></div>
+<p>由于<code>PrefVal</code>是一个本地属性，所以不需要路由刷新。</p>
+<p><img alt="image-20250901152619375" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340436.png" /></p>
+<p><img alt="image-20250901152753869" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340482.png" /></p>
+<p>上图中很明确告诉我们当前从<code>34.1.1.1</code>学习到的路由是最优的因为<code>Pref-Val</code>，而<code>24.1.1.1</code>学习到的不是最优的因为<code>not preferred for PreVal</code>。</p>
+<p>上例中，非常粗暴的针对<code>R3</code>过来的路由全部修改了<code>Pref-Val</code>，我们也可以针对某些路由进行修改，使用<code>Route-Policy</code>即可。</p>
+<div class="highlight"><pre><span></span><code>ip ip-prefix preferred permit 192.168.10.0 24
+route-policy preferred permit node 10
+    if-match ip-prefix preferred
+    apply preferred-value 6000
+    quit
+route-policy preferred permit node 20
+    quit
+bgp 400
+    peer 34.1.1.1 route-policy preferred import
+</code></pre></div>
+<hr />
+<h4 id="632local_preference">6.3.案例2：Local_Preference</h4>
+<p>当到达同一个目的网段存在多条<code>BGP</code>路由时，在其他条件相同的情况下，<code>BGP</code>将优选这些路由中<code>Local_Preference</code>属性值最大的路由。如果路由在传递到本地时并不携带<code>Local_Preference</code>属性，则<code>BGP</code>在决策时使用缺省的<code>Local_Preference</code>属性值（100）来计算，这个缺省值可以使用<code>default local-preference</code>命令修改。</p>
+<p><code>Local_Preference</code>（本地优先级），该属性是<strong>公认任意属性</strong>，可以用于告诉<code>AS</code>中的路由器，哪条路径是离开本<code>AS</code>的首选路径。该值越大则<code>BGP</code>路由越优，缺省情况下值为<code>100</code>。==该属性只能传递给<code>IBGP</code>对等体，不能传递给<code>EBGP</code>对等体。==</p>
+<p>但是，如果在<code>EBGP</code>的场景中，使用<code>import</code>方向也可以做到使用<code>Local_Preference</code>优选路由。</p>
+<p><img alt="image-20250901155507904" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340616.png" /></p>
+<p><strong>修改之前：</strong></p>
+<p><img alt="image-20250901161130187" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340596.png" /></p>
+<p><strong>方法一：出方向</strong></p>
+<p>要求在<code>AR3</code>上通告给<code>AR1</code>的<code>10.0.45.0/24</code>这条路由的<code>LocPrf</code>为<code>200</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR3]ip ip-prefix test1 permit 10.0.45.0 24
+
+[AR3]route-policy test1 permit node 10  
+[AR3-route-policy]if-match ip-prefix test1
+[AR3-route-policy]apply local-preference 200
+[AR3-route-policy]quit
+
+[AR3]route-policy test1 permit node 20
+[AR3-route-policy]quit
+
+[AR3]bgp 200
+[AR3-bgp]peer 1.1.1.1 route-policy test1 export 
+[AR3-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250901161416292" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340583.png" /></p>
+<p><img alt="image-20250901161449871" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340619.png" /></p>
+<p><strong>方法二：入方向</strong></p>
+<p>要求在<code>AR1</code>收到<code>AR2</code>发送的<code>10.0.45.0/24</code>这条路由的<code>LocalPref</code>为<code>300</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR1]ip ip-prefix test1 permit 10.0.45.0 24
+
+[AR1]route-policy test1 permit node 10  
+[AR1-route-policy]if-match ip-prefix test1
+[AR1-route-policy]apply local-preference 300
+[AR1-route-policy]quit
+
+[AR1]route-policy test1 permit node 20
+[AR1-route-policy]quit
+
+[AR1]bgp 200
+[AR1-bgp]peer 2.2.2.2 route-policy test1 import 
+[AR1-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250901161642011" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340658.png" /></p>
+<hr />
+<h4 id="643">6.4.案例3：本地始发最优</h4>
+<p><img alt="image-20250901155507904" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340616.png" /></p>
+<h5 id="641">6.4.1.本地最优</h5>
+<div class="highlight"><pre><span></span><code>[AR1]int loo100
+[AR1-LoopBack100]ip add 100.100.100.1 24
+[AR1-LoopBack100]quit
+
+[AR2]int loo100
+[AR2-LoopBack100]ip add 100.100.100.2 24
+[AR2-LoopBack100]quit
+
+[AR3]int loo100
+[AR3-LoopBack100]ip add 100.100.100.3 24
+[AR3-LoopBack100]quit
+
+[AR1]bgp 200
+[AR1-bgp]network 100.100.100.0 24
+[AR1-bgp]quit
+
+[AR2]bgp 200
+[AR2-bgp]network 100.100.100.0 24
+[AR2-bgp]quit
+
+[AR3]bgp 200
+[AR3-bgp]network 100.100.100.0 24
+[AR3-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250901162332501" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340707.png" /></p>
+<hr />
+<h5 id="642">6.4.2.本地始发中最优选的</h5>
+<p>此时，在<code>AR1</code>上创建一个回环口<code>200.200.200.200/32</code>。</p>
+<div class="highlight"><pre><span></span><code>[AR1]int loo200
+[AR1-LoopBack200]ip add 200.200.200.200 32
+[AR1-LoopBack200]quit
+</code></pre></div>
+<p><strong>import-route</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 200    
+[AR1-bgp]import-route direct 
+</code></pre></div>
+<p><img alt="image-20250901162722956" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340760.png" /></p>
+<p><strong>network</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 200
+[AR1-bgp]network 200.200.200.200 32
+[AR1-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250901162805281" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340794.png" /></p>
+<p><strong>手动汇总</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 200    
+[AR1-bgp]aggregate 200.200.0.0 255.255.0.0 detail-suppressed 
+[AR1-bgp]quit
+
+[AR1]int loo210
+[AR1-LoopBack210]ip add 200.200.0.1 16
+
+[AR1]bgp 200
+[AR1-bgp]network 200.200.0.0 16
+[AR1-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250901163132717" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340801.png" /></p>
+<p><strong>手工汇总与自动汇总</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]int loo1
+[AR1-LoopBack1]ip add 10.100.1.1 24
+[AR1-LoopBack1]quit
+[AR1]int loo2
+[AR1-LoopBack2]ip add 10.200.1.1 24
+[AR1-LoopBack2]quit
+
+[AR1-bgp]summary automatic
+</code></pre></div>
+<p><img alt="image-20250901163717340" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340798.png" /></p>
+<div class="highlight"><pre><span></span><code>[AR1-bgp]aggregate 10.0.0.0 8 detail-suppressed
+</code></pre></div>
+<p><img alt="image-20250901163836889" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340852.png" /></p>
+<p>从这里你没有办法判断出，哪一条是手工，哪一条是自动。</p>
+<p><img alt="image-20250901163935216" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340881.png" /></p>
+<hr />
+<h4 id="654as_path">6.5.案例4：AS_Path</h4>
+<p>优选<code>AS_Path</code>属性值最短的路由，在<code>AR2</code>配置<code>Route-Policy</code>使其通告给对等体<code>AR1</code>的<code>10.0.45.0/24</code>这条路有的<code>AS_Path=400 100</code></p>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340963.png" /></p>
+<div class="highlight"><pre><span></span><code>[AR2]ip ip-prefix as_path permit 10.0.45.0 24
+
+[AR2]route-policy as_path permit node 10
+[AR2-route-policy]if-match ip-prefix as_path
+[AR2-route-policy]apply as-path 400 additive
+[AR2-route-policy]quit
+
+[AR2]bgp 200
+[AR2-bgp]peer 1.1.1.1 route-policy as_path export
+[AR2-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250901181825892" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340988.png" /></p>
+<hr />
+<h4 id="665origin">6.6.案例5：Origin</h4>
+<p><img alt="image-20250901233447943" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135340982.png" /></p>
+<p><strong>修改前：</strong></p>
+<p><img alt="image-20250901233549562" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341003.png" /></p>
+<p>当前<code>R4</code>和<code>R5</code>宣告<code>10.0.45.0/24</code>的方法都是<code>network</code>，所以无法使用<code>Origin</code>选路。故将<code>R4</code>修改为<code>import-route</code>方式：</p>
+<div class="highlight"><pre><span></span><code>[AR4]bgp 100
+[AR4-bgp]undo network 10.0.45.0 24
+[AR4-bgp]import-route direct 
+[AR4-bgp]quit
+</code></pre></div>
+<p><strong>修改后：</strong></p>
+<p><img alt="image-20250901233623928" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341048.png" /></p>
+<hr />
+<h4 id="676med">6.7.案例6：MED</h4>
+<p>默认情况下<code>BGP</code>只会对来自同一个<code>AS</code>的相同路由比较<code>MED</code>值，可以通过命令：<code>compare-different-as-med</code>开启来自不同<code>AS</code>的相同路由也比较<code>MED</code>值。</p>
+<p><img alt="image-20250901234401213" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341075.png" /></p>
+<p>现在将<code>R4</code>修改为<code>network</code>方式宣告路由<code>10.0.45.0/24</code>。</p>
+<p><strong>修改前：</strong></p>
+<p><img alt="image-20250901234442700" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341151.png" /></p>
+<p>由于当前的<code>10.0.45.0</code>是通过<code>network</code>宣告直连口发布的，所以<code>MED</code>为<code>0</code>。</p>
+<p>由于<code>MED</code>值一般用于影响<code>EBGP</code>对等体进入本<code>AS</code>的路径，所以在<code>R4</code>和<code>R5</code>上进行<code>MED</code>值配置。现要求<code>R4</code>配置为<code>200</code>，<code>R5</code>配置为<code>100</code>。</p>
+<div class="highlight"><pre><span></span><code>[AR4]ip ip-prefix med permit 10.0.45.0 24
+
+[AR4]route-policy med permit node 10    
+[AR4-route-policy]if-match ip-prefix med    
+[AR4-route-policy]apply cost 200
+[AR4-route-policy]quit
+[AR4]route-policy med permit node 20
+[AR4-route-policy]quit
+
+[AR4]bgp 100
+[AR4-bgp]peer 24.1.1.1 route-policy med ex  
+[AR4-bgp]peer 24.1.1.1 route-policy med export 
+[AR4-bgp]quit
+
+[AR5]ip ip-prefix med permit 10.0.45.0 24
+
+[AR5]route-policy med permit node 10    
+[AR5-route-policy]if-match ip-prefix med
+[AR5-route-policy]apply cost 100
+[AR5-route-policy]quit
+[AR5]route-policy med permit node 20
+[AR5-route-policy]quit
+
+[AR5]bgp 300
+[AR5-bgp]peer 35.1.1.1 route-policy med export 
+[AR5-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250901235051677" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341155.png" /></p>
+<p>此时，<code>AR1</code>的路由表中依旧是优选<code>2.2.2.2</code>作为下一跳，说明没有比较<code>MED</code>值。需要使用如下命令：</p>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 200
+[AR1-bgp]compare-different-as-med
+</code></pre></div>
+<p><img alt="image-20250901235212047" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341192.png" /></p>
+<hr />
+<h4 id="687ebgp">6.8.案例7：优选EBGP</h4>
+<p>该规则其实非常好理解，当路由前缀和掩码相同的情况下，如果前面的规则一致，优先选择<code>EBGP</code>路由。</p>
+<p><img alt="image-20250901235532810" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341181.png" /></p>
+<p>还是用该拓扑为例，在<code>AR1</code>上配置静态路由<code>10.0.45.0/24</code>通过<code>network</code>通告对等体，并且为其配置<code>AS_Path</code>。</p>
+<div class="highlight"><pre><span></span><code>[AR1]ip route-static 10.0.45.0 24 null0
+
+[AR1]ip ip-prefix ebgp permit 10.0.45.0 24
+
+[AR1]route-policy ebgp permit node 10   
+[AR1-route-policy]if-match ip-prefix ebgp
+[AR1-route-policy]apply as-path 500 additive 
+[AR1-route-policy]quit
+
+[AR1]route-policy ebgp permit node 20
+[AR1-route-policy]quit
+
+[AR1]bgp 200
+[AR1-bgp]network 10.0.45.0 24   
+[AR1-bgp]peer 2.2.2.2 route-policy ebgp export 
+[AR1-bgp]quit
+</code></pre></div>
+<ul>
+<li>
+<p>为什么要<code>network</code>呢？为了避免<code>Origin</code>选路规则。</p>
+</li>
+<li>
+<p>如果不<code>network</code>会出现如下现象：</p>
+</li>
+</ul>
+<p><img alt="image-20250902000207102" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341241.png" /></p>
+<ul>
+<li>
+<p>为什么要添加<code>AS_Path</code>呢？为了避免<code>AS_Path</code>选路规则。</p>
+</li>
+<li>
+<p>如果不添加<code>AS_Path</code>会出现如下现象：</p>
+</li>
+</ul>
+<p><img alt="image-20250902000137406" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341248.png" /></p>
+<p><strong>最终现象：</strong></p>
+<p><img alt="image-20250902000229514" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341347.png" /></p>
+<hr />
+<h4 id="698igp-cost">6.9.案例8：IGP Cost</h4>
+<p>该规则为优选到<code>Next_Hop</code>的<code>IGP</code>度量值最小的路由。</p>
+<p><strong>恢复配置：</strong></p>
+<p><img alt="image-20250902000357404" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341333.png" /></p>
+<p>想要实现该规则非常简单，当前<code>AR1</code>到达<code>AR2</code>和<code>AR3</code>的<code>BGP</code>对等体源地址的<code>Cost</code>是一样的，当前在未修改的情况下优选<code>2.2.2.2</code>，我只需将<code>AR1</code>的<code>G0/0/0</code>接口的<code>OSPF Cost</code>修改为<code>100</code>即可。</p>
+<div class="highlight"><pre><span></span><code>[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/0]ospf cost 100
+[AR1-GigabitEthernet0/0/0]quit
+</code></pre></div>
+<p><img alt="image-20250902000620850" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341345.png" /></p>
+<p><img alt="image-20250902000637462" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341365.png" /></p>
+<hr />
+<h4 id="610bgp">6.10.BGP路由负载分担</h4>
+<p>在大型网络中，到达同一目的地通常会存在多条有效<code>BGP</code>路由，设备只会优选一条最优的<code>BGP</code>路由，将该路由加载到路由表中使用，这一特点往往会造成很多流量负载不均衡的情况。</p>
+<p>从<code>BGP</code>路由优选的规则中你就能看出来，如果不人工干预最终肯定不会形成负载均衡。所以，负载均衡需要在<code>BGP</code>视图中手动开启，命令为：<code>maximum load-balancing ibgp 2</code>。</p>
+<p>虽然开启了负载均衡，但是该命令的作用仅仅是使<code>BGP</code>可以将多条相同前缀和掩码的路由加入到路由表。当<code>BGP</code>路由器要将路由通告给对等体时，依旧会根据路由优选规则选择出最优选的通告给对等体。</p>
+<p>在设备上使能<code>BGP</code>负载分担功能后，只有满足条件的多条<code>BGP</code>路由才会成为等价路由，进行负载分担。</p>
+<h5 id="6101">6.10.1.负载分担条件</h5>
+<ol>
+<li><code>Preferred-Value</code>属性值相同。</li>
+<li><code>Local_Preference</code>属性值相同。</li>
+<li>都是聚合路由或者非聚合路由</li>
+<li><code>AS_Path</code>属性长度相同。</li>
+<li><code>Origin</code>类型相同。</li>
+<li><code>MED</code>属性值相同。</li>
+<li>都是<code>EBGP</code>路由或都是<code>IBGP</code>路由。</li>
+<li><code>AS</code>内部<code>IGP</code>的<code>Metric</code>相同。</li>
+<li><code>AS_Path</code>属性完全相同。</li>
+</ol>
+<p>上面说到的负载分担条件，并不是按照顺序排列的。实际上如果你仔细看了路由优选规则你就会发现，前八个才是真正“有意义的“。而最后几个只是单纯为了”决出个高下”。</p>
+<hr />
+<h5 id="6102">6.10.2.实验</h5>
+<p><img alt="image-20250902001628925" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341443.png" /></p>
+<p>依旧是这张拓扑图，恢复环境后查看路由表：</p>
+<p><img alt="image-20250902001659390" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341461.png" /></p>
+<p>在<code>AR1</code>上开启负载均衡功能。</p>
+<div class="highlight"><pre><span></span><code>[AR1]bgp 200
+[AR1-bgp]maximum load-balancing ibgp ?
+  INTEGER&lt;1-8&gt;  Specify maximum equal cost routes
+[AR1-bgp]maximum load-balancing ibgp 2
+[AR1-bgp]quit
+</code></pre></div>
+<p>此时，并不会出现负载均衡现象，为啥呢？</p>
+<ul>
+<li>因为<code>AR1</code>学习到的两条路由的<code>AS_Path</code>不是完全相同的。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR3]ip ip-prefix load permit 10.0.45.0 24
+
+[AR3]route-policy load permit node 10   
+[AR3-route-policy]if-match ip-prefix load   
+[AR3-route-policy]apply as-path 100 overwrite 
+Warning: The AS-Path lists of routes to which this route-policy is applied will 
+be overwritten. Continue? [Y/N]y
+[AR3-route-policy]quit
+
+[AR3]route-policy load permit node 20
+[AR3-route-policy]quit
+
+[AR3]bgp 200
+[AR3-bgp]peer 1.1.1.1 route-policy load export 
+[AR3-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250902002406949" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341522.png" /></p>
+<p>此时再查看<code>AR1</code>的全局路由表：</p>
+<p><img alt="image-20250902002444193" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341519.png" /></p>
+<hr />
+<h4 id="6119cluster_list">6.11.案例9：优选Cluster_List最短的路由</h4>
+<p><img alt="image-20250902002637660" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341548.png" /></p>
+<p>为了实现该实验，需要改动一下拓扑：</p>
+<ul>
+<li>只在<code>AR5</code>上将<code>10.0.45.0/24</code>发布到<code>BGP</code>。</li>
+<li>配置<code>R1</code>为路由反射器，<code>R3</code>为<code>R1</code>的客户端。</li>
+<li><code>R2、R3</code>之间基于回环口建立<code>IBGP</code>对等体关系。</li>
+</ul>
+<p>通过上述更改后，<code>R2</code>将收到<code>R3</code>通告的<code>BGP</code>路由<code>10.0.45.0/24</code>以及<code>R1</code>反射的<code>BGP</code>路由<code>10.0.45.0/24</code>。</p>
+<div class="highlight"><pre><span></span><code>[AR2]int g0/0/1 
+[AR2-GigabitEthernet0/0/1]shutdown 
+[AR2-GigabitEthernet0/0/1]quit
+
+[AR2]bgp 200
+[AR2-bgp]peer 3.3.3.3 as 200
+[AR2-bgp]peer 3.3.3.3 connect-interface LoopBack 0
+[AR2-bgp]quit
+
+[AR3]bgp 200
+[AR3-bgp]peer 2.2.2.2 as 200    
+[AR3-bgp]peer 2.2.2.2 connect-interface loo0
+[AR3-bgp]peer 2.2.2.2 next-hop-local
+[AR3-bgp]quit
+
+[AR1]bgp 200
+[AR1-bgp]peer 2.2.2.2 reflect-client 
+[AR1-bgp]peer 3.3.3.3 reflect-client 
+[AR1-bgp]quit
+</code></pre></div>
+<p>做完这些之后，查看<code>BGP</code>路由表会发现下一跳也是完全一致的，此时你需要查看详细信息：</p>
+<p><img alt="image-20250902003500375" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341598.png" /></p>
+<p><img alt="image-20250902003524637" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341622.png" /></p>
+<hr />
+<h4 id="61210router-id">6.12.案例10：优选Router-ID</h4>
+<p>此规则为优先选择<code>Router-ID</code>最小的对等体通告的路由。</p>
+<p><img alt="image-20250902003724931" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341630.png" /></p>
+<p>恢复到最初的环境，查看最优路由详细信息：</p>
+<p><img alt="image-20250902003812859" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341730.png" /></p>
+<p>如上图，你什么都不用改就会发现当前选择最优路由的依据是<code>Router-ID</code>。</p>
+<p>此时，将<code>AR2</code>的<code>Router-ID</code>修改为<code>100.100.100.100</code>，然后再观察现象：</p>
+<div class="highlight"><pre><span></span><code>[AR2]bgp 200
+[AR2-bgp]router-id 100.100.100.100
+Warning: Changing the parameter in this command resets the peer session. Continu
+e?[Y/N]:y
+</code></pre></div>
+<p><img alt="image-20250902003954700" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341736.png" /></p>
+<hr />
+<h4 id="61310origin-id">6.13.案例10：优选Origin-ID</h4>
+<p>如果<code>BGP</code>路由携带<code>Originator-ID</code>属性，则在本条规则的优选过程中，将比较<code>Originator_ID</code>的大小，并优选<code>Originator_ID</code>最小的<code>BGP</code>路由。</p>
+<p>需要注意的是，<code>Originator_ID</code>携带的内容为原始路由发布者的<code>Router-ID</code>。</p>
+<p><img alt="image-20250902005126898" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341742.png" /></p>
+<div class="highlight"><pre><span></span><code>[AR2]bgp 200
+[AR2-bgp]undo peer 24.1.1.2 
+[AR2-bgp]peer 24.1.1.2 as 200
+[AR2-bgp]quit
+
+[AR3]bgp 200
+[AR3-bgp]undo peer 35.1.1.2 
+[AR3-bgp]peer 35.1.1.2 as 200
+[AR3-bgp]quit
+
+[AR4]undo bgp 100
+Warning: All BGP configurations will be deleted. Continue? [Y/N]: y
+[AR4]bgp 200
+[AR4-bgp]router-id 4.4.4.4
+[AR4-bgp]peer 24.1.1.1 as 200
+[AR4-bgp]network 10.0.45.0 24
+[AR4-bgp]quit
+
+[AR5]undo bgp 300
+Warning: All BGP configurations will be deleted. Continue? [Y/N]: y
+[AR5]bgp 200
+[AR5-bgp]router-id 5.5.5.5
+[AR5-bgp]peer 35.1.1.1 as 200
+[AR5-bgp]network 10.0.45.0 24
+[AR5-bgp]quit
+
+[AR3]ospf 1 
+[AR3-ospf-1]area 0
+[AR3-ospf-1-area-0.0.0.0]network 35.1.1.0 0.0.0.3
+[AR3-ospf-1-area-0.0.0.0]quit
+[AR3-ospf-1]quit
+
+[AR2]ospf 1
+[AR2-ospf-1]area 0
+[AR2-ospf-1-area-0.0.0.0]network 24.1.1.0 0.0.0.3
+[AR2-ospf-1-area-0.0.0.0]quit
+[AR2-ospf-1]quit
+
+[AR2]bgp 200    
+[AR2-bgp]peer 1.1.1.1 reflect-client 
+[AR2-bgp]quit
+
+[AR3]bgp 200
+[AR3-bgp]peer 1.1.1.1 reflect-client 
+[AR3-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250902005157159" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341802.png" /></p>
+<p>此时，不是特别能够证明是比较<code>Originator_ID</code>，所以将<code>AR4</code>的<code>Router-ID</code>修改为<code>200.200.200.200</code>:</p>
+<div class="highlight"><pre><span></span><code>[AR4]bgp 200
+[AR4-bgp]router-id 200.200.200.200
+Warning: Changing the parameter in this command resets the peer session. Continu
+e?[Y/N]:y
+[AR4-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250902005339977" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341819.png" /></p>
+<hr />
+<h4 id="61411ip">6.14.案例11：优选IP地址最小的</h4>
+<p>当前面所有的规则都无法比较出优选路由时，此时会根据对等体地址大小来进行优选，对等体地址较小者发送的路由较优选。</p>
+<p><img alt="image-20250902005628525" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341813.png" /></p>
+<p>修改前面的拓扑，<code>R2、R3</code>都与<code>R4</code>相连，<code>R4</code>作为<code>RR</code>客户端，只在<code>R4</code>上将路由发布到<code>BGP</code>，此时<code>R2、R3</code>反射的<code>BGP</code>路由将拥有相同的<code>Originator_ID</code>：</p>
+<div class="highlight"><pre><span></span><code>[AR3]int g0/0/1
+[AR3-GigabitEthernet0/0/1]ip add 34.1.1.1 30
+[AR3-GigabitEthernet0/0/1]quit
+[AR3]bgp 200
+[AR3-bgp]undo peer 35.1.1.2
+[AR3-bgp]peer 34.1.1.2 as 200
+[AR3-bgp]quit
+
+[AR4]int loo0
+[AR4-LoopBack0]ip add 192.168.10.1 24
+[AR4-LoopBack0]quit
+[AR4]int g0/0/1
+[AR4-GigabitEthernet0/0/1]ip add 34.1.1.2 30
+[AR4-GigabitEthernet0/0/1]quit
+[AR4]bgp 200
+[AR4-bgp]peer 34.1.1.1 as 200
+[AR4-bgp]network 192.168.10.0 24
+[AR4-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250902010241452" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135341869.png" /></p>
+<hr />
+<h3 id="7">7.补充</h3>
+<h4 id="71">7.1.关于联邦下一跳问题</h4>
+<p><img alt="image-20250910151002924" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250910151003061.png" /></p>
+<p>如上图，<code>AR1</code>通过<code>EBGP</code>将<code>192.168.1.0</code>通告给<code>AR2</code>，<code>AR2</code>再通过<code>IBGP</code>通告给<code>AR3</code>。此时因为<code>AR2</code>针对<code>AR3</code>使用了<code>next-hop-local</code>命令，所以<code>AR3</code>学习到的这条路有的下一跳是<code>AR2</code>建立对等体的地址。</p>
+<p>当<code>AR3</code>将这条路由条目通告给它的联邦<code>EBGP</code>邻居时下一跳不会发生改变，因为本质上<code>AR4</code>学习到的这条路由是<code>IBGP</code>路由（遵循<code>IBGP</code>规则，保持下一跳属性不变）。另外，即使<code>AR3</code>针对<code>AR4</code>使用<code>next-hop-local</code>命令也不会发生改变。</p>
+<p><img alt="image-20250910152213680" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250910152213832.png" /></p>
+<p><strong>next-hop-local</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">场景</th>
+<th style="text-align: center;">是否需要 <code>next-hop-local</code>？</th>
+<th style="text-align: center;">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>向 EBGP 对等体通告路由</strong></td>
+<td style="text-align: center;"><strong>从不</strong>需要</td>
+<td style="text-align: center;">默认行为就是将自己的地址作为下一跳通告给外部邻居。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>向 IBGP 对等体通告 *从EBGP*学来的路由</strong></td>
+<td style="text-align: center;"><strong>几乎总是</strong>需要</td>
+<td style="text-align: center;">这是解决 IBGP 下一跳不可达问题的标准方法。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>向 IBGP 对等体通告 *从IBGP*学来的路由</strong></td>
+<td style="text-align: center;"><strong>不需要</strong>（且通常无效）</td>
+<td style="text-align: center;">因为 BGP 水平分割规则，你本来就不会传播这类路由。如果使用了路由反射器，反射器会有特殊处理。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>如果想要想改下一跳，可通过下面的方法：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]ip ip-prefix test permit 192.168.1.0 24
+
+[AR3]route-policy test permit node 10   
+[AR3-route-policy]if-match ip-prefix test
+[AR3-route-policy]apply ip-address next-hop 3.3.3.3
+[AR3-route-policy]quit
+[AR3]route-policy test permit node 20
+
+[AR3]bgp 64512
+[AR3-bgp]peer 4.4.4.4 route-policy test export 
+[AR3-bgp]quit
+</code></pre></div>
+<p><img alt="image-20250910152635956" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250910152636104.png" /></p>
+<hr />
+<h4 id="72">7.2.引入问题</h4>
+<p><img alt="image-20250910154012358" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250910154012503.png" /></p>
+<p>在<code>AR2</code>上将<code>BGP</code>路由引入到<code>OSPF</code>，你会发现没有任何路由被成功引入到<code>OSPF</code>，为啥呢？？</p>
+<p><strong>技术上可以，设计上不可以。</strong></p>
+<p>因为，<code>IBGP</code>路由可能包含了当前<code>AS</code>或整个互联网的路由条目，一旦引入到<code>OSPF</code>。会导致<code>IGP</code>数据库爆炸，路由器因<code>CPU</code>和内存耗尽而崩溃。</p>
+<p>另外，<code>BGP</code>的精华在于基于路径属性的策略控制（选路），一旦引入<code>IGP</code>，所有这些属性都会丢失，路由决策退回至简单的度量值。</p>
+<p>违背了<code>BGP/IGP</code>的分层设计原则，<code>IGP</code>的核心任务是为<code>BGP</code>下一跳提供可达性，而不是承载外部路由。</p>
+<p>最后，引入<code>BGP</code>路由到<code>OSPF</code>中可能会出现路由环路问题。</p>
+<hr />
+<p>可以通过命令实现引入<code>IBGP</code>路由：</p>
+<div class="highlight"><pre><span></span><code>[AR2-ospf-1]import-route bgp permit-ibgp
+</code></pre></div>
+<p><img alt="image-20250910161907545" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250910161907703.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

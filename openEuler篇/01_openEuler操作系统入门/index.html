@@ -1,0 +1,3255 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/">
+      
+      
+        <link rel="next" href="../02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>openEuler操作系统入门 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#openeuler" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              openEuler操作系统入门
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.操作系统发展及Linux操作系统介绍
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.操作系统发展及Linux操作系统介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.什么是操作系统？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.操作系统发展历史
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.操作系统发展历史">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121unix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.Unix发展史
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.Linux发展史
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.开源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.Linux发行版
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.Linux发行版">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1.国产操作系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142openeuler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2.openEuler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2openeuler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.使用openEuler操作系统
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.使用openEuler操作系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.系统结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.登录Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.关机与重启
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.关机与重启">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.shutdown命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232poweroff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.poweroff
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233systemctl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3.systemctl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.4.reboot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235init" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.5.init
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.普通用户提权
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.普通用户提权">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.加入wheel组
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242sudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.sudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243su" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.su
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.Linux常用快捷键
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.swap空间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27cligui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.CLI与GUI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7.CLI与GUI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.安装图形化界面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.2.修改启动模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.操作系统发展及Linux操作系统介绍
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.操作系统发展及Linux操作系统介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.什么是操作系统？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.操作系统发展历史
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.操作系统发展历史">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121unix" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.Unix发展史
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.Linux发展史
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.开源
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.Linux发行版
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.Linux发行版">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1.国产操作系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142openeuler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2.openEuler
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2openeuler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.使用openEuler操作系统
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.使用openEuler操作系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.系统结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.登录Linux
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.关机与重启
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.关机与重启">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231shutdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.shutdown命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232poweroff" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.poweroff
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233systemctl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3.systemctl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.4.reboot
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235init" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.5.init
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.普通用户提权
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.普通用户提权">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.加入wheel组
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242sudo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.sudo
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243su" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.su
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.Linux常用快捷键
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26swap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.swap空间
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27cligui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.CLI与GUI
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7.CLI与GUI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.安装图形化界面
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.2.修改启动模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="openeuler">一、openEuler操作系统入门</h1>
+<h3 id="1linux">1.操作系统发展及Linux操作系统介绍</h3>
+<h4 id="11">1.1.什么是操作系统？</h4>
+<p>操作系统（<code>Operating System,OS</code>）是管理计算机硬件与软件资源的<strong>系统软件</strong>，是硬件基础上的第一层软件，是所有其他软件运行的基础。操作系统就像是一个<strong>大管家</strong>，负责协调和分配所有资源，以提供给用户和其他软件方便的接口和环境的程序集合。</p>
+<p><strong>操作系统的核心功能：</strong></p>
+<ul>
+<li><strong>进程管理：</strong>决定哪个程序使用<code>CPU</code>，何时使用，用多久（管任务）。</li>
+<li><strong>内存管理：</strong>分配和回收内存空间，保证各程序间互不干扰（管核心资源）。</li>
+<li><strong>文件系统管理：</strong>如何在硬盘上组织、存储、检索数据（管数据）。</li>
+<li><strong>设备管理：</strong>管理和驱动所有外部设备，如键盘、鼠标、显示器、打印机等（管外设）。</li>
+<li><strong>网络管理：</strong>控制和管理网络通信和数据传输（管网络）。</li>
+</ul>
+<hr />
+<h4 id="12">1.2.操作系统发展历史</h4>
+<p><strong>操作系统</strong>并不是与计算机硬件一起诞生的，它是在人们使用计算机的过程中，为了满足两大需求：<strong>提高资源利用率、增强计算机系统性能</strong>，伴随着计算机技术及其应用的日益发展，而逐步地形成和完善起来的。</p>
+<p>1946年2月，在美国地宾夕法尼亚大学诞生了世界上的第一台电子计算机，该计算机是由大量的电子管组成，非常庞大。它的设计初衷是帮助美国国防部计算导弹地飞行轨迹。</p>
+<p>最开始的计算机是没有操作系统的，计算机采用手工操作，程序员将记录对应程序和数据的纸带或卡片装入计算机，然后启动输入机把程序和数据输入计算机内存，接着通过控制台开关启动程序针对数据运行。计算完毕后打印出计算结果，并卸下纸带，才能够让下一个用户上机。</p>
+<p>此时的计算机存在很多问题，如每次只可以用单用户单任务的执行，中途无法停止等。为此，操作系统的概念被提出，计算机操作系统也由<strong>批处理系统、多道程序系统、分时系统、以及最后的实时系统不断地向前发展。</strong></p>
+<hr />
+<h5 id="121unix">1.2.1.Unix发展史</h5>
+<p><strong>Multics</strong></p>
+<p><code>1965</code>年美国贝尔实验室、美国麻省理工学院和通用电气公司联合发起<code>Multics</code>工程计划，目标是开发一种交互式、具有多道程序处理能力的分时操作系统，用来取代当时广泛使用的批处理操作系统。该操作系统地理念是<strong>大而全</strong>，但是以失败告终。</p>
+<p><strong>Unix</strong></p>
+<p>失败之后，当时贝尔实验室的一名研究员，汤普逊（<code>Unix</code>之父）为了能在<code>PDP-7</code>计算机上运行自己编写的游戏，用汇编语言写出了一个新的操作系统<code>Unics</code>。该系统当时在贝尔实验室内部流传很广，由于用汇编语言写的，高度依赖硬件，系统没有移植性，所以汤普逊尝试用其他语言重写<code>Unics</code>但最终效果都不好。</p>
+<p>此时，丹尼斯.里奇（<code>C</code>语言之父）用<code>C</code>语言重写了<code>Unics</code>，最后正式推出了<code>Unix</code>操作系统。</p>
+<p><img alt="肯•汤普森与丹尼斯•里奇的合影，天才都是不修边幅的……" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250917175011743.jpeg" /></p>
+<hr />
+<h5 id="122linux">1.2.2.Linux发展史</h5>
+<p><img alt="被 Linux 之父骂醒？英伟达破天荒开源 Linux GPU内核驱动，网友：活久见_Linus_用户_版本" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250917180137597.jpeg" /></p>
+<p>随着计算机硬件的发展，个人也开始慢慢可以买得起计算机了，早期计算机只有巨头公司和大学才有能力购买。随着使用人数增加，来了了大量的经济利益。于是<code>AT&amp;T</code>美国电话电报公司，贝尔实验室是他的一个下属机构，它回收了<code>Unix</code>版权，从此<code>Unix</code>不再是免费的系统，需要付费使用。</p>
+<p>谭邦宁教授（外国人）为了更好的教学操作系统方面的知识，在<code>Unix</code>不公开的情况下，自己写了一个操作系统<code>Minix(mini-Unix)</code>，这个系统完全兼容<code>Unix</code>系统上的所有软件，谭邦宁教授在教学的同时也售卖这个操作系统。</p>
+<p>林纳斯（<code>Linux</code>之父）也是<code>Minix</code>的购买者之一，开始对<code>Minix</code>学习并研究，最后自己写出了我们熟知的<code>Linux</code>系统。他公开了<code>Linux</code>的源代码，并邀请其他人与他一起完善<code>Linux</code>，所有人都可以免费使用它。</p>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250917180154800.jpeg" /></p>
+<hr />
+<h4 id="13">1.3.开源</h4>
+<p>开源的含义是<strong>开放源代码</strong>，任何人都可以区查看、修改以及使用。闭源软件就是普通的商业版权软件，代码是封闭的，只有作者可以查看和修改。</p>
+<p><code>Richard Stallman</code>是有史以来最伟大的几名黑客之一，他曾经买过一个商业软件，结果遇到一点小问题，于是他去找软件公司寻求帮助，结果被拒绝。一气之下创立了<strong>自由软件基金会</strong>，发布了大名鼎鼎的<code>GPL</code>协议，至今为止该协议依然是最著名的开源协议。</p>
+<p>另外，开源不等于免费，源代码虽然可以免费提供，但是软件相关的服务，例如编译、维护、升级等是需要付费的。</p>
+<p><code>Linux</code>可以有如此巨大的成就，这要归功于<code>Linus</code>的开源、免费的理念，让全世界范围内的专家和爱好者都可以参与到<code>Linux</code>项目中，使其日益壮大。</p>
+<hr />
+<h4 id="14linux">1.4.Linux发行版</h4>
+<p><code>Linux</code>本身是一个内核，内核是操作系统的核心部分，负责管理计算机的硬件资源，为其他软件提供运行的基础。只有一个内核是无法使用的，用户需要一个完整的操作系统环境，至少还需要：</p>
+<ul>
+<li><strong>系统工具：</strong><code>GNU</code>项目提供的核心工具（如<code>bash shell、cp、mv、ls</code>等命令）。</li>
+<li><strong>软件包管理工具：</strong>用于安装、更新、卸载软件的工具。</li>
+<li><strong>桌面环境：</strong>图形用户界面。</li>
+<li><strong>应用软件：</strong>浏览器、办公软件等。</li>
+</ul>
+<p><code>Linux</code>发行版是由个人、团队或公司，将<code>Linux</code>内核与各种必须的软件和程序包组合起来，并附加上自己的特色（如软件包管理工具、配置工具、桌面环境等），所构成的一个完整的、可以安装使用的操作系统。</p>
+<p>自<code>Linux</code>诞生以来，先后出现的发行版已经有数百种之多。有的昙花一现消失在历史长河中，有的不断进化成为主流的<code>Linux</code>发行版。</p>
+<hr />
+<h5 id="141">1.4.1.国产操作系统</h5>
+<p><strong>国产Linux操作系统</strong>是指由中国公司或机构主导开发、维护，以<code>Linux</code>内核为基础，并<strong>深度融合了本土化应用、安全加固和特定软硬件生态</strong>的操作系统发行版。信创计划。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">流派</th>
+<th style="text-align: center;">基于的发行版</th>
+<th style="text-align: center;">特点</th>
+<th style="text-align: center;">主要代表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Debian/Ubuntu 系</strong></td>
+<td style="text-align: center;"><strong>Debian</strong> 或 <strong>Ubuntu</strong></td>
+<td style="text-align: center;"><strong>优点</strong>：桌面生态丰富，软件包新，易用性好，社区活跃。 <strong>缺点</strong>：企业级支持和服务相对较弱（但正在加强）。</td>
+<td style="text-align: center;"><strong>Deepin (深度)</strong>  <strong>Ubuntu Kylin (优麒麟)</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Red Hat 系</strong></td>
+<td style="text-align: center;"><strong>Fedora/CentOS</strong>  (尤其是 RHEL)</td>
+<td style="text-align: center;"><strong>优点</strong>：极端稳定，安全性和可靠性高，长期支持，<strong>是企业级和服务器市场的首选</strong>。 <strong>缺点</strong>：桌面软件相对保守，新技术跟进慢。</td>
+<td style="text-align: center;"><strong>OpenEuler (欧拉)</strong>  <strong>Anolis OS (龙蜥)</strong>  <strong>统信UOS</strong>  <strong>麒麟软件 (银河麒麟/中标麒麟)</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="142openeuler">1.4.2.openEuler</h5>
+<p><code>openEuler</code>最初由华为开发，并于<code>2019</code>年正式开源，捐赠给<strong>开放原子开源基金会</strong>进行运营，它的前身是<code>EulerOS</code>。社区官网：https://www.openeuler.openatom.cn/</p>
+<p><code>openEuler</code>本身是开源社区版，类似于<code>Fedora</code>和<code>RHEL</code>的关系。商业公司会基于<code>openEuler</code>社区版制作自己的<strong>商业发行版</strong>，提供企业级的技术支持和服务。</p>
+<ul>
+<li><strong>麒麟软件</strong>：推出了基于<code>openEuler</code>的 <strong>银河麒麟高级服务器操作系统 V10</strong>。</li>
+<li><strong>统信软件</strong>：也发布了基于<code>openEuler</code>的服务器版系统。</li>
+</ul>
+<p><strong>openEuler不是一个面向普通消费者的桌面系统，而是一个面向未来的企业级服务器操作系统。</strong> 它的战略意义在于：</p>
+<ul>
+<li><strong>技术自立</strong>：通过开源社区的模式，掌握了操作系统发展的主动权。</li>
+<li><strong>生态共赢</strong>：连接了芯片、硬件、软件厂商，构建了一个繁荣的国产基础软件生态。</li>
+<li><strong>全球参与</strong>：作为一个开源项目，它也欢迎全球的开发者和公司参与贡献，使其成为具有国际影响力的开源项目。</li>
+</ul>
+<hr />
+<p><strong>openEuler的版本分类</strong></p>
+<p>社区版按照交付年份和月份进行版本号命名，例如<code>openEuler 20.09</code>于<code>2020.9</code>发布。</p>
+<p>社区版分为长期支持版本和创新版本：</p>
+<ul>
+<li>
+<p><strong>长期支持版本：</strong>发布间隔周期为<code>2</code>年，提供<code>4</code>年社区支持。社区首个<code>LTS</code>版本<code>openeuler 20.03 LTS</code>于<code>2020.3</code>发布。偶数年<code>3</code>月发布新一代<code>LST</code>首版本，偶数年<code>12</code>月，奇数年<code>6</code>月、<code>12</code>月发布对应<code>SP</code>版本。</p>
+</li>
+<li>
+<p><strong>社区创新版本：</strong><code>openEuler</code>每隔<code>6</code>个月会发布一个社区创新版本，提供<code>6</code>个月社区支持。偶数年<code>9</code>月，奇数年<code>3、9</code>月发布创新版本。</p>
+</li>
+</ul>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250917184323794.jpeg" /></p>
+<hr />
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250917184516761.jpeg" /></p>
+<ul>
+<li>目前LTS版本<strong>全版本</strong>生命周期4年（ 2+2 ），到生命周期结束前半年~1年由<strong>相关团队组建联合维护团队</strong>，申请延长至6年,单个版本生命周结束前，以邮件和公告的方式提前3个月知会</li>
+<li>LTS版本SP版本生命周期原则上按照小SP（6月份Release，可选） 9个月，大SP （12月份Release）24个月执行；<strong>大规模使用</strong>建议选择大SP</li>
+<li>SP0<strong>默认执行大SP策略</strong>，可基于社区使用情况和社区规则提前半年~1年审视是否提前结束；SP3作为LTS最后一个SP，随LTS全版本生命周期结束</li>
+<li>Maintenance Support：CVE、Bugfix，新硬件支持和少量新特性（保证LTS内前向兼容的情况）,Extend Support：修复” 主要”以上CVE和Bug</li>
+</ul>
+<hr />
+<h3 id="2openeuler">2.使用openEuler操作系统</h3>
+<h4 id="21">2.1.系统结构</h4>
+<ul>
+<li><strong>操作系统内核：</strong><code>Linux</code>内核是操作系统核心，负责直接管理硬件资源（<code>cpu</code>、内存、磁盘网络等），并为上层软件提供基础服务。</li>
+<li><strong>Shell：</strong>常见<code>Shell</code>包括<code>Bash、Zsh、Fish</code>等，<code>openEuler</code>默认登录<code>shell</code>是<code>bash</code>。</li>
+<li><strong>命令行解释器：</strong><code>shell</code>是一个用<code>C</code>语言编写的程序，是用户与操作系统内核交互的“翻译官”。它解析用户输入的命令，调用内核功能执行任务（如创建文件、运行程序等），并将结果返回给用户。</li>
+<li><strong>脚本引擎：</strong>支持运行自动化脚本。</li>
+<li><strong>终端：</strong>输入输出界面，终端是一个程序，提供命令行交互的窗口环境。</li>
+<li>早期终端是物理设备，现在终端是软件模拟的（终端模拟器）。</li>
+</ul>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250917222432874.jpeg" /></p>
+<p><strong>举个不恰当的例子：</strong></p>
+<ol>
+<li>一位美国的作者出版了一本书（Kernel）</li>
+<li>国内的某位大牛将这本书进行翻译并出版（Shell）</li>
+<li>我（User）到书店把这本纸质书（Terminal）买回来浏览</li>
+</ol>
+<hr />
+<h4 id="22linux">2.2.登录Linux</h4>
+<p><code>Linux</code>登录方式有如下两种：</p>
+<ul>
+<li><strong>本地登录：</strong></li>
+<li>裸金属服务器通过显示线缆连接显示器的方式。</li>
+<li>
+<p><code>Linux</code>系统会运行六个虚拟控制台和一个图形控制台。通过<code>Ctrl + Alt +F[1-6]</code>在六个虚拟控制台之间进行切换。</p>
+</li>
+<li>
+<p><strong>远程登录：</strong></p>
+</li>
+<li>默认情况下<code>openEuler</code>支持远程登录，可以通过配置<code>SSH</code>进行修改。</li>
+<li>可通过<code>putty、MobX、xshell</code>等工具远程登录到<code>openEuler</code>上，前提是网络畅通，且配置正确。</li>
+</ul>
+<hr />
+<h4 id="23">2.3.关机与重启</h4>
+<p><strong>注意：</strong>大多数与电源相关的命令都是需要<code>root</code>权限的，如果你是普通用户需要执行电源相关命令需要加上<code>sudo</code>。</p>
+<h5 id="231shutdown">2.3.1.<strong>shutdown命令</strong></h5>
+<p><code>shutdown</code>命令允许在预定的时间将系统关机，并向当前系统上的所有用户发送通知。</p>
+<div class="highlight"><pre><span></span><code>shutdown [选项] [时间] [警告信息]
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选项</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>-h</code>或 <code>--halt</code></td>
+<td style="text-align: left;">关机（默认行为）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-P</code>或 <code>--poweroff</code></td>
+<td style="text-align: left;">关机并断电（同 <code>-h</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-r</code>或 <code>--reboot</code></td>
+<td style="text-align: left;">重启系统</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-c</code>或 <code>--cancel</code></td>
+<td style="text-align: left;">取消已计划的关机</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-k</code></td>
+<td style="text-align: left;">仅发送警告，不真正关机</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>--no-wall</code></td>
+<td style="text-align: left;">不发送广播消息</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>拒绝新登录</strong>：</li>
+<li>创建 <code>/run/nologin</code>或 <code>/etc/nologin</code>，阻止新用户登录。</li>
+<li><strong>发送警告</strong>：</li>
+<li>通过 <code>wall</code>广播消息给所有终端。</li>
+<li><strong>关闭服务</strong>：</li>
+<li>按顺序停止 systemd/SysVinit 服务。</li>
+<li><strong>卸载文件系统</strong>：</li>
+<li>确保所有数据写入磁盘（<code>sync</code>）。</li>
+<li><strong>执行关机</strong>：</li>
+<li>调用 <code>poweroff</code>或 <code>halt</code>完成关机。</li>
+</ol>
+<p><strong>立即关机</strong></p>
+<div class="highlight"><pre><span></span><code>shutdown -h now
+</code></pre></div>
+<p><strong>定时关机</strong></p>
+<div class="highlight"><pre><span></span><code>shutdown -h +10
+</code></pre></div>
+<p><strong>指定时间关机</strong></p>
+<div class="highlight"><pre><span></span><code>shutdown -h 23:00
+</code></pre></div>
+<p><strong>取消关机计划</strong></p>
+<div class="highlight"><pre><span></span><code>shutdown -c
+</code></pre></div>
+<p><strong>立即重启</strong></p>
+<div class="highlight"><pre><span></span><code>shutdown -r now
+</code></pre></div>
+<p><strong>定时重启</strong></p>
+<div class="highlight"><pre><span></span><code>shutdown -r +10
+</code></pre></div>
+<hr />
+<h5 id="232poweroff">2.3.2.poweroff</h5>
+<p><code>poweroff</code>是<code>Linux</code>系统中用于<strong>立即关闭系统并切断电源</strong>的命令，它比 <code>shutdown</code>更直接，适用于快速关机场景。</p>
+<div class="highlight"><pre><span></span><code>sudo poweroff [选项]
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选项</th>
+<th style="text-align: left;">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>-f</code>或 <code>--force</code></td>
+<td style="text-align: left;"><strong>强制关机</strong>（不推荐，可能损坏数据）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="233systemctl">2.3.3.systemctl</h5>
+<p><code>systemctl</code>是<strong>Systemd</strong>系统的核心管理工具，用于控制 Linux 系统的启动、停止、关机和重启。相比传统的 <code>shutdown</code>和 <code>reboot</code>，它更现代化。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">作用</th>
+<th style="text-align: left;">等效传统命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>sudo systemctl poweroff</code></td>
+<td style="text-align: left;"><strong>关机并断电</strong></td>
+<td style="text-align: left;"><code>sudo shutdown -h now</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sudo systemctl reboot</code></td>
+<td style="text-align: left;"><strong>重启系统</strong></td>
+<td style="text-align: left;"><code>sudo reboot</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sudo systemctl halt</code></td>
+<td style="text-align: left;"><strong>停止系统但不断电</strong></td>
+<td style="text-align: left;"><code>sudo halt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sudo systemctl suspend</code></td>
+<td style="text-align: left;"><strong>挂起到内存（睡眠）</strong></td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sudo systemctl hibernate</code></td>
+<td style="text-align: left;"><strong>挂起到磁盘（休眠）</strong></td>
+<td style="text-align: left;">-</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>sudo systemctl hybrid-sleep</code></td>
+<td style="text-align: left;"><strong>混合睡眠（内存+磁盘）</strong></td>
+<td style="text-align: left;">-</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="234reboot">2.3.4.reboot</h5>
+<div class="highlight"><pre><span></span><code>sudo reboot
+</code></pre></div>
+<ul>
+<li>最常用的重启命令</li>
+<li>会正常关闭所有服务后再重启</li>
+<li>适用于大多数 Linux 发行版</li>
+</ul>
+<hr />
+<h5 id="235init">2.3.5.init</h5>
+<p><code>init</code>是<code>Linux</code>系统中 <strong>第一个被执行的进程（PID=1）</strong>，它是所有其他进程的父进程，负责系统的启动、运行级别切换和关机流程。</p>
+<div class="highlight"><pre><span></span><code>sudo init [运行级别]
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">运行级别</th>
+<th style="text-align: left;">模式</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>0</code></td>
+<td style="text-align: left;">Halt</td>
+<td style="text-align: left;"><strong>关机</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;">Single User Mode</td>
+<td style="text-align: left;"><strong>单用户模式</strong>（救援模式）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>2</code></td>
+<td style="text-align: left;">Multi-User</td>
+<td style="text-align: left;"><strong>多用户模式</strong>（无网络）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>3</code></td>
+<td style="text-align: left;">Full Multi-User</td>
+<td style="text-align: left;"><strong>完整多用户模式</strong>（命令行）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>4</code></td>
+<td style="text-align: left;">Unused</td>
+<td style="text-align: left;"><strong>保留未使用</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>5</code></td>
+<td style="text-align: left;">Graphical</td>
+<td style="text-align: left;"><strong>图形界面模式</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>6</code></td>
+<td style="text-align: left;">Reboot</td>
+<td style="text-align: left;"><strong>重启</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="24">2.4.普通用户提权</h4>
+<p><code>root</code>是<code>Linux</code>系统中的管理员用户，类似于<code>Windows</code>系统中的<code>Administrator</code>。<code>root</code>用户拥有当前系统中最高权限，甚至可以无限的破坏系统。在生产环境中一般不会直接使用<code>root</code>用户。</p>
+<p>通过命令行的<strong>命令提示符</strong>可得知当前用户的身份，<code>$</code>代表普通用户，<code>#</code>代表<code>root</code>用户。</p>
+<p>但我们在实际使用的过程中仅仅只拥有普通用户的权限是举步维艰的，很多操作都需要有<code>root</code>权限才可以操作。此时，我们可以通过两种方式来解决：</p>
+<ol>
+<li>通过<code>su</code>命令切换到<code>root</code>用户执行操作。</li>
+<li>通过<code>sudo</code>使普通用户临时拥有<code>root</code>用户的权限。</li>
+</ol>
+<p>仔细想一下，这两种方法实际上只是在你需要用到<code>root</code>权限时加了一个额外操作，意在提醒你当前执行的是高危操作要小心，另外会记录到日志里。</p>
+<hr />
+<h5 id="241wheel">2.4.1.加入wheel组</h5>
+<p>并不是创建出来的普通用户都可以执行<code>sudo</code>或切换到<code>root</code>用户的，需要将普通用户加入到<code>wheel</code>组中。</p>
+<p><code>wheel</code>组是 Unix/Linux 系统中 <strong>用于集中管理管理员权限的特殊用户组</strong>，成员可被授予 <code>sudo</code>权限，而无需直接使用 <code>root</code>账户。</p>
+<ol>
+<li>创建普通用户（此时无法切换到<code>root</code>用户，也无法使用<code>sudo</code>）</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# useradd zhangsan
+[root@qyt-gujun ~]# passwd zhangsan
+Changing password for user zhangsan.
+New password:
+Retype new password:
+passwd: all authentication tokens updated successfully.
+</code></pre></div>
+<ol>
+<li>将用户添加到<code>wheel</code>组</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# usermod -aG wheel zhangsan
+# -a表示追加操作，保证用户不会被移出原有组
+# -G指定用户要加入的附加组
+[root@qyt-gujun ~]# groups zhangsan
+zhangsan : zhangsan wheel
+</code></pre></div>
+<hr />
+<h5 id="242sudo">2.4.2.sudo</h5>
+<div class="highlight"><pre><span></span><code>sudo [选项] 命令
+</code></pre></div>
+<ul>
+<li><code>-u 用户名</code>：以指定用户身份运行命令（默认是 root）。</li>
+<li><code>-l</code>：列出当前用户可执行的命令。</li>
+<li><code>-v</code>：刷新 sudo 凭证缓存（延长有效期）。</li>
+<li><code>-k</code>：清除 sudo 缓存（要求下次使用时重新输入密码）。</li>
+<li><code>-s</code>：启动一个 root shell（相当于 <code>sudo su</code>）。</li>
+<li><code>-i</code>：以<code>root</code>身份启动登录<code>Shell</code>。</li>
+</ul>
+<p><code>sudo</code>的权限控制由<code>etc/sudoers</code>文件定义，使用<code>visudo</code>命令进行编辑，语法如下：</p>
+<div class="highlight"><pre><span></span><code>用户名/组名   主机名=(可切换的用户) 可执行的命令
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>%wheel  ALL=(ALL)       ALL
+</code></pre></div>
+<p>该字段为默认值，代表允许<code>wheel</code>组用户执行所有命令。</p>
+<div class="highlight"><pre><span></span><code>[zhangsan@qyt-gujun ~]$ sudo cat /etc/passwd
+
+We trust you have received the usual lecture from the local System
+Administrator. It usually boils down to these three things:
+
+    #1) Respect the privacy of others.
+    #2) Think before you type.
+    #3) With great power comes great responsibility.
+
+[sudo] password for zhangsan:
+</code></pre></div>
+<p>使用<code>sudo</code>命令提权时需要输入密码，改密码是当前用户的密码。</p>
+<hr />
+<h5 id="243su">2.4.3.su</h5>
+<p><code>su(Switch User)</code>是<code>Linux/Unix</code>系统中用于<strong>切换用户身份</strong>的命令，默认切换到<code>root</code>用户。与<code>sudo</code>不同，<code>su</code>直接启动目标用户的<code>shell</code>环境，适用于需要长时间以其他用户身份操作的场景。</p>
+<ul>
+<li><code>-</code>或 <code>-l</code>：模拟登录（加载目标用户的环境变量，如 <code>~/.bashrc</code>）。</li>
+<li><code>-c "命令"</code>：以目标用户身份执行单条命令后退出。</li>
+<li><code>-s</code>：指定要启动的 shell（如 <code>-s /bin/bash</code>）</li>
+</ul>
+<p><strong>切换到root用户：</strong></p>
+<div class="highlight"><pre><span></span><code>su          # 切换到 root，不加载环境变量（需输入 root 密码）
+su -        # 切换到 root 并加载环境变量（推荐）
+</code></pre></div>
+<p><strong>切换到其他用户：</strong></p>
+<div class="highlight"><pre><span></span><code>su - alice      # 切换到用户 &quot;alice&quot; 并加载其环境
+su alice        # 切换到 &quot;alice&quot;，但保留当前环境变量
+</code></pre></div>
+<p><strong>以目标用户身份执行单条命令：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# su -c &quot;whoami&quot; zhangsan
+zhangsan
+</code></pre></div>
+<p><strong>与sudo的区别：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;"><code>su</code></th>
+<th style="text-align: left;"><code>sudo</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>密码要求</strong></td>
+<td style="text-align: left;">需输入目标用户的密码</td>
+<td style="text-align: left;">需输入当前用户的密码</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>权限范围</strong></td>
+<td style="text-align: left;">完全切换到目标用户权限</td>
+<td style="text-align: left;">按需授予单条命令权限</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>环境变量</strong></td>
+<td style="text-align: left;">可加载目标用户的环境（<code>su -</code>）</td>
+<td style="text-align: left;">默认继承当前用户环境</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>适用场景</strong></td>
+<td style="text-align: left;">需长时间以其他用户身份操作</td>
+<td style="text-align: left;">临时执行特权命令</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>安全性</strong></td>
+<td style="text-align: left;">需共享 root 密码，风险较高</td>
+<td style="text-align: left;">细粒度控制，更安全</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="25linux">2.5.Linux常用快捷键</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">快捷键</th>
+<th style="text-align: left;">功能描述</th>
+<th style="text-align: left;">记忆技巧</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Tab</code></td>
+<td style="text-align: left;"><strong>自动补全</strong> 文件名、命令、路径</td>
+<td style="text-align: left;">按一次补全，按两次显示所有选项</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + A</code></td>
+<td style="text-align: left;">移动光标到<strong>行首</strong></td>
+<td style="text-align: left;"><strong>A</strong> = Ahead</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + E</code></td>
+<td style="text-align: left;">移动光标到<strong>行尾</strong></td>
+<td style="text-align: left;"><strong>E</strong> = End</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + F</code></td>
+<td style="text-align: left;">光标<strong>向后</strong>移动一个字符</td>
+<td style="text-align: left;"><strong>F</strong> = Forward</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + B</code></td>
+<td style="text-align: left;">光标<strong>向前</strong>移动一个字符</td>
+<td style="text-align: left;"><strong>B</strong> = Backward</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + L</code></td>
+<td style="text-align: left;"><strong>清屏</strong></td>
+<td style="text-align: left;"><strong>L</strong> = Clear (类似 <code>clear</code>命令)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + U</code></td>
+<td style="text-align: left;"><strong>剪切</strong>从光标处到<strong>行首</strong>的所有内容</td>
+<td style="text-align: left;"><strong>U</strong> = 行首 (联想)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + K</code></td>
+<td style="text-align: left;"><strong>剪切</strong>从光标处到<strong>行尾</strong>的所有内容</td>
+<td style="text-align: left;"><strong>K</strong> = Kill (杀掉后面的内容)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + Y</code></td>
+<td style="text-align: left;"><strong>粘贴</strong> 刚才剪切的内容 (<code>Ctrl+U/K</code>的内容)</td>
+<td style="text-align: left;"><strong>Y</strong> = Yank (拉回/粘贴)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + W</code></td>
+<td style="text-align: left;"><strong>剪切</strong>光标前的<strong>一个单词</strong></td>
+<td style="text-align: left;"><strong>W</strong> = Word</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Alt + F</code></td>
+<td style="text-align: left;">光标<strong>向后</strong>移动一个<strong>单词</strong></td>
+<td style="text-align: left;"><strong>F</strong> = Forward (以单词为单位)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Alt + B</code></td>
+<td style="text-align: left;">光标<strong>向前</strong>移动一个<strong>单词</strong></td>
+<td style="text-align: left;"><strong>B</strong> = Backward (以单词为单位)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + R</code></td>
+<td style="text-align: left;"><strong>反向搜索</strong>历史命令</td>
+<td style="text-align: left;"><strong>R</strong> = Reverse Search</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + G</code></td>
+<td style="text-align: left;"><strong>退出</strong>历史搜索模式 (在 <code>Ctrl+R</code>之后)</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + D</code></td>
+<td style="text-align: left;">删除光标后的一个字符 (Delete)；如果命令行为空，则<strong>退出Shell</strong></td>
+<td style="text-align: left;"><strong>D</strong> = Delete</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + H</code></td>
+<td style="text-align: left;">删除光标前的一个字符 (Backspace)</td>
+<td style="text-align: left;"><strong>H</strong> = 退格 (传统映射)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Ctrl + T</code></td>
+<td style="text-align: left;"><strong>交换</strong>光标前两个字符的位置</td>
+<td style="text-align: left;"><strong>T</strong> = Transpose (交换)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Alt + T</code></td>
+<td style="text-align: left;"><strong>交换</strong>光标前两个单词的位置</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>Alt + .</code>或 <code>Esc + .</code></td>
+<td style="text-align: left;"><strong>粘贴</strong>上一条命令的<strong>最后一个参数</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="26swap">2.6.swap空间</h4>
+<p><code>swap</code>（交换空间）是<code>Linux</code>系统中用于<strong>扩展内存</strong>的虚拟内存技术。当物理内存不足时，系统会将部分不活跃的内存数据临时存储到磁盘中，从而避免进程因内存不足被强制终止。</p>
+<p><code>swap</code>分区还可使我们的系统支持休眠，当系统休眠时，将整个内存内容保存到<code>swap</code>，以便恢复时重新加载。</p>
+<p>另外，即使物理内存充足，<code>Linux</code>内核也会适度使用<code>swap</code>，优化内存管理（如长时间未使用的进程）。</p>
+<p>使用<code>SWAP</code>虽然可以避免系统因内存不足而崩溃，但从<code>SWAP</code>读取数据的速度比从<code>RAM</code>读取慢得多。因此，频繁的<code>SWAP</code>操作可能会导致系统性能下降，称为“交换抖动”（<code>swap thrashing</code>）。</p>
+<hr />
+<h4 id="27cligui">2.7.CLI与GUI</h4>
+<p><code>GUI(Graphical User Interface)</code>图形用户界面。使用鼠标作为输入工具，使用按钮、菜单、对话框等进行交互，追求易用。</p>
+<p><img alt="image-20250918182321915" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250918182322014.png" /></p>
+<p><code>CLI(Command Line Interface)</code>命令行界面，用户界面字符化，使用键盘作为输入工具，输入命令、选项、参数执行程序，追求高效。</p>
+<ul>
+<li>
+<p><strong>命令行更高效：</strong></p>
+</li>
+<li>
+<p><code>Linux</code>系统中使用键盘操作速度要比鼠标更快。</p>
+</li>
+<li>
+<p>图形化界面不可重复，而命令行可以编写脚本完成所有过程。</p>
+</li>
+<li>
+<p><strong>图形化界面开销大：</strong>运行图形化界面会占用很多的系统资源，运行命令行可以让系统资源释放给它更应该做的事情。</p>
+</li>
+<li>
+<p><strong>命令行有时是唯一选择：</strong></p>
+</li>
+<li>
+<p>大部分软件可能没有图形化管理工具，配置和管理依旧需要使用命令行。</p>
+</li>
+</ul>
+<h5 id="271">2.7.1.安装图形化界面</h5>
+<p><strong>ukui</strong></p>
+<div class="highlight"><pre><span></span><code>yum install ukui -y
+</code></pre></div>
+<p><strong>dde</strong></p>
+<div class="highlight"><pre><span></span><code>yum install dde -y
+</code></pre></div>
+<ul>
+<li><code>dde</code>安装时，会自动安装<code>gnome</code>，因为<code>dde</code>中存在<code>gnmoe</code>的依赖包，所以在安装完<code>dde</code>后可以选择使用<code>dde</code>或<code>gnome</code>的桌面（开机时可进行选择）</li>
+</ul>
+<h5 id="272">2.7.2.修改启动模式</h5>
+<ol>
+<li>
+<p>获取当前操作系统开启启动模式：<code>systemctl get-default</code></p>
+</li>
+<li>
+<p>更改当前操作系统开启启动模式：<code>systemctl set-default multi-user.target/graphical.target</code></p>
+</li>
+<li>
+<p><code>multi-user.target</code>表示开机进入命令行界面</p>
+</li>
+<li>
+<p><code>graphical.target</code>表示开机进入图形化界面</p>
+</li>
+</ol>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

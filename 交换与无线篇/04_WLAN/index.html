@@ -1,0 +1,4458 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../03_MSTP/">
+      
+      
+        <link rel="next" href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>WLAN - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04_wlan" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              WLAN
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.WLAN基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.WLAN基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.WLAN概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.WLAN概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1.什么是WLAN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112wlanwi-fi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.WLAN与Wi-Fi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.WLAN的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.WLAN的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.WLAN设备介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.WLAN组网架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123capwap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.CAPWAP协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.业务数据转发方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125ap-ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.5.AP-AC组网方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.6.AC连接方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.7.无线通信系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.8.无线电磁波
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#129bssssidbssid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.9.BSS/SSID/BSSID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1210vap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.10.VAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1211ess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.11.ESS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.WLAN的工作原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.WLAN的工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131ap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.工作流程（AP上线）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.AC需要提前配置的内容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.工作流程（WLAN业务配置下发）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134sta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.STA接入
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.基础配置命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.基础配置命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141ap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1.配置AP上线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2.配置射频
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143vap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3.配置VAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.旁挂二层组网隧道转发
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.旁挂二层组网隧道转发">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.需求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.2.基础网络配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.旁挂二层组网直连转发
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.大型WLAN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.大型WLAN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.大型WLAN关键技术
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.大型WLAN关键技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211vlan-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.vlan pool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212wlanac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.WLAN三层组网AC发现机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.AC高可靠性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.AC高可靠性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221vrrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.VRRP双机热备
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.WLAN基础
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.WLAN基础">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.WLAN概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.WLAN概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1.什么是WLAN
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112wlanwi-fi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.WLAN与Wi-Fi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.WLAN的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.WLAN的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.WLAN设备介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.WLAN组网架构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123capwap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.CAPWAP协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.业务数据转发方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#125ap-ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.5.AP-AC组网方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#126ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.6.AC连接方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#127" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.7.无线通信系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#128" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.8.无线电磁波
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#129bssssidbssid" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.9.BSS/SSID/BSSID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1210vap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.10.VAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1211ess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.11.ESS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.WLAN的工作原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.WLAN的工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131ap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.工作流程（AP上线）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.AC需要提前配置的内容
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.工作流程（WLAN业务配置下发）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134sta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.STA接入
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.基础配置命令
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4.基础配置命令">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141ap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.1.配置AP上线
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.2.配置射频
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143vap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.3.配置VAP
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.旁挂二层组网隧道转发
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.旁挂二层组网隧道转发">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.需求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.2.基础网络配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.旁挂二层组网直连转发
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.大型WLAN
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.大型WLAN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21wlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.大型WLAN关键技术
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.大型WLAN关键技术">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211vlan-pool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.vlan pool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212wlanac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.WLAN三层组网AC发现机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22ac" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.AC高可靠性
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.AC高可靠性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221vrrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.VRRP双机热备
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="04_wlan">04_WLAN</h1>
+<h3 id="1wlan">1.WLAN基础</h3>
+<h4 id="11wlan">1.1.WLAN概述</h4>
+<h5 id="111wlan">1.1.1.什么是WLAN</h5>
+<p><code>WLAN</code>即<code>Wireless LAN</code>（无线局域网），是指通过无线技术构建的无线局域网络。<code>WLAN</code>广义上是指以<strong>无线电波、激光、红外线等</strong>无线信号来代替有线局域网中的部分或全部传输介质所构成的网络，无线不仅仅代表<code>Wi-Fi</code>，还有红外、蓝牙、<code>ZigBee</code>等。</p>
+<p>通过<code>WLAN</code>技术用户可以方便地接入到无线网络，并在 无线网络覆盖区域内自由移动，彻底摆脱有线网络的束缚。</p>
+<p><img alt="image-20260428205328291" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428205328341.png" /></p>
+<hr />
+<h5 id="112wlanwi-fi">1.1.2.WLAN与Wi-Fi</h5>
+<p><code>IEEE 802.11</code>是现今无线局域网通用的标准。由国际电机电子工程学会（<code>IEEE</code>）定义的无线网络通信的标准。</p>
+<p><code>Wi-Fi</code>联盟成立于<code>1999</code>年，当时名称叫做<code>Wireless Ethernet Compatibility Alliance(WECA)</code>。在<code>2002.10</code>改名为<code>Wi-Fi Alliance</code>。这是一种<strong>创建于IEEE 802.11标准上的无线局域网技术</strong>。在大多数场景下，<code>WiFi</code>等同于<code>802.11</code>。</p>
+<p><code>IEEE 802.11</code>第一个版本发表于<code>1997</code>年。此后，更多的基于<code>IEEE 802.11</code>的补充标准逐渐被定义，最为熟知的是影响Wi-Fi代际演进的标准：<code>802.11b、802.11a、802.11g、802.11n、802.11ac</code>等。在<code>IEEE 802.11ax</code>标准推出之际，<code>Wi-Fi</code>联盟将新<code>Wi-Fi</code>规格的名字简化为<code>Wi-Fi 6</code>，主流的<code>IEEE 802.11ac</code>改称<code>Wi-Fi 5</code>、<code>IEEE 802.11n</code>改称<code>Wi-Fi 4</code>，其他世代以此类推。</p>
+<p><img alt="image-20260428205806321" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428205806365.png" /></p>
+<hr />
+<h4 id="12wlan">1.2.WLAN的基本概念</h4>
+<h5 id="121wlan">1.2.1.WLAN设备介绍</h5>
+<p><img alt="image-20260428210058937" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428210556855.png" /></p>
+<ol>
+<li>家庭<code>WiFi</code>路由器：通过把有线网络信号转换成无线信号，供家庭电脑、手机等设备接收，实现无线上网功能。</li>
+<li>无线接入点<code>AP,Access Point</code>：一般支持<code>FAT AP</code>（胖AP）、<code>FIT AP</code>（瘦AP）和云管理<code>AP</code>三种工作模式，根据网络规划的需求，可以灵活地在多种模式下切换。</li>
+<li><code>FAT AP</code>：适用于家庭，独立工作，需单独配置，功能较为单一，成本低。独立完成用户接入、认证、数据安全、业务转发和<code>QoS</code>等功能。</li>
+<li><code>FIT AP</code>：适用于大中型企业，需要配合<code>AC</code>使用，由<code>AC</code>统一管理和配置，功能丰富，对网络维护人员的技能要求高。用户接入、<code>AP</code>上线、认证、路由、<code>AP</code>管理、安全协议、<code>QoS</code>等功能需要同<code>AC</code>配合完成。</li>
+<li>云管理：通过互联网连接到云端管理平台进行集中配置、监控和运维的无线接入点。你可以把它理解为<strong>“硬件在本地，大脑在云端”</strong>的<code>Wi-Fi</code>设备。这种方式不再需要企业去购买<code>AC</code>设备，<code>AP</code>自动通过互联网注册到厂商提供的云管理平台，由云管理平台下发所有配置，管理员只需要登录网页即可管理各地的<code>AP</code>。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>特性维度</strong></th>
+<th style="text-align: left;"><strong>云管理 AP (Cloud AP)</strong></th>
+<th style="text-align: left;"><strong>瘦 AP (Fit AP + AC)</strong></th>
+<th style="text-align: left;"><strong>胖 AP (Fat AP)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>管理方式</strong></td>
+<td style="text-align: left;"><strong>云端集中管理</strong>，浏览器/App 远程运维</td>
+<td style="text-align: left;">本地硬件 AC 集中管理</td>
+<td style="text-align: left;">每台独立管理，登录 IP 配置</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>控制器</strong></td>
+<td style="text-align: left;"><strong>无需本地 AC 硬件</strong>（虚拟 AC 在云端）</td>
+<td style="text-align: left;">需购买本地 AC 硬件</td>
+<td style="text-align: left;">无 AC</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>部署成本</strong></td>
+<td style="text-align: left;"><strong>低</strong>（免硬件 AC 投资，通常按订阅付费）</td>
+<td style="text-align: left;">高（AC 硬件成本高）</td>
+<td style="text-align: left;">低（但管理成本高）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>适用场景</strong></td>
+<td style="text-align: left;"><strong>多分支、连锁门店、中小企业</strong></td>
+<td style="text-align: left;">大型园区、高密场馆</td>
+<td style="text-align: left;">家庭、小微办公室</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>无线接入控制器<code>AC,Access Controller</code>：一般位于整个网络的汇聚层，提供高速、安全、可靠的WLAN业务。提供大容量、高性能、高可靠性、易安装、易维护的无线数据控制业务，具有组网灵活、绿色节能等优势。</li>
+</ol>
+<hr />
+<h5 id="122wlan">1.2.2.WLAN组网架构</h5>
+<p><code>WLAN</code>网络架构分为有线侧和无线侧两部分，有线侧是指AP上行到<code>Internet</code>的网络使用以太网协议，无线侧是指<code>STA</code>到<code>AP</code>之间的网络使用<code>802.11</code>协议。</p>
+<p><code>FAT AP</code>架构：这种架构不需要专门的设备集中控制就可以完成无线用户的接入、业务数据的加密和业务数据报文的转发等功能，因此又称为自治式网络架构。</p>
+<ul>
+<li>适用范围：家庭</li>
+<li>特点：<code>AP</code>独立工作，需要单独配置，功能较为单一，成本低。</li>
+<li>缺点：随着<code>WLAN</code>覆盖面积增大，接入用户增多，需要部署的<code>FAT AP</code>数量也会增多，但<code>FAT AP</code>是独立工作的，缺少统一的控制设备，因此管理维护这些<code>FAT AP</code>就十分麻烦。</li>
+</ul>
+<p><code>AC + FIT AP</code>架构：这种架构中，<code>AC</code>负责<code>WLAN</code>的接入控制、转发和统计、<code>AP</code>的配置监控、漫游管理、<code>AP</code>的网管代理、安全控制；<code>FIT AP</code>负责<code>802.11</code>报文的加解密、<code>802.11</code>的物理层功能、接受<code>AC</code>的管理等简单功能。</p>
+<ul>
+<li>适用范围：大中型企业</li>
+<li>特点：<code>AP</code>需要配合<code>AC</code>使用，由<code>AC</code>统一管理和配置，功能丰富，对网络运维人员的技能要求高。</li>
+</ul>
+<p><img alt="image-20260428210842823" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428210842869.png" /></p>
+<hr />
+<h5 id="123capwap">1.2.3.CAPWAP协议</h5>
+<p><code>CAPWAP(Control And Provisioning of Wireless Access Points Protocol)</code>无线接入点控制和配置协议：该协议定义了如何对<code>AP</code>进行管理、业务配置，即<code>AC</code>通过<code>CAPWAP</code>隧道来实现对<code>AP</code>的集中管理和控制（<code>AC</code>和<code>AP</code>之间需要提前建立好<code>CAPWAP</code>隧道）。</p>
+<p><code>CAPWAP</code>是基于<code>UDP</code>进行传输的应用层协议：</p>
+<ul>
+<li>业务数据流量，封装转发无线数据帧。通过<code>CAPWAP</code>数据隧道转发。使用<code>UDP</code>端口<code>5247</code>。</li>
+<li>管理流量，管理<code>AP</code>和<code>AC</code>之间交换的管理消息。通过<code>CAPWAP</code>控制隧道转发。使用<code>UDP</code>端口<code>5246</code>。</li>
+</ul>
+<p><code>CAPWAP</code>隧道的功能：</p>
+<ul>
+<li><code>AP</code>与<code>AC</code>间的状态维护。</li>
+<li><code>AC</code>通过<code>CAPWAP</code>隧道对<code>AP</code>进行管理、业务配置下发。</li>
+<li>当采用隧道转发模式时，<code>AP</code>将<code>STA</code>发出的数据通过<code>CAPWAP</code>隧道实现与<code>AC</code>之间的交互。</li>
+</ul>
+<p><img alt="image-20260428211834752" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428211834794.png" /></p>
+<hr />
+<h5 id="124">1.2.4.业务数据转发方式</h5>
+<p>在<code>CAPWAP</code>协议架构中，<strong>控制报文（管理、配置）</strong>永远走<code>CAPWAP</code>控制通道<code>UDP 5246</code>进行转发。而<strong>用户数据报文（业务流量）</strong>有两种转发方式：</p>
+<ul>
+<li><strong>隧道转发</strong>：也可叫做<strong>集中转发</strong>，数据流需要绕道<code>AC</code>中转。</li>
+<li>无线终端（<code>STA</code>）的数据报文到达<code>AP</code>后，<code>AP</code>会将其<strong>完整封装</strong>在<code>CAPWAP</code>数据隧道（<code>UDP 5247</code>）中。</li>
+<li>这个隧道包的目的地是<code>AC</code>。<code>AC</code>收到后，拆掉<code>CAPWAP</code>外壳，还原原始数据帧，再由<code>AC</code>转发给上层网络（如出口路由器或核心交换机）。</li>
+<li>回程数据反之亦然，<code>AC</code>封装后发给<code>AP</code>，<code>AP</code>解封装后发给终端。</li>
+<li>管理集中，方便做全网统一的安全策略、<code>QoS</code>和流量审计；部署简单（<code>AP</code>侧零业务配置）。</li>
+<li><strong>AC 是性能瓶颈</strong>，所有流量都要经它转发，时延稍高，且 AC 设备压力大；存在隧道封装开销（MTU 问题）。</li>
+<li><strong>直接转发</strong>：这种模式常被称为“本地转发”或“分布式转发”，数据流直接在本地交换。</li>
+<li><code>AP</code>收到终端数据后，<strong>不再</strong>将其封装进<code>CAPWAP</code>隧道，而是直接根据配置，以普通以太网帧格式（打上业务 <code>VLAN Tag</code>）转发给上联的接入交换机。</li>
+<li>数据直接进入园区网或数据中心网络，不经过<code>AC</code>。<code>AC</code>仅通过独立的控制隧道（<code>UDP 5246</code>）管理<code>AP</code>的射频、功率、认证等，不接触用户业务数据。</li>
+<li>转发效率极高，卸载<code>AC</code>压力，适合视频、大数据等重流量场景，避免隧道封装导致的<code>MTU</code>分片问题。</li>
+</ul>
+<hr />
+<h5 id="125ap-ac">1.2.5.AP-AC组网方式</h5>
+<p><strong>二层组网：</strong><code>AP</code>与<code>AC</code>之间的网络为直连或者二层网络。</p>
+<ul>
+<li>由于二层组网比较简单，适用于简单临时的组网，能够进行比较快速的组网配置，但不适用于大型组网架构。</li>
+<li>二层组网中<code>AP</code>可以通过二层广播、或者<code>DHCP</code>过程，即插即用上线（被<code>AC</code>纳管）</li>
+</ul>
+<p><strong>三层组网：</strong><code>AP</code>与<code>AC</code>之间的网络为三层网络。</p>
+<ul>
+<li>在实际组网中，一台<code>AC</code>可以连接几十甚至几百台<code>AP</code>，组网一般比较复杂，在大型组网中一般采用三层组网。</li>
+<li>三层网络中，<code>AP</code>无法直接发现<code>AC</code>，需要通过<code>DHCP</code>或<code>DNS</code>方式动态发现，或者配置静态<code>IP</code>。</li>
+</ul>
+<p><img alt="image-20260428213115100" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428213115148.png" /></p>
+<hr />
+<h5 id="126ac">1.2.6.AC连接方式</h5>
+<p><strong>直连式组网：</strong>直连式组网可以认为<code>AP</code>、<code>AC</code>与上层网络串联在一起，所有数据必须通过<code>AC</code>到达上层网络。</p>
+<ul>
+<li>直连式组网中<code>AC</code>同时扮演<code>AC</code>和<strong>汇聚交换机</strong>的功能，<code>AP</code>的数据业务和管理业务都由<code>AC</code>集中转发和处理。</li>
+<li>采用这种组网方式，对<code>AC</code>的吞吐量以及处理数据能力要求比较高，否则AC会是整个无线网络带宽的瓶颈。但用此种组网，组网架构清晰，组网实施起来简单。</li>
+</ul>
+<p><strong>旁挂式组网：</strong>旁挂式组网，<code>AC</code>旁挂在<code>AP</code>与上行网络的直连网络中，不再直接连接<code>AP</code>。</p>
+<ul>
+<li>旁挂式组网，<code>AC</code>旁挂在<code>AP</code>与上行网络的直连网络上，AP的业务数据可以不经<code>AC</code>而直接到达上行网络 。</li>
+<li>由于实际组网中，大部分不是早期就规划好无线网络，无线网络的覆盖架设大部分是后期在现有网络中扩展而来。而采用旁挂式组网就比较容易进行扩展，只需将<code>AC</code>旁挂在现有网络中，比如旁挂在汇聚交换机上，就可以对终端<code>AP</code>进行管理。所以此种组网方式使用率比较高。</li>
+<li>在旁挂式组网中，<code>AC</code>只承载对AP的管理功能，管理流封装在<code>CAPWAP</code>隧道中传输。数据业务流可以通过<code>CAPWAP</code>数据隧道经<code>AC</code>转发，也可以不经过<code>AC</code>转发直接转发，后者无线用户业务流经汇聚交换机由汇聚交换机传输至上层网络。 </li>
+</ul>
+<p><img alt="image-20260428213745558" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428213745610.png" /></p>
+<hr />
+<h5 id="127">1.2.7.无线通信系统</h5>
+<p>无线通信系统中，信息可以是图像、文字、声音等。信息需要先经过信源编码转发为方便与电路计算和处理的数字信号，在经过信道编码和调制，转换为无线电波发射出去。</p>
+<p><img alt="image-20260428214424163" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428214424229.png" /></p>
+<hr />
+<h5 id="128">1.2.8.无线电磁波</h5>
+<p>无线电磁波是频率介于<code>3</code>赫兹和约<code>300G</code>赫兹之间的电磁波，也叫作射频电波，或简称射频、射电。无线电技术将声音讯号或其他信号经过转换，利用无线电磁波传播。</p>
+<p><code>WLAN</code>技术就是通过无线电磁波在空间中传输信息。当前我们使用的频段是：</p>
+<ul>
+<li><code>2.4GHz</code>频段 (<code>2.4GHz~2.4835GHz</code>）；穿墙能力强，覆盖范围广，容易被干扰（蓝牙/微波炉同频段），速率较慢。</li>
+<li>2.4GHz频段被划分为14个有重叠的、频率宽度是20MHz的信道。<ul>
+<li>其中包含重叠信道和非重叠信道。重叠信道：在一个空间内同时存在重叠信道，则会产生干扰问题。</li>
+<li>非重叠信道：在一个空间内可以同时存在非重叠信道，不会产生干扰问题。</li>
+</ul>
+</li>
+<li><code>5GHz</code>频段（<code>5.15GHz~5.35GHz</code>，<code>5.725GHz~5.85GHz</code>）。速度快，干扰少，穿墙能力弱。</li>
+<li>对于5G频段，支持更宽频谱，频率资源更为丰富，AP不仅支持20MHz带宽的信道，还支持40MHz、80MHz及更大带宽的信道。</li>
+</ul>
+<p><img alt="image-20260428214852618" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428214852676.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><strong>频段名称</strong></th>
+<th style="text-align: left;"><strong>频率范围</strong></th>
+<th style="text-align: left;"><strong>典型应用与备注</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>极低频 (ELF)</strong></td>
+<td style="text-align: left;">3 Hz – 30 Hz</td>
+<td style="text-align: left;">潜艇通讯、地球物理学研究</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>超低频 (SLF)</strong></td>
+<td style="text-align: left;">30 Hz – 300 Hz</td>
+<td style="text-align: left;">交流输电系统 (50/60 Hz)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>特低频 (ULF)</strong></td>
+<td style="text-align: left;">300 Hz – 3 KHz</td>
+<td style="text-align: left;">矿场通讯</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>甚低频 (VLF)</strong></td>
+<td style="text-align: left;">3 KHz – 30 KHz</td>
+<td style="text-align: left;">地球物理学研究、时间频率广播</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>低频 (LF)</strong></td>
+<td style="text-align: left;">30 KHz – 300 KHz</td>
+<td style="text-align: left;">长波广播、无线电导航</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>中频 (MF)</strong></td>
+<td style="text-align: left;">300 KHz – 3 MHz</td>
+<td style="text-align: left;"><strong>调幅(AM)广播</strong>、海事及航空通讯</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>高频 (HF)</strong></td>
+<td style="text-align: left;">3 MHz – 30 MHz</td>
+<td style="text-align: left;"><strong>短波广播</strong>、民用电台、远距离通讯</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>甚高频 (VHF)</strong></td>
+<td style="text-align: left;">30 MHz – 300 MHz</td>
+<td style="text-align: left;"><strong>调频(FM)广播</strong>、电视广播、航空通讯</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>特高频 (UHF)</strong></td>
+<td style="text-align: left;">300 MHz – 3 GHz</td>
+<td style="text-align: left;">电视广播、<strong>移动通信(2G/3G/4G/5G)</strong>、<strong>Wi-Fi/蓝牙</strong>、GPS</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>超高频 (SHF)</strong></td>
+<td style="text-align: left;">3 GHz – 30 GHz</td>
+<td style="text-align: left;"><strong>5G/6G通信</strong>、卫星通信、微波中继、<strong>雷达</strong>、<strong>Wi-Fi(高频段)</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>极高频 (EHF)</strong></td>
+<td style="text-align: left;">30 GHz – 300 GHz</td>
+<td style="text-align: left;">毫米波通信、<strong>人体扫描安检仪</strong>、射电天文学、高速无线局域网</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>至高频</strong></td>
+<td style="text-align: left;">300 GHz 以上</td>
+<td style="text-align: left;">红外线、可见光、紫外线、X射线、γ射线等（进入光学频谱范围）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="129bssssidbssid">1.2.9.BSS/SSID/BSSID</h5>
+<ul>
+<li>基本服务集<code>BSS(Basic Service Set)</code>：一个<code>AP</code>所覆盖的范围。在一个<code>BSS</code>的服务区域内，<code>STA</code>可以相互通信。无线网络的基本服务单元，通常由一个<code>AP</code>和若干<code>STA</code>组成，<code>BSS</code>是<code>802.11</code>网络的基本结构。由于无线介质共享性，<code>BSS</code>中报文收发需携带<code>BSSID</code>（<code>MAC</code>地址）。</li>
+<li>基本服务集标识符<code>BSSID(Basic Service Set Identifier)</code>：是无线网络的一个身份标识，用<code>AP</code>的<code>MAC</code>地址表示。</li>
+<li>服务集标识符<code>SSID(Service Set Identifier)</code>：是无线网络的一个身份标识，用字符串表示。为了便于用户辨识不同的无线网络，用<code>SSID</code>代替<code>BSSID</code>。</li>
+</ul>
+<p><img alt="image-20260428215253739" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428215253803.png" /></p>
+<hr />
+<h5 id="1210vap">1.2.10.VAP</h5>
+<p>早期的<code>AP</code>只支持1个<code>BSS</code>，如果要在同一空间内部署多个<code>BSS</code>，则需要安放多个<code>AP</code>，这不但增加了成本，还占用了信道资源。为了改善这种状况，<strong>现在的AP通常支持创建出多个虚拟AP (Virtual Access Point, VAP)。</strong></p>
+<p><code>VAP</code>简化了<code>WLAN</code>的部署，但不意味<code>VAP</code>越多越好，要根据实际需求进行规划。一味增加<code>VAP</code>的数量，不仅要让用户花费更多的时间找到<code>SSID</code>，还会增加<code>AP</code>配置的复杂度。而且<code>VAP</code>并不等同于真正的<code>AP</code>，所有的<code>VAP</code>都共享这个<code>AP</code>的软件和硬件资源，所有<code>VAP</code>的用户都共享相同的信道资源，所以<code>AP</code>的容量是不变的，并不会随着<code>VAP</code>数目的增加而成倍的增加。</p>
+<p><img alt="image-20260428215649074" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428215649132.png" /></p>
+<hr />
+<h5 id="1211ess">1.2.11.ESS</h5>
+<p>为了满足实际业务的需求，需要对<code>BSS</code>的覆盖范围进行扩展。<strong>同时用户从一个BSS移动到另一个BSS时，不能感知到SSID的变化，则可以通过扩展服务集ESS实现。</strong></p>
+<p>扩展服务集<code>ESS (Extend Service Set)</code>：由多个使用相同<code>SSID</code>的<code>BSS</code>组成，是采用相同的<code>SSID</code>的多个<code>BSS</code>组成的更大规模的虚拟<code>BSS</code>。</p>
+<p><strong>WLAN漫游：</strong>指<code>STA</code>在同属一个<code>ESS</code>的不同<code>AP</code>的覆盖范围之间移动且保持用户业务不中断的行为。<code>WLAN</code>网络的最大优势就是<code>STA</code>不受物理介质的影响，可以在<code>WLAN</code>覆盖范围内四处移动并且能够保持业务不中断。同一个<code>ESS</code>内包含多个<code>AP</code>设备，当<code>STA</code>从一个<code>AP</code>覆盖区域移动到另外一个<code>AP</code>覆盖区域时，利用<code>WLAN</code>漫游技术可以实现<code>STA</code>用户业务的平滑切换。</p>
+<p><img alt="image-20260428215858341" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428215858403.png" /></p>
+<hr />
+<h4 id="13wlan">1.3.WLAN的工作原理</h4>
+<h5 id="131ap">1.3.1.工作流程（AP上线）</h5>
+<p><img alt="image-20260428220144464" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428220144527.png" /></p>
+<ol>
+<li>
+<p><strong>AP上线：</strong><code>FIT AP</code>需完成上线过程，<code>AC</code>才能实现对<code>AP</code>的集中管理和控制，以及业务下发。AP的上线过程包括如下步骤：</p>
+</li>
+<li>
+<p>AP获取IP地址：</p>
+<ol>
+<li>静态方式，登录到<code>AP</code>手工配置<code>IP</code>地址</li>
+<li>DHCP方式：通过DHCP服务器，使AP作为DHCP客户端向DHCP服务器请求IP地址。</li>
+</ol>
+</li>
+<li>
+<p>AP发现AC并与之建立CAPWAP隧道；</p>
+<p><img alt="image-20260428220628928" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428220628984.png" /></p>
+<ol>
+<li>
+<p><code>Discovery</code>阶段：AP通过发送Discovery Request报文，找到可用的AC。</p>
+<ol>
+<li>
+<p>AP发现AC有两种方式：</p>
+<ol>
+<li>
+<p>静态方式：AP上预先配置AC的静态IP地址列表。</p>
+</li>
+<li>
+<p>动态方式：DHCP方式、DNS方式和广播方式。</p>
+</li>
+<li>
+<p>三层组网：AP与AC之间跨网段连接，通过DHCP方式告知AP当前AC的地址。</p>
+</li>
+<li>二层组网：AP发送广播查询。</li>
+</ol>
+<p><img alt="image-20260428220836177" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428220836247.png" /></p>
+</li>
+</ol>
+</li>
+<li>
+<p>建立<code>CAPWAP</code>隧道阶段</p>
+<ol>
+<li>
+<p>AP与AC关联，完成CAPWAP隧道建立。包括数据隧道和控制隧道：</p>
+<ol>
+<li>数据隧道：AP接收的业务数据报文经过CAPWAP数据隧道集中到AC上转发。</li>
+<li>控制隧道：通过CAPWAP控制隧道实现AP与AC之间的管理报文的交互</li>
+</ol>
+<p><img alt="image-20260428220929235" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428220929301.png" /></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p>AP接入控制；</p>
+<ol>
+<li><code>AP</code>发现<code>AC</code>后，会发送<code>Join Request</code>报文。<code>AC</code>收到后会判断是否允许该<code>AP</code>接入，并响应<code>Join Response</code>报文。</li>
+<li><code>AC</code>上支持三种对<code>AP</code>的认证方式：<code>MAC</code>认证、序列号（<code>SN</code>）认证和不认证。</li>
+<li><code>AC</code>上添加<code>AP</code>的方式有三种：<ol>
+<li>离线导入AP：预先配置AP的MAC地址和SN，当AP与AC连接时，如果AC发现AP和预先增加的AP的MAC地址和SN匹配，则AC开始与AP建立连接。</li>
+<li>自动发现AP：当配置AP的认证模式为不认证或配置AP的认证模式为MAC或SN认证且将AP加入AP白名单中，则当AP与AC连接时，AP将被AC自动发现并正常上线。</li>
+<li>手工确认未认证列表中的AP：当配置AP的认证模式为MAC或SN认证，但AP没有离线导入且不在已设置的AP白名单中，则该AP会被记录到未授权的AP列表中。需要用户手工确认后，此AP才能正常上线。</li>
+</ol>
+</li>
+</ol>
+<p><img alt="image-20260428221055954" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428221056021.png" /></p>
+</li>
+<li>
+<p>AP版本升级；</p>
+<ol>
+<li>自动升级：主要用于AP还未在AC中上线的场景。通常先配置好AP上线时的自动升级参数，然后再配置AP接入。AP在之后的上线过程中会自动完成升级。如果AP已经上线，配置完自动升级参数后，任意方式触发AP重启，AP也会进行自动升级。但相比于自动升级，使用在线升级方式升级能够减少业务中断的时间。<ol>
+<li>AC模式：AP升级时从AC上下载升级版本，适用于AP数量较少时的场景。</li>
+<li>FTP模式：AP升级时从FTP服务器上下载升级版本，适用于网络安全性要求不是很高的文件传输场景中，采用明文传输数据，存在安全隐患。</li>
+<li>SFTP模式：AP升级时从SFTP服务器上下载升级版本，适用于网络安全性要求高的场景，对传输数据进行了严格加密和完整性保护。</li>
+</ol>
+</li>
+<li>在线升级：主要用于AP已经在AC中上线并已承载了WLAN业务的场景。</li>
+<li>定时升级：主要用于AP已经在AC中上线并已承载了WLAN业务的场景。通常指定在网络访问量少的时间段升级。</li>
+<li>AP在软件版本更新完成后重新启动，重复进行前面三个步骤。</li>
+</ol>
+<p><img alt="image-20260428221438391" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428221438464.png" /></p>
+</li>
+<li>
+<p>CAPWAP隧道维持。</p>
+</li>
+</ol>
+<p><img alt="image-20260428221500159" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428221500231.png" /></p>
+<hr />
+<h5 id="132ac">1.3.2.AC需要提前配置的内容</h5>
+<p><img alt="image-20260428221544968" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428221545076.png" /></p>
+<hr />
+<h5 id="133wlan">1.3.3.工作流程（WLAN业务配置下发）</h5>
+<p><img alt="image-20260428221836631" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428221836700.png" /></p>
+<p>为了方便用户配置和维护WLAN的各个功能，针对WLAN的不同功能和特性设计了各种类型的模板，这些模板统称为WLAN模板。</p>
+<p><img alt="image-20260428221928172" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428221928243.png" /></p>
+<p><img alt="image-20260428221948471" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428221948544.png" /></p>
+<hr />
+<h5 id="134sta">1.3.4.STA接入</h5>
+<p><img alt="image-20260428223506984" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428223507048.png" /></p>
+<ul>
+<li>
+<p><strong>扫描：</strong></p>
+</li>
+<li>
+<p>STA可以通过主动扫描，定期搜索<strong>周围的无线网络</strong>，获取到周围的无线网络信息。</p>
+<ul>
+<li>根据<code>Probe Request</code>帧（探测请求帧）是否携带<code>SSID</code>，可以将主动扫描分为两种：</li>
+</ul>
+<p><img alt="image-20260428223558244" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428223558307.png" /></p>
+</li>
+<li>
+<p>被动扫描：</p>
+<ul>
+<li>STA也支持被动扫描搜索无线网络。</li>
+<li>被动扫描是指客户端通过侦听AP定期发送的<code>Beacon</code>帧（信标帧，包含：<code>SSID</code>、支持速率等信息）发现周围的无线网络，缺省状态下<code>AP</code>发送<code>Beacon</code>帧的周期为<code>100TUs（1TU=1024us）</code>。</li>
+</ul>
+</li>
+<li>
+<p><strong>无线接入安全协议：</strong>解决能不能连接的问题。</p>
+</li>
+<li>
+<p>WLAN技术是以无线射频信号作为业务数据的传输介质，这种开放的信道使攻击者很容易对无线信道中传输的业务数据进行窃听和篡改。因此，安全性成为阻碍WLAN技术发展的最重要因素。</p>
+</li>
+<li>
+<p><img alt="image-20260428223806095" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428223806159.png" /></p>
+</li>
+<li>
+<p><strong>链路认证：</strong>链路认证是准入控制，解决”能不能连接“的问题</p>
+</li>
+<li>
+<p><code>802.11</code>链路定义了两种认证机制：开放系统认证和共享密钥认证。</p>
+</li>
+</ul>
+<p><img alt="image-20260428224323150" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428224323228.png" /></p>
+<ul>
+<li>
+<p><strong>关联：</strong></p>
+</li>
+<li>
+<p>完成链路认证后，STA会继续发起链路服务协商，具体的协商通过Association报文实现。</p>
+</li>
+<li>终端关联过程实质上就是链路服务协商的过程，协商内容包括：支持的速率、信道等。</li>
+</ul>
+<p><img alt="image-20260428224357140" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428224357211.png" /></p>
+<ul>
+<li>
+<p><strong>接入认证：</strong></p>
+</li>
+<li>
+<p>接入认证即对用户进行区分，并在用户访问网络之前限制其访问权限。相对于链路认证，接入认证安全性更高。</p>
+</li>
+<li>主要包含：PSK认证和802.1X认证。</li>
+</ul>
+<p><img alt="image-20260428224432145" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428224432202.png" /></p>
+<ul>
+<li>
+<p><strong>STA地址分配：</strong></p>
+</li>
+<li>
+<p>STA获取到自身的IP地址，是STA正常上线的前提条件。</p>
+</li>
+<li>如果STA是通过DHCP方式获取IP地址，可以用AC设备或汇聚交换机作为DHCP服务器为STA分配IP地址。一般情况下使用汇聚交换机作为DHCP服务器。</li>
+</ul>
+<p><img alt="image-20260428224508168" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428224508231.png" /></p>
+<ul>
+<li>
+<p><strong>用户认证：</strong></p>
+</li>
+<li>
+<p>用户认证是一种“端到端”的安全结构，包括：802.1X认证、MAC认证和Portal认证。</p>
+</li>
+</ul>
+<p><img alt="image-20260428224536407" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428224536471.png" /></p>
+<hr />
+<h4 id="14">1.4.基础配置命令</h4>
+<h5 id="141ap">1.4.1.配置AP上线</h5>
+<ol>
+<li>配置<code>AC</code>作为<code>DHCP</code>服务器，配置<code>Option 43</code>字段</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-ip-pool-pool1] option code [ sub-option sub-code ] { ascii ascii-string | hex hex-string | cipher cipher-string | ip-address ip-address 
+# 配置DHCP服务器分配给DHCP客户端的自定义选项。
+# sub-option sub-code：指定自定义的Option子选项的数值。整数形式，取值范围是1～254。知名选项请参考RFC2132。
+# ascii | hex | cipher：指定自定义的选项码为ASCII字符串类型，或十六进制字符串类型，或密文字符串类型。
+# ip-address ip-address：指定自定义的选项码为IP地址类型。
+</code></pre></div>
+<ol>
+<li>创建域管理模板，并配置国家码</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] wlan
+[AC-wlan-view]
+# 进入WLAN视图。
+
+[AC-wlan-view] regulatory-domain-profile name profile-name 
+[AC-wlan-regulate-domain-profile-name] 
+# 创建域管理模板，并进入模板视图，若模板已存在则直接进入模板视图。
+
+[AC-wlan-regulate-domain-profile-name] country-code country-code
+#配置设备的国家码标识。 
+
+[AC-wlan-view] ap-group name group-name
+[AC-wlan-ap-group-group-name] 
+# 创建AP组，并进入AP组视图，若AP组已存在则直接进入AP组视图。
+
+[AC-wlan-ap-group-group-name] regulatory-domain-profile profile-name
+# 将指定的域管理模板引用到AP或AP组。
+</code></pre></div>
+<ol>
+<li>配置源接口或源地址</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] capwap source interface { loopback loopback-number | vlanif vlan-id }
+# 配置AC与AP建立CAPWAP隧道的源接口。
+
+[AC] capwap source ip-address ip-address
+# 配置AC的源IP地址。
+</code></pre></div>
+<ol>
+<li>配置AP上线</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-view] ap auth-mode { mac-auth | sn-auth } no-auth
+# 配置AP认证模式为MAC地址认证，或SN认证，缺省为MAC地址认证。
+
+[AC-wlan-view] ap-id ap-id [ [ type-id type-id | ap-type ap-type ] { ap-mac ap-mac | ap-sn ap-sn | ap-mac ap-mac ap-sn ap-sn } ]
+[AC-wlan-ap-ap-id] ap-name ap-name
+# 离线增加AP设备或进入AP视图，并配置单个AP的名称。
+
+[AC-wlan-view] ap-id 0
+[AC-wlan-ap-0] ap-group ap-group
+# 配置AP所加入的组。
+</code></pre></div>
+<ol>
+<li>检查AP上线结果</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] display ap { all | ap-group ap-group }}
+# 查看AP信息。
+</code></pre></div>
+<hr />
+<h5 id="142">1.4.2.配置射频</h5>
+<ol>
+<li>进入射频视图</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-view] ap-id 0
+[AC-wlan-ap-0] radio radio-id
+[AC-wlan-radio-0]
+</code></pre></div>
+<ol>
+<li>配置指定射频的工作带宽和信道</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-radio-0/0] channel { 20mhz | 40mhz-minus | 40mhz-plus | 80mhz | 160mhz } channel
+Warning: This action may cause service interruption. Continue?[Y/N]y
+
+[AC-wlan-radio-0/0] channel 80+80mhz channel1 channel2
+Warning: This action may cause service interruption. Continue?[Y/N]y
+# 配置AP组中所有AP或单个AP指定射频的工作带宽和信道。
+</code></pre></div>
+<ol>
+<li>配置天线的收益</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-radio-0/0] antenna-gain antenna-gain
+# 配置AP组中所有AP或单个AP指定射频的天线增益。
+</code></pre></div>
+<ol>
+<li>配置射频的发射功率</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-radio-0/0] eirp eirp
+# 配置AP组中所有AP或单个AP指定射频的发射功率。
+</code></pre></div>
+<ol>
+<li>配置射频覆盖距离参数</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-radio-0/0] coverage distance distance
+# 配置AP组中所有AP或单个AP指定射频的射频覆盖距离参数。
+</code></pre></div>
+<ol>
+<li>配置射频工作的频段</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-radio-0/0] frequency { 2.4g | 5g }
+</code></pre></div>
+<ol>
+<li>创建射频模板</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-view] radio-2g-profile name profile-name
+# 创建2G射频模板，并进入模板视图，若模板已存在则直接进入模板视图。
+</code></pre></div>
+<ol>
+<li>引用射频模板</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-view] ap-group name group-name
+[AC-wlan-ap-group-group-name] radio-2g-profile profile-name radio { radio-id | all }
+# 在AP组中，将指定的2G射频模板引用到2G射频。
+</code></pre></div>
+<hr />
+<h5 id="143vap">1.4.3.配置VAP</h5>
+<ol>
+<li>创建VAP模板</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-view] vap-profile name profile-name
+[AC-wlan-vap-prof-profile-name] 
+# 创建VAP模板，并进入模板视图，若模板已存在则直接进入模板视图。
+</code></pre></div>
+<ol>
+<li>配置数据转发方式</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-vap-prof-profile-name] forward-mode { direct-forward | tunnel }
+# 配置VAP模板下的数据转发方式，可以是直接转发或隧道转发。
+</code></pre></div>
+<ol>
+<li>配置业务vlan</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-vap-prof-profile-name] service-vlan { vlan-id vlan-id | vlan-pool pool-name }
+# 配置VAP的业务VLAN。
+</code></pre></div>
+<ol>
+<li>配置安全模板</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-view] security-profile name profile-name
+[AC-wlan-sec-prof-profile-name]
+# 创建安全模板或者进入安全模板视图。
+缺省情况下，系统已经创建名称为default、default-wds和default-mesh的安全模板。
+[AC-wlan-view] vap-profile name profile-name 
+[AC-wlan-vap-prof-profile-name] security-profile profile-name
+# 在指定VAP模板中引用安全模板。
+</code></pre></div>
+<ol>
+<li>配置SSID模板</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-view] ssid-profile name profile-name
+[AC-wlan-ssid-prof-profile-name]
+# 创建SSID模板，并进入模板视图，若模板已存在则直接进入模板视图。
+缺省情况下，系统上存在名为default的SSID模板。
+
+[AC-wlan-ssid-prof-profile-name] ssid ssid
+# 配置当前SSID模板中的服务组合识别码SSID（Service Set Identifier）。
+缺省情况下，SSID模板中的SSID为HUAWEI-WLAN。
+
+[AC-wlan-view] vap-profile name profile-name 
+[AC-wlan-vap-prof-profile-name] ssid-profile profile-name
+# 在指定VAP模板中引用SSID模板。
+</code></pre></div>
+<ol>
+<li>引用VAP模板</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-wlan-view] ap-group name group-name
+[AC-wlan-ap-group-group-name] vap-profile profile-name wlan wlan-id radio { radio-id | all } [ service-vlan { vlan-id vlan-id | vlan-pool pool-name } ]
+# 在AP组中，将指定的VAP模板引用到射频。
+</code></pre></div>
+<ol>
+<li>查看VAP信息</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] display vap { ap-group ap-group-name | { ap-name ap-name | ap-id ap-id } [ radio radio-id ] } [ ssid ssid ]
+[AC] display vap { all | ssid ssid }
+# 查看业务型VAP的相关信息。
+</code></pre></div>
+<hr />
+<h4 id="15">1.5.旁挂二层组网隧道转发</h4>
+<h5 id="151">1.5.1.需求</h5>
+<p><code>AC</code>组网方式为旁挂二层组网。<code>DHCP</code>部署方式为<code>AC</code>作为<code>DHCP</code>服务器为<code>AP</code>分配<code>IP</code>地址。汇聚交换机<code>S2</code>作为<code>DHCP</code>服务器为<code>STA</code>分配<code>IP</code>地址。业务数据转发方式为隧道转发。</p>
+<p><img alt="image-20260428230420781" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428230420882.png" /></p>
+<table>
+<thead>
+<tr>
+<th><strong>数据</strong></th>
+<th><strong>配置</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AP管理VLAN</td>
+<td>VLAN100</td>
+</tr>
+<tr>
+<td>STA业务VLAN</td>
+<td>VLAN101</td>
+</tr>
+<tr>
+<td>DHCP服务器</td>
+<td>AC作为DHCP服务器为AP分配IP地址汇聚交换机S2作为DHCP服务器为STA分配IP地址，STA的默认网关为10.23.101.1</td>
+</tr>
+<tr>
+<td>AP的IP地址池</td>
+<td>10.23.100.2～10.23.100.254/24</td>
+</tr>
+<tr>
+<td>STA的IP地址池</td>
+<td>10.23.101.2～10.23.101.254/24</td>
+</tr>
+<tr>
+<td>AC的源接口IP地址</td>
+<td>VLANIF100：10.23.100.1/24</td>
+</tr>
+<tr>
+<td>AP组</td>
+<td>名称：ap-group1；引用模板：VAP模板wlan-net、域管理模板</td>
+</tr>
+<tr>
+<td>域管理模板</td>
+<td>名称：default国家码：中国</td>
+</tr>
+<tr>
+<td>SSID模板</td>
+<td>名称：wlan-netSSID名称：wlan-net</td>
+</tr>
+<tr>
+<td>安全模板</td>
+<td>名称：wlan-net安全策略：WPA-WPA2+PSK+AES密码：a1234567</td>
+</tr>
+<tr>
+<td>VAP模板</td>
+<td>名称：wlan-net转发模式：隧道转发业务VLAN：VLAN101引用模板：SSID模板wlan-net、安全模板wlan-net</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="152">1.5.2.基础网络配置</h5>
+<ol>
+<li>二层配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[LSW1]vlan ba 100 101
+Info: This operation may take a few seconds. Please wait for a moment...done.
+[LSW1]int g0/0/1
+[LSW1-GigabitEthernet0/0/1]port link acc
+[LSW1-GigabitEthernet0/0/1]port def vlan 100
+[LSW1-GigabitEthernet0/0/1]quit
+[LSW1]interface g0/0/2
+[LSW1-GigabitEthernet0/0/2]port link acc
+[LSW1-GigabitEthernet0/0/2]port def vlan 100
+[LSW1-GigabitEthernet0/0/2]quit
+[LSW1]int g0/0/3
+[LSW1-GigabitEthernet0/0/3]port link trunk
+[LSW1-GigabitEthernet0/0/3]port trunk all vlan 100 101
+[LSW1-GigabitEthernet0/0/3]quit
+[LSW1]int vlan 101
+[LSW1-Vlanif101]ip add 10.23.101.1 24
+[LSW1-Vlanif101]quit
+
+[AC1]vlan ba 100 101
+Info: This operation may take a few seconds. Please wait for a moment...done.
+[AC1]int g0/0/1
+[AC1-GigabitEthernet0/0/1]port link trunk
+[AC1-GigabitEthernet0/0/1]port trunk all vlan 100 101
+[AC1-GigabitEthernet0/0/1]quit
+</code></pre></div>
+<ol>
+<li>三层配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[LSW1]vlan 2
+[LSW1-vlan2]quit
+[LSW1]int vlan 2
+[LSW1-Vlanif2]ip add 11.1.1.1 30
+[LSW1-Vlanif2]quit
+[LSW1]int g0/0/4
+[LSW1-GigabitEthernet0/0/4]port link acc
+[LSW1-GigabitEthernet0/0/4]port def vlan 2
+[LSW1-GigabitEthernet0/0/4]quit
+[LSW1]ip route-static 0.0.0.0 0 11.1.1.2
+
+[LSW1]dhcp enable
+[LSW1]interface vlan 101
+[LSW1-Vlanif101]dhcp select interface 
+[LSW1-Vlanif101]quit
+
+[AC1]dhcp enable
+[AC1]interface Vlanif 100
+[AC1-Vlanif100]ip add 10.24.100.1 24    
+[AC1-Vlanif100]dhcp select interface 
+[AC1-Vlanif100]quit
+
+[Huawei]int g0/0/0
+[Huawei-GigabitEthernet0/0/0]ip add 11.1.1.2 30
+[Huawei-GigabitEthernet0/0/0]quit
+[Huawei]undo inf en
+Info: Information center is disabled.
+[Huawei]ip route-static 0.0.0.0 0 11.1.1.1
+[Huawei]int loo0
+[Huawei-LoopBack0]ip add 100.100.100.100 32
+[Huawei-LoopBack0]quit
+</code></pre></div>
+<ol>
+<li>无线AP+AC配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC1]wlan
+[AC1-wlan-view]ap-group name group1
+Info: This operation may take a few seconds. Please wait for a moment.done.
+[AC1-wlan-ap-group-group1]quit
+
+[AC1-wlan-view]regulatory-domain-profile name group1
+[AC1-wlan-regulate-domain-group1]country-code cn
+Info: The current country code is same with the input country code.
+[AC1-wlan-regulate-domain-group1]quit
+[AC1-wlan-view]ap-group name group1
+[AC1-wlan-ap-group-group1]regulatory-domain-profile group1
+Warning: Modifying the country code will clear channel, power and antenna gain c
+onfigurations of the radio and reset the AP. Continue?[Y/N]:y
+[AC1-wlan-ap-group-group1]quit
+[AC1-wlan-view]quit
+
+[AC1]capwap source interface vlan 100
+
+&lt;LSW1&gt;dis mac-address 
+MAC address table of slot 0:
+-------------------------------------------------------------------------------
+MAC Address    VLAN/       PEVLAN CEVLAN Port            Type      LSP/LSR-ID  
+               VSI/SI                                              MAC-Tunnel  
+-------------------------------------------------------------------------------
+00e0-fc24-7fb0 100         -      -      GE0/0/2         dynamic   0/-         
+00e0-fcfb-7fe0 100         -      -      GE0/0/1         dynamic   0/-         
+00e0-fcb3-4b95 2           -      -      GE0/0/4         dynamic   0/-         
+-------------------------------------------------------------------------------
+Total matching items on slot 0 displayed = 3 
+
+[AC1]wlan
+[AC1-wlan-view]ap-id 0 ap-mac 00e0-fcfb-7fe0
+[AC1-wlan-ap-0]ap-name ap1
+[AC1-wlan-ap-0]ap-group group1
+Warning: This operation may cause AP reset. If the country code changes, it will
+ clear channel, power and antenna gain configurations of the radio, Whether to c
+ontinue? [Y/N]:y
+[AC1-wlan-ap-0]quit
+
+[AC1-wlan-view]ap-id 1 ap-mac 00e0-fc24-7fb0
+[AC1-wlan-ap-1]ap-name ap2
+[AC1-wlan-ap-1]ap-group  group1
+Warning: This operation may cause AP reset. If the country code changes, it will
+ clear channel, power and antenna gain configurations of the radio, Whether to c
+ontinue? [Y/N]:y
+Info: This operation may take a few seconds. Please wait for a moment.. done.
+[AC1-wlan-ap-1]quit
+
+[AC1-Vlanif100]dis ap all
+Info: This operation may take a few seconds. Please wait for a moment.done.
+Total AP information:
+nor  : normal          [2]
+--------------------------------------------------------------------------------
+---------
+ID   MAC            Name Group  IP            Type            State STA Uptime
+--------------------------------------------------------------------------------
+---------
+0    00e0-fcfb-7fe0 ap1  group1 10.24.100.154 AP2050DN        nor   0   44S
+1    00e0-fc24-7fb0 ap2  group1 10.24.100.164 AP2050DN        nor   0   34S
+--------------------------------------------------------------------------------
+---------
+Total: 2
+</code></pre></div>
+<ol>
+<li>无线业务参数配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC1]wlan   
+[AC1-wlan-view]security-profile name group1
+[AC1-wlan-sec-prof-group1]security wpa-wpa2 psk pass-phrase Huawei@123 aes
+[AC1-wlan-sec-prof-group1]quit
+
+[AC1-wlan-view]ssid-profile name group1
+[AC1-wlan-ssid-prof-group1]ssid wlan-test
+Info: This operation may take a few seconds, please wait.done.
+[AC1-wlan-ssid-prof-group1]quit
+
+[AC1-wlan-view]vap-profile name group1  
+[AC1-wlan-vap-prof-group1]forward-mode tunnel
+[AC1-wlan-vap-prof-group1]service-vlan vlan-id 101  
+[AC1-wlan-vap-prof-group1]security-profile group1   
+[AC1-wlan-vap-prof-group1]ssid-profile group1
+[AC1-wlan-vap-prof-group1]quit
+
+[AC1-wlan-view]ap-group name group1
+[AC1-wlan-ap-group-group1]vap-profile group1 wlan 1 radio 0
+[AC1-wlan-ap-group-group1]vap-profile group1 wlan 1 radio 1
+[AC1-wlan-ap-group-group1]quit
+
+[AC1-wlan-view]display vap ssid wlan-test
+Info: This operation may take a few seconds, please wait.
+WID : WLAN ID            
+------------------------------------------------------------------------------
+AP ID AP name RfID WID  BSSID          Status  Auth type     STA   SSID     
+------------------------------------------------------------------------------
+0     ap1     0    1    00E0-FCFB-7FE0 ON      WPA/WPA2-PSK  0     wlan-test
+0     ap1     1    1    00E0-FCFB-7FF0 ON      WPA/WPA2-PSK  0     wlan-test
+1     ap2     0    1    00E0-FC24-7FB0 ON      WPA/WPA2-PSK  0     wlan-test
+1     ap2     1    1    00E0-FC24-7FC0 ON      WPA/WPA2-PSK  0     wlan-test
+------------------------------------------------------------------------------
+Total: 4
+</code></pre></div>
+<p><img alt="image-20260428232700150" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428232700293.png" /></p>
+<ol>
+<li>测试（直接用sta测试网关可能不通，倒着测试）</li>
+</ol>
+<div class="highlight"><pre><span></span><code>STA&gt;ping 100.100.100.100
+
+Ping 100.100.100.100: 32 data bytes, Press Ctrl_C to break
+From 100.100.100.100: bytes=32 seq=1 ttl=254 time=203 ms
+From 100.100.100.100: bytes=32 seq=2 ttl=254 time=188 ms
+From 100.100.100.100: bytes=32 seq=3 ttl=254 time=204 ms
+From 100.100.100.100: bytes=32 seq=4 ttl=254 time=203 ms
+From 100.100.100.100: bytes=32 seq=5 ttl=254 time=203 ms
+
+--- 100.100.100.100 ping statistics ---
+  5 packet(s) transmitted
+  5 packet(s) received
+  0.00% packet loss
+  round-trip min/avg/max = 188/200/204 ms
+</code></pre></div>
+<hr />
+<h4 id="16">1.6.旁挂二层组网直连转发</h4>
+<p><strong>需要修改如下内容：</strong></p>
+<ol>
+<li><strong>AC：</strong><code>forward mode dire</code></li>
+<li><strong>SW1：</strong>对接<code>AP</code>的接口需要放通业务<code>vlan</code>，将管理<code>vlan</code>设置为<code>PVID</code></li>
+<li><code>SW1</code>与<code>AC</code>之间无需再放通业务<code>vlan</code>。</li>
+</ol>
+<p><img alt="image-20260428233256277" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428233256409.png" /></p>
+<hr />
+<h3 id="2wlan">2.大型WLAN</h3>
+<h4 id="21wlan">2.1.大型WLAN关键技术</h4>
+<table>
+<thead>
+<tr>
+<th><strong>技术</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VLAN Pool</td>
+<td>通过VLAN Pool把接入的用户分配到不同的VLAN，可以减少广播域，减少网络中的广播报文，提升网络性能。</td>
+</tr>
+<tr>
+<td>DHCP Option 43 &amp; 52</td>
+<td><strong>当AC和AP间是三层组网时，AP通过发送广播请求报文的方式无法发现AC，这时需要通过DHCP服务器回应给AP的报文中携带的Option43字段（IPv4）或Option52（IPv6）来通告AC的IP地址。</strong></td>
+</tr>
+<tr>
+<td>漫游技术</td>
+<td>WLAN漫游是指STA在<strong>不同AP覆盖范围之间移动且保持用户业务不中断的行为</strong>。</td>
+</tr>
+<tr>
+<td>高可靠性技术</td>
+<td>为了保证WLAN业务的稳定运行，保证在主设备故障时业务能够顺利切换到备份设备的技术。</td>
+</tr>
+<tr>
+<td>准入控制</td>
+<td>准入控制技术是通过对接入网络的客户端和用户的认证来保证网络的安全，<strong>是一种“端到端”的安全技术。</strong></td>
+</tr>
+</tbody>
+</table>
+<h5 id="211vlan-pool">2.1.1.vlan pool</h5>
+<p><strong>挑战：</strong></p>
+<ul>
+<li>无线网络终端的移动性导致特定区域<code>IP</code>地址请求过多。</li>
+<li>通常情况下，一个<code>SSID</code>只能对应一个业务<code>vlan</code>，如果通过扩大子网增加<code>IP</code>地址则会导致广播域扩大，大量的广播报文造成网络拥塞。</li>
+</ul>
+<p><img alt="image-20260428234244257" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428234244371.png" /></p>
+<p><strong>vlan-pool：</strong></p>
+<ul>
+<li><code>vlan-pool</code>是一种把多个<code>vlan</code>放在一个池中并提供分配算法的<code>vlan</code>分配技术，又称为<code>vlan</code>池。</li>
+<li>当配置了<code>vlan-pool</code>后，也需要在汇聚、接入配置多个业务<code>vlan</code>，且这些<code>vlan</code>都属于一个<code>SSID</code>。</li>
+</ul>
+<p><img alt="image-20260428233940703" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428233940821.png" /></p>
+<p><strong>分配算法：</strong></p>
+<ul>
+<li><strong>顺序分配算法：</strong>把用户按上线顺序依次划分到不同的<code>vlan</code>中。</li>
+<li><strong>HASH分配算法：</strong>根据用户<code>MAC</code>地址<code>HASH</code>值分配<code>VLAN</code>。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>分配算法</strong></th>
+<th><strong>优点</strong></th>
+<th><strong>缺点</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>顺序分配</td>
+<td>各个VLAN用户数目划分均匀</td>
+<td>重新上线VLAN容易变更、IP变化</td>
+</tr>
+<tr>
+<td>HASH分配</td>
+<td>用户多次上线可分配相同的VLAN、IP不变</td>
+<td>各个VLAN用户数划分不均衡</td>
+</tr>
+</tbody>
+</table>
+<p><strong>分配VLAN流程：</strong></p>
+<ol>
+<li>用户终端从某个VAP接入，判断VAP是否有绑定VLAN Pool。</li>
+<li>如果该VAP对应的模板绑定了VLAN Pool，使用VLAN Pool的分配算法分配一个VLAN, VLAN Pool有顺序分配和hash分配两种分配算法。</li>
+<li>给终端分配一个VLAN。</li>
+<li>终端从VLAN Pool分配的VLAN上线。</li>
+</ol>
+<p><img alt="image-20260428234202065" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428234202176.png" /></p>
+<p><strong>配置命令介绍：</strong></p>
+<ol>
+<li>创建VLAN Pool并进入VLAN Pool视图。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] vlan pool pool-name
+</code></pre></div>
+<ol>
+<li>将指定VLAN添加到VLAN Pool中。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-vlan-pool-pool-name] vlan { start-vlan [ to end-vlan ] } &amp;&lt;1-10&gt;
+</code></pre></div>
+<ol>
+<li>配置VLAN Pool中的VLAN分配算法。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-vlan-pool-pool-name] assignment { even | hash }
+</code></pre></div>
+<ol>
+<li>配置VAP的业务VLAN。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] wlan  
+[AC-wlan-view] vap-profile name profile-name
+[AC-wlan-vap-prof-profile-name] service-vlan vlan-pool pool-name 
+</code></pre></div>
+<p><strong>配置案例：</strong></p>
+<p>在<code>1.5</code>的实验基础上做修改：</p>
+<ul>
+<li>业务<code>vlan</code>从原本的<code>101</code>扩展至<code>101-105</code>。</li>
+</ul>
+<p><img alt="image-20260428234531822" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428234531966.png" /></p>
+<p><strong>配置演示：</strong></p>
+<ol>
+<li><code>LSW1</code>配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[LSW1]vlan ba 101 to 105
+[LSW1]int g0/0/3
+[LSW1-GigabitEthernet0/0/3]port trunk all vlan 101 to 105
+[LSW1-GigabitEthernet0/0/3]quit
+
+[LSW1]int vlan 102
+[LSW1-Vlanif102]ip add 10.23.102.1 24
+[LSW1-Vlanif102]dhcp select interface
+[LSW1-Vlanif102]quit
+[LSW1]int vlan 103
+[LSW1-Vlanif103]ip add 10.23.103.1 24
+[LSW1-Vlanif103]dhcp select interface
+[LSW1-Vlanif103]quit
+[LSW1]int vlan 104
+[LSW1-Vlanif104]ip add 10.23.104.1 24
+[LSW1-Vlanif104]dhcp select interface
+[LSW1-Vlanif104]quit
+[LSW1]int vlan 105
+[LSW1-Vlanif105]ip add 10.23.105.1 24
+[LSW1-Vlanif105]dhcp select interface
+[LSW1-Vlanif105]quit
+</code></pre></div>
+<ol>
+<li><code>AC</code>配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC1]vlan ba 101 to 105
+Info: This operation may take a few seconds. Please wait for a moment...done.
+[AC1]int g0/0/1
+[AC1-GigabitEthernet0/0/1]port trunk all vlan 101 to 105
+[AC1-GigabitEthernet0/0/1]quit
+
+[AC1]vlan pool group1
+[AC1-vlan-pool-group1]vlan 101 to 105
+[AC1-vlan-pool-group1]assignment hash 
+[AC1-vlan-pool-group1]quit
+
+[AC1]wlan
+[AC1-wlan-view]vap-profile name group1
+[AC1-wlan-vap-prof-group1]service-vlan vlan-pool group1
+Warning: This action may cause service interruption. Continue?[Y/N]y
+Info: This operation may take a few seconds, please wait...done.
+
+&lt;AC1&gt;display vlan pool name group1
+--------------------------------------------------------------------------------
+
+Name           : group1
+Total          : 5
+Assignment     : hash
+VLAN ID        : 101 to 105 
+--------------------------------------------------------------------------------
+</code></pre></div>
+<ol>
+<li>测试</li>
+</ol>
+<div class="highlight"><pre><span></span><code>STA&gt;ipconfig
+
+Link local IPv6 address...........: ::
+IPv6 address......................: :: / 128
+IPv6 gateway......................: ::
+IPv4 address......................: 10.23.105.254
+Subnet mask.......................: 255.255.255.0
+Gateway...........................: 10.23.105.1
+Physical address..................: 54-89-98-C1-7D-BC
+DNS server........................:
+
+STA&gt;ping 100.100.100.100
+
+Ping 100.100.100.100: 32 data bytes, Press Ctrl_C to break
+From 100.100.100.100: bytes=32 seq=1 ttl=254 time=187 ms
+From 100.100.100.100: bytes=32 seq=2 ttl=254 time=203 ms
+
+--- 100.100.100.100 ping statistics ---
+  2 packet(s) transmitted
+  2 packet(s) received
+  0.00% packet loss
+  round-trip min/avg/max = 187/195/203 ms
+</code></pre></div>
+<hr />
+<h5 id="212wlanac">2.1.2.WLAN三层组网AC发现机制</h5>
+<p>当<code>AP</code>和<code>AC</code>之间是三层组网时，<code>AP</code>通过发送广播请求报文的方式无法发现<code>AC</code>，这时需要通过<code>DHCP</code>服务器回应给<code>AP</code>的报文中携带的<code>Option43(IPv4)</code>或<code>Option52(IPv6)</code>来通告<code>AC</code>的<code>IP</code>地址。</p>
+<p><img alt="image-20260428235855860" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260428235855996.png" /></p>
+<p><strong>配置案例：</strong></p>
+<p>注意：该案例中采用直连转发模式，若使用隧道模式，则业务<code>vlan</code>和网关应该创建在<code>AC1</code>上。</p>
+<p>业务<code>vlan</code>和管理<code>vlan</code>的<code>DHCP</code>服务器部署在<code>LSW1</code>上。</p>
+<p><img alt="image-20260429000524754" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260429000524888.png" /></p>
+<p><strong>配置演示：</strong></p>
+<ol>
+<li><code>LSW1</code>网络配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[LSW1]vlan batch 99 to 101
+[LSW1]interface vlan 99
+[LSW1-Vlanif99]ip add 172.16.99.1 24
+[LSW1-Vlanif99]quit
+[LSW1]interface vlan 101
+[LSW1-Vlanif101]ip add 172.16.101.1 24
+[LSW1-Vlanif101]quit
+[LSW1]interface vlan 100
+[LSW1-Vlanif100]ip add 172.16.100.2 24
+[LSW1-Vlanif100]quit
+
+[LSW1]interface g0/0/2
+[LSW1-GigabitEthernet0/0/2]port link trunk
+[LSW1-GigabitEthernet0/0/2]port trunk all vlan 99 101
+[LSW1-GigabitEthernet0/0/2]port trunk pvid vlan 99
+[LSW1-GigabitEthernet0/0/2]quit
+
+[LSW1]interface g0/0/1
+[LSW1-GigabitEthernet0/0/1]port link acc
+[LSW1-GigabitEthernet0/0/1]port def vlan 100
+[LSW1-GigabitEthernet0/0/1]quit
+
+[LSW1]ip route-static 0.0.0.0 0 172.16.100.1
+
+[LSW1]dhcp enable
+[LSW1]ip pool AP
+[LSW1-ip-pool-ap]network 172.16.99.0 mask 24
+[LSW1-ip-pool-ap]gateway-list 172.16.99.1
+[LSW1-ip-pool-ap]option 43 sub-option 3 ascii 172.16.100.1
+
+[LSW1]interface vlan 99 
+[LSW1-Vlanif99]dhcp select global 
+[LSW1-Vlanif99]quit
+
+[LSW1]interface vlan 101    
+[LSW1-Vlanif101]dhcp select interface 
+[LSW1-Vlanif101]quit
+</code></pre></div>
+<ol>
+<li><code>AC1</code>网络配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC]vlan ba 100 2
+[AC]int vlan 100
+[AC-Vlanif100]ip add 172.16.100.1 24
+[AC-Vlanif100]quit
+
+[AC]int vlan 2
+[AC-Vlanif2]ip add 11.1.1.1 24
+[AC-Vlanif2]quit
+
+[AC]int g0/0/2
+[AC-GigabitEthernet0/0/2]port link acc
+[AC-GigabitEthernet0/0/2]port def vlan 100
+[AC-GigabitEthernet0/0/2]quit
+
+[AC]int g0/0/1
+[AC-GigabitEthernet0/0/1]port link acc
+[AC-GigabitEthernet0/0/1]port def vlan 2
+[AC-GigabitEthernet0/0/1]quit
+
+[AC]ip route-static 0.0.0.0 0 11.1.1.2
+[AC]ip route-static 172.16.101.0 24 172.16.100.2
+[AC]ip route-static 172.16.99.0 24 172.16.100.2
+</code></pre></div>
+<ol>
+<li><code>AR1</code>网络配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/0]ip add 11.1.1.2 24
+[AR1-GigabitEthernet0/0/0]quit
+[AR1]int loo0
+[AR1-LoopBack0]ip add 100.100.100.100 32
+[AR1-LoopBack0]quit
+[AR1]ip route-static 0.0.0.0 0 11.1.1.1
+</code></pre></div>
+<ol>
+<li>无线配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC]wlan
+[AC-wlan-view]regulatory-domain-profile name group1
+[AC-wlan-regulate-domain-group1]country-code cn
+[AC-wlan-regulate-domain-group1]quit
+[AC-wlan-view]ap-group name group1
+[AC-wlan-ap-group-group1]regulatory-domain-profile group1
+[AC-wlan-ap-group-group1]quit
+[AC-wlan-view]ap-id 0 ap-mac 00e0-fcaa-2670
+[AC-wlan-ap-0]ap-name ap1
+[AC-wlan-ap-0]ap-group group1
+[AC-wlan-ap-0]quit
+[AC]capwap source interface vlan 100
+
+
+[AC]dis ap all
+Info: This operation may take a few seconds. Please wait for a moment.done.
+Total AP information:
+nor  : normal          [1]
+--------------------------------------------------------------------------------
+---------
+ID   MAC            Name Group  IP            Type            State STA Uptime
+--------------------------------------------------------------------------------
+---------
+0    00e0-fcaa-2670 ap1  group1 172.16.99.254 AP2050DN        nor   0   3M:18S
+--------------------------------------------------------------------------------
+---------
+Total: 1
+
+[AC]wlan    
+[AC-wlan-view]ssid-profile name group1
+[AC-wlan-ssid-prof-group1]ssid huawei
+[AC-wlan-ssid-prof-group1]quit
+[AC-wlan-view]security-profile name group1  
+[AC-wlan-sec-prof-group1]security wpa-wpa2 psk pass-phrase Huawei@123 aes
+[AC-wlan-sec-prof-group1]quit
+[AC-wlan-view]vap-pro   
+[AC-wlan-view]vap-profile name group1
+[AC-wlan-vap-prof-group1]forward-mode direct-forward 
+[AC-wlan-vap-prof-group1]service-vlan vlan-id 101   
+[AC-wlan-vap-prof-group1]security-profile group1    
+[AC-wlan-vap-prof-group1]ssid-profile group1
+[AC-wlan-view]ap-group name group1  
+[AC-wlan-ap-group-group1]vap-profile group1 wlan 1 radio 0
+[AC-wlan-ap-group-group1]vap-profile group1 wlan 1 radio 1
+[AC-wlan-ap-group-group1]quit
+</code></pre></div>
+<ol>
+<li>测试</li>
+</ol>
+<div class="highlight"><pre><span></span><code>STA&gt;ipconfig
+
+Link local IPv6 address...........: ::
+IPv6 address......................: :: / 128
+IPv6 gateway......................: ::
+IPv4 address......................: 172.16.101.254
+Subnet mask.......................: 255.255.255.0
+Gateway...........................: 172.16.101.1
+Physical address..................: 54-89-98-05-1F-BE
+DNS server........................:
+
+STA&gt;ping 100.100.100.100
+
+Ping 100.100.100.100: 32 data bytes, Press Ctrl_C to break
+From 100.100.100.100: bytes=32 seq=1 ttl=253 time=172 ms
+From 100.100.100.100: bytes=32 seq=2 ttl=253 time=125 ms
+From 100.100.100.100: bytes=32 seq=3 ttl=253 time=141 ms
+From 100.100.100.100: bytes=32 seq=4 ttl=253 time=125 ms
+From 100.100.100.100: bytes=32 seq=5 ttl=253 time=140 ms
+
+--- 100.100.100.100 ping statistics ---
+  5 packet(s) transmitted
+  5 packet(s) received
+  0.00% packet loss
+  round-trip min/avg/max = 125/140/172 ms
+</code></pre></div>
+<hr />
+<h4 id="22ac">2.2.AC高可靠性</h4>
+<p>在<code>WLAN</code>组网中，为保证组网可靠性，常见的备份技术有：</p>
+<ul>
+<li><code>VRRP</code>双机热备份（主备）：</li>
+<li>主备AC两个独立的IP地址，通过VRRP对外虚拟为同一个IP地址，单个AP和虚拟IP建立一条CAPWAP链路。</li>
+<li>主AC备份AP信息、STA信息和CAPWAP链路信息，并通过HSB主备服务将信息同步给备AC。主AC故障后，备AC直接接替工作。</li>
+<li>双链路冷备份：</li>
+<li>单个AP分别和主备AC建立CAPWAP链路，一条主链路，一条备链路。</li>
+<li>AC不备份同步信息。主AC故障后，AP切换到备链路上，备AC接替工作。</li>
+<li>双链路热备份（主备或负载分担）：</li>
+<li>单个AP分别和主备AC建立CAPWAP链路，一条主链路，一条备链路。</li>
+<li>主AC仅备份STA信息，并通过HSB主备服务将信息同步给备AC。主AC故障后，AP切换到备链路上，备AC接替工作。</li>
+<li>N + 1备份：</li>
+<li>单个AP只和一个AC建立CAPWAP链路。</li>
+<li>AC不备份同步信息。主AC故障后，AP重新与备AC建链CAPWAP链路，备AC接替工作。</li>
+</ul>
+<p>为了保证<code>WLAN</code>业务的稳定运行，热备份（<code>Hot-Standby Backup</code>）机制可以保证在主设备故障时业务能够不中断的顺利切换到备份设备。</p>
+<hr />
+<h5 id="221vrrp">2.2.1.VRRP双机热备</h5>
+<p>两台<code>AC</code>组成一个<code>VRRP</code>组，主、备<code>AC</code>对<code>AP</code>始终显示为同一个虚拟<code>IP</code>地址，主<code>AC</code>通过<code>Hot Standby(HSB)</code>主备通道同步业务信息到备<code>AC</code>上。</p>
+<p>两台<code>AC</code>通过<code>VRRP</code>协议产生一台”虚拟AC“，缺省情况下，主<code>AC</code>担任虚拟<code>AC</code>的具体工作，当主<code>AC</code>故障时，备<code>AC</code>接替工作。所有<code>AP</code>与”虚拟AC“建立<code>CAPWAP</code>隧道。</p>
+<p><code>AP</code>只看到一个<code>AC</code>的存在，<code>AC</code>间的切换由<code>VRRP</code>决定。</p>
+<p>这种方式一般将主备<code>AC</code>部署在同一地理位置，和其他备份方式比较，其业务切换速度非常快。</p>
+<p><img alt="image-20260429003921070" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260429003921221.png" /></p>
+<p><strong>HSB</strong></p>
+<p><code>HSB</code>是华为主备公共机制。主备服务（<code>HSB Service</code>）负责建立和维护主备通道，为各个主备业务模块提供通道通断事件和报文发送/接收接口。</p>
+<p>主备备份组（<code>HSB Group</code>）：<code>HSB</code>备份组内部绑定<code>HSB Service</code>，为各个主备业务模块提供数据备份通道。<code>HSB</code>备份组与一个<code>VRRP</code>实例绑定，借用<code>VRRP</code>机制协商出主备实例。同时，<code>HSB</code>备份组还负责通知各个业务模块处理批量备份、定时备份、主备切换等事件。</p>
+<p><strong>数据同步</strong></p>
+<p>基于VRRP双机热备备份信息包括用户表项、CAPWAP链路信息以及AP表项等信息，备份的方式有实时备份，批量备份，定时备份。 </p>
+<ul>
+<li>批量备份：主用设备会将已有的会话表项一次性同步到新加入的备份设备上，使主备AC信息对齐，这个过程称为批量备份。批量备份会在AC主备确立时进行触发。</li>
+<li>实时备份：主用设备在产生新表项或表项变化后会及时备份到备份设备上。</li>
+<li>定时同步：备用设备会每隔30分钟检查其已有的会话表项与主用设备是否一致，若不一致则将主用设备上的会话表项同步到备用设备。</li>
+</ul>
+<p><strong>备份内容：</strong></p>
+<ul>
+<li>用户数据信息备份</li>
+<li>CAPWAP隧道信息备份</li>
+<li>AP表项备份</li>
+<li>DHCP地址信息备份</li>
+</ul>
+<p><strong>配置流程：</strong></p>
+<ol>
+<li>创建VRRP备份组并配置虚拟IP地址。</li>
+<li>创建HSB主备服务，建立HSB主备备份通道的IP地址和端口号。</li>
+<li>创建HSB备份组，配置HSB备份组绑定HSB主备服务、VRRP备份组、WLAN业务以及DHCP。</li>
+<li>使能HSB备份组，HSB备份组使能后，对HSB备份组的相关配置才会生效。</li>
+<li>检查VRRP热备份配置结果。</li>
+</ol>
+<p><img alt="image-20260429005051323" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260429005051458.png" /></p>
+<p><strong>配置命令介绍：</strong></p>
+<ol>
+<li>在对应的接口视图下，创建VRRP备份组并配置虚拟IP地址。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-GigabitEthernet0/0/1] vrrp vrid virtual-router-id virtual-ip virtual-address
+</code></pre></div>
+<ol>
+<li>配置设备在VRRP备份组中的优先级，默认为100，主设备的优先级要大于备设备。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-GigabitEthernet0/0/1] vrrp vrid virtual-router-id priority priority-value
+</code></pre></div>
+<ol>
+<li>创建HSB主备服务并进入HSB主备服务视图。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] hsb-service service-index
+</code></pre></div>
+<ol>
+<li>配置建立HSB主备备份通道的IP地址和端口号。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-hsb-service-0] service-ip-port local-ip { local-ipv4-address | local-ipv6-address } peer-ip { peer-ipv4-address | peer-ipv6-address } local-data-port local-port peer-data-port peer-port
+</code></pre></div>
+<ol>
+<li>创建HSB备份组并进入HSB备份组视图。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] hsb-group group-index
+</code></pre></div>
+<ol>
+<li>配置HSB备份组绑定的HSB主备服务。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-hsb-group-0] bind-service service-index
+</code></pre></div>
+<ol>
+<li>配置HSB备份组绑定的VRRP备份组。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-hsb-group-0] track vrrp vrid virtual-router-id interface interface-type interface-number
+</code></pre></div>
+<ol>
+<li>配置WLAN业务绑定HSB备份组。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] hsb-service-type ap hsb-group group-index
+</code></pre></div>
+<ol>
+<li>配置DHCP业务绑定HSB备份组。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] hsb-service-type dhcp hsb-group group-index
+</code></pre></div>
+<ol>
+<li>配置准入控制用户绑定HSB备份组。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] hsb-service-type access-user hsb-group group-index
+</code></pre></div>
+<ol>
+<li>使能HSB备份组。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC-hsb-group-0] hsb enable
+</code></pre></div>
+<ol>
+<li>查看HSB备份组的信息。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] display hsb-group group-index
+</code></pre></div>
+<ol>
+<li>查看HSB主备服务的信息。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC] display hsb-service service-index
+</code></pre></div>
+<hr />
+<p><strong>案例演示：</strong></p>
+<p><img alt="image-20260429010215577" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20260429010215729.png" /></p>
+<ol>
+<li><code>LSW1</code>网络配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[LSW1]vlan batch 2 100 101 102
+[LSW1]int vlan 101
+[LSW1-Vlanif101]ip add 172.16.101.1 24
+[LSW1-Vlanif101]quit
+
+[LSW1]int vlan 102
+[LSW1-Vlanif102]ip add 172.16.102.1 24
+[LSW1-Vlanif102]quit
+
+[LSW1]int vlan 2
+[LSW1-Vlanif2]ip add 11.1.1.1 30
+[LSW1-Vlanif2]quit
+
+[LSW1]int vlan 100
+[LSW1-Vlanif100]ip add 172.16.100.100 24
+[LSW1-Vlanif100]quit
+
+[LSW1]interface g0/0/4
+[LSW1-GigabitEthernet0/0/4]port link trunk
+[LSW1-GigabitEthernet0/0/4]port trunk all vlan 101 102
+[LSW1-GigabitEthernet0/0/4]port trunk pvid vlan 101
+[LSW1-GigabitEthernet0/0/4]quit
+[LSW1]int g0/0/2
+[LSW1-GigabitEthernet0/0/2]port link trunk
+[LSW1-GigabitEthernet0/0/2]port trunk all vlan 100
+[LSW1-GigabitEthernet0/0/2]quit
+[LSW1]int g0/0/3
+[LSW1-GigabitEthernet0/0/3]port link trunk
+[LSW1-GigabitEthernet0/0/3]port trunk all vlan 100
+[LSW1-GigabitEthernet0/0/3]quit
+[LSW1]int g0/0/1
+[LSW1-GigabitEthernet0/0/1]port link acc
+[LSW1-GigabitEthernet0/0/1]port def vlan 2
+[LSW1-GigabitEthernet0/0/1]quit
+
+[LSW1]ip route-static 0.0.0.0 0 11.1.1.2
+
+[LSW1]dhcp enable
+
+[LSW1]int vlan 102
+[LSW1-Vlanif102]dhcp select interface
+[LSW1-Vlanif102]quit
+
+[LSW1]ip pool AP
+[LSW1-ip-pool-ap]network 172.16.101.0 mask 24
+[LSW1-ip-pool-ap]gateway-list 172.16.101.1
+[LSW1-ip-pool-ap]option 43 sub-option 3 ascii 172.16.100.1
+[LSW1-ip-pool-ap]quit
+
+[LSW1]int vlan 101
+[LSW1-Vlanif101]dhcp select global
+[LSW1-Vlanif101]quit
+</code></pre></div>
+<ol>
+<li><code>AR1</code>网络配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/0]ip add 11.1.1.2 30
+[AR1-GigabitEthernet0/0/0]quit
+[AR1]ip route-sta 0.0.0.0 0 11.1.1.1
+[AR1]int loo0
+[AR1-LoopBack0]ip add 100.100.100.100 32
+[AR1-LoopBack0]quit
+</code></pre></div>
+<ol>
+<li>两台<code>AC</code>的网络配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC1]vlan 100
+[AC1-vlan100]quit
+[AC1]int vlan 100
+[AC1-Vlanif100]ip add 172.16.100.2 24
+[AC1-Vlanif100]quit
+[AC1]int g0/0/1
+[AC1-GigabitEthernet0/0/1]port link trunk
+[AC1-GigabitEthernet0/0/1]port trunk all vlan 100
+[AC1-GigabitEthernet0/0/1]quit
+[AC1]ip route-static 0.0.0.0 0 172.16.100.100
+
+[AC2]vlan 100
+[AC2-vlan100]quit
+[AC2]int vlan 100
+[AC2-Vlanif100]ip add 172.16.100.3 24
+[AC2-Vlanif100]quit
+[AC2]int g0/0/1
+[AC2-GigabitEthernet0/0/1]port link trunk
+[AC2-GigabitEthernet0/0/1]port trunk all vlan 100
+[AC2-GigabitEthernet0/0/1]quit
+[AC2]ip route-stat 0.0.0.0 0 172.16.100.100
+</code></pre></div>
+<ol>
+<li><code>VRRP</code>配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC1]interface vlan 100 
+[AC1-Vlanif100]vrrp vrid 100 virtual-ip 172.16.100.1    
+[AC1-Vlanif100]vrrp vrid 100 priority 150
+[AC1-Vlanif100]quit
+
+[AC2]int vlan 100   
+[AC2-Vlanif100]vrrp vrid 100 virtual-ip 172.16.100.1
+[AC2-Vlanif100]quit
+</code></pre></div>
+<ol>
+<li><code>HSB</code>配置</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC1]hsb-service 0
+[AC1-hsb-service-0]service-ip-port local-ip 172.16.100.2 peer-ip 172.16.100.3 lo
+cal-data-port 10241 peer-data-port 10241
+[AC1-hsb-service-0]quit
+
+[AC1]hsb-group 0
+[AC1-hsb-group-0]bind-service 0
+[AC1-hsb-group-0]track vrrp vrid 100 interface Vlanif 100
+[AC1-hsb-group-0]quit
+
+[AC1]hsb-service-type access-user hsb-group 0
+[AC1]hsb-service-type dhcp hsb-group 0
+[AC1]hsb-service-type ap hsb-group 0
+
+[AC1]hsb-group 0
+[AC1-hsb-group-0]hsb enable 
+[AC1-hsb-group-0]quit
+
+[AC2]hsb-service 0
+[AC2-hsb-service-0]service-ip-port local-ip 172.16.100.3 peer-ip 172.16.100.2 lo
+cal-data-port 10241 peer-data-port 10241
+[AC2-hsb-service-0]quit
+[AC2]hsb-group 0
+[AC2-hsb-group-0]bind-service 0
+[AC2-hsb-group-0]track vrrp vrid 100 interface Vlanif 100
+[AC2-hsb-group-0]quit
+[AC2]hsb-service-type access-user hsb-group 0
+[AC2]hsb-service-type dhcp hsb-group 0
+[AC2]hsb-service-type ap hsb-group 0
+[AC2]hsb-group 0
+[AC2-hsb-group-0]hsb enable 
+[AC2-hsb-group-0]quit
+</code></pre></div>
+<ol>
+<li>验证<code>HSB</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC1]display  hsb-service 0
+Hot Standby Service Information:
+----------------------------------------------------------
+  Local IP Address       : 172.16.100.2
+  Peer IP Address        : 172.16.100.3
+  Source Port            : 10241
+  Destination Port       : 10241
+  Keep Alive Times       : 5
+  Keep Alive Interval    : 3
+  Service State          : Connected
+  Service Batch Modules  :
+----------------------------------------------------------
+
+[AC1]display  hsb-group  0
+Hot Standby Group Information:
+----------------------------------------------------------
+  HSB-group ID                : 0
+  Vrrp Group ID               : 100
+  Vrrp Interface              : Vlanif100
+  Service Index               : 0
+  Group Vrrp Status           : Master
+  Group Status                : Active
+  Group Backup Process        : Realtime
+  Peer Group Device Name      : AC6605
+  Peer Group Software Version : V200R007C10SPC300B220
+  Group Backup Modules        : Access-user
+                                DHCP
+                                AP
+----------------------------------------------------------
+
+[AC2]display  hsb-group  0
+Hot Standby Group Information:
+----------------------------------------------------------
+  HSB-group ID                : 0
+  Vrrp Group ID               : 100
+  Vrrp Interface              : Vlanif100
+  Service Index               : 0
+  Group Vrrp Status           : Backup
+  Group Status                : Inactive
+  Group Backup Process        : Realtime
+  Peer Group Device Name      : AC6605
+  Peer Group Software Version : V200R007C10SPC300B220
+  Group Backup Modules        : Access-user
+                                DHCP
+                                AP
+----------------------------------------------------------
+</code></pre></div>
+<ol>
+<li>无线配置（两边一样）</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC1]capwap source ip-address 172.16.100.1 #### 重要！！！！！！！！！！！！
+[AC1]wlan
+[AC1-wlan-view]regulatory-domain-profile name group1    
+[AC1-wlan-regulate-domain-group1]country-code cn
+[AC1-wlan-regulate-domain-group1]quit
+[AC1-wlan-view]ap-group name group1 
+[AC1-wlan-ap-group-group1]regulatory-domain-profile group1
+[AC1-wlan-ap-group-group1]quit  
+[AC1-wlan-view]ap-id 0 ap-mac 00e0-fc90-2700
+[AC1-wlan-ap-0]ap-name AP1
+[AC1-wlan-ap-0]ap-group group1
+[AC1-wlan-ap-0]quit
+
+[AC1-wlan-view]ssid-profile name group1
+[AC1-wlan-ssid-prof-group1]ssid huawei
+[AC1-wlan-ssid-prof-group1]quit 
+[AC1-wlan-view]security-profile name group1
+[AC1-wlan-sec-prof-group1]security wpa-wpa2 psk pass-phrase Huawei@123 aes
+[AC1-wlan-sec-prof-group1]quit
+[AC1-wlan-view]vap-pro  
+[AC1-wlan-view]vap-profile name group1
+[AC1-wlan-vap-prof-group1]forward-mode direct-forward 
+[AC1-wlan-vap-prof-group1]service-vlan vlan-id 102  
+[AC1-wlan-vap-prof-group1]ssid-profile group1   
+[AC1-wlan-vap-prof-group1]security-profile group1
+[AC1-wlan-vap-prof-group1]quit
+[AC1-wlan-view]ap-group name group1
+[AC1-wlan-ap-group-group1]vap-profile group1 wlan 1 radio 0
+[AC1-wlan-ap-group-group1]vap-profile group1 wlan 1 radio 1
+[AC1-wlan-ap-group-group1]quit
+</code></pre></div>
+<ol>
+<li>正常情况下验证：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>&lt;AC1&gt;display  ap all 
+Info: This operation may take a few seconds. Please wait for a moment.done.
+Total AP information:
+nor  : normal          [1]
+--------------------------------------------------------------------------------
+----------
+ID   MAC            Name Group  IP             Type            State STA Uptime
+--------------------------------------------------------------------------------
+----------
+0    00e0-fc90-2700 AP1  group1 172.16.101.254 AP2050DN        nor   0   5M:43S
+--------------------------------------------------------------------------------
+----------
+Total: 1
+
+STA&gt;ping 100.100.100.100
+
+Ping 100.100.100.100: 32 data bytes, Press Ctrl_C to break
+From 100.100.100.100: bytes=32 seq=1 ttl=254 time=125 ms
+From 100.100.100.100: bytes=32 seq=2 ttl=254 time=141 ms
+From 100.100.100.100: bytes=32 seq=3 ttl=254 time=140 ms
+From 100.100.100.100: bytes=32 seq=4 ttl=254 time=125 ms
+From 100.100.100.100: bytes=32 seq=5 ttl=254 time=141 ms
+
+--- 100.100.100.100 ping statistics ---
+  5 packet(s) transmitted
+  5 packet(s) received
+  0.00% packet loss
+  round-trip min/avg/max = 125/134/141 ms
+</code></pre></div>
+<ol>
+<li>测试回切(需要等待大概五分钟)</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AC1]interface vlan 100
+[AC1-Vlanif100]shutdown 
+[AC1-Vlanif100]quit
+
+[AC2]dis vrrp brief 
+Total:1     Master:1     Backup:0     Non-active:0      
+VRID  State        Interface                Type     Virtual IP     
+----------------------------------------------------------------
+100   Master       Vlanif100                Normal   172.16.100.1 
+
+[AC2]dis ap all
+Info: This operation may take a few seconds. Please wait for a moment.done.
+Total AP information:
+nor  : normal          [1]
+--------------------------------------------------------------------------------
+----------
+ID   MAC            Name Group  IP             Type            State STA Uptime
+--------------------------------------------------------------------------------
+----------
+0    00e0-fc90-2700 AP1  group1 172.16.101.254 AP2050DN        nor   1   5S
+--------------------------------------------------------------------------------
+----------
+Total: 1
+
+STA&gt;ping 100.100.100.100
+
+Ping 100.100.100.100: 32 data bytes, Press Ctrl_C to break
+From 100.100.100.100: bytes=32 seq=1 ttl=254 time=140 ms
+From 100.100.100.100: bytes=32 seq=2 ttl=254 time=141 ms
+From 100.100.100.100: bytes=32 seq=3 ttl=254 time=140 ms
+From 100.100.100.100: bytes=32 seq=4 ttl=254 time=141 ms
+From 100.100.100.100: bytes=32 seq=5 ttl=254 time=156 ms
+
+--- 100.100.100.100 ping statistics ---
+  5 packet(s) transmitted
+  5 packet(s) received
+  0.00% packet loss
+  round-trip min/avg/max = 140/143/156 ms
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

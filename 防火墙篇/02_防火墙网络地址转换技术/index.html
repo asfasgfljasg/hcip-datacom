@@ -1,0 +1,3394 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
+      
+      
+        <link rel="next" href="../03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>防火墙NAT技术 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#02_" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              防火墙NAT技术
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.NAT的分类
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.源NAT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.源NAT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.技术背景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.源NAT原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.源NAT原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.什么是源nat？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.源NAT的类型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.源NAT的类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131no-pat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.No-PAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132napt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.NAPT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133easy-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.Easy IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.三元组NAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2natnat-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.目的NAT与NAT Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.目的NAT与NAT Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.目的NAT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.目的NAT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22nat-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.NAT Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.NAT Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.与目的NAT的区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.一对一地址映射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.一对多端口映射与端口重定向
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.4.一对多端口映射与端口重定向">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        客户端访问Server1：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        客户端访问Server2：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3nat-alg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.NAT ALG
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.NAT ALG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.工作模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32nat-algftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.NAT ALG支持FTP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.NAT ALG支持FTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321nat-alg-ftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1.NAT ALG FTP主动模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.路由黑洞
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#0nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        0.NAT的分类
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.源NAT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.源NAT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.技术背景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.源NAT原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.源NAT原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.什么是源nat？
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.源NAT的类型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.源NAT的类型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131no-pat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.No-PAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132napt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.NAPT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133easy-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.Easy IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.三元组NAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2natnat-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.目的NAT与NAT Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.目的NAT与NAT Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.目的NAT
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.目的NAT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.实验
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22nat-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.NAT Server
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.NAT Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221nat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.与目的NAT的区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.详解
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.一对一地址映射
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.一对多端口映射与端口重定向
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.4.一对多端口映射与端口重定向">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        客户端访问Server1：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        客户端访问Server2：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3nat-alg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.NAT ALG
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.NAT ALG">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.工作模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32nat-algftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.NAT ALG支持FTP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.NAT ALG支持FTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321nat-alg-ftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1.NAT ALG FTP主动模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.路由黑洞
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="02_">02_防火墙网络地址转换技术</h1>
+<h3 id="0nat">0.NAT的分类</h3>
+<p>根据应用场景的不同，<code>NAT</code>可以分为以下三类：</p>
+<ul>
+<li><strong>源NAT(Source NAT)：</strong>适用于用户通过私网地址访问<code>Internet</code>的场景。</li>
+<li><strong>目的NAT(Destination Nat)</strong>：适用于用户通过公网地址访问私网服务器的场景。</li>
+<li><strong>双向NAT(Bidirectional NAT)：</strong>适用于通信双方访问对方的时候目的地址都不是真实的地址，而是NAT转换后的地址的场景。</li>
+</ul>
+<p><strong>NAT的优点：</strong></p>
+<ul>
+<li>实现<code>IP</code>地址复用，节约宝贵的地址资源；</li>
+<li>有效避免来自外网的攻击，对内网用户提供隐私保护，可以很大程度上提高网络安全性。</li>
+</ul>
+<p><strong>NAT的缺点：</strong></p>
+<ul>
+<li>网络监控难度加大；</li>
+<li>限制某些具体应用。</li>
+</ul>
+<hr />
+<h3 id="1nat">1.源NAT</h3>
+<h4 id="11">1.1.技术背景</h4>
+<p>随着网络设备的数量不断增长，对<code>IPv4</code>地址的需求也不断增加，导致可用的公网<code>IPv4</code>地址空间已经耗尽。解决这个问题的方式是<strong>分配可重复使用的私网地址给企业内部或家庭使用</strong>。</p>
+<p>但是<strong>私网地址</strong>是无法直接与公网进行通信的，也就是说当设备需要访问外部网络（微博、百度、抖音）时，发出的数据包在<strong>公网上</strong>必须拥有一个<strong>公网地址</strong>。</p>
+<ul>
+<li><strong>公网地址：</strong>由专门的机构管理、分配，可以在<code>Internet</code>上直接通信的地址。</li>
+<li><strong>私有地址：</strong>组织和个人可以任意使用，无法在<code>Internet</code>上直接通信，只能在内网使用的<code>IP</code>地址。</li>
+<li><strong>A类：</strong><code>10.0.0.0 ~ 10.255.255.255</code></li>
+<li><strong>B类：</strong><code>172.16.0.0 ~ 172.31.255.255</code></li>
+<li><strong>C类：</strong><code>192.168.0.0 ~ 192.168.255.255</code></li>
+</ul>
+<p><strong>网络地址转换</strong>就是一种当前流行的解决方法。</p>
+<hr />
+<h4 id="12nat">1.2.源NAT原理</h4>
+<h5 id="121nat">1.2.1.什么是源nat？</h5>
+<p>当私网用户访问公网的报文到达网关设备后，如果网关设备上部署了<code>NAT</code>功能，设备将收到的报文的源<code>IP</code>地址转换为<strong>公网地址</strong>，端口号也转换为一个随机高端口，然后转发给公网设备。</p>
+<p>在这个过程中，<code>NAT</code>设备可以用同一个公网地址来转换多个私网用户发过来的报文，通过端口号来区分不同的私网用户，从而达到<strong>地址复用</strong>的目的。<code>NAT</code>设备会使用<code>NAT</code>转换表来记录这个过程。</p>
+<p>当公网回包到达<code>NAT</code>设备后，设备查找<code>NAT</code>转换表，将该数据包的<strong>目的地址</strong>转换为对应的私网地址和端口，然后转发给正确的私网设备。</p>
+<p><img alt="image-20250905210640916" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905211351012.png" /></p>
+<p>早期的<code>NAT</code>是指<code>Basic NAT</code>，<code>Basic Nat</code>在技术上实现比较简单，只支持地址转换，不支持端口转换。那么就代表<code>Basic Nat</code>只能实现私网地址和公网地址一对一转换，无法做到<strong>公网地址复用</strong>。所以，<code>Basic Nat</code>其实并没有解决<code>IPv4</code>短缺的问题。</p>
+<p>现在我们真正在使用的源<code>NAT</code>技术实际上指的是<code>NAPT</code>，<code>NAPT</code>既支持地址转换也支持端口转换，允许多台私网主机共享一个公网<code>IP</code>地址访问公网，因此<code>NAPT</code>才是真正改善了<code>IPv4</code>地址短缺的技术。</p>
+<hr />
+<h4 id="13nat">1.3.源NAT的类型</h4>
+<p><img alt="源NAT分类" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905213430301.png" /></p>
+<p><strong>ICMP</strong>协议是没有端口号的，所以在经过防火墙<code>NAT</code>后，会将<code>ICMP</code>报文中的<code>Identifier(BE)</code>字段记录下来，充当源端口，目的端口固定为<code>2048</code>。</p>
+<p><img alt="image-20250906204915459" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906204915512.png" /></p>
+<hr />
+<h5 id="131no-pat">1.3.1.No-PAT</h5>
+<p><code>NAT No-PAT(No-Port Address Translation)</code>非端口地址转换，它是一种只转换地址，不转换端口，实现私网地址与公网地址一对一的地址转换方式。</p>
+<p>它只适用于上网用户较少且公网地址与同是上网的用户数量相同的场景。</p>
+<p>这种方式与<code>Basic</code>唯一不同的点在于，<code>Basic Nat</code>提前在<code>NAT</code>设备上将私网地址与公网地址做了绑定，只有绑定好的私网地址才能上网。</p>
+<p>而<code>No-PAT</code>这种方式是，在<code>NAT</code>设备上提前规划了一个<strong>公网地址池</strong>，先到先得用完为止。</p>
+<p><img alt="image-20250905213809154" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905213809175.png" /></p>
+<hr />
+<p><strong>实验：</strong></p>
+<p>在防火墙上配置<code>no-pat</code>实现网络地址转换：</p>
+<p><img alt="image-20250906202814184" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906202814220.png" /></p>
+<ol>
+<li>
+<p>防火墙配置：</p>
+</li>
+<li>
+<p>配置接口地址：</p>
+<div class="highlight"><pre><span></span><code>[FW1]int g1/0/0
+[FW1-GigabitEthernet1/0/0]ip add 192.168.10.254 24
+[FW1-GigabitEthernet1/0/0]quit
+
+[FW1]int g1/0/1
+[FW1-GigabitEthernet1/0/1]ip add 192.168.20.254 24
+[FW1-GigabitEthernet1/0/1]quit
+</code></pre></div>
+</li>
+<li>
+<p>配置接口区域：</p>
+<div class="highlight"><pre><span></span><code>[FW1]firewall zone trust
+[FW1-zone-trust]add interface g1/0/0
+[FW1-zone-trust]quit
+
+[FW1]firewall zone untrust
+[FW1-zone-untrust]add interface g1/0/1
+[FW1-zone-untrust]quit
+</code></pre></div>
+</li>
+<li>
+<p>配置安全策略：</p>
+<div class="highlight"><pre><span></span><code>[FW1]security-policy 
+[FW1-policy-security]rule name in_to_out
+[FW1-policy-security-rule-in_to_out]source-zone trust 
+[FW1-policy-security-rule-in_to_out]destination-zone untrust 
+[FW1-policy-security-rule-in_to_out]action permit
+[FW1-policy-security-rule-in_to_out]quit
+[FW1-policy-security]quit
+</code></pre></div>
+</li>
+<li>
+<p>配置<code>nat-pool</code>：</p>
+<ul>
+<li><strong>local</strong>：代表生成的<code>Server-map</code>表中包含<strong>安全区域</strong>参数，严格匹配收到回包的接口安全区域，如果不一致则拒绝。</li>
+<li><strong>Global</strong>：代表生成的<code>Server-map</code>表中不包含<strong>安全区域</strong>参数，不对回包的安全区域进行检查。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[FW1]nat address-group group1
+[FW1-address-group-group1]mode no-pat local
+[FW1-address-group-group1]section 192.168.20.10 192.168.20.20
+[FW1-address-group-group1]quit
+</code></pre></div>
+</li>
+<li>
+<p>配置<code>nat-policy</code>：</p>
+<div class="highlight"><pre><span></span><code>[FW1]nat-policy 
+[FW1-policy-nat]rule name internet    
+[FW1-policy-nat-rule-internet]source-zone trust   
+[FW1-policy-nat-rule-internet]destination-zone untrust
+[FW1-policy-nat-rule-internet]source-address 192.168.10.0 24
+[FW1-policy-nat-rule-internet]action source-nat address-group group1
+[FW1-policy-nat-rule-internet]quit
+[FW1-policy-nat]quit
+</code></pre></div>
+</li>
+<li>
+<p>配置两台<code>PC</code>的地址与网关</p>
+</li>
+<li>
+<p><code>PC1</code></p>
+<p><img alt="image-20250906203758016" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906203758063.png" /></p>
+</li>
+<li>
+<p><code>PC2</code></p>
+<p><img alt="image-20250906203811544" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906203811591.png" /></p>
+</li>
+<li>
+<p>测试！</p>
+</li>
+<li>
+<p><code>PC1</code> ping <code>PC2</code>：</p>
+<p><img alt="image-20250906203921346" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906203921386.png" /></p>
+</li>
+<li>
+<p>抓包查看</p>
+<p><img alt="image-20250906203956081" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906203956131.png" /></p>
+</li>
+<li>
+<p>查看<code>server-map</code></p>
+<p><img alt="image-20250906204020668" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906204020716.png" /></p>
+</li>
+<li>
+<p>查看会话表</p>
+<p><img alt="image-20250906204036059" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906204036112.png" /></p>
+</li>
+</ol>
+<hr />
+<h5 id="132napt">1.3.2.NAPT</h5>
+<p><code>NAPT(Network Address and Port Translation)</code>网络地址端口转换，是一种同时转换地址和端口，实现多个私网地址共用一个或多个公网地址的地址转换方式。适用于公网地址数量少，需要上网的私网用户数量大的场景。</p>
+<p><img alt="image-20250905214634924" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905214634953.png" /></p>
+<p><code>NAPT</code>和<code>No-PAT</code>有一个相似点，它们都需要提前在<code>NAT</code>设备上配置<strong>公网地址池</strong>，将其分配给私有用户。不同点是<code>NAPT</code>公网地址池中的地址可以<strong>复用</strong>。</p>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905214822528.png" /></p>
+<p><strong>实验：</strong></p>
+<p><img alt="image-20250906202814184" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906205256969.png" /></p>
+<p>与<code>No-PAT</code>实验中只有一个地方不一致，<code>nat group</code>的模式：</p>
+<div class="highlight"><pre><span></span><code>[FW1]nat-policy 
+[FW1-policy-nat]rule name internet
+[FW1-policy-nat-rule-internet]undo action source-nat 
+[FW1-policy-nat-rule-internet]quit
+[FW1-policy-nat]quit
+
+[FW1]nat address-group group1
+[FW1-address-group-group1]mode pat
+[FW1-address-group-group1]quit
+
+[FW1]nat-policy 
+[FW1-policy-nat]rule name internet
+[FW1-policy-nat-rule-internet]action source-nat address-group group1
+[FW1-policy-nat-rule-internet]quit
+[FW1-policy-nat]quit
+</code></pre></div>
+<p><img alt="image-20250906205608309" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906205608366.png" /></p>
+<p>从上图可看出，<code>NAPT</code>是不会生成<code>Server-map</code>的，只会有会话表。</p>
+<ul>
+<li><code>No-PAT</code>有<code>Server-map</code>：因为它创建了一个稳定、可预测的端口映射，防火墙可以基于此生成一条固定的、允许反向访问的策略。</li>
+<li><code>NAPT</code>没有<code>Server-map</code>：因为它创建的是动态、随机、与会话绑定的临时映射，默认拒绝所有未被请求的入站连接，因此不需要也无法生成固定的反向访问策略。</li>
+</ul>
+<hr />
+<h5 id="133easy-ip">1.3.3.Easy IP</h5>
+<p><code>Easy IP</code>的实现原理和<code>NAPT</code>相同，同时转换<code>IP</code>地址和端口，区别在于<code>Easy IP</code>没有地址池的概念，使用设备出接口的公网地址作为<code>NAT</code>转换后的地址。适用于不具备固定公网<code>IP</code>地址的场景。例如：拨号上网（<code>PPPoE</code>）。</p>
+<p><img alt="image-20250905215006643" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250905215006669.png" /></p>
+<p><strong>实验：</strong></p>
+<p><img alt="image-20250906202814184" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906211652638.png" /></p>
+<p>与之前两个实验不同，<code>Easy IP</code>方式更为简单，不需要配置<code>NAT GROUP</code>：</p>
+<div class="highlight"><pre><span></span><code>[FW1]nat-policy
+[FW1-policy-nat]undo rule name internet
+[FW1-policy-nat]rule name easy_ip
+[FW1-policy-nat-rule-easy_ip]action source-nat easy-ip
+[FW1-policy-nat-rule-easy_ip]quit
+[FW1-policy-nat]quit
+</code></pre></div>
+<p><img alt="image-20250906211900785" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906211900843.png" /></p>
+<p><img alt="image-20250906211929944" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906211930000.png" /></p>
+<p><code>Easy-IP</code>方式也不会生成<code>server-map</code>。</p>
+<hr />
+<h5 id="134nat">1.3.4.三元组NAT</h5>
+<p><strong>前言：</strong></p>
+<p>之前提到的如<code>NAPT</code>属于<strong>五元组</strong><code>NAT</code>，在这种方式下<strong>外部设备</strong>无法通过访问<strong>经过NAT转换后的源地址和源端口</strong>与<strong>内部设备</strong>通信。</p>
+<p>因为<code>NAT</code>设备上的<code>NAT</code>转换表明确记录了源地址、目的地址、源端口、目的端口与协议。所以，这种情况下你想要实现上述情况除非外部设备发出的报文的<strong>源地址和端口</strong>与<code>NAT</code>转换表上一致。</p>
+<p>说的再简单一些，因为<strong>五元组</strong><code>NAT</code>需要严格匹配的内容中包含了<strong>外部主机的地址和端口</strong>。</p>
+<p>此时，我们就可以使用<strong>三元组</strong><code>NAT</code>来实现我们的目的。</p>
+<p><strong>三元组：</strong></p>
+<ol>
+<li>内网源<code>IP</code>地址</li>
+<li>内网源端口号</li>
+<li>传输层协议</li>
+</ol>
+<hr />
+<p><strong>案例分析：</strong></p>
+<p>当我们需要使用到<code>P2P</code>软件时，传统的五元组<code>NAT</code>无法满足我们的需求。</p>
+<p><img alt="image-20250906200938314" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906200938352.png" /></p>
+<p><code>PC1</code>运行了<code>P2P</code>应用，它首先会和<code>P2P</code>服务器进行交互（登录、认证等操作），服务器会记录客户端的地址和端口。当<code>PC2</code>需要和<code>PC1</code>通信（下载文件等），服务器会将<code>PC1</code>的地址和端口发送给<code>PC2</code>，然后<code>PC2</code>就会向<code>PC1</code>发送请求，并从<code>PC1</code>上下载文件。</p>
+<p>这个过程中，防火墙会将<code>PC1</code>发给服务器的数据包进行<code>NAT</code>转换，此时<code>P2P</code>服务器记录的是转换后的地址和端口号。此时，因为<code>PC1</code>从来没有主动访问过<code>PC2</code>，所以在防火墙上没有任何记录（<code>NAT</code>、<code>Server-map</code>、会话表），所以防火墙不会允许<code>PC2</code>访问<code>PC1</code>的。</p>
+<p><strong>三元组的解决方法：</strong></p>
+<ol>
+<li>支持外网主动访问：</li>
+<li>无论内网主机是否主动访问过某个外网主机，只要外网主机知道内网主机<code>NAT</code>转换后的地址和端口，就可以主动向该内网主机发起访问。因为三元组和五元组的区别。</li>
+<li>动态对外端口一致性：</li>
+<li>内网主机做<code>NAT</code>转换后的地址和端口将在一段时间内保持不变，在此时间段内，内网主机固定使用此<code>NAT</code>后地址和端口访问任意外网主机，任意外网主机也可以通过此<code>NAT</code>后地址和端口访问内网主机。</li>
+</ol>
+<p><strong>实现原理：</strong></p>
+<p>从实现角度上看，三元组<code>NAT</code>是通过<code>Serve-map</code>使外网主机可以主动访问内网主机，并保证<code>NAT</code>转换关系在一段时间内保持不变。</p>
+<hr />
+<p><strong>实验：</strong></p>
+<p>三台<code>PC</code>均为<code>openEuler</code>服务器，通过<code>ensp</code>桥接实现连接到防火墙的两个接口。通过在防火墙上部署三元组<code>NAT</code>，实现<code>PC1</code>访问<code>PC2</code>指定端口后，<code>PC3</code>主动访问<code>PC1</code>转换后的地址与端口，通过抓包查看是否有数据包被防火墙放行。</p>
+<p><img alt="image-20250906194757199" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906194757234.png" /></p>
+<ol>
+<li>
+<p>拓扑图配置如下：</p>
+</li>
+<li>
+<p><code>ENSP</code>拓扑图如下：</p>
+</li>
+</ol>
+<p><img alt="image-20250906194038509" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906194038533.png" /></p>
+<ul>
+<li><code>Cloud1</code>配置：</li>
+</ul>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906194023753.png" /></p>
+<ul>
+<li><code>Cloud2</code>配置：</li>
+</ul>
+<p><img alt="image-20250906194031228" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906194031266.png" /></p>
+<ol>
+<li>
+<p>防火墙配置如下：</p>
+</li>
+<li>
+<p>配置接口地址：</p>
+<div class="highlight"><pre><span></span><code>[FW1]int g1/0/0
+[FW1-GigabitEthernet1/0/0]ip add 192.168.10.254 24
+[FW1-GigabitEthernet1/0/0]quit
+
+[FW1]int g1/0/1
+[FW1-GigabitEthernet1/0/1]ip add 192.168.20.254 24
+[FW1-GigabitEthernet1/0/1]quit
+</code></pre></div>
+</li>
+<li>
+<p>配置接口区域：</p>
+<div class="highlight"><pre><span></span><code>[FW1]firewall zone trust
+[FW1-zone-trust]add int g1/0/0
+[FW1-zone-trust]quit
+
+[FW1]firewall zone untrust 
+[FW1-zone-untrust]add int g1/0/1
+[FW1-zone-untrust]quit
+</code></pre></div>
+</li>
+<li>
+<p>配置安全策略：</p>
+<div class="highlight"><pre><span></span><code>[FW1]security-policy 
+[FW1-policy-security]rule name in_to_out
+[FW1-policy-security-rule-in_to_out]source-zone trust 
+[FW1-policy-security-rule-in_to_out]destination-zone untrust  
+[FW1-policy-security-rule-in_to_out]action permit
+[FW1-policy-security-rule-in_to_out]quit
+[FW1-policy-security]quit
+</code></pre></div>
+</li>
+<li>
+<p>配置三元组<code>NAT</code>：</p>
+<div class="highlight"><pre><span></span><code>[FW1]nat address-group group1
+[FW1-address-group-group1]mode full-cone global 
+[FW1-address-group-group1]section 192.168.20.50
+[FW1-address-group-group1]quit
+
+[FW1]nat-policy 
+[FW1-policy-nat]rule name internet
+[FW1-policy-nat-rule-internet]action source-nat address-group group1
+[FW1-policy-nat-rule-internet]quit
+[FW1-policy-nat]quit
+</code></pre></div>
+</li>
+<li>
+<p>配置内网服务器与两台外网服务器，安装<code>socat</code>。</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@PC1 ~]# yum install socat -y
+[root@PC2 ~]# yum install socat -y
+[root@PC3 ~]# yum install socat -y
+</code></pre></div>
+<ol>
+<li>
+<p>提前抓包，开始测试：</p>
+</li>
+<li>
+<p><code>PC2</code>使用<code>socat</code>命令监听端口<code>UDP100</code>：</p>
+<div class="highlight"><pre><span></span><code>[root@PC2 ~]# socat -v UDP4-RECVFROM:100,fork -
+</code></pre></div>
+</li>
+<li>
+<p><code>PC1</code>使用<code>socat</code>命令与<code>PC2</code>的<code>UDP100</code>通信：</p>
+<div class="highlight"><pre><span></span><code>[root@PC1 ~]# echo &quot;Hello&quot; | socat - UDP4:192.168.20.100:100  
+</code></pre></div>
+</li>
+<li>
+<p>在外网卡抓包查看</p>
+<p><img alt="image-20250906200302388" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906200302431.png" /></p>
+</li>
+<li>
+<p>在防火墙上查看<code>server-map</code></p>
+<p><img alt="image-20250906200334577" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906200334639.png" /></p>
+</li>
+<li>
+<p><code>PC3</code>使用<code>socat</code>命令与<code>NAT</code>后的端口通信：</p>
+<div class="highlight"><pre><span></span><code>[root@PC3 ~]# echo &quot;Hello&quot; | socat - UDP4:192.168.20.50:10240  
+</code></pre></div>
+</li>
+<li>
+<p>查看内网接口抓包</p>
+<p><img alt="image-20250906200434863" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906200434903.png" /></p>
+</li>
+<li>
+<p>查看防火墙上的<code>session table</code>：</p>
+<p><img alt="image-20250906200617617" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906200617654.png" /></p>
+</li>
+</ol>
+<hr />
+<h3 id="2natnat-server">2.目的NAT与NAT Server</h3>
+<h4 id="21nat">2.1.目的NAT</h4>
+<p>当公司内网部署了多台服务器，需要使公网用户可以顺利访问到这些私网服务器时，就可以使用<strong>目的NAT</strong>。</p>
+<p>目的<code>NAT</code>是指当防火墙接收到访问其指定<strong>公网地址和端口的报文时</strong>，对报文中的目的地址和端口进行转换。通过目的<code>NAT</code>技术将公网<code>IP</code>地址转换成私网<code>IP</code>地址，使公网用户可以利用公网地址访问内部<code>Server</code>。</p>
+<p>当外网用户访问内部<code>Server</code>时，防火墙的处理过程如下：</p>
+<ul>
+<li>当外网用户访问内网<code>Server</code>的报文到达防火墙时，防火墙将报文的目的<code>IP</code>地址由公网转换为私网地址。</li>
+<li>当回程报文返回至防火墙时，防火墙再将报文的源地址由私网地址转换为公网地址。</li>
+</ul>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250906215634634.png" /></p>
+<p>实际上目的<code>NAT</code>的工作方式类似于代理，防火墙上先映射出一个虚拟<code>IP</code>地址供外网访问，并在防火墙上使用地址池的方式定义内网主机。当防火墙接收到访问<strong>虚拟地址</strong>的数据包后，将该数据包的目的地址修改为地址池中的地址。</p>
+<p><strong>功能：</strong></p>
+<ol>
+<li>一对一静态映射。</li>
+<li>一对多动态映射。</li>
+<li>端口重定向。</li>
+</ol>
+<p>根据转换后的目的地址是否固定，目的<code>NAT</code>分为静态和动态。</p>
+<hr />
+<h5 id="211">2.1.1.实验</h5>
+<p><img alt="image-20250907160153253" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907160153301.png" /></p>
+<ol>
+<li>防火墙接口配置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]int g1/0/0
+[FW1-GigabitEthernet1/0/0]ip add 192.168.1.254 24
+[FW1-GigabitEthernet1/0/0]quit
+
+[FW1]int g1/0/1
+[FW1-GigabitEthernet1/0/1]ip add 203.0.113.254 24
+[FW1-GigabitEthernet1/0/1]quit
+</code></pre></div>
+<ol>
+<li>防火墙接口区域配置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]firewall zone dmz
+[FW1-zone-dmz]add int g1/0/0
+[FW1-zone-dmz]quit
+
+[FW1]fire zone untrust
+[FW1-zone-untrust]add int g1/0/1
+[FW1-zone-untrust]quit
+</code></pre></div>
+<ol>
+<li>防火墙安全策略配置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>security-policy
+ rule name policy1
+  source-zone untrust
+  destination-zone dmz
+  action permit
+</code></pre></div>
+<ol>
+<li>防火墙目的地址池配置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>destination-nat address-group group1 0
+ section 192.168.1.2 192.168.1.2
+</code></pre></div>
+<ol>
+<li>防火墙<code>NAT</code>策略配置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>nat-policy
+ rule name policy_nat1
+  source-zone untrust
+  destination-address 192.51.100.2 mask 255.255.255.255
+  service http
+  service icmp
+  action destination-nat static address-to-address address-group group1
+</code></pre></div>
+<ol>
+<li>服务器配置：</li>
+</ol>
+<p><img alt="image-20250907155544858" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907155545630.png" /></p>
+<ol>
+<li>客户端配置：</li>
+</ol>
+<p><img alt="image-20250907155600610" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907155600668.png" /></p>
+<ol>
+<li>测试：</li>
+</ol>
+<p><img alt="image-20250907155627559" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907155627617.png" /></p>
+<ol>
+<li>会话表：</li>
+</ol>
+<p><img alt="image-20250907155700007" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907155700060.png" /></p>
+<ol>
+<li>
+<p>抓包：</p>
+<ol>
+<li>外网：</li>
+</ol>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907155755827.png" /></p>
+<ol>
+<li>内网：</li>
+</ol>
+<p><img alt="image-20250907155807791" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907155807852.png" /></p>
+</li>
+</ol>
+<hr />
+<h4 id="22nat-server">2.2.NAT Server</h4>
+<p><code>NAT Server</code>也称为<strong>静态映射</strong>，是一种转换报文目的<code>IP</code>地址的方式，它提供了公网地址和私网地址的映射关系，实现外部网络用户通过公网地址访问私网内部服务器的需求。</p>
+<h5 id="221nat">2.2.1.与目的NAT的区别</h5>
+<p>你现在肯定有一个疑问，好像<code>NAT Server</code>和目的<code>NAT</code>没有啥区别啊？</p>
+<p>首先我们要确定一点<code>NAT Server</code>严格意义上属于目的<code>NAT</code>中的一种，它们的目的都是为了让公网用户可以顺利访问到私网的服务器，但是工作原理和类型不太一样。</p>
+<ul>
+<li>
+<p><strong>实现效果：</strong></p>
+</li>
+<li>
+<p><strong>目的NAT：</strong>这种方式类似于“代理”或者“负载均衡”，当收到一个来自于外网的数据包，一旦访问的是虚拟地址，我就会将这个数据包的目的地址修改为提前定义好的<strong>范围</strong>中的地址。通过这个范围就可以实现负载均衡了，分担服务器的流量。在负载均衡的场景下是<strong>一对多的</strong>，一个公网<code>VIP</code>对多个内网服务器。</p>
+</li>
+<li>
+<p><strong>NAT Server：</strong>这种方式类似于“绑定”或者“映射”，是<strong>一对一</strong>，提前将内网中的某一个地址或者端口与防火墙的外网地址和端口进行一对一绑定。当收到一个来自于外网并且访问特定端口的数据包后，防火墙会根据<strong>映射表</strong>将该数据包的目的地址或端口修改为提前设置后的内网地址或端口，并转发。</p>
+</li>
+<li>
+<p>如果你的目的<code>NAT</code>和我上面的例子一样，只是一对一的，那实现的<strong>效果</strong>和<strong>NAT Server</strong>是一致的。</p>
+</li>
+<li>
+<p><strong>设计意图：</strong></p>
+</li>
+<li><strong>NAT Server</strong>：这个术语的设计初衷就是<strong>专门用于发布内网服务器</strong>。因此，它的配置界面和命令通常更直观，直接让你填写“内网IP”、“内网端口”、“外网IP”、“外网端口”。它隐含着“一对一静态映射”的假设。</li>
+<li><strong>目的NAT (DNAT)</strong>：这个术语更底层、更通用。它是一个<strong>广义的技术工具</strong>，你可以用这个工具实现多种功能：<ul>
+<li>功能一：<strong>一对一静态映射</strong>（此时完全等于NAT Server）。</li>
+<li>功能二：<strong>一对多动态映射</strong>（负载均衡）。</li>
+<li>功能三：<strong>灵活的端口重定向</strong>（例如，将访问公网IP <code>8080</code>端口的流量，转发到内网服务器 <code>192.168.1.100</code>的 <code>80</code>端口）。</li>
+</ul>
+</li>
+</ul>
+<p>另外，目的<code>NAT</code>使用五元组匹配，而<code>NAT Server</code>只是匹配目的<code>IP</code>和端口。</p>
+<hr />
+<h5 id="222">2.2.2.详解</h5>
+<p><code>NAT Server</code>有如下三种场景：</p>
+<ul>
+<li><strong>一对一地址映射：</strong>该场景中将私网服务器的地址与<code>NAT</code>服务器的公网地址进行绑定，当外网主机访问任何<code>NAT</code>服务器的端口时都会被修改目的<code>IP</code>并转发。</li>
+<li>
+<p><strong>一对多端口映射：</strong>该场景中将多个私网服务器的地址与端口和<code>NAT</code>服务器的不同端口进行绑定，当外网主机访问<code>NAT</code>服务器的指定端口时会被修改地址（或端口）并转发到指定服务器的端口。</p>
+</li>
+<li>
+<p><strong>端口重定向：</strong>该场景的主要目的是隐藏内网服务器的端口或实现修改端口的目的。</p>
+</li>
+</ul>
+<hr />
+<p><strong>一对一地址映射：</strong></p>
+<p><img alt="image-20250907224904897" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907224904938.png" /></p>
+<p>此时，公司只有一台服务器需要被公网访问。在防火墙上配置静态一对一地址映射，将内网服务器<code>192.168.10.1</code>与防火墙公网地址<code>223.23.1.3</code>绑定。当公网客户端向防火墙的公网地址<code>223.23.1.3</code>的任何端口发起连接，都会被防火墙将数据包的目的地址修改为<code>192.168.10.1</code>，并转发到内网服务器。</p>
+<hr />
+<p><strong>一对多端口映射：</strong></p>
+<p><img alt="image-20250907225215774" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907225215837.png" /></p>
+<p>此时，公司内部有多台服务器同时需要被公网客户端访问。防火墙根据服务器映射的端口，将<code>192.168.10.1</code>的<code>80</code>端口绑定到公网地址的<code>80</code>端口，将<code>192.168.10.2</code>的<code>53</code>端口绑定到公网地址的<code>53</code>端口。</p>
+<p>当防火墙收到公网客户端向<code>80</code>端口发起的连接，就会修改数据包的目的地址并转发到指定服务器。所以，此时防火墙可以根据不同服务器的端口进行转发，做到同时服务于多个内网服务器，通过端口进行区分。但需要注意防火墙上映射出来的端口是不能冲突的，比如这两台服务器不能同时映射在防火墙的<code>80</code>端口。</p>
+<hr />
+<p><strong>端口重定向：</strong></p>
+<p><img alt="image-20250907225546175" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907225546240.png" /></p>
+<p>出于对内网服务器的保护与防端口冲突的考虑，防火墙上映射内部服务器端口时进行修改。例如内部服务器的暴露的端口是<code>666</code>，而防火墙在进行绑定时，将自身的<code>443</code>与其映射。</p>
+<p>此时，公网主机访问防火墙的<code>443</code>端口时，就会被防火墙同时修改地址与端口并进行转发。</p>
+<p>这么做的其中一个好处是，有一些协议，例如<code>Web</code>。它们在互联网上访问时是有固定端口的，出于多种原因内部服务器在部署<code>Web</code>服务时不能用规定的<code>443</code>端口，那么就可以在防火墙上做<strong>端口重定向</strong>。</p>
+<hr />
+<h5 id="223">2.2.3.一对一地址映射</h5>
+<p><img alt="image-20250907230100382" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907230100438.png" /></p>
+<p><strong>防火墙配置：</strong></p>
+<ol>
+<li><strong>接口地址配置：</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]int g1/0/0
+[FW1-GigabitEthernet1/0/0]ip add 192.168.10.254 24
+[FW1-GigabitEthernet1/0/0]quit
+
+[FW1]int g1/0/1
+[FW1-GigabitEthernet1/0/1]ip add 202.100.100.254 24
+[FW1-GigabitEthernet1/0/1]quit
+</code></pre></div>
+<ol>
+<li><strong>接口区域配置：</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]firewall zone dmz
+[FW1-zone-dmz]add interface g1/0/0
+[FW1-zone-dmz]quit
+
+[FW1]firewall zone untrust   
+[FW1-zone-untrust]add interface g1/0/1
+[FW1-zone-untrust]quit
+</code></pre></div>
+<ol>
+<li><strong>安全策略配置：</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]security-policy 
+[FW1-policy-security]rule name out_to_in 
+[FW1-policy-security-rule-out_to_in]source-zone untrust 
+[FW1-policy-security-rule-out_to_in]destination-zone dmz 
+[FW1-policy-security-rule-out_to_in]action permit
+[FW1-policy-security-rule-out_to_in]quit
+</code></pre></div>
+<ol>
+<li><strong>NAT Server 配置：</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code>nat server global 202.100.100.254 inside 192.168.10.100
+</code></pre></div>
+<p><strong>服务器配置：</strong></p>
+<p><img alt="image-20250907230622547" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907230622621.png" /></p>
+<p><img alt="image-20250907230626491" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907230626560.png" /></p>
+<p><strong>客户端配置：</strong></p>
+<p><img alt="image-20250907230636022" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907230636087.png" /></p>
+<p><img alt="image-20250907230640766" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907230640833.png" /></p>
+<p><strong>抓包分析</strong></p>
+<ul>
+<li><strong>公网接口</strong></li>
+</ul>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907231037662.png" /></p>
+<ul>
+<li><strong>私网接口</strong></li>
+</ul>
+<p><img alt="image-20250907231051721" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907231051796.png" /></p>
+<p><strong>会话表与Server-map</strong></p>
+<p><img alt="image-20250907231200224" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907231200274.png" /></p>
+<p><strong>反向：</strong></p>
+<p>根据上述<code>Server-map</code>我们会发现，此时<code>NAT</code>允许内网主机<code>192.168.10.100</code>访问任何外网主机，一旦内网主机发起请求就会被防火墙将私网地址转换成<code>202.100.100.254</code>。</p>
+<p>但是，你需要额外为该需求做一条<strong>安全策略</strong>：</p>
+<div class="highlight"><pre><span></span><code>[FW1-policy-security]rule name in_to_out
+[FW1-policy-security-rule-in_to_out]source-zone dmz
+[FW1-policy-security-rule-in_to_out]destination-zone untrust    
+[FW1-policy-security-rule-in_to_out]action permit
+[FW1-policy-security-rule-in_to_out]quit
+</code></pre></div>
+<p>当我们在<code>Server</code>上<code>ping client</code>：</p>
+<p><img alt="image-20250907231853561" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907231853631.png" /></p>
+<p><strong>查看会话表：</strong></p>
+<p><img alt="image-20250907231732451" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907231732515.png" /></p>
+<p><strong>抓包：</strong></p>
+<p><img alt="image-20250907231809150" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907231809217.png" /></p>
+<hr />
+<h5 id="224">2.2.4.一对多端口映射与端口重定向</h5>
+<p><img alt="image-20250907232049054" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907232049122.png" /></p>
+<p>此时<code>Server1</code>和<code>Server2</code>都开放<code>80</code>端口部署<code>WEB Server</code>。在防火墙上配置<code>NAT Server</code>，将防火墙的外网地址的<code>80</code>端口与<code>Server1</code>的<code>80</code>端口进行绑定，将防火墙的外网地址的<code>8080</code>端口与<code>Server2</code>的<code>80</code>端口进行绑定。</p>
+<p><strong>其他配置不变，只需要修改防火墙的NAT Server：</strong></p>
+<div class="highlight"><pre><span></span><code>[FW1]undo nat server all
+Warning:Undo all NAT server will affect the system&#39;s normal service.
+Continue? [Y/N]:y
+
+[FW1]nat server protocol tcp global 202.100.100.254 80 inside 192.168.10.100 80 
+
+[FW1]nat server protocol tcp global 202.100.100.254 8080 inside 192.168.10.200 8
+0
+</code></pre></div>
+<p><strong>Server2的配置：</strong></p>
+<p><img alt="image-20250907232500088" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907232500166.png" /></p>
+<p><img alt="image-20250907232503643" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907232503712.png" /></p>
+<hr />
+<h6 id="server1"><strong>客户端访问Server1：</strong></h6>
+<p><img alt="image-20250907232534633" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907232534708.png" /></p>
+<p><strong>会话表与Server-map</strong></p>
+<p><img alt="image-20250907232607702" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907232607771.png" /></p>
+<p><img alt="image-20250907232654116" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907232654193.png" /></p>
+<p><strong>抓包：</strong></p>
+<ul>
+<li><strong>公网</strong></li>
+</ul>
+<p><img alt="image-20250907232819602" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907232819668.png" /></p>
+<ul>
+<li><strong>内网</strong></li>
+</ul>
+<p><img alt="image-20250907232834517" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907232834587.png" /></p>
+<p><strong>反向流量：</strong>依旧可以在不做源NAT的情况下访问公网</p>
+<p><img alt="image-20250907232919744" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907232919816.png" /></p>
+<hr />
+<h6 id="server2">客户端访问Server2：</h6>
+<p><img alt="image-20250907233459478" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907233459554.png" /></p>
+<p><strong>会话表与Server-map</strong></p>
+<p><img alt="image-20250907233544419" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907233544507.png" /></p>
+<p><strong>抓包：</strong></p>
+<ul>
+<li><strong>公网</strong></li>
+</ul>
+<p><img alt="image-20250907233616687" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907233616753.png" /></p>
+<ul>
+<li><strong>内网</strong></li>
+</ul>
+<p><img alt="image-20250907233630800" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907233630870.png" /></p>
+<p><strong>反向流量：</strong></p>
+<p><img alt="image-20250907233703843" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907233703916.png" /></p>
+<hr />
+<h3 id="3nat-alg">3.NAT ALG</h3>
+<p><code>NAT ALG</code>（<code>Application Layer Gateway</code>，NAT应用层网关）在NAT实现中为特殊的应用程序提供透明转换的功能。</p>
+<p>很多应用层协议在协议报文中包含了用户<code>IP</code>地址、端口等信息，当做<code>NAT</code>转换时，由于未对协议报文内部的<code>IP</code>地址、端口做识别和转换，可能造成协议交互失败。当使用<code>NAT ALG</code>技术时，<code>NAT</code>不仅针对<code>IP</code>地址、端口号做地址端口映射，同时还对应用层协议中包含的<code>IP</code>地址、端口号等做同步转换。</p>
+<p><img alt="image-20250907235618623" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907235618687.png" /></p>
+<p><code>NAT ALG</code>支持的应用协议有<code>ICMP</code>、基于<code>UDP</code>的<code>SIP</code>、基于<code>TCP</code>的<code>RTSP、PPTP、DNS</code>和<code>FTP</code>。</p>
+<p><strong>以FTP主动模式为例：</strong></p>
+<p>客户端会在一个应用层的命令里对服务器说：“请你接下来把数据发送到我的 <strong><code>192.168.1.100:20</code></strong> 端口吧。”</p>
+<p>但是<code>192.168.1.100</code>是客户端的<strong>内网地址</strong>，服务器在公网上根本找不到这个地址，连接自然就会失败。</p>
+<p>如果没有ALG，NAT设备只修改了IP和TCP头，但对FTP命令中的内嵌地址 <code>192.168.1.100:20</code>毫不知情，原封不动地传给了服务器。服务器试图向这个私有地址发起连接，必然失败。</p>
+<hr />
+<h4 id="31">3.1.工作模式</h4>
+<p>NAT ALG 作为一个深度包检测（DPI）模块，嵌入在NAT设备（如防火墙、路由器）中。它的工作流程如下：</p>
+<ol>
+<li><strong>识别</strong>：ALG会监听特定的知名端口（如FTP的21端口），识别出经过的设备是FTP、SIP等需要它处理的协议流量。</li>
+<li><strong>解析</strong>：它<strong>深度解析</strong>这些协议的应用层数据包，“读懂”里面的内容。</li>
+<li><strong>翻译</strong>：当发现包内嵌了IP地址或端口信息时（如FTP的PORT命令），ALG会将其中的<strong>内网IP和端口</strong>替换为NAT转换后的<strong>公网IP和端口</strong>。</li>
+<li>在上面的FTP例子中，ALG会把 <code>192.168.1.100:20</code><strong>翻译成</strong> <code>203.0.113.10:5678</code>，然后再发给FTP服务器。</li>
+<li><strong>同步</strong>：同时，ALG会动态地<strong>开放一个临时通道</strong>（在防火墙上创建一个临时的ASPF策略或server-map表项），允许FTP服务器发起的反向数据连接能够顺利进入内网。</li>
+<li><strong>反向操作</strong>：对于从公网发往内网的报文，ALG也会进行反向的翻译，将公网地址翻译回对应的私网地址。</li>
+</ol>
+<p><strong>最终结果</strong>：FTP服务器收到的是它能够访问的公网地址，连接得以成功建立。整个过程对客户端和服务器来说都是透明的，它们感知不到NAT的存在。</p>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250907235844608.png" /></p>
+<ol>
+<li>私网主机和公网FTP服务器之间通过TCP三次握手成功建立控制连接；</li>
+<li>控制连接建立后，私网主机向FTP服务器发送Port报文，报文中携带私网主机指定的数据连接的目的地址和端口，用于通知服务器使用该地址和端口和自己进行数据连接；</li>
+<li>Port报文在经过支持ALG特性的NAT设备时，报文载荷中的私网地址和端口会被转换成对应的公网地址和端口，也就是设备收到的Port报文载荷中的私网地址192.168.0.10转换成公网地址1.1.1.1，端口1024转换成5000；</li>
+<li>公网的FTP服务器收到Port报文后，解析其内容，并向私网主机发起数据连接，该数据连接的目的地址为1.1.1.1，端口为5000；</li>
+<li>由于该目的地址是一个公网地址，在经过NAT设备时可以被转换为内部主机的私有地址和端口，因此后续的数据连接就能够成功建立，从而实现私网主机对公网服务器的访问。</li>
+</ol>
+<hr />
+<h4 id="32nat-algftp">3.2.NAT ALG支持FTP</h4>
+<p>FTP协议有被动模式和主动模式两种方式，按照其特点称为PORT模式（主动）、PASV模式（被动）。FTP的NAT ALG需要按照如下两种分类对FTP协议进行处理：</p>
+<ul>
+<li>FTP服务器在外部网络、使用PORT方式访问，需要开启FTP ALG；FTP服务器在内部网络、使用PORT方式访问，不需要开启FTP ALG。</li>
+<li>FTP服务器在外部网络、使用PASV方式访问，不需要开启FTP ALG；FTP服务器在内部网络、使用PASV方式访问，需要开启FTP ALG。</li>
+</ul>
+<h5 id="321nat-alg-ftp">3.2.1.NAT ALG FTP主动模式</h5>
+<p><img alt="image-20250908002721678" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908002721753.png" /></p>
+<p>此场景为<code>FTP</code>的主动模式：</p>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908002753310.jpeg" /></p>
+<p><strong>防火墙配置：</strong></p>
+<div class="highlight"><pre><span></span><code>nat server 2 protocol tcp global 202.100.100.254 ftp inside 192.168.10.100 ftp
+</code></pre></div>
+<p><strong>Server配置：</strong></p>
+<p><img alt="image-20250908002906496" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908002906576.png" /></p>
+<p><img alt="image-20250908002912315" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908002912392.png" /></p>
+<p><strong>客户端配置：</strong></p>
+<p><img alt="image-20250908002923330" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908002923403.png" /></p>
+<p><img alt="image-20250908002928426" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908002928511.png" /></p>
+<p><strong>抓包对比FTP载荷：</strong></p>
+<ul>
+<li><strong>私网：</strong></li>
+</ul>
+<p><img alt="image-20250908003055151" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908003055249.png" /></p>
+<ul>
+<li><strong>公网：</strong></li>
+</ul>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908003028872.png" /></p>
+<p>此时，可以看出经过防火墙后<code>FTP</code>的载荷确实被防火墙修改过了。</p>
+<p><strong>抓包对比后续端口：</strong></p>
+<ul>
+<li><strong>私网：</strong></li>
+</ul>
+<p><img alt="image-20250908003222849" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908003222936.png" /></p>
+<ul>
+<li><strong>公网：</strong></li>
+</ul>
+<p><img alt="image-20250908003329057" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908003329141.png" /></p>
+<p>经过上述查看，发现后续的数据包交互，端口确实也经过防火墙的修改，且与之前的载荷一致。</p>
+<hr />
+<h3 id="4">4.路由黑洞</h3>
+<p><img alt="image-20250908145013651" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908145013702.png" /></p>
+<p><strong>以<code>NAPT</code>为例</strong></p>
+<ol>
+<li>防火墙配置接口地址：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]int g1/0/0
+[FW1-GigabitEthernet1/0/0]ip add 192.168.10.254 24
+[FW1-GigabitEthernet1/0/0]quit
+
+[FW1]int g1/0/1
+[FW1-GigabitEthernet1/0/1]ip add 202.100.100.2 30
+[FW1-GigabitEthernet1/0/1]quit
+</code></pre></div>
+<ol>
+<li>防火墙配置接口区域：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]firewall zone trust 
+[FW1-zone-trust]add int g1/0/0
+[FW1-zone-trust]quit
+
+[FW1]firewall zone untrust 
+[FW1-zone-untrust]add int g1/0/1
+[FW1-zone-untrust]quit
+</code></pre></div>
+<ol>
+<li>防火墙配置静态路由：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]ip route-static 0.0.0.0 0 202.100.100.1
+</code></pre></div>
+<ol>
+<li>防火墙配置安全策略：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]security-policy 
+[FW1-policy-security]rule name in_to_out    
+[FW1-policy-security-rule-in_to_out]source-zone trust 
+[FW1-policy-security-rule-in_to_out]destination-zone untrust 
+[FW1-policy-security-rule-in_to_out]action permit
+[FW1-policy-security-rule-in_to_out]quit
+[FW1-policy-security]quit
+
+[FW1]security-policy 
+[FW1-policy-security]rule name any  
+[FW1-policy-security-rule-any]action permit
+[FW1-policy-security-rule-any]quit
+[FW1-policy-security]quit
+</code></pre></div>
+<ol>
+<li>防火墙配置<code>nat group</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]nat address-group group1
+[FW1-address-group-group1]mode no-pat local 
+[FW1-address-group-group1]section 202.100.100.10 202.100.100.20
+[FW1-address-group-group1]quit
+</code></pre></div>
+<ol>
+<li>防火墙配置<code>nat policy</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[FW1]nat-policy 
+[FW1-policy-nat]rule name internet  
+[FW1-policy-nat-rule-internet]source-zone trust     
+[FW1-policy-nat-rule-internet]destination-zone untrust 
+[FW1-policy-nat-rule-internet]source-address 192.168.10.0 24
+[FW1-policy-nat-rule-internet]action source-nat address-group group1
+[FW1-policy-nat-rule-internet]quit
+[FW1-policy-nat]quit
+</code></pre></div>
+<ol>
+<li>路由器配置接口地址和路由：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[AR2]int g0/0/0
+[AR2-GigabitEthernet0/0/0]ip add 202.100.100.1 30
+[AR2-GigabitEthernet0/0/0]quit
+
+[AR2]int g0/0/1
+[AR2-GigabitEthernet0/0/1]ip add 192.168.20.254 24
+[AR2-GigabitEthernet0/0/1]quit
+
+[AR2]ip route-static 0.0.0.0 0 202.100.100.2
+</code></pre></div>
+<ol>
+<li>使用公网<code>PC</code>访问防火墙地址池地址：</li>
+</ol>
+<p><img alt="image-20250908145508884" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908145508964.png" /></p>
+<p>此时，使用<code>-c</code>参数指定只发送一个<code>icmp</code>报文，抓包如下：</p>
+<p><img alt="image-20250908145537682" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250908145537785.png" /></p>
+<p>此时，在防火墙和路由之间产生了环路。原因是防火墙的<code>nat</code>地址与自身不在一个网段，会根据默认路由转发数据包到<code>AR1</code>，而<code>AR1</code>也只能通过默认路由再将该数据包转发会防火墙，至此环路产生。</p>
+<p>解决这个问题的方法很简单，在防火墙上针对<code>NAT</code>地址池中的地址配置黑洞路由。</p>
+<div class="highlight"><pre><span></span><code>[FW1]ip route-static 202.100.100.12 32 null 0
+</code></pre></div>
+<p>再去<code>PC2</code>测试，发现只能抓到一个<code>ICMP</code>包被发到防火墙后，防火墙没有进行任何回应，这是因为匹配到了黑洞路由，被丢弃了。</p>
+<p>配置黑洞路由还有一个好处是，防火墙可以通过动态路由协议将黑洞路由引入进去，传递给其他路由器。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

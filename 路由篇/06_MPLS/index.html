@@ -1,0 +1,3954 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../05_BGP%E8%AF%A6%E8%A7%A3/">
+      
+      
+        <link rel="next" href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>MPLS - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#06_mpls" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MPLS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="06_mpls">06_MPLS</h1>
+<h1 id="ospf">最后的实验需要跟新以下ospf的内容</h1>
+<h3 id="1mpls">1.MPLS基础</h3>
+<h4 id="11mpls">1.1.MPLS概述</h4>
+<h5 id="111ip">1.1.1.传统IP路由转发</h5>
+<p>传统的<code>IP</code>路由基于报文的<code>IP</code>头部中的目的<code>IP</code>地址进行寻址及转发操作，所有的路由设备需维护路由表用于指导数据转发。路由设备执行路由查询时，依据<strong>最长前缀匹配原则</strong>进行操作。</p>
+<p>在<code>IP</code>技术发展的早期，<code>IP</code>路由查询操作依赖<strong>软件</strong>进行，工作效率有限，随着数据业务的迅猛发展，这种转发机制逐渐无法适应当时的需求。加上在某些复杂场景中（如<code>BGP</code>），还涉及路由的递归查询等操作，更加影响了<code>IP</code>路由的执行速度。</p>
+<p>后来，出现了一些新技术，其中之一就是<strong>标签交换技术</strong>，例如<code>ATM</code>等，标签交换技术在当时提供了比<code>IP</code>路由更高效的转发机制。再后来，<code>MPLS(Multi-Protocol Label Switching)</code>多协议标签交换技术的出现整合了<code>IP</code>及<code>ATM</code>的优势，并且提供了对<code>IP</code>的良好集成，逐渐成为热门技术并保留至今。</p>
+<p><img alt="IP路由与MPLS转发方式对比" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016171319642.png" /></p>
+<hr />
+<h5 id="112mpls">1.1.2.MPLS的基本概念</h5>
+<p><code>MPLS</code>多协议标签交换：</p>
+<ul>
+<li>
+<p><strong>多协议：</strong><code>MPLS</code>技术能够支持多种网络协议，例如<code>IPv4</code>、<code>IPv6</code>、<code>CLNP</code>等，能够承载多种类型的业务。</p>
+</li>
+<li>
+<p><strong>标签交换：</strong><code>MPLS</code>设备能够为<code>IP</code>报文增加<strong>标签信息</strong>，并且基于标签信息对报文进行转发，达到提高转发效率的目的。</p>
+</li>
+</ul>
+<p><strong>实现方式：</strong></p>
+<p><code>MPLS</code>位于<code>TCP/IP</code>协议栈中的数据链路层和网络层之间，通过在数据链路层和网络层之间增加额外的<code>MPLS</code>头部，基于<code>MPLS</code>头部（标签）实现数据快速转发。</p>
+<p><img alt="image-20251016170619355" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016170619389.png" /></p>
+<ol>
+<li><code>MPLS</code>网络（由运行<code>MPLS</code>协议的设备组成）会预先建立一条路径（源和目），并决定这条路径上需要用到的标签。</li>
+<li>当一个<code>IP</code>报文进入到<code>MPLS</code>网络后，由入节点设备对这个<code>IP</code>报文的目的地址进行分析，如果匹配到了预先创建的路径，则为这个数据包添加<code>MPLS</code>标签，并从对应出接口发出。</li>
+<li>中间的<code>MPLS</code>设备在接收到该带有标签的数据包后，不会对其进行传统<code>IP</code>路由转发，直接根据标签决定出接口和下一跳。</li>
+<li>当这个数据包到达<code>MPLS</code>网络的<strong>出节点</strong>，出节点负责将这个标签<strong>移除</strong>，并查询传统的<code>IP</code>路由表，将原始<code>IP</code>数据包转发到最终的目的网络。</li>
+</ol>
+<p><strong>总结：</strong></p>
+<p>当<code>MPLS</code>被利用在<code>IP</code>网络中，转发的依据依旧是<strong>出接口</strong>和<strong>下一跳</strong>，所以<code>MPLS</code>与<code>IP</code>路由转发的区别是：</p>
+<ul>
+<li><code>IP</code>路由通过数据包的目的<code>IP</code>地址查表转发。</li>
+<li><code>MPLS</code>通过<strong>标签</strong>进行查表转发（<strong>标签转发表</strong>）。</li>
+</ul>
+<p>在传统方式中需要关注路由如何生成和传递。而<code>MPLS</code>转发实际上就是一系列<strong>打标签、标签交换和拆除标签</strong>的过程。</p>
+<hr />
+<h4 id="12mpls">1.2.MPLS术语</h4>
+<h5 id="121mpls">1.2.1.MPLS域</h5>
+<p><strong>MPLS域（MPLS Domain）：</strong>一系列连续的运行<code>MPLS</code>的网络设备构成了一个<code>MPLS</code>域。</p>
+<hr />
+<h5 id="122lsr">1.2.2.LSR</h5>
+<p><strong>LSR（Label Switch Router），标签交换路由器：</strong>支持<code>MPLS</code>的路由器（也指支持MPLS的其他网路设备），负责对标签报文进行处理。位于<code>MPLS</code>域边缘，连接其他网络的<code>LSR</code>称为<strong>边沿路由器（Label Edge Router）</strong>，区域内部的<code>LSR</code>称为核心<code>LSR</code>（<code>Core LSR</code>）。</p>
+<p><img alt="image-20251016182123621" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016182123649.png" /></p>
+<hr />
+<h5 id="123lsr">1.2.3.LSR分类</h5>
+<p>除了根据<code>LSR</code>在<code>MPLS</code>域中的位置进行分类之外，还可以根据对数据处理方式的不同进行分类：</p>
+<ul>
+<li>
+<p><strong>入站LSR（Ingress LSR）：</strong>通常是指向<code>IP</code>报文中压入<code>MPLS</code>头部并生成<code>MPLS</code>报文的<code>LSR</code>。</p>
+</li>
+<li>
+<p><strong>中转LSR（Transit LSR）：</strong>通常是将<code>MPLS</code>报文进行例如标签置换操作，并将报文继续在<code>MPLS</code>域中转发的<code>LSR</code>。</p>
+</li>
+<li>
+<p><strong>出站LSR（Egress LSR）：</strong>通常是将<code>MPLS</code>报文中的<code>MPLS</code>头部移除，还原为<code>IP</code>报文的<code>LSR</code>。</p>
+</li>
+</ul>
+<p><strong>简单来说，入站负责打标签，中转负责交换标签，出站负责剥离标签。</strong></p>
+<p><strong>注意：</strong>仔细观察这里是有方向的，所以根据数据访问路径的不同，一台<code>LSR</code>同时可以有多个身份。</p>
+<p><img alt="image-20251016183142098" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016183142128.png" /></p>
+<hr />
+<h5 id="124fec">1.2.4.FEC</h5>
+<p><code>FEC(Forwarding Equivalence Class)</code>转发等价类，是一组具有某些<strong>共性</strong>的数据流的集合，这些数据流在转发过程中被网络节点以相同方式处理。</p>
+<p>真实的<code>MPLS</code>网络是复杂的有多条路径（下一跳）的，它需要将有相同特性的数据包进行归类并打上相应的标签。也就是说，最终相同特性的数据包根据标签转发的路径需要相同，与<strong>路由</strong>的作用一致，需要<strong>归类</strong>。</p>
+<p><code>MPLS</code>标签是与<code>FEC</code>相对应的，网络管理员必须通过某种机制使得<code>MPLS</code>网络中的<code>LSR</code>能够获得关于<code>FEC</code>的标签信息。<code>FEC</code>可以通过多种方式进行划分，例如通过<strong>目的网络地址</strong>及网络掩码、<code>DSCP</code>等特征来划分。</p>
+<p>在实际应用中，最常见的方法是：目的<code>IP</code>地址匹配同一条路由的报文，这些报文被认为属于同一个<code>FEC</code>。如下图，所有访问目的地址<code>3.3.3.3</code>且匹配到一条路由的数据包，<code>Ingress LSR</code>会为它们压上相同的标签，其他<code>LSR</code>也是用相同的方式处理这些报文和标签。</p>
+<p><img alt="image-20251016184317038" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016184317070.png" /></p>
+<hr />
+<h5 id="125lsp">1.2.5.LSP</h5>
+<p><code>LSP(Label Switched Path)</code>标签交换路径，<code>LSP</code>是指报文在<code>MPLS</code>域内的转发过程中所经过的路径。<code>LSP</code>需要在数据转发开始之前建立完成，只有这样报文才能够顺利穿越<code>MPLS</code>域。</p>
+<p>同一个<code>FEC</code>的报文通常采用相同的<code>LSP</code>穿越<code>MPLS</code>域，对于同一个<code>FEC</code>的报文，<code>LSR</code>总是使用固定的标签来转发。一条<code>LSP</code>包含一台入站<code>LSR</code>、一台出站<code>LSR</code>，以及数量可变的中转<code>LSR</code>。</p>
+<p>另外，<code>LSP</code>是单向的，因此如果一个应用涉及到双向的数据交互，那么便要求在通信双方之间建立双向的<code>LSP</code>。</p>
+<p><img alt="image-20251016221920597" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016221920652.png" /></p>
+<p>如上图，在确定了<code>FEC</code>的归类方式是<code>IP</code>和标签的分发方式后，<code>MPLS</code>域中的<code>LSR</code>都会根据<code>FEC</code>为每个<strong>目的IP（路由）</strong>创建一条<code>LSP</code>，以及为这个<code>LSP</code>分配<strong>标签</strong>，后续当报文被匹配到该<code>LSP</code>后，则根据<strong>标签</strong>进行转发。</p>
+<hr />
+<h5 id="126">1.2.6.标签分发协议</h5>
+<p>在一条流量能够顺利穿越<code>MPLS</code>域之前，该流量所对应的<code>FEC</code>的<code>LSP</code>必须已经建立完成。<code>LSP</code>的建立可以通过两种方式实现：<strong>静态、动态</strong>。</p>
+<p><strong>静态方式：</strong></p>
+<p>静态方式指的是管理员手工为每条<code>LSP</code>沿途的每一台<code>LSR</code>上为每一个<code>FEC</code>手工配置标签，类似于静态路由。这在小型的<code>MPLS</code>域中是可行的，但是如果<code>MPLS</code>域的规模比较大，这种方式就显得不切实际了。而且静态<code>LSP</code>无法动态地适应网络拓扑变化，所以在实际地应用中，我们通常是借助动态协议来实现<code>LSP</code>地建立、维护及标签分发的。</p>
+<p><strong>动态方式：</strong></p>
+<p>通过标签分发协议建立的<code>LSP</code>被称为动态<code>LSP</code>。常见的标签分发协议有：<code>LDP(Label Distribution Protocol)</code>，<code>RSVP(Resource Reservation Protocol)</code>及<code>MP-BGP(Multiprotocol Border Gateway Protocol)</code>。</p>
+<hr />
+<h4 id="13mpls">1.3.MPLS标签</h4>
+<p>一个<code>IP</code>报文进入<code>MPLS</code>域之前，会被入站<code>LSR</code>压入<code>MPLS</code>标签头部，形成一个<code>MPLS</code>标签报文。一个标签报文可以包含一个或多个标签头部。</p>
+<p><img alt="image-20251016224601100" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016224601134.png" /></p>
+<ul>
+<li><strong>标签（Label）：</strong>用于携带标签值，长度<code>20bit</code>。</li>
+<li><strong>EXP（Experimental Use）：</strong>主要用于<code>Qos</code>，表示该报文的优先级。优先级高的优先转发。</li>
+<li>
+<p><strong>BoS（Bottom of Stack）：</strong>栈底位，如果该字段为<code>1</code>，表示该标签头部为当前标签头的最后一层标签。如果该字段为<code>0</code>，表示该标签头部之后依然还有其他标签头部。</p>
+</li>
+<li>
+<p><strong>TTL（Time To Live）：</strong>用于当网络出现环路时，防止标签报文被无限制转发，与<code>IP</code>报文头部中的<code>TTL</code>具有相同的意义，长度<code>8bit</code>。</p>
+</li>
+</ul>
+<hr />
+<h5 id="131">1.3.1.标签栈</h5>
+<p><code>MPLS</code>支持一层或多层标签头部，也就是说一个报文中可以包含多个<code>MPLS</code>标签。这些标签头部的有序集合被称为<strong>标签栈</strong>。当标签栈中存在多个标签时，这些标签的顺序是非常讲究的：</p>
+<ul>
+<li>最靠近<strong>二层</strong>头部的标签是<strong>栈顶标签</strong>，标签中的<code>BoS</code>字段为<code>0</code>。</li>
+<li>最靠近<code>IP</code>头部的标签是<strong>栈底标签</strong>，标签中的<code>BoS</code>字段为<code>1</code>。</li>
+</ul>
+<p><img alt="image-20251016231630971" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016231631010.png" /></p>
+<hr />
+<h5 id="132">1.3.2.标签空间</h5>
+<p>标签是一个短而定长的，只具有本地意义的标识符。标签空间就是指标签的取值范围。标签值的范围及规划如下：</p>
+<table>
+<thead>
+<tr>
+<th><strong>标签值</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0~15</td>
+<td>特殊标签值。例如0被定义为IPv4显式空标签（IPv4 Explicit NULL Label），标签值3被定义为隐式空标签（Implicit NULL Label）。</td>
+</tr>
+<tr>
+<td>16~1023</td>
+<td>用于静态LSP、静态CR-LSP的共享标签空间。</td>
+</tr>
+<tr>
+<td>1024~1048575</td>
+<td>LDP、RSVP-TE、MP-BGP等动态信令协议的标签空间；动态信令协议的标签空间不是共享的，而是独立且连续的，互不影响。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="133mpls">1.3.3.MPLS标签的基本操作类型</h5>
+<p><code>LSR</code>对标签的操作类型包括<strong>标签压入（push）、标签交换（Swap）和标签弹出（Pop）</strong>。</p>
+<p><strong>压入：</strong></p>
+<ul>
+<li>压入指的是一个<code>IP</code>报文进入<code>MPLS</code>网络时，入站<code>LSR</code>在报文的二层头部之后、<code>IP</code>头部之前压入标签。或者是<code>LSR</code>针对一个已经存在标签头部的标签报文，在栈顶再压入一个新的标签头部。</li>
+</ul>
+<p><img alt="image-20251017001758252" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017001758288.png" /></p>
+<p><strong>置换：</strong></p>
+<ul>
+<li>置换指的是在<code>MPLS</code>网络中，<code>LSR</code>转发标签报文时，将标签头部置换成下游<code>LSR</code>所分配的标签。当标签报文存在多层标签时，置换操作通常只对栈顶的标签进行。</li>
+</ul>
+<p><img alt="image-20251017003018603" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017003018630.png" /></p>
+<p><strong>为什么需要Swap，为什么不可以整条路径使用相同的标签：</strong></p>
+<ul>
+<li>在<code>MPLS</code>中遵循<strong>本地有效原则</strong>。</li>
+<li>如果<strong>全局唯一</strong>在大型的运营商网络中路由条目有几百万条，势必就需要有几百万个标签（公网地址）。而标签空间有限，只有<code>104</code>万个，很快就会被消耗掉。</li>
+<li>另外，如果<strong>全局唯一</strong>会导致标签的唯一性，需要解决<strong>冲突</strong>。例如设备<code>A</code>想用标签<code>100</code>表示去往<code>x</code>网络，而设备<code>B</code>想用标签<code>100</code>表示去往<code>y</code>网络。这就会导致冲突发生，如果想要解决冲突，需要耗费大量的资源，得不偿失。</li>
+<li>还剩下最后一个问题，对于一台<code>LSR</code>，它是怎么知道下游能够处理什么标签呢？</li>
+<li>这需要看后面的转发篇。</li>
+</ul>
+<p><strong>弹出：</strong></p>
+<ul>
+<li>弹出指的是标签报文离开<code>LSP</code>时，出站<code>LSR</code>将标签报文的栈顶标签移除。如果移除栈顶标签后，该报文不存在其他标签头部，则<code>LSR</code>针对该报文执行传统的<code>IP</code>路由操作。如果将栈顶标签移除后，报文还存在其他标签头不，继续转发给下游<code>LSR</code>。</li>
+</ul>
+<p><img alt="image-20251017003009707" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017003009741.png" /></p>
+<hr />
+<h4 id="14mpls">1.4.MPLS转发</h4>
+<p>以常见的<code>IP</code>为例，<code>MPLS</code>转发的本质就是根据<strong>IP路由前缀（FEC）</strong>提前建立好<code>LSP</code>进行转发。</p>
+<p><strong>有几个必须要克服的难关：</strong></p>
+<ol>
+<li><code>LSP</code>建立时，标签是如何进行分发的，标签转发表是如何建立的？（控制平面）</li>
+<li>标签分发完毕后，<code>LSR</code>是如何根据标签进行转发的？（转发平面）</li>
+<li><code>LSP</code>的建立原则？</li>
+</ol>
+<hr />
+<h5 id="141mpls">1.4.1.MPLS体系结构</h5>
+<p><code>MPLS</code>的体系结构由<strong>控制平面</strong>和<strong>转发平面</strong>组成。</p>
+<p><img alt="image-20251017005805514" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017005805552.png" /></p>
+<p><strong>控制平面：</strong></p>
+<ul>
+<li>负责产生和维护路由信息以及标签信息。</li>
+<li>控制平面包括<code>IP</code>路由协议和路由信息表，标签分发协议和标签信息表。</li>
+</ul>
+<p><img alt="image-20251017010233693" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017010233742.png" /></p>
+<p><strong>转发平面：</strong></p>
+<ul>
+<li>负责普通<code>IP</code>报文的转发以及标签报文的转发。</li>
+<li>转发平面包括<code>IP</code>转发信息和标签转发信息表。</li>
+</ul>
+<p><img alt="image-20251017010259462" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017010259505.png" /></p>
+<p><strong>总结：</strong></p>
+<p>当网络层协议是<code>IP</code>协议时，<code>FEC</code>所对应的路由必须存在于<code>LSR</code>的<code>IP</code>路由表中，否则该<code>FEC</code>的标签转发表项不生效。</p>
+<p>控制平面需要使用<strong>路由协议</strong>和<strong>标签交换协议</strong>，将目标路由传递到每台<code>LSR</code>上，并通过<strong>标签交换协议</strong>建立<code>LSP</code>，在每台<code>LSR</code>上为每一条<code>LSP</code>创建并交换标签。</p>
+<p>控制平面对应的表项生成后，将结果附加到转发平面的<code>FIB</code>和<code>LFIB</code>表项上。最终一台<code>LSR</code>收到<code>IP</code>报文或标签报文，是依据转发平面表项进行转发的。</p>
+<p><img alt="image-20251017011315239" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017011315279.png" /></p>
+<hr />
+<h5 id="142lsp">1.4.2.LSP的建立（控制平面）</h5>
+<p><code>LSP</code>的建立分为静态和动态，静态的标签都是人为指定的没有什么可以解释的。我们来聊一聊动态建立：</p>
+<p><img alt="image-20251017012515900" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017012515930.png" /></p>
+<p>以上图中<code>4.4.4.0/24</code>这条<code>LSP</code>的建立过程为例，<code>4.4.4.0/24</code>这个网段的最下游<code>R4</code>（距离目标网段最近的<code>LSR</code>）会为这个网段在本地生成一个标签<code>1025</code>并通知给它的上游<code>R3</code>。<code>R3</code>收到这个消息后，将其记录在本地，并对<code>4.4.4.0/24</code>生成一个标签<code>1026</code>并告知上游<code>R2</code>。<code>R2</code>收到后记录到本地，并生成一个标签告知上游<code>R1</code>。</p>
+<p>到此一条完整的<code>LSP</code>就已经建立完成了，当<code>R1</code>收到目标地址是<code>4.4.4.0/24</code>的数据包后，会为其打上<code>1027</code>的标签并发送给<code>R2</code>，<code>R2</code>查找标签转发表将标签<code>swap</code>成<code>1026</code>发送给<code>R3</code>。<code>R3</code>收到后查找标签转发表将标签<code>swap</code>成<code>1025</code>转发给<code>R4</code>。<code>R4</code>收到后发现出标签为空，将标签剥离，查找路由表并转发。</p>
+<p>所以，对于一段链路中的两台<code>LSR</code>，上游的<code>Out Label</code>等于下游的<code>In Label</code>。</p>
+<hr />
+<h5 id="143lsr">1.4.3.入站LSR</h5>
+<p>对于入站<code>LSR</code>，它如何知道这个数据报文是应该<code>IP</code>路由转发呢？还是标签交换转发呢？</p>
+<ul>
+<li>千万不要人为这两种方式的效果是一致的。</li>
+<li>数据链路层中的<strong>类型字段</strong>，是为了表明当前这个数据包是什么类型的，仅此而已。</li>
+<li><code>Tunnel ID</code>决定了，设备将会对这个数据包如何处理。</li>
+</ul>
+<p><strong>数据链路层：</strong></p>
+<p>一个<code>MPLS</code>标签报文，它的数据链路层中会有<strong>类型字段</strong>，如果这个字段为<code>0x0800</code>代表<code>IPv4</code>报文。如果这个字段为<code>0x8847</code>代表<code>MPLS</code>报文。</p>
+<p><strong>Tunnel ID：</strong></p>
+<p>在<code>FIB</code>表中除了记录目标网段和下一跳之外，还有一个非常重要的字段<strong>Tunnel ID</strong>。</p>
+<div class="highlight"><pre><span></span><code>Destination/Mask   Nexthop         Flag  TimeStamp     Interface        TunnelID
+192.168.1.0/24     0.0.0.0         UH    00000000      GE0/0/1          0x0
+10.1.1.0/24        192.168.1.1     S     00000000      GE0/0/1          0x0
+172.16.1.0/24      192.168.1.2     O     00000000      GE0/0/1          0x0
+0.0.0.0/0          192.168.1.254   S     00000000      GE0/0/1          0x0
+</code></pre></div>
+<p>当入站<code>LSR</code>收到这个报文后，查看该报文的目的<code>IP</code>在<code>FIB</code>中的表项，如果该表项记录的<code>Tunnel ID</code>为<code>0x0</code>，则使用<code>IP</code>路由转发方式。如果该表项记录的非<code>0x0</code>，则使用<code>MPLS</code>转发操作。</p>
+<p>若使用<code>MPLS</code>转发操作，入站设备需要去查找<code>NHLFE</code>表。</p>
+<p><strong>注意：</strong></p>
+<p>切记，只有入站<code>LSR</code>会查找<code>FIB</code>表。</p>
+<hr />
+<p><strong>NHLFE：</strong></p>
+<p><code>NHLFE</code>下一跳标签转发表项，用于指导<code>MPLS</code>标签报文转发。每个<code>NHLFE</code>都包含着<code>Tunnel ID</code>、出站接口、下一跳<code>IP</code>地址、出站标签、标签操作类型等信息，如下：</p>
+<p><img alt="image-20251017015218507" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017015218559.png" /></p>
+<ul>
+<li><code>Tunnel ID</code>：这里存在的意义是，为了方便设备从<code>FIB</code>过来查找对应的表项。</li>
+<li>
+<p>下一跳地址：有数据链路层存在，需要目的<code>MAC</code>地址。</p>
+</li>
+<li>
+<p>标签操作：动作，打标签、交换标签、剥离标签。</p>
+</li>
+</ul>
+<p>入站<code>LSR</code>到此为止，就可以为这个数据包打上标签，然后从对应的出接口将数据包发送出去了。</p>
+<hr />
+<h5 id="144lsr">1.4.4.中转LSR</h5>
+<p>中转<code>LSR</code>在收到一个数据包后，不会解封装<code>IP</code>层，解封装到<code>MPLS</code>层查看该数据包携带的标签。然后去查找<code>LIM</code>表项。</p>
+<p><strong>LIM表项：</strong></p>
+<p><code>LIM</code>入栈标签映射，包含<code>Tunnel ID</code>、入站标签、入站接口、标签操作等信息。</p>
+<p><img alt="image-20251017015851819" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017015851865.png" /></p>
+<p>当中转<code>LSR</code>获取到数据包的标签后，查找<code>LIM</code>表找到对应表项，确定动作是<code>Swap</code>后，根据该表项的<code>Tunnel ID</code>，去查找<code>NHLFE</code>表项，以此确认该数据包的出站标签、下一跳、出接口。确认完毕后，更换标签并转发。</p>
+<p><img alt="image-20251017015218507" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017020046520.png" /></p>
+<hr />
+<h5 id="145lsr">1.4.5.出站LSR</h5>
+<p>出站<code>LSR</code>收到数据包后，发现是一个<code>MPLS</code>报文，根据其携带的标签查找<code>LIM</code>表项，发现标签动作为<code>Pop</code>。立即将该数据包的<code>MPLS</code>头部拆除，将标签剥离。随后根据<code>IP</code>路由方式查表转发。</p>
+<p><img alt="image-20251017015851819" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017020530423.png" /></p>
+<hr />
+<h4 id="15lsp">1.5.静态LSP建立</h4>
+<h5 id="151">1.5.1.命令介绍</h5>
+<p><strong>MPLS基本命令：</strong></p>
+<ol>
+<li>配置<code>LSR ID</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] mpls lsr-id lsr-id
+</code></pre></div>
+<p><code>mpls lsr-id</code>命令用来配置<code>LSR</code>的<code>ID</code>。<code>LSR ID</code>用来在网络中唯一标识一个<code>LSR</code>。<code>LSR</code>没有缺省的<code>LSR ID</code>，必须手工配置。为了提高网络的可靠性，推荐使用<code>LSR</code>某个<code>Loopback</code>接口的地址作为<code>LSR ID</code>并在配置前对网络中所有<code>LSR</code>的<code>LSR ID</code>进行统一规划。</p>
+<ol>
+<li>使能<code>MPLS</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] mpls   # 全局使能MPLS能力，并进入MPLS视图
+[Huawei-GigabitEthernet0/0/0] mpls  # 使能接口的MPLS能力。需要现在全局使能MPLS
+</code></pre></div>
+<p><strong>静态LSP配置命令：</strong></p>
+<ol>
+<li><code>Ingress LSR</code>配置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] static-lsp ingress lsp-name destination ip-address { mask-length | mask } { nexthop next-hop-address | outgoing-interface interface-type interface-number } * out-label out-label
+</code></pre></div>
+<ul>
+<li><code>staic-lsp ingress</code>命令用来为入节点配置静态<code>LSP</code>。推荐使用<code>nexthop</code>方式配置静态<code>LSP</code>，确保本地路由表中存在与指定目的<code>IP</code>地址精确匹配的路由项，包括目的<code>IP</code>地址和下一跳<code>IP</code>地址。</li>
+<li>
+<p><code>out-label</code>的取值范围为<code>16-1048575</code></p>
+</li>
+<li>
+<p><code>Transit LSR</code>配置：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[Huawei] static-lsp transit lsp-name [ incoming-interface interface-type interface-number ] in-label in-label { nexthop next-hop-address | outgoing-interface interface-type interface-number }* out-label out-label
+</code></pre></div>
+<ul>
+<li>
+<p><code>staic-lsp transit</code>用来为中转节点配置静态<code>LSP</code></p>
+</li>
+<li>
+<p><code>in-label</code>的取值范围为<code>16-1023</code></p>
+</li>
+<li>
+<p><code>out-label</code>的取值范围为<code>16-1048575</code></p>
+</li>
+<li>
+<p><code>Egress LSR</code>配置：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[Huawei] static-lsp egress lsp-name [ incoming-interface interface-type interface-number ] in-label in-label 
+</code></pre></div>
+<ul>
+<li>
+<p><code>staic-lsp egress</code>命令用来在出节点配置静态<code>LSP</code>。</p>
+</li>
+<li>
+<p>查看静态<code>LSP</code>配置：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[Huawei] display mpls static-lsp [ lsp-name ] [ { include | exclude } ip-address mask-length ] [ verbose ]
+</code></pre></div>
+<hr />
+<h5 id="152lsp">1.5.2.静态<code>LSP</code>配置演示</h5>
+<p><img alt="image-20251017192802940" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017192803000.png" /></p>
+<p><code>R1、R2、R3</code>三台路由器使用<code>OSPF</code>动态路由协议实现<code>1.1.1.0/24</code>和<code>3.3.3.0/24</code>两个网段互访。要求通过配置静态<code>LSP</code>，使得这两个网络之间能基于<code>MPLS</code>进行互访，标签分配如上图。</p>
+<ol>
+<li>在设备和接口上使能<code>MPLS</code>功能。</li>
+<li>按照规划配置静态<code>LSP</code>。</li>
+</ol>
+<hr />
+<p><strong>使能MPLS功能：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]mpls lsr-id 10.1.1.1
+[AR1]mpls
+Info: Mpls starting, please wait... OK!
+[AR1-mpls]quit
+[AR1]interface g0/0/1
+[AR1-GigabitEthernet0/0/0]mpls 
+[AR1-GigabitEthernet0/0/0]quit
+
+[AR2]mpls lsr-id 10.1.1.2
+[AR2]mpls
+Info: Mpls starting, please wait... OK!
+[AR2-mpls]quit
+[AR2]int g0/0/0
+[AR2-GigabitEthernet0/0/0]mpls
+[AR2-GigabitEthernet0/0/0]quit
+[AR2]int g0/0/1
+[AR2-GigabitEthernet0/0/1]mpls
+[AR2-GigabitEthernet0/0/1]quit
+
+[AR3]mpls lsr-id 10.1.1.3
+[AR3]mpls
+Info: Mpls starting, please wait... OK!
+[AR3-mpls]quit
+[AR3]int g0/0/0
+[AR3-GigabitEthernet0/0/0]mpls 
+[AR3-GigabitEthernet0/0/0]quit
+</code></pre></div>
+<hr />
+<p><strong>配置R1去往R3方向的静态LSP：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]static-lsp ingress 1to3 destination 3.3.3.0 24 nexthop 10.0.12.2 out-label 200
+
+[AR2]static-lsp transit 1to3 incoming-interface g 0/0/0 in-label 200 nexthop 10.
+0.23.3 out-label 300
+
+[AR3]static-lsp egress 1to3 incoming-interface g 0/0/0 in-label 300
+</code></pre></div>
+<hr />
+<p><strong>配置R3去往R1方向的静态LSP：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]static-lsp ingress 3to1 destination 1.1.1.0 24 nexthop 10.0.23.2 out-label 
+500
+
+[AR2]static-lsp transit 3to1 incoming-interface GigabitEthernet 0/0/1 in-label 5
+00 nexthop 10.0.12.1 out-label 600
+
+[AR1]static-lsp egress 3to1 incoming-interface g0/0/1 in-label 600
+</code></pre></div>
+<hr />
+<p><strong>查看LSP：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]dis mpls lsp
+-------------------------------------------------------------------------------
+                 LSP Information: STATIC LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+3.3.3.0/24         NULL/200      -/GE0/0/1                                     
+-/-                600/NULL      GE0/0/1/- 
+
+[AR2]display mpls lsp 
+-------------------------------------------------------------------------------
+                 LSP Information: STATIC LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+-/-                200/300       GE0/0/0/GE0/0/1                               
+-/-                500/600       GE0/0/1/GE0/0/0
+
+[AR3]dis mpls lsp 
+-------------------------------------------------------------------------------
+                 LSP Information: STATIC LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+-/-                300/NULL      GE0/0/0/-                                     
+1.1.1.0/24         NULL/500      -/GE0/0/0
+</code></pre></div>
+<p>中转节点和入节点的<code>LSP</code>表中没有记录<code>FEC</code>，这是因为它们不需要关心<code>FEC</code>，不需要知道目标网段是什么，它们只负责<strong>标签交换</strong>。</p>
+<p>也可以用<code>display mpls static-lsp</code>查看信息：</p>
+<div class="highlight"><pre><span></span><code>&lt;AR1&gt;display mpls static-lsp 
+TOTAL          :    3       STATIC LSP(S)
+UP             :    3       STATIC LSP(S)
+DOWN           :    0       STATIC LSP(S)
+Name                FEC                I/O Label    I/O If                Status
+1to3                3.3.3.0/24         NULL/200     -/GE0/0/1             Up    
+3to1                -/-                600/NULL     GE0/0/1/-             Up 
+
+&lt;AR1&gt;display mpls static-lsp verbose 
+No             :    1 
+LSP-Name       :    1to3
+LSR-Type       :    Ingress 
+FEC            :    3.3.3.0/24
+In-Label       :    NULL
+Out-Label      :    200
+In-Interface   :    -
+Out-Interface  :    GigabitEthernet0/0/1
+NextHop        :    10.0.12.2
+Static-Lsp Type:    Normal
+Lsp Status     :    Up
+</code></pre></div>
+<hr />
+<p><strong>抓包：</strong></p>
+<p><img alt="image-20251017195709456" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017195709520.png" /></p>
+<p><img alt="image-20251017195744369" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017195744424.png" /></p>
+<hr />
+<h5 id="153">1.5.3.验证理论</h5>
+<p>以<code>1.1.1.0/24</code>访问<code>3.3.3.0/24</code>这条<code>LSP</code>为例，其过程如下：</p>
+<p><strong>入节点：</strong></p>
+<p>当<code>R1</code>收到一个目的地址为<code>3.3.3.1</code>的<code>IP</code>报文后，<code>R1</code>解封装到该报文的网络层，根据该数据包的目的<code>IP</code>地址查询<code>FIB</code>表。根据<code>FIB</code>表中<code>3.3.3.0/24</code>对应的<code>Tunnel ID</code>。</p>
+<div class="highlight"><pre><span></span><code>[AR1]display fib 3.3.3.0
+  Route Entry Count: 1
+Destination/Mask   Nexthop         Flag  TimeStamp     Interface      TunnelID
+3.3.3.0/24         10.0.12.2       DGU   t[864]        GE0/0/1        0x1
+</code></pre></div>
+<p>因为其<code>Tunnel ID</code>不是<code>0x0</code>，所以此时执行<code>MPLS</code>标签交换操作，查找<code>NHLFE</code>。但是，在华为设备中没有一个名为<code>NHLFE</code>的表，需要通过如下命令查看：</p>
+<div class="highlight"><pre><span></span><code>[AR1]dis mpls lsp verbose
+  No                  :  1
+  Name                :  1to3
+  Fec                 :  3.3.3.0/24
+  Nexthop             :  10.0.12.2
+  In-Label            :  NULL
+  Out-Label           :  200
+  In-Interface        :  ----------
+  Out-Interface       :  GigabitEthernet0/0/1
+  LspIndex            :  0
+  Token               :  0x1
+  LsrType             :  Ingress
+  Mpls-Mtu            :  1500
+  TimeStamp           :  1059sec
+</code></pre></div>
+<p>从上面的结果可以看出<code>Token 0x1</code>就对应了<code>FIB</code>表中的<code>Tunnel ID 0x1</code>，所以<code>R1</code>顺利查询到了该报文封装的标签、出接口、下一跳等信息。对该报文封装<code>MPLS</code>，并发出。</p>
+<hr />
+<p><strong>中转节点：</strong></p>
+<p>当<code>R2</code>收到报文后，根据数据链路层的<strong>类型字段</strong>已经得知是一个<code>MPLS</code>报文。直接查找<code>ILM</code>如标签映射。在华为设备上依旧通过<code>display mpls lsp</code>可以看到对应信息。</p>
+<div class="highlight"><pre><span></span><code>&lt;AR2&gt;display mpls lsp verbose
+  No                  :  1
+  Name                :  1to3
+  Fec                 :  -------/--
+  Nexthop             :  10.0.23.3
+  In-Label            :  200
+  Out-Label           :  300
+  In-Interface        :  GigabitEthernet0/0/0
+  Out-Interface       :  GigabitEthernet0/0/1
+  LspIndex            :  0
+  Token               :  0x1
+  LsrType             :  Transit
+  Mpls-Mtu            :  1500
+  TimeStamp           :  1840sec
+</code></pre></div>
+<p>根据<code>R2</code>收到的报文标签为<code>200</code>查询<code>ILM</code>后，发现其出标签为<code>300</code>，执行<code>swap</code>动作将标签转换，并根据表上的出接口和下一跳，将报文转发出去。</p>
+<p><strong>注意：</strong>根据理论中转<code>LSR</code>还需要查询<code>NHLFE</code>，但是在华为设备上<code>lsp</code>表已经涵盖了<code>NHLFE</code>和<code>ILM</code>了。</p>
+<hr />
+<p><strong>出站节点：</strong></p>
+<p><code>R3</code>的操作与<code>R2</code>基本相同，根据数据链路层类型字段得知是<code>MPLS</code>报文后，直接查找<code>ILM</code>。</p>
+<div class="highlight"><pre><span></span><code>&lt;AR3&gt;display mpls lsp verbose
+  No                  :  1
+  Name                :  1to3
+  Fec                 :  -------/--
+  Nexthop             :  -------
+  In-Label            :  300
+  Out-Label           :  NULL
+  In-Interface        :  GigabitEthernet0/0/0
+  Out-Interface       :  ----------
+  LspIndex            :  0
+  Token               :  0x0
+  LsrType             :  Egress
+  Mpls-Mtu            :  ------
+  TimeStamp           :  2060sec
+</code></pre></div>
+<p>由于<code>ILM</code>的出标签是<code>NULL</code>代表其动作为<code>Pop</code>，随即<code>R3</code>将标签剥离，根据路由表（<code>FIB</code>）将数据报文转发到目的地。</p>
+<hr />
+<h3 id="2ldp">2.LDP</h3>
+<p>静态<code>LSP</code>在现今的网络中使用非常少，因为其无法根据拓扑的变化进行自动调整，以及当拓扑较大时手工为每个<code>FEC</code>建立静态<code>LSP</code>工作量很大。</p>
+<p><code>LSP</code>是<code>MPLS</code>体系中的一种控制协议，它负责<code>FEC</code>的分类、标签的分配以及<code>LSP</code>的建立和维护等操作。两台互相建立<code>LDP</code>会话并通过<code>LDP</code>交互<code>FEC</code>与标签映射信息的<code>LSR</code>，被称为<strong>LDP对等体</strong>。运行了<code>LDP</code>的<code>LSR</code>之间必须先建立对等体关系，然后才能交互标签映射。</p>
+<p><code>LDP</code>的工作过程主要分为两部分：</p>
+<ol>
+<li><code>LSR</code>之间两两建立<code>LDP</code>会话。</li>
+<li><code>LSR</code>之间基于<code>LDP</code>会话动态交换标签与<code>FEC</code>的映射关系，并根据标签信息建立<code>LSP</code>。</li>
+</ol>
+<p><img alt="image-20251017205209317" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017205209386.png" /></p>
+<hr />
+<h4 id="21ldp">2.1.LDP的工作机制</h4>
+<p><img alt="image-20251017205747968" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017205748046.png" /></p>
+<p>上图展示了一个典型的<code>MPLS</code>网络示例。首先在<code>MPLS</code>网络中需要部署一个<code>IGP</code>协议（<code>ospf</code>、<code>IS-IS</code>），通过<code>IGP</code>协议，<code>MPLS</code>网络内可实现路由互通。</p>
+<p>以<code>192.168.1.0/24</code>这条路由为例，由于运行了动态路由协议，<code>R2、R3</code>都能够学习到这条路由。所有的路由器需要使能<code>MPLS</code>及<code>LDP</code>功能。<code>LDP</code>对等体关系将在直连的<code>LSR</code>之间形成。</p>
+<p><strong>Egress（最下游）</strong></p>
+<p><code>LDP</code>会自动为设备的路由表中的<strong>路由前缀（FEC）</strong>分配标签，在<code>R1</code>激活<code>LDP</code>后，<code>LDP</code>为直连路由<code>192.168.1.0/24</code>分配了标签<code>1061</code>。随后<code>R1</code>将<code>192.168.1.0/24</code>路由及标签<code>1061</code>的映射通告给<code>LDP</code>对等体<code>R2</code>。</p>
+<p><strong>Transit</strong></p>
+<p><code>R2</code>在收到<code>R1</code>通告的<strong>标签映射</strong>后，将该标签映射存储在本地，然后它为该路由分配自己本地的标签<code>1082</code>，并通过<code>LDP</code>协议报文将自己为<code>192.168.1.0/24</code>分配的标签通告给<code>LDP</code>对等体<code>R3</code>。</p>
+<p><strong>Ingress</strong></p>
+<p><code>R3</code>在收到<code>R2</code>发送的<strong>标签映射</strong>后，将标签本地存储起来。如果<code>R3</code>没有其他<code>LDP</code>对等体，那么<code>R3</code>不会再生成本地标签。</p>
+<p>到此，一条关于<code>192.168.1.0/24</code>路由的<code>LSP</code>建立完成了。当<code>LSR</code>转发到达<code>192.168.1.0/24</code>的标签报文时，在转发出去的报文中所设置的标签总是下一跳<code>LDP</code>对等体为该<code>FEC</code>所通告的标签。</p>
+<p><strong>总结：</strong></p>
+<p>一条<code>LSP</code>的建立，是由最靠近该路由前缀的<code>LSR</code>（下游设备）<strong>主动</strong>为其生成标签，并传递给<strong>上游</strong>对等体。在该过程中下游的<code>inlabel</code>对应上游的<code>outlabel</code>。</p>
+<p><strong>换而言之，一条<code>LSP</code>的出站节点才是源头。</strong></p>
+<p><strong>注意：</strong></p>
+<p>只有<code>FEC</code>的<strong>出站LSR</strong>可以主动给该<code>FEC</code>分配标签。其余的<code>LSR</code>只能在收到下游对等体通告的关于该<code>FEC</code>的标签映射之后，才能触发自己为该<code>FEC</code>分配标签。</p>
+<p>另外，<code>LSR</code>必须已经通过<code>IGP</code>协议学习到这条关于<code>FEC</code>的路由，且下游邻居<code>LSR</code>是该路由表项的下一跳设备。</p>
+<p><img alt="image-20251017211409968" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017211410039.png" /></p>
+<p>如上图中的<code>R2</code>，其必须收到<code>R1</code>通告的标签映射，并且路由表中<code>192.168.1.0/24</code>的下一跳必须是<code>R1</code>。此时，它才能够为<code>192.168.1.0/24</code>生成本地标签并转发给<code>R3</code>。</p>
+<p>若<code>R2</code>的路由表中没有关于<code>192.168.1.0/24</code>的路由，那么即使<code>R2</code>收到<code>R1</code>的标签映射，它也无法为该路由分配标签，最终会导致<code>LSP</code><strong>断裂</strong>，无法正常通信。可见<code>IGP</code>协议对于<code>LDP</code>的标签分发是多么重要。</p>
+<p>所以，<code>MPLS</code>在当今的网络中并不是也不能取代<strong>路由协议</strong>，必须基于路由协议运行。<code>MPLS</code>的目的是加快<strong>中间节点</strong>转发的速度。</p>
+<hr />
+<h4 id="22ldp">2.2.LDP基本概念</h4>
+<h5 id="221ldp-id">2.2.1.LDP ID</h5>
+<p><img alt="image-20251017213232880" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017213505362.png" /></p>
+<p><strong>LSR ID：</strong></p>
+<p>每台运行了<code>MPLS</code>的<code>LSR</code>必须拥有一个域内唯一的<code>LSR ID</code>，在华为路由器上激活<code>MPLS</code>之前，必须为设备指定<code>LSR ID</code>，否则<code>MPLS</code>无法顺利激活。<code>LSR ID</code>的长度为<code>32bit</code>，与<code>IPv4</code>地址的格式相同。通常情况下会使用设备的某个<code>Loopback</code>接口地址作为该设备的<code>LSR ID</code>。</p>
+<p><strong><code>LSR ID</code>只是一个标识符，不需要使用路由协议将其宣告。</strong></p>
+<p><strong>LDP ID：</strong></p>
+<p>每台运行了<code>LDP</code>的<code>LSR</code>必须拥有<code>LDP ID</code>，<code>LDP ID</code>的长度为<code>48bit</code>，该标识符由<code>32 bit</code>的<code>LSR ID</code>，以及<code>16bit</code>的<code>Label Space ID</code>（标签空间标识）构成。<code>LDP ID</code>以<code>LSR ID:Label Space ID</code>的格式表示。如：<code>1.1.1.1:0</code>。</p>
+<p><strong>Label Space ID：</strong></p>
+<p><code>Label Space ID</code>通常以两种形态呈现：</p>
+<ul>
+<li>值为<code>0</code>：表示基于设备（或基于平台）的标签空间。<strong>主流用法</strong></li>
+<li>值非<code>0</code>：表示基于接口的标签空间。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;">基于设备（Per-Platform）</th>
+<th style="text-align: left;">基于接口（Per-Interface）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>标签分配</strong></td>
+<td style="text-align: left;">整个设备使用统一的标签空间</td>
+<td style="text-align: left;">每个接口有独立的标签空间</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>标签通告</strong></td>
+<td style="text-align: left;">向所有LDP对等体通告相同的标签</td>
+<td style="text-align: left;">向不同对等体通告不同的标签</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>标签值</strong></td>
+<td style="text-align: left;">同一FEC在所有接口上标签值相同</td>
+<td style="text-align: left;">同一FEC在不同接口上标签值可能不同</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>应用场景</strong></td>
+<td style="text-align: left;"><strong>主流方式</strong>，绝大多数网络使用</td>
+<td style="text-align: left;">特殊场景，如ATM、帧中继等</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="222ldp">2.2.2.LDP会话</h5>
+<p><code>LDP</code>对等体之间首先需要建立<code>LDP</code>会话，然后才能互相通告标签映射。</p>
+<p><code>LDP</code>对等体之间的会话存在两种类型：</p>
+<ul>
+<li>本地<code>LDP</code>会话：建立会话的两个<code>LSR</code>之间是直连的。</li>
+<li>采用组播的<code>Hello</code>报文发现直连链路上的其他<code>LDP</code>对等体。</li>
+<li>在配置<code>LDP</code>设备时，不需要手工指定<code>LDP</code>对等体的<code>IP</code>地址。</li>
+<li>远程<code>LDP</code>会话：建立会话的两个<code>LSR</code>之间可以是直连的，也可以是非直连的。</li>
+<li>在配置<code>LDP</code>设备时，必须手工指定对等体的<code>IP</code>地址。</li>
+</ul>
+<p>两台<code>LSR</code>之间交互<code>Hello</code>消息之后，即建立起邻接体（<code>Adjacency</code>）关系。</p>
+<p>在建立了邻接体关系的基础上，两台<code>LSR</code>之间交互<code>LDP</code>会话消息，建立起<code>LDP</code>会话，两台设备之间形成<code>LDP</code>对等体关系。</p>
+<p><img alt="image-20251017221029080" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017221029154.png" /></p>
+<hr />
+<h5 id="223ldp">2.2.3.LDP消息</h5>
+<p><img alt="image-20251017221927671" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017221927753.png" /></p>
+<ul>
+<li><code>Discovery Message</code>：</li>
+<li>
+<p>组播发送报文，目标端口为<code>UDP 646</code>，周期性发送用来发现邻居。</p>
+</li>
+<li>
+<p><code>Session Message</code>：</p>
+</li>
+<li><code>Initialization</code>：协商会话参数，协商内容：<code>LDP</code>协议版本、保持时间、标签分发模式、标签保留模式</li>
+<li>
+<p><code>Keepalive</code>：周期性发送，确认对方是否存活。</p>
+</li>
+<li>
+<p><code>Advertisement Message</code>：</p>
+</li>
+<li><code>Address</code>：宣告自己的接口<code>IP</code>地址，例如：LSR宣告"我有地址<code>10.1.12.1、10.1.13.1</code>"</li>
+<li><code>Address Withdraw</code>：撤销之前宣告的地址，接口<code>down</code>掉时使用。</li>
+<li><code>Label Mapping</code>：<strong>很重要</strong>，宣告<code>FEC</code>和标签的映射关系。</li>
+<li><code>Label Request</code>：主动请求某个<code>FEC</code>的标签，在有序控制模式下使用。</li>
+<li><code>Label Abort Request</code>：取消未完成的标签请求。</li>
+<li><code>Label Withdraw</code>：撤销以及分配的标签映射，路由变化时使用。</li>
+<li>
+<p><code>Label Release</code>：释放不再需要的标签。</p>
+</li>
+<li>
+<p><code>Notification</code>：传递错误信息或通知时间。</p>
+</li>
+<li>当<code>LSR</code>收到无效的<code>LDP</code>消息时，发送<code>Notification</code>告知对方。</li>
+<li>会话即将超时 时发送通知。</li>
+</ul>
+<hr />
+<h5 id="224ldp">2.2.4.LDP报文封装</h5>
+<p><code>LDP</code>协议报文包括了<code>LDP</code>头部和<code>LDP</code>消息两部分。</p>
+<p><img alt="image-20251017223102946" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017223103024.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">消息类型</th>
+<th style="text-align: left;">传输协议</th>
+<th style="text-align: left;">端口号</th>
+<th style="text-align: left;">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>会话/通告/通知消息</strong></td>
+<td style="text-align: left;"><strong>TCP</strong></td>
+<td style="text-align: left;">646</td>
+<td style="text-align: left;">可靠传输，用于重要消息</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>发现消息（Hello）</strong></td>
+<td style="text-align: left;"><strong>UDP</strong></td>
+<td style="text-align: left;">646</td>
+<td style="text-align: left;">快速发现，用于邻居检测</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LDP头部：</strong></p>
+<p><code>LDP</code>协议的头部，固定<code>10</code>字节：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">长度</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Version</strong></td>
+<td style="text-align: left;">2字节</td>
+<td style="text-align: left;">LDP协议版本号（目前是1）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>PDU Length</strong></td>
+<td style="text-align: left;">2字节</td>
+<td style="text-align: left;">整个LDP PDU的长度（不包括本头部）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>LDP Identifier</strong></td>
+<td style="text-align: left;">6字节</td>
+<td style="text-align: left;">LSR标识符（LSR-ID + 标签空间）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LDP消息：</strong></p>
+<p><code>LDP</code>头部后面跟着一个或多个<code>LDP</code>消息，每个消息都有自己的头部：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">长度</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>U位</strong></td>
+<td style="text-align: left;">1比特</td>
+<td style="text-align: left;">未知消息位（0=返回错误，1=静默忽略）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Type</strong></td>
+<td style="text-align: left;">2字节</td>
+<td style="text-align: left;">消息类型（区分Hello、Initialization等）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Message Length</strong></td>
+<td style="text-align: left;">2字节</td>
+<td style="text-align: left;">本消息的长度（不包括消息头）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Message ID</strong></td>
+<td style="text-align: left;">4字节</td>
+<td style="text-align: left;">消息标识符（用于请求/响应匹配）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>消息体（可变长部分）</strong></p>
+<ul>
+<li><strong>Mandatory Parameters</strong>：必需参数（不同类型消息内容不同）</li>
+<li><strong>Optional Parameters</strong>：可选参数</li>
+</ul>
+<hr />
+<h4 id="23ldp">2.3.LDP工作原理</h4>
+<h5 id="231ldp">2.3.1.LDP会话状态机</h5>
+<p><code>LDP</code>会话协商过程可以通过状态机来描述，如下图总共有<code>5</code>种状态。</p>
+<p><img alt="image-20251017225102009" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017225102103.png" /></p>
+<p><strong>Non-Existent（不存在状态）</strong></p>
+<ul>
+<li>两个<code>LSR</code>之间还没有任何联系</li>
+<li>可能是刚开始配置<code>LDP</code></li>
+<li>可能是会话异常中断后</li>
+</ul>
+<p><strong>Initialized（初始化状态）</strong></p>
+<ul>
+<li><code>TCP</code>连接已经建立，但还没有进行<code>LDP</code>参数协商。</li>
+<li>此状态下分为主动方和被动方两种情况：</li>
+<li>主动方将主动发送<code>Initlization</code>消息，转向<code>OpenSent</code>状态，等待被动方回应<code>Initlization</code>消息。</li>
+<li>被动方在此状态等待主动方发给自己的<code>Initialization</code>消息，如果收到的<code>Initlization</code>消息的参数可以接受，则发送<code>Initialization</code>和<code>Keepalive</code>转向<code>OpenRec</code>状态。</li>
+<li>主动方和被动方在此状态下收到任何非<code>Initialization</code>消息或超时，都会转向<code>Non-Existen</code>状态。</li>
+<li>主动方和被动方是依据<code>LSR-ID</code>的大小来决定的，大的成为主动方，小的成为被动方。</li>
+</ul>
+<p><strong>OpenSent（开放发送状态）</strong></p>
+<ul>
+<li>此状态为主动方发送<code>Initalization</code>后进入的状态，在此状态等待被动方回答<code>Initalization</code>消息和<code>Keepalived</code>消息。</li>
+<li>如果收到的<code>Initalization</code>消息可以接受则转向<code>OpenRec</code>状态。</li>
+<li>如果收到的<code>Initalization</code>消息不能接受或超时则断开<code>TCP</code>连接转向<code>Non-Existent</code>状态</li>
+</ul>
+<p><strong>OpenRec（开放接收状态）</strong></p>
+<ul>
+<li>此状态不管是主动方还是被动方都是发出<code>Keepalive</code>消息后进入该状态。在该状态中等待对方回应<code>Keepalive</code>，只要收到<code>Keepalive</code>消息就转向<code>Operational</code>状态。如果收到其他消息或<code>Keepalive</code>超时则转向<code>Non-Existent</code>状态。</li>
+</ul>
+<p><strong>Operation（运行状态）</strong></p>
+<ul>
+<li>
+<p>该状态是<code>LDP Session</code>成功建立的标志。在此状态下可以发送和接受所有其他的<code>LDP</code>消息。</p>
+</li>
+<li>
+<p>在次状态下如果<code>Keepalive</code>超时或收到致命错误的<code>Notification</code>消息或者自己主动发送<code>Notification</code>消息主动结束会话，都会转向<code>Non-Existent</code>状态。</p>
+</li>
+</ul>
+<hr />
+<h5 id="232ldp">2.3.2.LDP会话建立</h5>
+<p><strong>发现阶段与TCP连接建立：</strong></p>
+<p><img alt="image-20251017235621756" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251017235621843.png" /></p>
+<p><strong>发现阶段：</strong></p>
+<ul>
+<li>设备通过周期性发送<code>LDP</code>链路<code>Hello</code>报文，实现<code>LDP</code>基本发现机制。</li>
+<li><code>LDP</code>链路<code>Hello</code>报文使用<code>UDP</code>报文，目的地址是组播地址<code>224.0.0.2</code>。如果<code>LSR</code>在特定接口接收到<code>LDP</code>链路<code>Hello</code>报文，表明该接口存在<code>LDP</code>邻接。</li>
+</ul>
+<p><strong>TCP连接建立阶段：</strong></p>
+<ul>
+<li><code>Hello</code>报文中携带传输地址，双方后续将使用传输地址建立<code>LDP</code>会话。</li>
+<li>传输地址较大的一方作为主动方，主动发起建立<code>TCP</code>连接。</li>
+<li>经过<code>TCP</code>三次握手之后，两者建立<code>TCP</code>连接。</li>
+</ul>
+<hr />
+<p><strong>会话建立与保持：</strong></p>
+<p><img alt="image-20251018004138015" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018004138102.png" /></p>
+<ul>
+<li><code>TCP</code>连接建立成功后，主动方<code>R2</code>发送<code>LDP</code>初始化报文，协商建立<code>LDP</code>会话的相关参数。</li>
+<li><code>LDP</code>会话的相关参数包括<code>LDP</code>协议版本、标签分发方式、<code>Keepalive</code>保持定时器的值、最大<code>PDU</code>长度和标签空间等。</li>
+<li>被动方<code>R1</code>收到初始化报文后，若接受<code>R2</code>的相关参数，则回应<code>Keepalive</code>报文作为确认，为了提高发送效率同时发送自己的初始化报文。</li>
+<li><code>R2</code>收到<code>R1</code>的初始化报文后，若接受相关参数，则恢复<code>Keepalive</code>报文给<code>R1</code>。</li>
+<li>双方都收到对端的<code>Keepalive</code>报文后，会话建立成功。后续通过周期性发送的<code>Keepalive</code>报文保持会话。</li>
+</ul>
+<hr />
+<h5 id="233ldp">2.3.3.LDP邻居状态</h5>
+<p><img alt="image-20251018004425008" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018004425097.png" /></p>
+<p>当建立完成<code>LDP</code>的邻居关系后，可通过<code>display mpls ldp peer</code>查看邻居状态：</p>
+<div class="highlight"><pre><span></span><code>&lt;R1&gt;display mpls ldp peer 
+
+ LDP Peer Information in Public network
+ A &#39;*&#39; before a peer means the peer is being deleted.
+ ------------------------------------------------------------------------------
+ PeerID                 TransportAddress   DiscoverySource
+ ------------------------------------------------------------------------------
+ 2.2.2.2:0              2.2.2.2            GigabitEthernet0/0/0
+ ------------------------------------------------------------------------------
+ TOTAL: 1 Peer(s) Found.
+</code></pre></div>
+<ul>
+<li><code>PeerID</code>：<code>LDP</code>邻居的<code>LDP ID</code>。</li>
+<li><code>2.2.2.2</code>代表的是邻居节点的<code>LSR ID</code>。</li>
+<li>
+<p><code>0</code>代表的是标签空间基于平台的。</p>
+</li>
+<li>
+<p><code>TransportAddress</code>：<code>LDP</code>邻居的传输地址</p>
+</li>
+<li><code>2.2.2.2</code>代表邻居用来建立<code>TCP</code>连接的<code>IP</code>地址。</li>
+</ul>
+<hr />
+<h5 id="234ldp">2.3.4.LDP会话状态</h5>
+<p><img alt="image-20251018004849339" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018004849419.png" /></p>
+<p>在<code>LDP</code>邻居关系建立完成后，可通过命令<code>display mpls ldp session</code>查看当前与邻居的会话状态：</p>
+<div class="highlight"><pre><span></span><code>&lt;R1&gt;display mpls ldp session 
+
+ LDP Session(s) in Public Network
+ Codes: LAM(Label Advertisement Mode), SsnAge Unit(DDDD:HH:MM)
+ A &#39;*&#39; before a session means the session is being deleted.
+ ------------------------------------------------------------------------------
+ PeerID Status     LAM      SsnRole     SsnAge      KASent/Rcv
+ ------------------------------------------------------------------------------
+ 2.2.2.2:0  Operational DU      Passive     0000:00:33  133/133
+ ------------------------------------------------------------------------------
+ TOTAL: 1 session(s) Found.
+</code></pre></div>
+<ul>
+<li><code>Status</code>：<code>LDP</code>会话的状态。</li>
+<li><code>LAM(Label Advertisement Mode)</code>标签发布模式：</li>
+<li>标签发布模式有<code>DU</code>和<code>DoD</code>两种模式。</li>
+<li><code>SsnRole</code>：<code>LSR</code>在<code>LDP</code>会话中的角色：</li>
+<li><code>Active</code>表示建立<code>LDP</code>会话的主动方。</li>
+<li><code>Passive</code>表示建立<code>LDP</code>会话的被动方。</li>
+</ul>
+<hr />
+<h4 id="24ldp">2.4.LDP标签分发</h4>
+<h5 id="241">2.4.1.上游与下游</h5>
+<p><img alt="image-20251018005652697" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018005652786.png" /></p>
+<p><code>MPLS</code>根据数据的转发方向确定上、下游关系。标签报文从上游<code>LSR</code>发出，被下游<code>LSR</code>接受并处理。</p>
+<p>如上图，对于到达<code>192.168.3.0/24</code>的<code>LSP</code>而言，<code>R3</code>是<code>R2</code>的下游<code>LSR</code>，<code>R1</code>是<code>R2</code>的上游<code>LSR</code>。</p>
+<p><strong>越靠近目的地的就是下游<code>LSR</code>。</strong></p>
+<hr />
+<h5 id="242">2.4.2.标签的分发和管理</h5>
+<p>在<code>MPLS</code>网络中，下游<code>LSR</code>决定标签和<code>FEC</code>的绑定关系，并将这种绑定关系发布给上游<code>LSR</code>。</p>
+<p><code>LDP</code>通过发送标签请求和标签映射消息，在<code>LDP</code>对等体之间通告<code>FEC</code>和标签的绑定关系来建立<code>LSP</code>。</p>
+<p>标签的发布和管理由标签发布方式、标签分配控制方式和标签保持方式来决定。</p>
+<p><img alt="image-20251018005927336" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018005927430.png" /></p>
+<ul>
+<li><strong>标签分发方式：</strong>决定<code>LSR</code>在分配标签时是否需要上游请求。</li>
+<li><strong>标签分配控制方式：</strong>决定<code>LSR</code>在分配标签时是否需要先收到下游的<strong>标签映射</strong>。</li>
+<li><strong>标签保持方式：</strong>决定<code>LSR</code>是否仅接收来自路由表中下一跳的<strong>标签映射</strong>。</li>
+</ul>
+<hr />
+<h5 id="243">2.4.3.标签发布方式</h5>
+<p><strong>DU下游自主模式（默认）：</strong></p>
+<p><code>LSR</code>不需要等待邻居发起<strong>标签请求</strong>再将标签映射通告给邻居（不是触发式）。如果这个<code>LSR</code>是<code>FEC</code>的最下游，那么直接对<code>FEC</code>进行标签分配，然后发布给自己的上游<code>LDP</code>邻居。</p>
+<p><img alt="image-20251018010130032" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018010130124.png" /></p>
+<p>如上图，<code>R3</code>是<code>192.168.3.0/24</code>这个<code>FEC</code>的最下游（直连），<code>R3</code>会直接为这个网段分配标签，并将这个标签映射关系通告给<code>R2</code>。<code>R2</code>收到后立刻为<code>192.168.3.0/24</code>这个网段生成本地标签，然后通告给<code>R1</code>。</p>
+<p><strong>DoD下游按需模式：</strong></p>
+<p>当下游<code>LSR</code>收到上游<code>LSR</code>的标签请求消息之后才进行标签分配与分发。</p>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018010758337.png" /></p>
+<p>如上图，当<code>R1</code>有访问<code>192.168.3.0/24</code>网段的需求时，<code>R1</code>发送<strong>标签请求</strong>给下游<code>R2</code>，<code>R2</code>发送<strong>标签请求</strong>给<code>R3</code>。<code>R3</code>接收到标签请求后，为<code>192.168.3.0/24</code>生成标签映射发送给<code>R2</code>，<code>R2</code>在生成标签映射发送给<code>R1</code>。</p>
+<p><strong>DoD的使用场景：</strong></p>
+<ol>
+<li><strong>标签空间有限的网络：</strong>当<code>LSR</code>的标签资源紧张时，<code>DoD</code>可以按需分配标签，避免不必要的标签消耗。</li>
+<li>
+<p><strong>需要精确控制LSP路径：</strong>在流量工程或特定路径需求中，<code>DoD</code>可以提供更精确的控制。</p>
+</li>
+<li>
+<p><strong>与ATM网络互通：</strong>传统的<code>ATM</code>因为标签资源有限需要使用<code>DoD</code>模式。</p>
+</li>
+</ol>
+<hr />
+<h5 id="244">2.4.4.标签分配控制方式</h5>
+<p><strong>独立模式：</strong></p>
+<p>本地<code>LSR</code>不需要等待下游发送的<strong>标签映射消息</strong>，可以直接为<code>FEC</code>进行标签绑定，并通告给上游<code>LSR</code>。</p>
+<p><img alt="image-20251018011343100" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018011343198.png" /></p>
+<p><strong>下游自主模式配合独立模式：</strong></p>
+<p>每台<code>LSR</code>都会直接针对<code>FEC</code>分配标签，并发送给自己的上游。</p>
+<p><strong>下游按需模式配合独立模式：</strong></p>
+<p>当<code>LSR</code>收到上游的请求标签后，直接将标签映射关系发送给上游。然后再发送请求标签给自己的下游。</p>
+<p><strong>使用场景：</strong></p>
+<ol>
+<li>对<code>LSP</code>建立速度要求高的网络：独立模式可以并行建立<code>LSP</code>，比有序模式建立更快。</li>
+</ol>
+<hr />
+<p><strong>有序模式（默认）：</strong></p>
+<p>只有当<code>LSR</code>已经具有<code>FEC</code>下一跳（<code>Out Label</code>）的标签映射消息，或者该<code>LSR</code>就是此<code>FEC</code>的出节点时，该<code>LSR</code>才可以向上游发送此<code>FEC</code>的标签映射。</p>
+<p><img alt="image-20251018011803333" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018011803431.png" /></p>
+<p><strong>下游自主配合有序模式：</strong></p>
+<p>由<code>FEC</code>的出节点（最下游）<code>R4</code>生成标签映射并通告给上游，<code>R3</code>在收到该标签映射消息后，在本地为该<code>FEC</code>生成标签发送给<code>R2</code>。以此类推。</p>
+<p><strong>下游按需配合有序模式：</strong></p>
+<p>当<code>R1</code>需要访问<code>192.168.4.0/24</code>时，发送请求标签给它的下游<code>R2</code>，<code>R2</code>在向下逐跳发送给<strong>出节点</strong><code>R4</code>。<code>R4</code>收到后生成标签并发送给上游<code>R3</code>，<code>R3</code>收到后再生成标签发送给<code>R2</code>，<code>R2</code>再生成标签发送给<code>R1</code>。</p>
+<hr />
+<h5 id="245">2.4.5.标签保留方式</h5>
+<p><strong>自由模式（默认）：</strong></p>
+<p>当基于<code>IP</code>网络部署<code>MPLS</code>时，<code>LSR</code>根据<code>IP</code>路由表判断接收到的标签映射是否来自下一跳。</p>
+<p>自由模式中<code>LSR</code>可以针对<code>FEC</code>接收并保存<strong>非下一跳</strong><code>LSR</code>发送过来的标签。</p>
+<p><img alt="image-20251018012857948" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018012858044.png" /></p>
+<p>如上图，<code>R2</code>路由表中<code>192.168.4.0/24</code>的下一跳<code>LSR</code>是<code>R3</code>，但是对于<code>192.168.4.0/24</code>任何其他<code>LSR</code>发送过来的标签，<code>R2</code>依旧会接收并保存到本地。</p>
+<p>在<code>DU</code>标签分发方式下，自由模式时，<code>R2</code>保留所有<code>LDP</code>邻居发来的标签。</p>
+<p>在<code>DoD</code>标签分发方式下，自由模式时，<code>R2</code>会向所有<code>LDP</code>邻居发送请求标签。但是，<code>DoD</code>一般配合保守模式使用。</p>
+<hr />
+<p><strong>保守模式：</strong></p>
+<p>保守模式下，对于从邻居<code>LSR</code>收到的标签映射，只有当邻居<code>LSR</code>是自己的下一跳时才保留。</p>
+<p>保守模式的优点在于只需要保留和维护用于转发数据的标签，以达到节约标签的目的。</p>
+<p><img alt="image-20251018013337678" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018013337775.png" /></p>
+<p>当使用<code>DU</code>标签分发方式时，<code>R2</code>只保留下一跳<code>R3</code>通告的标签映射。</p>
+<p>当使用<code>DoD</code>标签分发方式时，<code>R2</code>只向下一跳<code>R3</code>发送标签请求。</p>
+<p><strong>缺点：</strong></p>
+<p>虽然保守模式节约标签，但是当网络拓扑发生变化，但<code>LSP</code>的重建会比较慢。</p>
+<p>而自由模式因为提前获取了所有<code>LSR</code>发送过来的标签映射，所以网络拓扑发生变化时，可以迅速重建<code>LSP</code>。</p>
+<hr />
+<h4 id="25php">2.5.PHP机制</h4>
+<h5 id="251">2.5.1.回忆</h5>
+<p><img alt="image-20251018015344956" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018015345076.png" /></p>
+<p>如上图，<code>R3</code>是出站节点负责生成标签并通告给上游<code>LSR</code>。在<code>R3</code>收到<code>MPLS</code>报文时，它需要先查找<code>LIM</code>表根据其入站标签<code>1027</code>，找到匹配表项后发现其<code>Tunnel ID 0x0</code>动作为弹出标签，于是将标签报文的标签头弹出，通过读取该标签头部的<code>BoS</code>字段，<code>R3</code>意识到这个是一个栈底标签。获取到<code>IP</code>报文后，再根据报文的目的地址查找<code>FIB</code>表并转发。</p>
+<p>在这个场景中<code>R3</code>作为出站设备需要查找非常多的表，还需要解封装<code>IP</code>头部，压力基本都集中在出站设备上了。</p>
+<p>如果<code>R2</code>再转发时，直接将发往<code>3.3.3.0/24</code>的标签报文的标签头部率先移除，将里面所封装的<code>IP</code>报文转发给<code>R3</code>，那么<code>R3</code>收到后直接查询路由表转发，转发效率将得到提升。</p>
+<hr />
+<h5 id="252php">2.5.2.PHP特性</h5>
+<p><code>PHP(Penultimate Hop Poppoing)</code>次末跳弹出机制解决上述的问题。<code>PHP</code>也被称为倒数第二跳弹出。</p>
+<p>如果激活了<code>PHP</code>特性，那么<code>Egress</code>节点在为本地路由分配标签的时候，会分配一个特殊标签（<code>3</code>），该标签被称为<strong>隐式空标签</strong>。当<code>LSR</code>转发一个报文时，如果发现对应的出标签值为<code>3</code>，则<code>LSR</code>会将栈顶标签弹出，并将里面所封装的数据转发给下游<code>LSR</code>。</p>
+<p><img alt="image-20251018020248241" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018020248352.png" /></p>
+<p>如上图，<code>R3</code>在分配标签时，因为自己是<strong>出节点</strong>，它会为该<code>FEC</code>分配标签<code>3</code>并发送给上游<code>LSP</code>。</p>
+<p>当上游<code>R2</code>收到这个标签记录到本地后，<code>R2</code>在转发<code>MPLS</code>数据包到<code>192.168.3.0/24</code>时，根据<code>Out Label 3</code>它会将该报文的栈顶（靠近二层）<code>MPLS</code>头部移除并转发给<code>R3</code>。<code>R3</code>收到后直接做<code>IP</code>路由转发即可，大大提高了效率。</p>
+<ul>
+<li><code>label 3</code>不代表为报文打上<code>3</code>这个标签，而是拆除现有标签的含义。</li>
+<li>对于上图中的<code>R2</code>，它本身就需要查找<code>LIM</code>和<code>NHLFE</code>，它只是多了一个拆除标签的动作，不需要有额外动作，也没有其他额外开销。</li>
+</ul>
+<hr />
+<h5 id="253">2.5.3.隐式空标签</h5>
+<p>在<code>LDP</code>的缺省情况下，<code>Egress</code>节点向倒数第二跳分配隐式空标签（<code>implicit-null</code>），即特殊标签<code>3</code>。</p>
+<p>但是在<code>QoS</code>的场景中，标签被弹出后，其中的优先级也会被一并丢失。</p>
+<p><img alt="image-20251018020909152" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018020909256.png" /></p>
+<hr />
+<h5 id="254">2.5.4.显式空标签</h5>
+<p>显示空标签机制，<code>Egress</code>节点向倒数第二跳分配特殊标签<code>0</code>。拆除标签的<code>LSR</code>不同了。为了保留<code>QoS</code>特性可使用这种机制。</p>
+<p><img alt="image-20251018021043905" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018021044006.png" /></p>
+<p><code>R3</code>在转发标签报文时，若出标签封装为<code>0</code>，则不会将标签头部弹出，标签头部中的<code>QoS</code>信息得以保存。<code>R4</code>在收到带<code>0</code>标签的报文时，直接弹出标签，不用去查找<code>ILM</code>表项。即做到为出站点省去部分操作，也保留了<code>QoS</code>信息。</p>
+<p><strong>配置方法：</strong></p>
+<p>在出节点<code>MPLS</code>视图下，执行命令<code>label advertise { explicit-null | implicit-null | non-null}</code>，配置向倒数第二跳分配的标签。</p>
+<ul>
+<li>在缺省情况下，使用的是<code>implicit-null</code>，隐式空标签。</li>
+<li><code>explicit-null</code>表示显示空标签，当需要支持<code>MPLS QoS</code>属性时使用。</li>
+<li><code>non-null</code>表示<code>Egress</code>向倒数第二跳正常分配标签，不使用上述两种特殊标签。</li>
+</ul>
+<hr />
+<h4 id="26ldp">2.6.LDP工作过程详解</h4>
+<p><img alt="image-20251018022227880" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018022227992.png" /></p>
+<p>需提前在<code>MPLS</code>域中配置好<code>OSPF</code>路由保证设备之间可以正常学习到对方的路由信息。所有设备的相应接口上激活<code>MPLS</code>和<code>LDP</code>功能，且相邻设备之间已正常建立本地<code>LDP</code>会话。</p>
+<p><strong>此例以<code>DU</code>模式、有序方式、自由方式和隐式空标签为例说明。</strong></p>
+<p><img alt="image-20251018005927336" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018023504680.png" /></p>
+<hr />
+<h5 id="261">2.6.1.标签分发过程</h5>
+<p><strong>Egress LSR：</strong></p>
+<p><code>R4</code>直连网段<code>192.168.4.0/24</code>，<code>R4</code>主动为到达该网段的路由分配标签，由于默认开启隐式空标签，所以<code>R4</code>会为其分配<code>3</code>这个标签并发送给<code>LDP</code>邻居。</p>
+<p><img alt="image-20251018022528331" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018022528442.png" /></p>
+<p><strong>Transit LSR：</strong></p>
+<p>以<code>R2</code>为例，在其路由表中<code>192.168.4.0/24</code>下一跳为<code>R4</code>，当他从<code>R4</code>收到关于<code>192.168.4.0/24</code>的标签映射通告时，由于该通告来自下游<code>LDP</code>邻居，因此将触发它自己为该路由分配标签<code>1021</code>，并将标签映射发送给<code>LDP</code>邻居<code>R1</code>。</p>
+<p><img alt="image-20251018022703995" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018022704104.png" /></p>
+<p><strong>Ingress LSR</strong></p>
+<p><code>R1</code>收到<code>LDP</code>邻居<code>R2</code>及<code>R3</code>通告过来的关于<code>192.168.4.0/24</code>路由的标签映射后，将这两个标签都存储起来，但是由于在自己的路由表中，到达<code>192.168.4.0/24</code>的下一跳是<code>R2</code>，因此当前它只会使用<code>R2</code>所通告的标签<code>1021</code>。</p>
+<p><img alt="image-20251018022833024" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018022833141.png" /></p>
+<hr />
+<h5 id="262">2.6.2.标签转发过程</h5>
+<p><strong>Ingress LSR：</strong></p>
+<p><code>R1</code>收到一个<code>IP</code>报文后，根据<code>FIB</code>表中记录的<code>Tunnel ID</code>发现需要做<strong>标签转发</strong>，随机查找<code>NHLFE</code>表，对该报文压入<code>1021</code>标签。</p>
+<p><img alt="image-20251018023038493" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018023038609.png" /></p>
+<p><strong>Transit LSR：</strong></p>
+<p><code>R2</code>作为<code>Transit LSR</code>，直接解封装报文的<code>MPLS</code>头部，查看其现有标签对应本机<code>LIM</code>表上的哪一条。然后根据该条目的出接口、下一跳和<code>Out Label</code>进行标签交换动作。</p>
+<p>但是，由于<code>R4</code>向<code>R2</code>发送的是隐式空标签<code>3</code>，所以<code>R2</code>在查看了<code>LIM</code>表后直接将该数据包的<code>MPLS</code>头部拆除，然后直接转发给<code>R4</code>。</p>
+<p><img alt="image-20251018023327771" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018023327884.png" /></p>
+<p><strong>Egress LSR：</strong></p>
+<p><code>R4</code>作为<code>Egress LSR</code>，因为隐式空标签的存在，从<code>R2</code>收到一个<code>IP</code>报文，直接通过<code>FIB</code>表进行<code>IP</code>路由转发。</p>
+<hr />
+<h4 id="27ldp">2.7.LDP基础配置命令</h4>
+<ol>
+<li><strong>使能<code>LDP</code>：</strong></li>
+<li>该命令用于使能本节点的<code>LDP</code>能力，并进入<code>LDP</code>视图。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] mpls ldp   # 全局使能
+[Huawei-GigabitEthernet0/0/0] mpls ldp  # 接口使能（需要先全局使能）
+</code></pre></div>
+<ol>
+<li><strong>配置LDP远端会话：</strong></li>
+<li>该命令用于创建远端对等体并进入远端对等体视图。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] mpls ldp remote-peer remote-peer-name
+
+[Huawei-mpls-ldp-remote-PeerName] remote-ip ip-address  # 用来配置LDP远端对等体的IP地址
+</code></pre></div>
+<ol>
+<li><strong>配置触发LSP的策略：</strong></li>
+<li><code>lsp-trigger</code>命令用来指定哪些静态路由及<code>IGP</code>路由会触发<code>LDP LSP</code>的建立，缺省情况下，根据32位地址的<code>IP</code>路由触发<code>LDP</code>建立<code>LSP</code>。<ul>
+<li><code>all</code>：所有静态路由和<code>IGP</code>路由项触发建立<code>LSP</code>。配置该命令后，所有静态路由及<code>IGP</code>路由会触发<code>LDP</code>建立<code>LSP</code>，会导致<code>LSP</code>数量庞大，占用过多的标签资源，以及整网<code>LSP</code>收敛速度变慢。故一般情况下不推荐配置此命令。</li>
+<li><code>host</code>：<code>32</code>位地址的<code>IP</code>路由触发建立<code>LSP</code>。</li>
+<li><code>ip-prefix</code>：根据<code>IP</code>地址前缀列表触发建立<code>LSP</code>。</li>
+<li><code>None</code>：不触发建立<code>LSP</code>。</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Huawei-mpls] lsp-trigger { all | host | ip-prefix ip-prefix-name | none }
+</code></pre></div>
+<ol>
+<li><strong>配置LDP标签发布模式：</strong></li>
+<li>缺省情况下，标签发布模式为下游自主标签分发（<code>Downstream Unsolicited</code>）。<ul>
+<li>如果标签分配方式为<code>DU</code>，则标签保持模式为<code>Liberal</code>。</li>
+<li>如果标签分配方式为<code>DoD</code>，则标签保持模式为<code>Conservative</code>。</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei-GigabitEthernet0/0/0] mpls ldp advertisement { dod | du }
+</code></pre></div>
+<ol>
+<li><strong>配置LDP标签分配控制方式：</strong></li>
+<li>缺省情况下，<code>LDP</code>标签分配控制方式为有序标签分配控制（<code>Ordered</code>）。</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei-mpls-ldp] label distribution control-mode { independent | ordered }
+</code></pre></div>
+<ol>
+<li><strong>配置PHP特性：</strong></li>
+<li>缺省情况下，出节点向倒数第二跳分配隐式空标签（<code>implicit-null</code>）。   <ul>
+<li><code>explicit-null</code>：显示空标签</li>
+<li><code>implicit-null</code>：隐式空标签</li>
+<li><code>non-null</code>：出节点向倒数第二跳正常分配标签</li>
+</ul>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei-mpls] label advertise { explicit-null | implicit-null | non-null }
+</code></pre></div>
+<p><img alt="image-20251018005927336" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018024515750.png" /></p>
+<hr />
+<h4 id="28ldp">2.8.LDP实验演示</h4>
+<p><img alt="image-20251018025822256" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018025822375.png" /></p>
+<p>为了<code>MPLS</code>网络内实现路由互通，需要在<code>4</code>台路由器上部署<code>OSPF</code>协议。在所有的路由器上配置<code>Loopback</code>接口，作为设备的<code>OSPF Router-ID</code>、<code>MPLS LSR-ID</code>。另外，由于<code>LDP</code>的存在，设备之间的<code>LDP</code>会话能够正常建立的前提是<code>LSP ID</code>能够通信，<code>LSP ID</code>中由<code>LSR ID</code>组成，所以我们需要通过<code>OSPF</code>把<code>Loopback</code>宣告进去。</p>
+<p>基础的<code>OSPF</code>等配置忽略，但是得保证<code>OSPF</code>配置完成后，两台<code>PC</code>能够互通，以及回环接口之间能够互通。</p>
+<hr />
+<h5 id="281mplsldp">2.8.1.MPLS与LDP配置</h5>
+<p><strong>R1：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]mpls lsr-id 1.1.1.1
+[AR1]mpls
+Info: Mpls starting, please wait... OK!
+[AR1-mpls]quit
+[AR1]mpls ldp
+[AR1-mpls-ldp]quit
+[AR1]interface g0/0/1
+[AR1-GigabitEthernet0/0/1]mpls
+[AR1-GigabitEthernet0/0/1]mpls ldp
+[AR1-GigabitEthernet0/0/1]quit
+</code></pre></div>
+<p><strong>R2：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR2]mpls lsr-id 2.2.2.2
+[AR2]mpls
+Info: Mpls starting, please wait... OK!
+[AR2-mpls]quit
+[AR2]mpls ldp
+[AR2-mpls-ldp]quit
+[AR2]int g0/0/0
+[AR2-GigabitEthernet0/0/0]mpls
+[AR2-GigabitEthernet0/0/0]mpls ldp
+[AR2-GigabitEthernet0/0/0]quit
+[AR2]int g0/0/1
+[AR2-GigabitEthernet0/0/1]mpls
+[AR2-GigabitEthernet0/0/1]mpls ldp
+[AR2-GigabitEthernet0/0/1]quit
+</code></pre></div>
+<p><strong>R3：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]mpls lsr-id 3.3.3.3
+[AR3]mpls
+Info: Mpls starting, please wait... OK!
+[AR3-mpls]quit
+[AR3]mpls ldp
+[AR3-mpls-ldp]quit
+[AR3]int g0/0/0
+[AR3-GigabitEthernet0/0/0]mpls 
+[AR3-GigabitEthernet0/0/0]mpls ldp
+[AR3-GigabitEthernet0/0/0]quit
+[AR3]int g0/0/1
+[AR3-GigabitEthernet0/0/1]mpls
+[AR3-GigabitEthernet0/0/1]mpls ldp
+[AR3-GigabitEthernet0/0/1]quit
+</code></pre></div>
+<p><strong>R4：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR4]mpls lsr-id 4.4.4.4
+[AR4]mpls
+Info: Mpls starting, please wait... OK!
+[AR4-mpls]quit
+[AR4]mpls ldp
+[AR4-mpls-ldp]quit
+[AR4]int g0/0/0
+[AR4-GigabitEthernet0/0/0]mpls
+[AR4-GigabitEthernet0/0/0]mpls ldp
+[AR4-GigabitEthernet0/0/0]quit
+</code></pre></div>
+<hr />
+<h5 id="282">2.8.2.查看信息</h5>
+<p><strong>查看LDP对等体：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]display mpls ldp peer 
+
+ LDP Peer Information in Public network
+ A &#39;*&#39; before a peer means the peer is being deleted.
+ ------------------------------------------------------------------------------
+ PeerID                 TransportAddress   DiscoverySource
+ ------------------------------------------------------------------------------
+ 2.2.2.2:0              2.2.2.2            GigabitEthernet0/0/1
+ ------------------------------------------------------------------------------
+ TOTAL: 1 Peer(s) Found.
+
+[AR1]display mpls ldp peer verbose 
+
+ LDP Peer Information in Public network
+ ------------------------------------------------------------------------------
+ Peer LDP ID         : 2.2.2.2:0
+ Peer Max PDU Length : 4096         Peer Transport Address : 2.2.2.2
+ Peer Loop Detection : Off          Peer Path Vector Limit : ----
+ Peer FT Flag        : Off          Peer Keepalive Timer   : 45 Sec
+ Recovery Timer      : ----         Reconnect Timer        : ----
+ Peer Type           : Local
+
+ Peer Label Advertisement Mode : Downstream Unsolicited
+ Peer Discovery Source         : GigabitEthernet0/0/1
+ Peer Deletion Status          : No
+ Capability-Announcement       : Off
+ Peer P2MP Capability          : Off
+ ------------------------------------------------------------------------------
+</code></pre></div>
+<p><strong>查看ldp会话：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]display mpls ldp session 
+
+ LDP Session(s) in Public Network
+ Codes: LAM(Label Advertisement Mode), SsnAge Unit(DDDD:HH:MM)
+ A &#39;*&#39; before a session means the session is being deleted.
+ ------------------------------------------------------------------------------
+ PeerID             Status      LAM  SsnRole  SsnAge      KASent/Rcv
+ ------------------------------------------------------------------------------
+ 2.2.2.2:0          Operational DU   Passive  0000:00:04  17/17
+ ------------------------------------------------------------------------------
+ TOTAL: 1 session(s) Found.
+
+ [AR1]display mpls ldp session verbose 
+
+ LDP Session(s) in Public Network
+ ------------------------------------------------------------------------------
+ Peer LDP ID     : 2.2.2.2:0          Local LDP ID   : 1.1.1.1:0
+ TCP Connection  : 1.1.1.1 &lt;- 2.2.2.2
+ Session State   : Operational        Session Role   : Passive
+ Session FT Flag : Off                MD5 Flag       : Off
+ Reconnect Timer : ---                Recovery Timer : ---
+ Keychain Name   : ---
+
+ Negotiated Keepalive Hold Timer   : 45 Sec
+ Configured Keepalive Send Timer   : ---
+ Keepalive Message Sent/Rcvd       : 18/18 (Message Count)
+ Label Advertisement Mode          : Downstream Unsolicited
+ Label Resource Status(Peer/Local) : Available/Available
+ Session Age                       : 0000:00:04 (DDDD:HH:MM)
+ Session Deletion Status           : No
+
+ Capability:
+   Capability-Announcement         : Off
+   P2MP Capability                 : Off
+
+ Outbound&amp;Inbound Policies applied : NULL
+
+ Addresses received from peer: (Count: 3)
+ 2.2.2.2             12.1.1.2            23.1.1.1           
+ ------------------------------------------------------------------------------
+</code></pre></div>
+<p><strong>查看LSP情况：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]display mpls ldp lsp
+
+ LDP LSP Information
+ -------------------------------------------------------------------------------
+ DestAddress/Mask   In/OutLabel    UpstreamPeer    NextHop         OutInterface
+ -------------------------------------------------------------------------------
+
+ 1.1.1.1/32         3/NULL         2.2.2.2         127.0.0.1       InLoop0
+*1.1.1.1/32         Liberal/1024                   DS/2.2.2.2
+ 2.2.2.2/32         NULL/3         -               12.1.1.2        GE0/0/1
+ 2.2.2.2/32         1024/3         2.2.2.2         12.1.1.2        GE0/0/1
+ 3.3.3.3/32         NULL/1025      -               12.1.1.2        GE0/0/1
+ 3.3.3.3/32         1025/1025      2.2.2.2         12.1.1.2        GE0/0/1
+ 4.4.4.4/32         NULL/1026      -               12.1.1.2        GE0/0/1
+ 4.4.4.4/32         1026/1026      2.2.2.2         12.1.1.2        GE0/0/1
+ -------------------------------------------------------------------------------
+ TOTAL: 7 Normal LSP(s) Found.
+ TOTAL: 1 Liberal LSP(s) Found.
+ TOTAL: 0 Frr LSP(s) Found.
+ A &#39;*&#39; before an LSP means the LSP is not established
+ A &#39;*&#39; before a Label means the USCB or DSCB is stale
+ A &#39;*&#39; before a UpstreamPeer means the session is stale
+ A &#39;*&#39; before a DS means the session is stale
+ A &#39;*&#39; before a NextHop means the LSP is FRR LSP
+</code></pre></div>
+<p>从上述信息可看出<code>LDP</code>缺省只为路由表中的<strong>主机路由</strong>分配标签（可通过在<code>MPLS</code>配置视图下使用<code>lsp-trigger</code>命令修改缺省行为），这是为了防止当路由条目过多时，导致<code>LSP</code>的数量太大、设备负担过重。</p>
+<hr />
+<h5 id="283ldp">2.8.3.业务路由触发LDP</h5>
+<p><strong>注意：</strong>对于业务路由（非主机路由）需要同时在<code>Ingress</code>和<code>Egress</code>为业务路由配置<code>ip-prefix</code>进行匹配，并在<code>MPLS</code>中应用，最终实现业务路由触发<code>LDP</code>。</p>
+<div class="highlight"><pre><span></span><code>[AR1]dis fib 192.168.20.0
+Route Entry Count: 1
+Destination/Mask   Nexthop         Flag  TimeStamp     Interface      TunnelID
+192.168.20.0/24    12.1.1.2        DGU   t[398]        GE0/0/1        0x0
+</code></pre></div>
+<p><strong>R1：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]ip ip-prefix ldp permit 192.168.10.0 24
+[AR1]ip ip-prefix ldp permit 192.168.20.0 24
+[AR1]mpls
+[AR1-mpls]lsp-trigger ip-prefix ldp
+[AR1-mpls]quit
+</code></pre></div>
+<p><strong>R4：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR4]ip ip-prefix ldp permit 192.168.10.0 24    
+[AR4]ip ip-prefix ldp permit 192.168.20.0 24
+[AR4]mpls   
+[AR4-mpls]lsp-trigger ip-prefix ldp
+[AR4-mpls]quit
+</code></pre></div>
+<p><strong>注意：</strong>在使用了<code>ip-prefix</code>模式后，原有的主机方式就消失了，不会再为<code>32</code>位主机路由分配标签。</p>
+<hr />
+<h5 id="284">2.8.4.验证现象</h5>
+<p><strong>查看LSP：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]display mpls ldp lsp 192.168.20.0 24
+
+ LDP LSP Information
+ -------------------------------------------------------------------------------
+ DestAddress/Mask   In/OutLabel    UpstreamPeer    NextHop         OutInterface
+ -------------------------------------------------------------------------------
+
+ 192.168.20.0/24    NULL/1028      -               12.1.1.2        GE0/0/1
+ 192.168.20.0/24    1027/1028      2.2.2.2         12.1.1.2        GE0/0/1
+ -------------------------------------------------------------------------------
+ TOTAL: 2 Normal LSP(s) Found.
+ TOTAL: 0 Liberal LSP(s) Found.
+ TOTAL: 0 Frr LSP(s) Found.
+ A &#39;*&#39; before an LSP means the LSP is not established
+ A &#39;*&#39; before a Label means the USCB or DSCB is stale
+ A &#39;*&#39; before a UpstreamPeer means the session is stale
+ A &#39;*&#39; before a DS means the session is stale
+ A &#39;*&#39; before a NextHop means the LSP is FRR LSP 
+
+ [AR4]dis mpls ldp lsp 192.168.10.0 24
+
+ LDP LSP Information
+ -------------------------------------------------------------------------------
+ DestAddress/Mask   In/OutLabel    UpstreamPeer    NextHop         OutInterface
+ -------------------------------------------------------------------------------
+
+ 192.168.10.0/24    NULL/1027      -               34.1.1.1        GE0/0/0
+ 192.168.10.0/24    1027/1027      3.3.3.3         34.1.1.1        GE0/0/0
+ -------------------------------------------------------------------------------
+ TOTAL: 2 Normal LSP(s) Found.
+ TOTAL: 0 Liberal LSP(s) Found.
+ TOTAL: 0 Frr LSP(s) Found.
+ A &#39;*&#39; before an LSP means the LSP is not established
+ A &#39;*&#39; before a Label means the USCB or DSCB is stale
+ A &#39;*&#39; before a UpstreamPeer means the session is stale
+ A &#39;*&#39; before a DS means the session is stale
+ A &#39;*&#39; before a NextHop means the LSP is FRR LSP
+</code></pre></div>
+<p><strong>查看FIB表：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]display fib 192.168.20.0
+Route Entry Count: 1
+Destination/Mask   Nexthop         Flag  TimeStamp     Interface      TunnelID
+192.168.20.0/24    12.1.1.2        DGU   t[1396]       GE0/0/1        0x7
+
+[AR4]display fib 192.168.10.0
+Route Entry Count: 1
+Destination/Mask   Nexthop         Flag  TimeStamp     Interface      TunnelID
+192.168.10.0/24    34.1.1.1        DGU   t[1409]       GE0/0/0        0x8
+</code></pre></div>
+<p><strong>ping测试并抓包：</strong></p>
+<div class="highlight"><pre><span></span><code>PC&gt;ping 192.168.20.1
+
+Ping 192.168.20.1: 32 data bytes, Press Ctrl_C to break
+Request timeout!
+From 192.168.20.1: bytes=32 seq=2 ttl=124 time=31 ms
+From 192.168.20.1: bytes=32 seq=3 ttl=124 time=15 ms
+From 192.168.20.1: bytes=32 seq=4 ttl=124 time=31 ms
+From 192.168.20.1: bytes=32 seq=5 ttl=124 time=32 ms
+
+--- 192.168.20.1 ping statistics ---
+  5 packet(s) transmitted
+  4 packet(s) received
+  20.00% packet loss
+  round-trip min/avg/max = 0/27/32 ms
+</code></pre></div>
+<p><img alt="image-20251018032552839" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018032552963.png" /></p>
+<hr />
+<h5 id="285">2.8.5.标签</h5>
+<p>之前有提到过，在<code>LDP</code>协议中一台<code>LSR</code>对于一条<code>FEC</code>给多个邻居分配标签时，标签的数值是一样的。</p>
+<p><strong>修改拓扑：</strong></p>
+<p><img alt="image-20251018033001801" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018033001933.png" /></p>
+<p><strong>验证：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR5]dis mpls lsp 
+-------------------------------------------------------------------------------
+                 LSP Information: LDP LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+2.2.2.2/32         NULL/3        -/GE0/0/0                                     
+2.2.2.2/32         1024/3        -/GE0/0/0                                     
+3.3.3.3/32         NULL/1025     -/GE0/0/0                                     
+3.3.3.3/32         1025/1025     -/GE0/0/0                                     
+192.168.10.0/24    1026/1027     -/GE0/0/0                                     
+192.168.20.0/24    1027/1028     -/GE0/0/0                                     
+5.5.5.5/32         3/NULL        -/-
+
+[AR1]display mpls lsp 
+-------------------------------------------------------------------------------
+                 LSP Information: LDP LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+192.168.20.0/24    NULL/1028     -/GE0/0/1                                     
+192.168.20.0/24    1027/1028     -/GE0/0/1                                     
+2.2.2.2/32         1024/3        -/GE0/0/1                                     
+5.5.5.5/32         1028/1029     -/GE0/0/1                                     
+3.3.3.3/32         1025/1025     -/GE0/0/1                                     
+192.168.10.0/24    3/NULL        -/- 
+
+&lt;AR3&gt;dis mpls lsp 
+-------------------------------------------------------------------------------
+                 LSP Information: LDP LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+192.168.20.0/24    1028/3        -/GE0/0/1                                     
+5.5.5.5/32         NULL/1029     -/GE0/0/0                                     
+2.2.2.2/32         NULL/3        -/GE0/0/0                                     
+2.2.2.2/32         1025/3        -/GE0/0/0                                     
+3.3.3.3/32         3/NULL        -/-                                           
+5.5.5.5/32         1029/1029     -/GE0/0/0                                     
+192.168.10.0/24    1027/1027     -/GE0/0/0   
+</code></pre></div>
+<p>从上述现象可看出，<code>R2</code>针对<code>192.168.10.0/24</code>和<code>192.168.20.0/24</code>给对等体的标签是一致的。</p>
+<hr />
+<h3 id="3mpls-vpn">3.MPLS VPN</h3>
+<h4 id="31vpn">3.1.VPN技术简介</h4>
+<p><code>VPN(Virtual Private Network)</code>虚拟专用网络，指的是一个在公共网络中实现虚拟的专用网络，从而使得用户能够基于专用网络实现通信的技术。</p>
+<p><img alt="IPsec VPN" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018124843024.png" /></p>
+<p><code>VPN</code>技术的应用场景主要分以下两种：</p>
+<ol>
+<li><strong>总部与分支结构互联：</strong></li>
+<li>这是<strong>站点到站点</strong><code>VPN</code>的经典场景。公司将总部、各个分公司、数据中心的局域网通过<code>VPN</code>连接在一起，形成一个大型、统一的私有网络。</li>
+<li><strong>员工远程办公：</strong></li>
+<li><strong>远程接入</strong><code>VPN</code>场景。出差或居家员工通过个人电脑或手机上的<code>VPN</code>客户端接入公司内网，访问资源。</li>
+</ol>
+<p>根据建设者分类：</p>
+<p>这种分类根据<code>VPN</code>网络端点设备由<strong>运营商</strong>提供，还是由企业自己提供来划分：</p>
+<ul>
+<li><strong>VPN专线：</strong>租用运营商专线搭建企业<code>VPN</code>网络，例如<code>MPLS VPN</code>专线，增值服务需要付费。</li>
+</ul>
+<p><img alt="image-20251002193349597" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018124931148.png" /></p>
+<ul>
+<li><strong>用户自建VPN：</strong>基于<code>Internet</code>建立企业<code>VPN</code>网络，包括<code>GRE、L2TP、IPsec、SSL VPN</code>等。这种方案不需要支付专线费用，另外由于是企业自主搭建，所以在网络控制方面有更多的主动权、方便进行网络调整。</li>
+</ul>
+<p><img alt="image-20251002193622470" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018124931152.png" /></p>
+<hr />
+<h4 id="32mpls-vpn">3.2.MPLS VPN概述</h4>
+<p><code>MPLS VPN</code>网络一般由运营商搭建，<code>VPN</code>用户购买<code>VPN</code>服务来实现用户网络之间的路由传递、数据互通等。</p>
+<p><code>MPLS VPN</code>使用<code>BGP</code>在运营商骨干网上发布<code>VPN</code>路由，使用<code>MPLS</code>在运营商骨干网上转发<code>VPN</code>报文，这是一种常见的<code>L3VPN</code>技术。</p>
+<p><img alt="image-20251018130724613" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018130724734.png" /></p>
+<p>如上图，传统的<code>IPsec</code>和<code>Gre</code>方式实现<code>VPN</code>都是使用<strong>封装</strong>，在私网<code>IP</code>头部上再封装一层<strong>公网</strong><code>IP</code>头部。公网上的<strong>传输</strong>路由器不需要学习到两端私网的路由，只需要有两端公网<code>IP</code>的路由就可以了。</p>
+<p>而<code>MPLS VPN</code>实现的方式是，通过<code>BGP</code>将路由传递给运营商骨干网入口设备，<code>MPLS VPN</code>的出口和入口需要学习到业务路由，<strong>中转路由器</strong>不需要学习业务路由，只需要通过<strong>标签</strong>即可转发。</p>
+<p>所以，在<code>MPLS VPN</code>中可以先简单的理解为：</p>
+<ul>
+<li><code>BGP</code>：将两端业务路由互相传递。</li>
+<li><code>MPLS</code>：数据报文在运营商路由器上的转发方式。</li>
+</ul>
+<hr />
+<h5 id="321mpls-vpn">3.2.1.MPLS VPN网络架构</h5>
+<p>在<code>MPLS VPN</code>网络架构中由三种设备角色组成：</p>
+<ul>
+<li><code>CE(Customer Edge)</code>：用户对接运营商<code>PE</code>的设备，用于传递和接收<code>VPN</code>路由。</li>
+<li>
+<p><code>PE(Provider Edge)</code>服务提供商边界设备：可以理解为入站<code>LSR</code>和出站<code>LSR</code>。</p>
+</li>
+<li>
+<p><code>P(Provider)</code>：可以理解为中转<code>LSR</code>。</p>
+</li>
+</ul>
+<p>在<code>MPLS VPN</code>中我们不会再将设备称呼为<code>LSR</code>，而是<code>CE、PE、P</code>。</p>
+<p>其中<code>PE</code>和<code>P</code>是运营商设备，<code>CE</code>是用户（客户）设备。</p>
+<p><img alt="image-20251018131558660" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018131558788.png" /></p>
+<hr />
+<h6 id="3211pe">3.2.1.1.<strong>PE：</strong></h6>
+<p><strong>PE的作用：</strong></p>
+<p><code>PE</code>设备是运营商<code>MPLS VPN</code>骨干网络的边界设备，该设备一方面接入<code>MPLS VPN</code>骨干网络，另一方面为不同的客户提供<code>VPN</code>接入服务。</p>
+<p><strong>与CE传递路由：</strong></p>
+<p><code>PE</code>设备需要与客户<code>CE</code>设备之间运行路由协议（动态、静态）交互客户的路由。由于需要同时为不同的客户提供服务，<code>PE</code>设备必须实现不同客户间路由的完全隔离，在<code>PE</code>设备上部署<code>VRF</code>实现隔离数据路由。</p>
+<p><strong>与PE传递路由：</strong></p>
+<p>另外，由于<code>PE</code>需要负责将客户的路由从一个站点跨越<code>MPLS VPN</code>骨干网络运载到另一个站点，因此<code>PE</code>设备必须使用<code>BGP</code>路由协议，因为其承载的路由数量很多，且支持丰富特性，以及拥有灵活的路由策略工具。传统的<code>BGP</code>无法完全承受这个重担，需要对<code>BGP</code>进行扩展以便它能够在<code>MPLS VPN</code>中满足相应的要求。</p>
+<p>扩展后<code>BGP</code>被称为<code>MP-GBP</code>多协议<code>BGP</code>，<code>MP-BGP</code>在传统的<code>BGP</code>基础上实现了<code>IPv6、VPNv4、VPNv6</code>等路由的运载能力。在<code>MPLS VPN</code>中，<code>PE</code>设备需要与远端<code>PE</code>设备或某些<code>P</code>设备维护<code>MP-BGP</code>对等体关系，从而交互<code>VPNv4</code>路由。</p>
+<hr />
+<h6 id="3212p">3.2.1.2.<strong>P：</strong></h6>
+<p><strong>P的作用：</strong></p>
+<p><code>P</code>设备是运营商<code>MPLS VPN</code>骨干网中的<strong>中转设备</strong>，它们不连接<code>CE</code>。在实际的<code>MPLS VPN</code>中<code>P</code>的数量是非常庞大的，因为它们共同维护了运营商整个<code>MPLS VPN</code>的网络，负责承载的业务也是相当庞大。</p>
+<p><code>P</code>设备最重要的功能就是负责<strong>转发标签报文</strong>，它们将标签报文沿着标签分发协议建立好的<code>LSP</code>进行转发。<code>P</code>设备并不参与客户的路由交互，只关注报文快速转发的过程，在它们的路由表中不会存在客户的路哟，只有<code>MPLS VPN</code>内部的路由。</p>
+<p>实际上这是非常合理的，如果你熟悉<code>IPsec、GRE</code>等<code>VPN</code>技术，你可以把<code>P</code>设备类比成公网上的中转路由器。原本的<code>MPLS</code>中必须要求所有<code>LSR</code>都拥有<code>FEC</code>的路由，但是在<code>MPLS VPN</code>中<code>P</code>设备是不需要的。</p>
+<p><strong>问题：</strong></p>
+<p>聪明的你肯定会想到一个非常关键的问题，标签的分发前提是<code>FEC</code>，如果<code>P</code>设备没有路由也就代表它没有<code>FEC</code>，标签如何分发呢？这不是违背了<code>MPLS</code>的基础理论么？</p>
+<p>实际上<code>P</code>设备依旧有<code>FEC</code>是<code>PE</code>设备的回环接口地址，这个咱们后续介绍。</p>
+<hr />
+<h6 id="3213ce">3.2.1.3.<strong>CE：</strong></h6>
+<p><code>CE</code>设备是客户的设备，而且是客户网络的边界设备，该设备用于与<code>PE</code>设备对接。作为<code>CE</code>设备它理所当然拥有到达本站点内网的路由信息，然后与<code>PE</code>设备之间运行一个动态路由协议（<code>OSPF、IS-IS、BGP</code>），<code>CE</code>设备通过动态路由协议将站点内的路由通告给<code>PE</code>设备，由<code>PE</code>设备通过<code>MPLS VPN</code>传递到远端站点的<code>CE</code>设备。</p>
+<p>所以，<code>CE</code>与<code>PE</code>设备之间是通过<strong>动态路由协议</strong>传递路由的，<code>PE</code>和<code>PE</code>之间是通过<code>MP-BGP</code>传递路由的。<code>CE</code>和<code>PE</code>之间数据包是使用传统<code>IP</code>转发，<code>PE</code>和<code>PE</code>之间数据包是通过<code>MPLS VPN</code>转递的。</p>
+<hr />
+<h5 id="322mpls-vpn">3.2.2.MPLS VPN技术架构</h5>
+<p><code>MPLS VPN</code>是多种技术结合的综合解决方案，如下：</p>
+<ul>
+<li><code>MP-BGP</code>：负责在<code>PE</code>与<code>PE</code>之间传递站点内的路由信息。</li>
+<li><code>LDP</code>：负责<code>PE</code>与<code>PE</code>之间的隧道建立。</li>
+<li><code>VRF</code>：负责<code>PE</code>的<code>VPN</code>用户管理。</li>
+<li><code>OSPF、IS-IS、BGP、static</code>：负责<code>PE</code>与<code>CE</code>之间的路由信息交换。</li>
+</ul>
+<p><img alt="image-20251018200052282" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018200052428.png" /></p>
+<hr />
+<h5 id="323mpls-vpn">3.2.3.MPLS VPN的优势</h5>
+<p><strong>对于VPN客户而言：</strong></p>
+<ul>
+<li>客户对<code>MPLS VPN</code>的存在是完全无感知的，客户的管理员也无需部署和维护<code>VPN</code>本身，只需要将路由传递给运营商的<code>PE</code>设备即可，降低企业运维难度和成本。</li>
+<li>由于该<code>VPN</code>的物理网络是<strong>运营商专线</strong>与<code>Internet</code>天然不同，有一定的安全保障。</li>
+</ul>
+<p><strong>对于运营商而言：</strong></p>
+<ul>
+<li>传统的<code>IP</code>网络是<strong>无连接的</strong>，每台路由器各司其职，需要查找自己的路由表进行转发。而<code>MPLS</code>引入了<strong>面向连接</strong>的控制平面，通过<code>LSP</code>预先建立一条确定的转发路径。使得运营商对网络有了更强的控制力，可以实现<strong>流量工程、快速重路由、服务质量保证等</strong>高级特性。</li>
+<li><strong>地址空间重叠：</strong>不同的客户它们在<code>MPLS VPN</code>网络上传递的业务路由的<code>IP</code>前缀可以一致，避免了因冲突性问题无法广泛使用的问题。</li>
+<li>运营商可以按照自己的需求随时修改<code>MPLS VPN</code>的拓扑，满足客户不同的业务需求。另外，运营商可以很轻松的为当前的<code>MPLS VPN</code>网络增加新的用户和业务承载，只需要在<code>PE</code>设备上新增配置即可，核心的<code>P</code>设备群不会有任何改变和影响。</li>
+</ul>
+<hr />
+<h5 id="324mpls-vpn">3.2.4.MPLS VPN常见组网方式</h5>
+<p>在真正介绍组网方式之前，我们需要在复习一下什么是<code>MPLS VPN</code>的用户。</p>
+<p><code>MPLS VPN</code>的用户指的是，现在有一家公司<code>XXX</code>他的总部在北京、分部在上海，需要使用<code>MPLS VPN</code>将这两个私有网络打通。而用户就是公司<code>XXX</code>，北京和上海是这个用户的两个站点。</p>
+<p><img alt="image-20251018202920950" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018202921080.png" /></p>
+<p><strong>Intranet（企业内部VPN）：</strong>强耦合</p>
+<ul>
+<li>这种方式是最常见的，运营商将一个用户的多个站点完全打通，只要是这个用户的业务都可以相互访问。例如，公司A的北京总部、上海分公司、深圳研发中心之间可以自由通信。</li>
+<li>而不同用户的业务在这种场景中是完全隔离的。例如公司A的网络与公司B的网络完全不通。</li>
+</ul>
+<p><strong>Extranet（企业扩展VPN）：</strong>弱耦合</p>
+<ul>
+<li>适用于一个<code>VPN</code>用户希望提供部分<code>VPN</code>站点资源给其他<code>VPN</code>用户的访问场景。</li>
+<li>例如：制造商（<code>VPN-A</code>）希望其核心供应商（<code>VPN-B</code>）和分销商（<code>VPN-C</code>）能够访问其订单系统，但供应商和分销商之间的网络不能互通。</li>
+<li>需要在<code>MPLS VPN</code>网络中精确配置，保证安全性和连通信。</li>
+</ul>
+<p><strong>Hub&amp;Spoke（中心-分支）：</strong></p>
+<ul>
+<li>指定用户的一台<code>CE</code>为<strong>中心访问控制设备</strong>，当用户有两个以上的站点时，无论是那两个站点互访，都必须经过总部的<code>CE</code>设备。</li>
+<li><strong>安全审计</strong>：所有分支站点之间的通信必须经过总部的防火墙，以便进行安全策略检查和日志记录。</li>
+<li><strong>资源共享</strong>：分支站点需要访问总部数据中心的核心服务器，但分支之间无需直接通信。</li>
+</ul>
+<hr />
+<h4 id="33mpls-vpn">3.3.MPLS VPN路由交互（控制层面）</h4>
+<p>若想实现同一个<code>VPN</code>的不同站点之间的通信，首先需要完成不同站点之间的路由交互。在基本的<code>MPLS VPN</code>组网中，<code>VPN</code>路由信息的发布涉及<code>CE</code>和<code>PE</code>，<code>P</code>路由器只维护骨干网的路由，不需要了解任何<code>VPN</code>路由信息。</p>
+<p><code>VPN</code>路由信息的发布过程包括三部分：</p>
+<ul>
+<li>本地<code>CE</code>到入口<code>PE</code>。</li>
+<li>入口<code>PE</code>到出口<code>PE</code>。</li>
+<li>出口<code>PE</code>到远端<code>CE</code>。</li>
+</ul>
+<p><img alt="image-20251018204010483" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018204010624.png" /></p>
+<hr />
+<h5 id="331cepe">3.3.1.CE与PE之间的路由信息交换</h5>
+<p><img alt="image-20251018204254399" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018204254550.png" /></p>
+<p><code>CE</code>与<code>PE</code>之间通过任意一种路由协议都可以交换路由信息，无论使用哪种路由协议，<code>CE</code>和<code>PE</code>之间交换的都是标准的<code>IPv4</code>路由。任何一段<code>CE</code>到<code>PE</code>的路由交换都是这样的。</p>
+<hr />
+<h5 id="332pepe">3.3.2.入口PE到出口PE路由传递</h5>
+<h6 id="3321vrf">3.3.2.1.<strong>问题一：</strong>VRF</h6>
+<p><img alt="image-20251018205847589" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018205847727.png" /></p>
+<p>如上图，对于<code>PE1</code>它的两个<code>CE</code>向他发布了相同的路由信息，<code>PE1</code>如何对不同<code>VPN</code>用户发送的路由进行管理呢（隔离）。</p>
+<p>因为<code>VPN</code>是一种私有网络，而一个<code>MPLS VPN</code>中可能存在很多不同用户的地址网段。所以不同的<code>VPN</code>需要独立管理自己的<strong>地址范围</strong>，也被称为<strong>地址空间（address space）</strong>。</p>
+<p><strong>解决方法：VRF</strong></p>
+<p><code>VRF(Virtual Routing and Forwarding)</code>虚拟路由转发，又称<code>VPN</code>实例，是<code>MPLS VPN</code>架构中的关键技术，每个<code>VPN</code>实例使用独立的路由转发表项，实现<code>VPN</code>之间的逻辑隔离。</p>
+<p><code>VRF</code>可以看作是<strong>路由表隔离的工具</strong>，而路由表中无非是<strong>直连路由、动态路由和静态路由</strong>，我们首先需要关心直连路由。直连路由就等于是一台设备上的物理接口的<code>IP</code>地址，我们应该怎么对这个接口进行隔离呢？？</p>
+<p>对于一台路由器，它本身就有一个<code>VRF</code>名称为<code>Public</code>。一台设备的所有接口默认都属于<code>Public</code>路由表，理所当然通过路由协议生成的路由条目也会被加载到<code>Public</code>路由表。</p>
+<p><strong>实现隔离的方法：</strong></p>
+<ol>
+<li>在路由器上通过命令创建一个<code>VRF</code>，这就是一张虚拟路由表。</li>
+<li>将设备上的物理接口通过命令绑定到<code>VRF</code>中。</li>
+<li>后续通过该绑定<code>VRF</code>的接口实现的路由协议，都需要在配置的时候加上<code>vpn-instance</code>参数。</li>
+</ol>
+<p><img alt="image-20251018210620752" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018210620898.png" /></p>
+<p>如上图，由于<code>PE1</code>同时对接了<code>CE1</code>和<code>CE2</code>，需要对它们的路由进行隔离。所以在<code>PE1</code>上创建两个<code>VRF</code>：<code>VPNX、VPNY</code>。然后进入<code>PE1</code>的接口视图，将物理接口绑定到对应的<code>VRF</code>中。当<code>PE1</code>与<code>CE</code>配置动态路由协议如<code>OSPF</code>时，<code>CE</code>的配置不变，<code>PE</code>在配置<code>OSPF</code>时需要指定<code>VRF</code>：<code>ospf 1 vpn-instance VPNX</code>。</p>
+<p>然后<code>CE1</code>发布的<code>192.168.1.0/24</code>这条路由通过<code>OSPF</code>协议加载到<code>PE1</code>的<code>VPNX</code>路由表中，<code>CE2</code>发布的<code>192.168.1.0/24</code>这条路由通过<code>OSPF</code>协议加载到<code>PE1</code>的<code>VPNY</code>路由表中。</p>
+<hr />
+<h6 id="3322rd">3.3.2.2.问题二：RD</h6>
+<p><img alt="image-20251018210620752" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018211315980.png" /></p>
+<p>如上图，<code>PE1</code>通过<code>VRF</code>实现了本地隔离不同用户的<strong>业务路由条目</strong>。<code>PE1</code>现在需要通过<code>BGP</code>会话将路由通告给<code>PE2</code>，<code>PE2</code>会从<code>PE1</code>学习到两条网络地址及掩码相同的<code>BGP</code>路由，<code>PE2</code>此时会根据<code>BGP</code>路由优选只保留其中的一条，另一条不被使用，这是完全不符合我们预期的。</p>
+<p>所以上文中介绍的<code>VRF</code>成功实现了<code>PE</code><strong>本地</strong>对用户路由隔离，但是<code>VRF</code>是一个<strong>本地</strong>的概念。<code>PE</code>还需要将用户路由传递到其他<code>PE</code>，但是<code>VRF</code>是无法跟随路由信息一起发不出去的，那这个时候应该怎么做区分呢？？</p>
+<p><strong>解决方法：</strong></p>
+<p>解决这个问题，必须对<code>IPv4</code>前缀做扩展。<code>MPLS VPN</code>采用<code>RD(Route Distinguisher)</code>路由区分码对<code>IPv4</code>地址前缀进行扩展。如下图，在<code>IPv4</code>地址的前面附加<code>64bit</code>的<code>RD</code>值，即形成<code>96bit</code>的<strong>==vpnv4路由==</strong>。</p>
+<p><img alt="image-20251018213435904" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018213436047.png" /></p>
+<p><strong>唯一性：</strong></p>
+<p><code>RD</code>值在<code>MPLS VPN</code>中是单台<code>PE</code>设备上唯一，在整个<code>MPLS VPN</code>网络中的不同<code>PE</code>设备上可以配置一样。</p>
+<ul>
+<li><strong>单台唯一：</strong>硬性规定，同一台<code>PE</code>上为不同<code>VRF</code>配置的<code>RD</code>值是不可以相同的，因为<code>RD</code>本身就可以看作是附属于<code>VRF</code>的，每个<code>VRF</code>对应一个<code>RD</code>值。</li>
+<li><strong>全局不唯一：</strong>由于一条<code>VPNv4</code>路由是由<code>RD</code>和<code>IPv4</code>前缀一起组成的，所以在<code>RD</code>相同的情况下还可以依靠<code>IPv4</code>前缀来判断归属。</li>
+</ul>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018212813239.png" /></p>
+<p>你可能会担心，那如果<code>RD</code>值相同，<code>PE2</code>收到多个<code>PE</code>发送过来的路由，它怎么判断来源是谁呢？怎么判断这条路由应该发送给那个<code>CE</code>呢？</p>
+<ul>
+<li>这是依靠<code>RT</code>值解决，<code>RD</code>的作用就是为了在<code>MPLS VPN</code>中传递<code>bgp</code>路由时区分<code>IPv4</code>前缀的。</li>
+</ul>
+<p><strong>RD的组成：</strong></p>
+<p><img alt="image-20251018212935950" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018212936095.png" /></p>
+<p><code>RD</code>的格式定义为：<code>Type:Value</code>，即<code>类型 : 值</code>。</p>
+<p>我们在定义一个<code>RD</code>的时候会遵顼<strong>AS号+编号</strong>的方式，比如<code>200:1</code>，其中的<code>200</code>代表当前<code>PE</code>使用的<code>AS</code>号，<code>1</code>代表第一个站点。</p>
+<p><code>Type</code>除了可以是<code>AS</code>号之外，还可以是<code>IPv4</code>地址，例如：<code>192.168.1.1:100</code>，但是这种方式并不常用。</p>
+<p><strong>总结：</strong></p>
+<p><img alt="image-20251018213435904" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018213530836.png" /></p>
+<p>此时<code>PE1</code>会根据<code>VPNX</code>和<code>VPNY</code>这两个<code>VRF</code>中配置的<code>RD</code>值来构造<code>VPNv4</code>路由，例如：<code>100:1:192.168.1.0/24</code>和<code>200:1:192.168.1.0/24</code>，后续<code>PE</code>和<code>PE</code>之间传递的路由也是<code>VPNv4</code>路由，而不是简单的<code>IPv4</code>前缀。<code>PE2</code>就不会触发<strong>路由优选</strong>，因为两条路由不一样。</p>
+<hr />
+<h6 id="3323mp-bgp">3.3.2.3.问题三：MP-BGP</h6>
+<p><img alt="image-20251018214055449" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018214055585.png" /></p>
+<p>又有一个新的问题，<code>PE</code>和<code>PE</code>之间的路由用什么协议来承载传输呢？？</p>
+<p>你肯定会回答我<code>BGP</code>，因为它传输可靠，可以跨路由器直接交换路由，而且没有周期式更新，更适应大型网络。</p>
+<p>但是，我们之前学习的传统的<code>BGP</code>并不适合用于<code>MPLS VPN</code>中，因为它只能传递<code>IPv4</code>路由，无法传递<code>VPNv4</code>路由。这时我们就需要使用<code>MP-BGP</code>了。</p>
+<p><strong>解决方法：</strong></p>
+<ul>
+<li>为了正确处理<code>VPNv4</code>路由，<code>MPLS VPN</code>使用<code>RFC2858（Multiprotocol Extensions for BGP-4）</code>中规定的<code>MP-BGP</code>，即<code>BGP-4</code>的多协议扩展。</li>
+<li><code>MP-BGP</code>采用地址族来区分不同的网络层协议，既可以支持传统的<code>IPv4</code>地址族，又可以支持其它地址族（比如<code>VPN-IPv4</code>地址族、<code>IPv6</code>地址族等）。</li>
+<li><code>MP-BGP</code>新增了两种路径属性：<code>MP_REACH_NLRI：Multiprotocol Reachable NLRI</code>，多协议可达<code>NLRI</code>。用于发布可达路由及下一跳信息。</li>
+<li><code>MP_UNREACH_NLRI：Multiprotocol Unreachable NLRI</code>，多协议不可达<code>NLRI</code>。用于撤销不可达路由。</li>
+<li>这两种新的路径属性都是为了在原有基础上增加<strong>地址族信息</strong>的。</li>
+</ul>
+<p><img alt="image-20251018214233554" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018214233703.png" /></p>
+<hr />
+<h6 id="3324rt">3.3.2.4.问题四：RT值</h6>
+<p>在前面我们也有提到过，<code>RD</code>值只是解决了不同站点<code>IPv4</code>前缀重复、冲突的问题，用来构成<code>VPNv4</code>路由的。但是一台<code>PE</code>怎么能够确定多条<code>VPNv4</code>路由分别是给哪个客户的呢？？</p>
+<p><img alt="image-20251018214947900" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018214948047.png" /></p>
+<p><strong>解决方法：</strong></p>
+<p>在<code>PE</code>上，每一个<code>VPN</code>实例都会与一个或多个<code>VPN Target</code>属性绑定，有两类<code>VPN Target</code>属性：</p>
+<ul>
+<li><code>Export Target(ERT)</code>：本地<code>PE</code>在把<code>IPv4</code>前缀转换成<code>VPNv4</code>路由后，在将<code>VPNv4</code>路由转发出去之前，需要在这条路由上添加<code>Export Target</code>属性。该属性作为<code>BGP</code>的扩展团体属性随路由发布。</li>
+<li><code>Import Target(IRT)</code>：<code>PE</code>收到其他<code>PE</code>发布的<code>VPNv4</code>路由时，检查其携带的<code>Export Target</code>属性。当此属性与<code>PE</code>上某个<code>VRF</code>的<code>Import Target</code>匹配时，<code>PE</code>就把路由加入到该<code>VPN</code>实例的路由表中。</li>
+</ul>
+<p>所以，<code>ERT</code>是附加在<code>VPNv4</code>路由上一起发出的，<code>IRT</code>使用来判断<code>VPNv4</code>路由属于哪个<code>VRF</code>的。另外，<code>RT</code>值也是在<code>VRF</code>里一起配置的。</p>
+<p><img alt="image-20251018215542731" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018215542872.png" /></p>
+<p>如上图，<code>PE1</code>设置的<code>ERT</code>和<code>PE2</code>设置的<code>IRT</code>一致的情况下，当<code>PE1</code>发送<code>VPNX</code>的路由时，会被转换为<code>100:1:192.168.1.0/24 RT=100:1</code>。<code>VPNY</code>的路由会被转换为<code>200:1:192.168.1.0/24 RT=200:1</code>。</p>
+<p>当<code>PE2</code>接收到这两条路由后，根据本地<code>VRF</code>中配置的<code>IRT</code>判断<code>VPNv4</code>路由是隶属于哪个<code>VRF</code>的，随后将路由分发到对应<code>VRF</code>中，再通过<code>VRF</code>配置的路由协议分发给对应<code>CE</code>。</p>
+<p><strong>注意：</strong></p>
+<p>一个<code>RT</code>值的长度为<code>32bit</code>，一条<code>VPNv4</code>路由可以携带一个或多个<code>RT</code>值。</p>
+<p><strong>VPNv4路由传递举例：</strong></p>
+<p><img alt="image-20251018215942094" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018215942243.png" /></p>
+<p><strong>疑问：</strong>应该使用<code>LDP</code>传递标签，为什么在这里<code>MP-BGP</code>也传递了标签呢？后续会介绍。</p>
+<hr />
+<h6 id="3325">3.3.2.5.问题五：双层标签</h6>
+<p><img alt="image-20251018220243314" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018220243461.png" /></p>
+<p>现在<code>VPNv4</code>路由已经可以顺利传递到<code>PE2</code>了，但是在真正的数据转发过程中，<code>P</code>设备是没有对应的路由信息的，也就代表它没有<code>FEC</code>，那<code>P</code>设备没有办法通过<code>LDP</code>的方式为<code>192.168.1.0/24</code>分配标签。所以数据传输会在<code>P</code>设备上中断，造成黑洞。</p>
+<p><strong>解决方法：</strong></p>
+<p>这个黑洞的问题依旧是使用<strong>标签</strong>来解决，我们之前讲过的多层标签场景在这里就要使用了。</p>
+<p>在<code>MPLS VPN</code>的场景中一共要用到两层标签和两种标签分发协议。</p>
+<ul>
+<li><code>MP-BGP</code>：它负责为数据包分配内层标签（靠近<code>IP</code>头部），由<code>PE</code>的<code>MP-BGP</code>为<code>VPNv4</code>路由分发。<code>PE</code>根据内层标签确定数据所属的<code>VPN</code>。</li>
+<li><code>LDP</code>：它负责为<code>VPNv4</code>路由的<strong>下一跳地址</strong>分发标签，属于外层标签（靠近数据链路层），<code>P</code>设备根据外层标签转发数据到<code>PE</code>。</li>
+</ul>
+<p><img alt="image-20251018222751324" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018222751485.png" /></p>
+<hr />
+<h5 id="333">3.3.3.总结</h5>
+<p><img alt="image-20251018223126393" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018223126541.png" /></p>
+<hr />
+<h4 id="34mpls-vpn">3.4.MPLS VPN报文转发（数据层面）</h4>
+<p><img alt="image-20251018224851881" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018224852033.png" /></p>
+<p>以上图中用户<code>X</code>的站点<code>B</code>访问站点<code>A</code>的<code>192.168.1.0/24</code>网段为例，报文转发过程如下：</p>
+<ol>
+<li><code>CE3</code>上存在通过<code>PE2</code>学习到的<code>192.168.1.0/24</code>网段路由，发送一个普通<code>IP</code>报文。</li>
+<li><code>PE2</code>根据报文入接口绑定的<code>VRF</code>，查找对应<code>VPN</code>的路由表。</li>
+<li>匹配目的<code>IPv4</code>前缀，并打上对应的内层标签。</li>
+<li>根据下一跳地址，查找对应的<code>Tunnel-ID</code>。</li>
+<li>将报文从隧道发送出去，即打上公网（外层）和私网（内层）<code>MPLS</code>标签头。</li>
+</ol>
+<p><img alt="image-20251018225250593" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018225250749.png" /></p>
+<ol>
+<li><code>MPLS VPN</code>骨干网中的所有<code>P</code>设备都对该报文进行外层标签交换，直到到达<code>PE1</code>。</li>
+</ol>
+<p><img alt="image-20251018225332452" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018225332605.png" /></p>
+<ol>
+<li><code>PE1</code>收到该携带两层标签的报文，交给<code>MPLS</code>处理，<code>MPLS</code>协议剥离外层标签。</li>
+<li><code>PE1</code>继续处理内层标签，根据内层标签确定对应的下一跳，并将内层标签剥离后，以纯<code>IPv4</code>报文的形式发送给<code>CE1</code>。</li>
+</ol>
+<p><img alt="image-20251018225447197" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018225447346.png" /></p>
+<ol>
+<li><code>CE1</code>收到该<code>IPv4</code>报文后，进行常规的<code>IPv4</code>处理流程。</li>
+</ol>
+<hr />
+<h4 id="35">3.5.配置命令</h4>
+<h5 id="351vpn">3.5.1.VPN实例配置</h5>
+<ol>
+<li>创建<code>VPN</code>实例/进入<code>VPN</code>实例视图：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[PE] ip vpn-instance vpn-instance-name
+</code></pre></div>
+<ol>
+<li>使能<code>VPN</code>实例的<code>IPv4</code>地址族/进入<code>VPN</code>实例<code>IPv4</code>地址族视图：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[PE-vpn-instance-InstanceName] ipv4-family
+</code></pre></div>
+<ol>
+<li>为<code>VPN</code>实例地址族配置<code>RD</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[PE-vpn-instance-InstanceName] route-distinguisher route-distinguisher
+</code></pre></div>
+<ul>
+<li><code>RD</code>常见格式有两种：</li>
+<li><code>2</code>字节自治系统号：<code>4</code>字节用户自定义数，例如<code>100:1</code>。</li>
+<li><code>IPv4</code>地址：<code>2</code>字节用户自定义数，例如<code>192.168.122.15:1</code>。</li>
+<li>无论采用哪种格式，必须保证<code>RD</code>值全局唯一。</li>
+<li>
+<p><code>VPN</code>实例地址族下一旦配置<code>RD</code>后，<code>RD</code>将不能被修改或删除。如果要修改，需要去使能<code>VPN</code>实例相应的地址族或者删除<code>VPN</code>实例，然后再重新配置。</p>
+</li>
+<li>
+<p>配置<code>VPN</code>实例的<code>VPN-Target</code>属性：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[PE-vpn-instance-InstanceName] vpn-target vpn-target &amp;&lt;1-8&gt; [ both | export-extcommunity | import-extcommunity ]
+</code></pre></div>
+<ul>
+<li><code>vpn-target</code>命令用来配置<code>VPN</code>实例地址族入方向或出方向的<code>VPN-Target</code>扩展团体属性。</li>
+<li>
+<p><code>VPN-Target</code>的格式与<code>RD</code>一致。一条<code>vpn-target</code>命令一次最多可配置8个<code>VPN-Target</code>。如果希望配置更多的<code>VPN-Target</code>，可以多次使用<code>vpn-target</code>命令。</p>
+</li>
+<li>
+<p>将接口绑定到<code>VPN</code>实例：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[PE-GigabitEthernet0/0/0]ip binding vpn-instance vpn-instance-name
+</code></pre></div>
+<ul>
+<li><code>ip binding vpn-instance</code>命令用来将<code>PE</code>上的接口与<code>VPN</code>实例绑定。缺省情况下，接口不与任何<code>VPN</code>实例绑定，属于根实例。配置接口与<code>VPN</code>实例绑定后，或取消接口与<code>VPN</code>实例的绑定，都会清除该接口的<code>IP</code>地址、三层特性和<code>IP</code>相关的路由协议，如果需要应重新配置。</li>
+</ul>
+<hr />
+<h5 id="352mp-bgp">3.5.2.MP-BGP配置</h5>
+<ol>
+<li><code>BGP</code>基本配置：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[PE] bgp { as-number-plain | as-number-dot }
+[PE-bgp] peer ipv4-address as-number as-number
+[PE-bgp] peer ipv4-address connect-interface loopback interface-number
+</code></pre></div>
+<ul>
+<li><code>PE</code>之间必须使用<code>32</code>位掩码的<code>Loopback</code>接口地址来建立<code>MP-IBGP</code>对等体关系，以便能够迭代到隧道。</li>
+<li>
+<p>因为<code>LSP</code>默认只能为<code>32</code>位主机路由建立。</p>
+</li>
+<li>
+<p>使能与指定<code>MP-BGP</code>对等体之间交换<code>VPNv4</code>路由信息：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[PE-bgp] ipv4-family vpnv4 [ unicast ]
+[PE-bgp-af-vpnv4] peer ipv4-address enable
+</code></pre></div>
+<ul>
+<li>
+<p>缺省情况下，只有<code>BGP-IPv4</code>单播地址族的对等体是自动使能的。即在BGP视图下配置<code>peer as-number</code>命令后，系统会自动配置相应的<code>peer enable</code>命令。其他地址族视图下都必须手动使能。</p>
+</li>
+<li>
+<p>配置对<code>VPNv4</code>路由进行过滤：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[PE-bgp-af-vpnv4] policy vpn-target
+</code></pre></div>
+<ul>
+<li><code>policy vpn-target</code>命令用来对接收到的<code>VPN</code>路由根据<code>VPN-Target</code>进行过滤。缺省情况下，该功能已经使能。在某些特定组网场景下，需要手动关闭过滤。</li>
+</ul>
+<hr />
+<h4 id="36mpls-vpn">3.6.MPLS VPN实验演示</h4>
+<p><img alt="image-20251018232748948" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018232749125.png" /></p>
+<p>如上图，当前有两个<code>VPN</code>用户分别是<code>X</code>和<code>Y</code>，每个<code>VPN</code>中有两个站点。需要使用<code>MPLS VPN</code>将相同用户的不同站点打通，不同<code>VPN</code>之间禁止通信。</p>
+<p><code>VPNX</code>的<code>CE</code>使用<code>OSPF</code>与<code>PE</code>间交互路由。<code>VPNY</code>的<code>CE</code>使用<code>EBGP</code>与<code>PE</code>之间交互路由。</p>
+<p><img alt="image-20251018232944028" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251018232944183.png" /></p>
+<hr />
+<h5 id="361">3.6.1.骨干网配置</h5>
+<p><strong>骨干网OSPF配置：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]ospf 1 router-id 3.3.3.3 
+[AR3-ospf-1]area 0
+[AR3-ospf-1-area-0.0.0.0]network 34.1.1.1 0.0.0.0
+[AR3-ospf-1-area-0.0.0.0]network 3.3.3.3 0.0.0.0
+[AR3-ospf-1-area-0.0.0.0]quit
+[AR3-ospf-1]quit
+
+[AR4]ospf 1 router-id 4.4.4.4
+[AR4-ospf-1]area 0
+[AR4-ospf-1-area-0.0.0.0]network 4.4.4.4 0.0.0.0
+[AR4-ospf-1-area-0.0.0.0]network 34.1.1.2 0.0.0.0
+[AR4-ospf-1-area-0.0.0.0]network 45.1.1.1 0.0.0.0
+[AR4-ospf-1-area-0.0.0.0]quit
+[AR4-ospf-1]quit
+
+[AR5]ospf 1 router-id 5.5.5.5
+[AR5-ospf-1]area 0
+[AR5-ospf-1-area-0.0.0.0]network 5.5.5.5 0.0.0.0
+[AR5-ospf-1-area-0.0.0.0]network 45.1.1.2 0.0.0.0
+[AR5-ospf-1-area-0.0.0.0]quit
+[AR5-ospf-1]quit
+</code></pre></div>
+<p><strong>骨干网配置MPLS与LDP：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]mpls lsr-id 3.3.3.3
+[AR3]mpls
+Info: Mpls starting, please wait... OK!
+[AR3-mpls]quit
+[AR3]mpls ldp
+[AR3-mpls-ldp]quit
+[AR3]int g0/0/2
+[AR3-GigabitEthernet0/0/2]mpls 
+[AR3-GigabitEthernet0/0/2]mpls ldp
+[AR3-GigabitEthernet0/0/2]quit
+
+[AR4]mpls lsr-id 4.4.4.4
+[AR4]mpls
+Info: Mpls starting, please wait... OK!
+[AR4-mpls]quit
+[AR4]mpls ldp
+[AR4-mpls-ldp]quit
+[AR4]int g0/0/0
+[AR4-GigabitEthernet0/0/0]mpls
+[AR4-GigabitEthernet0/0/0]mpls ldp
+[AR4-GigabitEthernet0/0/0]quit
+[AR4]int g0/0/1
+[AR4-GigabitEthernet0/0/1]mpls
+[AR4-GigabitEthernet0/0/1]mpls ldp
+[AR4-GigabitEthernet0/0/1]quit
+
+[AR5]mpls lsr-id 5.5.5.5
+[AR5]mpls
+Info: Mpls starting, please wait... OK!
+[AR5-mpls]quit
+[AR5]mpls ldp
+[AR5-mpls-ldp]quit
+[AR5]int g0/0/0
+[AR5-GigabitEthernet0/0/0]mpls
+[AR5-GigabitEthernet0/0/0]mpls ldp
+[AR5-GigabitEthernet0/0/0]quit
+</code></pre></div>
+<p><strong>PE之间建立<code>MP-BGP</code>对等体关系：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]bgp 345
+[AR3-bgp]router-id 3.3.3.3  
+[AR3-bgp]peer 5.5.5.5 as-number 345 
+[AR3-bgp]peer 5.5.5.5 connect-interface loo0
+[AR3-bgp]ipv4-family vpnv4
+[AR3-bgp-af-vpnv4]peer 5.5.5.5 enable 
+[AR3-bgp-af-vpnv4]quit
+[AR3-bgp]quit
+
+[AR5]bgp 345
+[AR5-bgp]router-id 5.5.5.5  
+[AR5-bgp]peer 3.3.3.3 as-number 345 
+[AR5-bgp]peer 3.3.3.3 connect-interface loo0
+[AR5-bgp]ipv4-family vpnv4
+[AR5-bgp-af-vpnv4]peer 3.3.3.3 enable 
+[AR5-bgp-af-vpnv4]quit
+[AR5-bgp]quit
+</code></pre></div>
+<p><strong>验证：</strong></p>
+<div class="highlight"><pre><span></span><code>&lt;AR3&gt;dis bgp vpnv4 all peer 
+
+ BGP local router ID : 3.3.3.3
+ Local AS number : 345
+ Total number of peers : 1        Peers in established state : 1
+
+  Peer            V          AS  MsgRcvd  MsgSent  OutQ  Up/Down       State Pre
+fRcv
+
+  5.5.5.5         4         345        3        4     0 00:01:12 Established    
+   0
+
+&lt;AR3&gt;dis mpls lsp 
+-------------------------------------------------------------------------------
+                 LSP Information: LDP LSP
+-------------------------------------------------------------------------------
+FEC                In/Out Label  In/Out IF                      Vrf Name       
+3.3.3.3/32         3/NULL        -/-                                           
+4.4.4.4/32         NULL/3        -/GE0/0/2                                     
+4.4.4.4/32         1024/3        -/GE0/0/2                                     
+5.5.5.5/32         NULL/1025     -/GE0/0/2                                     
+5.5.5.5/32         1025/1025     -/GE0/0/2 
+</code></pre></div>
+<hr />
+<h5 id="362vpn">3.6.2.VPN用户接入配置</h5>
+<p><strong>创建VPN实例配置RD和RT：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]ip vpn-instance VPNX   
+[AR3-vpn-instance-VPNX]route-distinguisher 100:1
+[AR3-vpn-instance-VPNX-af-ipv4]vpn-target 100:321 import-extcommunity   
+[AR3-vpn-instance-VPNX-af-ipv4]vpn-target 100:123 export-extcommunity 
+[AR3-vpn-instance-VPNX-af-ipv4]quit
+[AR3-vpn-instance-VPNX]quit 
+[AR3]ip vpn-instance VPNY   
+[AR3-vpn-instance-VPNY]route-distinguisher 200:1    
+[AR3-vpn-instance-VPNY-af-ipv4]vpn-target 200:234 import-extcommunity   
+[AR3-vpn-instance-VPNY-af-ipv4]vpn-target 200:432 export-extcommunity 
+[AR3-vpn-instance-VPNY-af-ipv4]quit
+[AR3-vpn-instance-VPNY]quit
+
+[AR5]ip vpn-instance VPNX   
+[AR5-vpn-instance-VPNX]route-distinguisher 100:1    
+[AR5-vpn-instance-VPNX-af-ipv4]vpn-target 100:321 export-extcommunity   
+[AR5-vpn-instance-VPNX-af-ipv4]vpn-target 100:123 import-extcommunity 
+[AR5-vpn-instance-VPNX-af-ipv4]quit
+[AR5-vpn-instance-VPNX]quit
+[AR5]ip vpn-instance VPNY
+[AR5-vpn-instance-VPNY]route-distinguisher 200:1    
+[AR5-vpn-instance-VPNY-af-ipv4]vpn-target 200:432 import-extcommunity   
+[AR5-vpn-instance-VPNY-af-ipv4]vpn-target 200:234 export-extcommunity 
+[AR5-vpn-instance-VPNY-af-ipv4]quit
+[AR5-vpn-instance-VPNY]quit
+</code></pre></div>
+<p><strong>将接口绑定到VPN实例：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]int g0/0/0
+[AR3-GigabitEthernet0/0/0]ip binding vpn-instance VPNX
+[AR3-GigabitEthernet0/0/0]ip add 13.1.1.2 30
+[AR3-GigabitEthernet0/0/0]quit
+[AR3]int g0/0/1 
+[AR3-GigabitEthernet0/0/1]ip binding vpn-instance VPNY
+[AR3-GigabitEthernet0/0/1]ip add 23.1.1.2 30
+[AR3-GigabitEthernet0/0/1]quit
+
+[AR5]interface g 0/0/1  
+[AR5-GigabitEthernet0/0/1]ip binding vpn-instance VPNX
+[AR5-GigabitEthernet0/0/1]ip add 56.1.1.2 30
+[AR5-GigabitEthernet0/0/1]quit
+[AR5]int g0/0/2 
+[AR5-GigabitEthernet0/0/2]ip binding vpn-instance VPNY
+[AR5-GigabitEthernet0/0/2]ip add 57.1.1.2 30
+[AR5-GigabitEthernet0/0/2]quit
+</code></pre></div>
+<p><strong>部署VPNX中PE和CE的OSPF：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]ospf 2 vpn-instance VPNX
+[AR3-ospf-2]area 0
+[AR3-ospf-2-area-0.0.0.0]network 13.1.1.2 0.0.0.0
+[AR3-ospf-2-area-0.0.0.0]quit
+[AR3-ospf-2]import-route bgp
+[AR3-ospf-2]quit
+[AR3]bgp 345    
+[AR3-bgp]ipv4-family vpn-instance VPNX
+[AR3-bgp-VPNX]import-route ospf 2
+[AR3-bgp-VPNX]quit
+
+[AR1]ospf 1
+[AR1-ospf-1]area 0
+[AR1-ospf-1-area-0.0.0.0]network 192.168.1.254 0.0.0.0
+[AR1-ospf-1-area-0.0.0.0]network 13.1.1.1 0.0.0.0
+[AR1-ospf-1-area-0.0.0.0]quit
+[AR1-ospf-1]quit
+
+[AR5]ospf 2 vpn-instance VPNX
+[AR5-ospf-2]import-route bgp
+[AR5-ospf-2]area 0
+[AR5-ospf-2-area-0.0.0.0]network 56.1.1.2 0.0.0.0
+[AR5-ospf-2-area-0.0.0.0]quit
+[AR5-ospf-2]quit
+[AR5]bgp 345
+[AR5-bgp]ipv4-family vpn-instance VPNX
+[AR5-bgp-VPNX]import-route ospf 2
+[AR5-bgp-VPNX]quit
+[AR5-bgp]quit
+
+[AR6]ospf 2 
+[AR6-ospf-2]area 0
+[AR6-ospf-2-area-0.0.0.0]network 56.1.1.1 0.0.0.0
+[AR6-ospf-2-area-0.0.0.0]quit
+[AR6-ospf-2]quit
+</code></pre></div>
+<p><strong>部署VPNY中PE和CE的BGP：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR3]bgp 345
+[AR3-bgp]ipv4-family vpn-instance VPNY  
+[AR3-bgp-VPNY]peer 23.1.1.1 as-number 100
+[AR3-bgp-VPNY]quit
+[AR3-bgp]quit
+
+[AR2]bgp 100
+[AR2-bgp]peer 23.1.1.2 as 345
+[AR2-bgp]network 192.168.1.0 24
+[AR2-bgp]quit
+
+[AR5]bgp 345    
+[AR5-bgp]ipv4-family vpn-instance VPNY
+[AR5-bgp-VPNY]peer 57.1.1.1 as-number 200
+[AR5-bgp-VPNY]quit
+[AR5-bgp]quit
+
+[AR7]bgp 200
+[AR7-bgp]peer 57.1.1.2 as-number 345
+[AR7-bgp]network 192.168.2.0 24
+[AR7-bgp]quit
+</code></pre></div>
+<hr />
+<h5 id="363">3.6.3.配置验证：</h5>
+<p><strong>CE验证路由表：</strong></p>
+<div class="highlight"><pre><span></span><code>&lt;AR1&gt;display ip routing-table protocol ospf
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Public routing table : OSPF
+         Destinations : 2        Routes : 2        
+
+OSPF routing table status : &lt;Active&gt;
+         Destinations : 2        Routes : 2
+
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+
+       56.1.1.0/30  O_ASE   150  1           D   13.1.1.2        GigabitEthernet
+0/0/1
+    192.168.2.0/24  OSPF    10   4           D   13.1.1.2        GigabitEthernet
+0/0/1
+
+OSPF routing table status : &lt;Inactive&gt;
+         Destinations : 0        Routes : 0
+
+&lt;AR6&gt;display ip routing-table protocol ospf
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Public routing table : OSPF
+         Destinations : 2        Routes : 2        
+
+OSPF routing table status : &lt;Active&gt;
+         Destinations : 2        Routes : 2
+
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+
+       13.1.1.0/30  O_ASE   150  1           D   56.1.1.2        GigabitEthernet
+0/0/1
+    192.168.1.0/24  OSPF    10   4           D   56.1.1.2        GigabitEthernet
+0/0/1
+
+OSPF routing table status : &lt;Inactive&gt;
+         Destinations : 0        Routes : 0
+
+&lt;AR2&gt;display ip routing-table protocol bgp
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Public routing table : BGP
+         Destinations : 1        Routes : 1        
+
+BGP routing table status : &lt;Active&gt;
+         Destinations : 1        Routes : 1
+
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+
+    192.168.2.0/24  EBGP    255  0           D   23.1.1.2        GigabitEthernet
+0/0/1
+
+BGP routing table status : &lt;Inactive&gt;
+         Destinations : 0        Routes : 0
+
+&lt;AR7&gt;display ip routing-table protocol bgp
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Public routing table : BGP
+         Destinations : 1        Routes : 1        
+
+BGP routing table status : &lt;Active&gt;
+         Destinations : 1        Routes : 1
+
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+
+    192.168.1.0/24  EBGP    255  0           D   57.1.1.2        GigabitEthernet
+0/0/1
+
+BGP routing table status : &lt;Inactive&gt;
+         Destinations : 0        Routes : 0
+</code></pre></div>
+<p><strong>验证PE路由表：</strong></p>
+<div class="highlight"><pre><span></span><code>&lt;AR3&gt;display bgp vpnv4 all routing-table 
+
+
+ BGP Local router ID is 3.3.3.3 
+ Status codes: * - valid, &gt; - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin : i - IGP, e - EGP, ? - incomplete
+
+
+
+ Total number of routes from all PE: 6
+ Route Distinguisher: 100:1 
+
+
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+
+ *&gt;   13.1.1.0/30        0.0.0.0         0                     0      ?
+ *&gt;i  56.1.1.0/30        5.5.5.5         0          100        0      ?
+ *&gt;   192.168.1.0        0.0.0.0         3                     0      ?
+ *&gt;i  192.168.2.0        5.5.5.5         3          100        0      ?
+
+ Route Distinguisher: 200:1 
+
+
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+
+ *&gt;   192.168.1.0        23.1.1.1        0                     0      100i
+ *&gt;i  192.168.2.0        5.5.5.5         0          100        0      200i
+
+ VPN-Instance VPNX, Router ID 3.3.3.3:
+
+ Total Number of Routes: 4
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+
+ *&gt;   13.1.1.0/30        0.0.0.0         0                     0      ?
+ *&gt;i  56.1.1.0/30        5.5.5.5         0          100        0      ?
+ *&gt;   192.168.1.0        0.0.0.0         3                     0      ?
+ *&gt;i  192.168.2.0        5.5.5.5         3          100        0      ?
+
+ VPN-Instance VPNY, Router ID 3.3.3.3:
+
+ Total Number of Routes: 2
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+
+ *&gt;   192.168.1.0        23.1.1.1        0                     0      100i
+ *&gt;i  192.168.2.0        5.5.5.5         0          100        0      200i
+
+&lt;AR5&gt;display bgp vpnv4 all routing-table 
+
+
+ BGP Local router ID is 5.5.5.5 
+ Status codes: * - valid, &gt; - best, d - damped,
+               h - history,  i - internal, s - suppressed, S - Stale
+               Origin : i - IGP, e - EGP, ? - incomplete
+
+
+
+ Total number of routes from all PE: 6
+ Route Distinguisher: 100:1 
+
+
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+
+ *&gt;i  13.1.1.0/30        3.3.3.3         0          100        0      ?
+ *&gt;   56.1.1.0/30        0.0.0.0         0                     0      ?
+ *&gt;i  192.168.1.0        3.3.3.3         3          100        0      ?
+ *&gt;   192.168.2.0        0.0.0.0         3                     0      ?
+
+ Route Distinguisher: 200:1 
+
+
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+
+ *&gt;i  192.168.1.0        3.3.3.3         0          100        0      100i
+ *&gt;   192.168.2.0        57.1.1.1        0                     0      200i
+
+ VPN-Instance VPNX, Router ID 5.5.5.5:
+
+ Total Number of Routes: 4
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+
+ *&gt;i  13.1.1.0/30        3.3.3.3         0          100        0      ?
+ *&gt;   56.1.1.0/30        0.0.0.0         0                     0      ?
+ *&gt;i  192.168.1.0        3.3.3.3         3          100        0      ?
+ *&gt;   192.168.2.0        0.0.0.0         3                     0      ?
+
+ VPN-Instance VPNY, Router ID 5.5.5.5:
+
+ Total Number of Routes: 2
+      Network            NextHop        MED        LocPrf    PrefVal Path/Ogn
+
+ *&gt;i  192.168.1.0        3.3.3.3         0          100        0      100i
+ *&gt;   192.168.2.0        57.1.1.1        0                     0      200i
+</code></pre></div>
+<hr />
+<h5 id="364">3.6.4.理论描述</h5>
+<h6 id="3641">3.6.4.1.<strong>控制层面：</strong></h6>
+<p><strong>LDP</strong></p>
+<p>三台<code>MPLS VPN</code>路由器通过<code>LDP</code>，为<code>PE</code>的回环口建立<code>LSP</code>，保证<code>AR4</code>可以通过标签转发数据包。为什么要使用<code>LDP</code>为回环口建立<code>LSP</code>呢？</p>
+<p><img alt="image-20251019001149700" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251019001149886.png" /></p>
+<p>如上图，因为下一跳是<code>5.5.5.5</code>，所以<code>AR3</code>封装数据包时外层标签头部是根据这个地址进行标签分发的。</p>
+<p><strong>MP-BGP</strong></p>
+<p>根据<code>VPN</code>实例配置的<code>RD</code>和<code>RT</code>以及对等体关系生成<code>VPNv4</code>路由条目，发送给对端<code>PE</code>。</p>
+<p><code>MP-BGP</code>会为<code>VPNv4</code>路由分配<strong>标签</strong>，作为数据包的内层标签。</p>
+<hr />
+<h6 id="3642">3.6.4.2.数据层面：</h6>
+<p>当<code>PC1</code>访问<code>PC3</code>时，由<code>AR1</code>根据<code>AR3</code>传递过来的路由条目指导并转发给<code>AR3</code>。当<code>AR3</code>通过<code>G0/0/0</code>接口收到这个<code>IP</code>报文后，查找该接口<code>VRF</code>对应的<code>VPNv4</code>路由表。查找后发现需要为该数据报文打上<code>1027</code>的标签。</p>
+<p><img alt="image-20251019002419238" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251019002419424.png" /></p>
+<p>注意这里的表达方式不代表入标签<code>1027</code>、出标签<code>NULL</code>。它代表的是对等体告知需要使用<code>1027</code>标签，本地没有生成。</p>
+<p>另外，根据<code>VPNv4</code>路由条目发现下一跳是<code>5.5.5.5</code>触发路由迭代，但是<code>Tunnel ID</code>对应<code>0x3</code>代表需要标签交换。所以再去查找<code>FIB</code>表。随后<code>AR3</code>需要将这个数据包再打上一层标签<code>1025</code>。然后发送给真正的下一跳<code>AR4</code>。</p>
+<p><img alt="image-20251019002539885" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251019002540075.png" /></p>
+<p><code>AR4</code>作为<code>P</code>设备在收到该数据报文后，直接查找<code>LSP</code>发现标签为<code>3</code>，将外层标签移除，转发给<code>R5</code>。</p>
+<p><img alt="image-20251019002702333" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251019002702528.png" /></p>
+<p><code>AR5</code>收到该数据报文，发现有标签，根据<code>VPNv4</code>路由表中的条目，拆除现有标签，按照<code>IP</code>路由转发方式给<code>R6</code>。</p>
+<p><img alt="image-20251019002823423" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251019002823610.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

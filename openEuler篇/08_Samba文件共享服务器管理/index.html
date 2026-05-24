@@ -1,0 +1,3272 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/">
+      
+      
+        <link rel="next" href="../09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Samba文件共享服务器管理 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#08_samba" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Samba文件共享服务器管理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.基础概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11samaba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.为什么需要Samaba
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.核心协议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.核心协议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.SMB协议介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.SMB通信过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123netbios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.NetBIOS协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.核心组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.服务套件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.配置解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.配置解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21openeulersamba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.openEuler安装samba
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.配置文件解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.配置文件解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.全局配置介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.共享常用参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.特殊的共享
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23samba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.samba的用户
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.实验
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.实验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241samba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.安装samba
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.创建共享目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.配置共享目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.配置匿名访问
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5.启动服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#246windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.6.windows测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#247linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.7.Linux测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.基础概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11samaba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.为什么需要Samaba
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.核心协议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.核心协议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.SMB协议介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122smb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.SMB通信过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123netbios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.NetBIOS协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.核心组件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.服务套件
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.配置解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.配置解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21openeulersamba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.openEuler安装samba
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.配置文件解析
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.配置文件解析">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.全局配置介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.共享常用参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.特殊的共享
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23samba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.samba的用户
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.实验
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.实验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241samba" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.安装samba
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.创建共享目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.配置共享目录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.配置匿名访问
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5.启动服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#246windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.6.windows测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#247linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.7.Linux测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="08_samba">08_Samba文件共享服务器管理</h1>
+<h3 id="1">1.基础概念</h3>
+<h4 id="11samaba">1.1.为什么需要Samaba</h4>
+<p>不同的操作系统使用不同的<strong>协议</strong>进行文件和打印共享。在<code>Windows</code>中使用<code>SMB</code>或<code>CIFS</code>实现文件共享，例如打开文件资源管理器，输入<code>\\IP</code>时，<code>Windows</code>就在使用<code>SMB</code>协议进行通信。而<code>Linux</code>使用的是<code>NFS</code>或其他的软件进行文件共享。</p>
+<p>在这种情况下，不同的操作系统想要互传文件，需要使用配套的服务端和客户端。怎么能够让<code>Windows</code>丝滑的通过<code>\\IP</code>直接访问<code>Linux</code>的共享文件呢？——<code>Samba</code></p>
+<p><strong>samba的核心功能：</strong></p>
+<ul>
+<li>文件共享：允许<code>Linux/Unix</code>系统作为文件服务器，与<code>Windows</code>客户端共享文件。</li>
+<li>打印机共享：允许<code>Linux/Unix</code>系统共享打印机，供<code>Windows</code>客户端使用。</li>
+<li>身份验证：支持<code>Windows</code>用户的身份验证，包括本地用户和域用户。</li>
+</ul>
+<hr />
+<h4 id="12">1.2.核心协议</h4>
+<p><code>Samba</code>或<code>Windows</code>传输文件和打印机使用的核心协议是<code>SMB</code>和<code>CIFS</code>。<code>CIFS</code>可以理解为是<code>SMB</code>协议的一个分支（方言），是微软在九十年代提出的，但在现在已经淘汰了。当今把所有新版和旧版都统称为<code>SMB</code>协议，<code>CIFS</code>特指那个旧版本。</p>
+<p><img alt="image-20251016012400101" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016012428560.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">特性</th>
+<th style="text-align: left;">CIFS（通常指 SMB1）</th>
+<th style="text-align: left;">现代 SMB（SMB2, SMB2.1, SMB3.x）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>本质</strong></td>
+<td style="text-align: left;">一个<strong>特定草案</strong>，是 SMB 的一个“方言”</td>
+<td style="text-align: left;"><strong>协议家族</strong>，是对 SMB 协议的持续发展和现代化</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>设计年代</strong></td>
+<td style="text-align: left;">20 世纪 90 年代末</td>
+<td style="text-align: left;">2006 年至今</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>效率</strong></td>
+<td style="text-align: left;"><strong>低效</strong>，“聊天”过多。大量数据包用于协商和元数据。</td>
+<td style="text-align: left;"><strong>高效</strong>。复合请求、更大的读写尺寸，减少网络往返。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>安全性</strong></td>
+<td style="text-align: left;"><strong>薄弱</strong>。依赖旧的、不安全的认证（如 NTLMv1）。</td>
+<td style="text-align: left;"><strong>强大</strong>。支持 AES-128/256 加密、安全的身份验证（如 Kerberos）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>可扩展性</strong></td>
+<td style="text-align: left;"><strong>差</strong>。难以添加新功能。</td>
+<td style="text-align: left;"><strong>强</strong>。为未来扩展而设计。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>状态管理</strong></td>
+<td style="text-align: left;"><strong>无状态</strong>（某种程度上）。服务器不跟踪客户端连接。</td>
+<td style="text-align: left;"><strong>有状态</strong>。服务器维护连接上下文，提高性能。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>常用端口</strong></td>
+<td style="text-align: left;">主要依赖 <strong>TCP 139</strong>（需要 NetBIOS 会话服务）</td>
+<td style="text-align: left;">主要使用 <strong>TCP 445</strong>（纯 TCP/IP）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="121smb">1.2.1.SMB协议介绍</h5>
+<p><strong>SMB</strong> 是一种<strong>应用层网络协议</strong>，主要功能是提供对服务器上文件、目录、打印机、串行端口等共享资源的<strong>并发、受控的远程访问</strong>。</p>
+<ul>
+<li><strong>核心价值</strong>：在网络上实现<strong>透明的文件访问</strong>，让远程文件感觉就像存储在本地一样。</li>
+<li><strong>工作模式</strong>：<strong>客户端-服务器模型</strong>。</li>
+<li><strong>SMB 客户端</strong>：如 Windows Explorer、macOS Finder、Linux 上的 <code>smbclient</code>或挂载的 <code>cifs</code>文件系统。它发起请求。</li>
+<li><strong>SMB 服务器</strong>：如 Windows Server、Samba、NAS 设备。它响应请求并管理资源。</li>
+</ul>
+<hr />
+<h5 id="122smb">1.2.2.SMB通信过程</h5>
+<p><img alt="image-20251016012920248" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016012920308.png" /></p>
+<ol>
+<li>
+<p><strong>协议协商：</strong></p>
+</li>
+<li>
+<p>客户端和服务端通信后，需要协商双方支持的最高版本的<code>SMB</code>协议。</p>
+</li>
+<li>
+<p>客户端发送一个 <code>NEGOTIATE</code>请求，列出自己支持的所有 SMB 版本（如 SMB2.002, SMB3.0, SMB3.1.1）。服务器从中选择一个它支持的最高版本，并在响应中确认。</p>
+</li>
+<li>
+<p><strong>用户认证：</strong></p>
+</li>
+<li>客户端向服务端发送<code>SESSION_SETUP</code>请求，其中包含身份验证信息，用于验证客户端身份。</li>
+<li><strong>树连接：</strong></li>
+<li>认证成功后，客户端发送 <code>TREE_CONNECT</code>请求，指定要访问的共享名（如 <code>\\Server\Share</code>）。服务器验证该用户是否有权访问此共享后，返回一个 <strong>树标识符</strong></li>
+<li>认证是进入公司大门（服务器），而树连接是进入某个特定的部门办公室（共享）。</li>
+<li><strong>文件访问：</strong></li>
+<li>客户端使用一系列命令对文件进行操作：<ul>
+<li><code>CREATE</code>： 打开或创建文件/目录，获取一个<strong>文件句柄</strong>。</li>
+<li><code>READ</code>： 从文件句柄读取数据。</li>
+<li><code>WRITE</code>： 向文件句柄写入数据。</li>
+<li><code>CLOSE</code>： 关闭文件句柄。</li>
+<li><code>GET_INFO</code>/ <code>SET_INFO</code>： 查询或设置文件属性（元数据）。</li>
+</ul>
+</li>
+<li><strong>断开连接：</strong></li>
+<li>通信结束时，客户端会依次发送 <code>TREE_DISCONNECT</code>（离开部门） 和 <code>LOGOFF</code>（离开公司） 请求。</li>
+</ol>
+<hr />
+<h5 id="123netbios">1.2.3.NetBIOS协议</h5>
+<p><strong>NetBIOS</strong> 是一个<strong>网络应用程序编程接口</strong>，而不是一个严格的网络协议。</p>
+<ul>
+<li><strong>诞生年代</strong>： 1980 年代，由 IBM 和 Sytek 公司开发。</li>
+<li><strong>原始目的</strong>： 为了让应用程序在<strong>局域网</strong>上相互通信。</li>
+</ul>
+<p>你可以把它理解成网络通信的 <strong>“寻址和会话管理”服务</strong>。它主要解决了三个基本问题：</p>
+<ol>
+<li><strong>网络上的设备叫什么名字？</strong>（名称服务）</li>
+<li><strong>如何把数据可靠地发送给某个会话？</strong>（会话服务）</li>
+<li><strong>如何快速地向所有人广播消息？</strong>（数据报服务）</li>
+</ol>
+<p>在现代的网络中<code>DNS</code>已经完全替代<code>NetBIOS</code>了，现代 Windows 系统（自 Windows 2000 起）支持 <strong>“直接托管”的 SMB</strong>，它<strong>直接使用 TCP 445 端口</strong>，完全绕开了 NetBIOS 层。</p>
+<ul>
+<li>客户端直接尝试连接服务器的 <strong>TCP 445</strong> 端口进行 SMB 通信。</li>
+<li>如果失败，才会作为备选方案回退到使用 TCP 139（NetBIOS over TCP/IP）。</li>
+</ul>
+<hr />
+<h4 id="13">1.3.核心组件</h4>
+<ol>
+<li><strong><code>smbd</code>（SMB 守护进程）</strong>：</li>
+<li><strong>职责</strong>：这是 Samba 的<strong>核心</strong>。负责管理共享资源（目录和打印机），处理来自客户端的连接、身份验证、文件访问和锁定。客户端实际的数据交换都通过它。</li>
+<li><strong>端口</strong>：通常运行在 <strong>TCP 139 和 445</strong> 端口。</li>
+<li><strong><code>nmbd</code>（NetBIOS 名称守护进程）</strong>：</li>
+<li><strong>职责</strong>：负责<strong>名称解析</strong>。在传统的 Windows 网络中，计算机不是通过 IP 地址被发现的，而是通过 <strong>NetBIOS 名称</strong>（就是你给电脑起的名字，如 <code>MY-PC</code>）。<code>nmbd</code>的作用就是将计算机名解析为 IP 地址，这样你才能在“网络邻居”里看到你的 Samba 服务器。</li>
+<li><strong>端口</strong>：通常运行在 <strong>UDP 137 和 138</strong> 端口。</li>
+<li><strong>注意</strong>：在现代纯 IP 网络（如仅使用 DNS）中，它的作用在减弱，但为了兼容性通常仍需开启。</li>
+<li><strong><code>winbindd</code></strong>：</li>
+<li><strong>职责</strong>：这是一个<strong>高级功能</strong>的组件。当 Samba 服务器加入一个 <strong>Windows 域</strong> 或 <strong>Active Directory</strong> 时，<code>winbindd</code>负责与域控制器通信，解析域用户和组的信息。它让 Linux 系统能够“认识”域中的用户。</li>
+<li><strong><code>samba-ad-dc</code></strong>：</li>
+<li><strong>职责</strong>：当 Samba 被配置为 <strong>Active Directory 域控制器</strong> 时，这个进程会运行，提供完整的域服务，类似于 Windows Server。</li>
+</ol>
+<p><strong>简单来说：<code>smbd</code>管干活，<code>nmbd</code>管报名。</strong></p>
+<hr />
+<h4 id="14">1.4.服务套件</h4>
+<ol>
+<li><code>samba</code>软件包：</li>
+<li>这是 <strong>Samba 服务器</strong>的本体。如果你想把这台<code>Linux</code>机器变成一台文件共享服务器，让<code>Windows</code>等机器来访问，<strong>就必须安装这个包</strong>。</li>
+<li><strong>包含内容：</strong><ul>
+<li><strong>主要守护进程</strong>：<code>smbd</code>和 <code>nmbd</code>这两个最核心的后台进程的可执行文件。</li>
+<li><strong>系统服务配置</strong>：用于 <code>systemd</code>或 <code>init</code>的启动脚本和配置文件，确保 Samba 服务能随系统开机自启。</li>
+<li><strong>文档与日志工具</strong>：说明文档、日志轮替配置等。</li>
+</ul>
+</li>
+<li><code>samba-common</code>：</li>
+<li>提供 Samba <strong>运行时所必需</strong>的公共文件和工具，<strong>无论你的机器是做服务器还是做客户端，这个包都是必须的</strong>。它通常是 <code>samba</code>和 <code>samba-client</code>包的依赖项，会被自动安装。</li>
+<li><strong>包含内容：</strong><ul>
+<li><strong>主配置文件</strong>：<code>/etc/samba/smb.conf</code>。这是 Samba 的灵魂，所有共享设置、安全策略都在这里定义。</li>
+<li><strong>语法检验工具</strong>：<code>testparm</code>。这是一个<strong>极其重要</strong>的工具，在你修改完 <code>smb.conf</code>后，用它来检查配置文件是否有语法错误，避免因配置错误导致服务启动失败。</li>
+<li>其它 Samba 运行所需的公共库和基础文件。</li>
+</ul>
+</li>
+<li><code>samba-client</code>：</li>
+<li>当你的<code>Linux</code>机器需要<strong>作为客户端</strong>，去访问网络中其他<code>SMB/Samba</code>共享资源时，就需要这个包。</li>
+</ol>
+<hr />
+<h3 id="2">2.配置解析</h3>
+<h4 id="21openeulersamba">2.1.openEuler安装samba</h4>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# yum install samba -y
+</code></pre></div>
+<h4 id="22">2.2.配置文件解析</h4>
+<p><code>smb.conf</code>文件是一个基于<strong>节</strong>的配置文件。主要分为两部分：</p>
+<ul>
+<li><code>[global]</code>节：全局设置，对这个<code>Samba</code>服务器生效。</li>
+<li>共享定义节：每个节定义一个共享资源，如目录或打印机。</li>
+</ul>
+<div class="highlight"><pre><span></span><code># 这是一个注释
+[global]
+    # 全局参数在这里设置
+    workgroup = MYGROUP
+    server string = My Samba Server
+
+[shared_folder_1]
+    # 第一个共享的参数
+    path = /srv/share1
+    read only = no
+
+[shared_folder_2]
+    # 第二个共享的参数
+    path = /srv/share2
+    valid users = alice, bob
+</code></pre></div>
+<hr />
+<h5 id="221">2.2.1.全局配置介绍</h5>
+<ol>
+<li><strong>网络与身份标识：</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">示例</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>workgroup</code></strong></td>
+<td style="text-align: left;"><code>WORKGROUP</code></td>
+<td style="text-align: left;">定义服务器所属的工作组或域名。必须与你的 Windows 客户端的工作组一致。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>server string</code></strong></td>
+<td style="text-align: left;"><code>File Server %v</code></td>
+<td style="text-align: left;">服务器的描述信息，会在网络邻居中看到。<code>%v</code>表示 Samba 版本号。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>netbios name</code></strong></td>
+<td style="text-align: left;"><code>MYSERVER</code></td>
+<td style="text-align: left;">设置服务器的 NetBIOS 名称（不超过15字符）。如果不设，默认使用主机名。</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>安全与认证：</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">常用值</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>security</code></strong></td>
+<td style="text-align: left;"><code>user</code></td>
+<td style="text-align: left;"><strong>最常用</strong>。Samba 使用自己的用户数据库（<code>smbpasswd</code>）进行认证。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>ads</code></td>
+<td style="text-align: left;">服务器加入 Active Directory 域，使用域用户进行认证。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>domain</code></td>
+<td style="text-align: left;">服务器加入 NT4 风格的域。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>passdb backend</code></strong></td>
+<td style="text-align: left;"><code>tdbsam</code></td>
+<td style="text-align: left;"><strong>默认</strong>。使用 TDB 数据库文件（<code>passdb.tdb</code>）存储用户信息，适用于独立服务器。</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><code>ldapsam</code></td>
+<td style="text-align: left;">使用 LDAP 目录服务存储用户信息，用于大型网络。</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>日志与排错：</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">示例</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>log level</code></strong></td>
+<td style="text-align: left;"><code>1</code></td>
+<td style="text-align: left;">日志级别。0 基本无日志，1 是默认，2 以上为调试信息（排错时有用，但不要长期设置太高）。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>log file</code></strong></td>
+<td style="text-align: left;"><code>/var/log/samba/log.%m</code></td>
+<td style="text-align: left;">日志文件路径。<code>%m</code>会自动替换为客户端 IP/名称，便于为每个客户端生成独立日志。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>max log size</code></strong></td>
+<td style="text-align: left;"><code>1000</code></td>
+<td style="text-align: left;">单个日志文件的最大大小（KB），超过后会轮替。</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>协议与性能：</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">示例</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>server min protocol</code></strong></td>
+<td style="text-align: left;"><code>SMB2_02</code></td>
+<td style="text-align: left;"><strong>强烈建议设置</strong>。禁止不安全的 SMB1 协议，强制使用更高版本。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>server max protocol</code></strong></td>
+<td style="text-align: left;"><code>SMB3</code></td>
+<td style="text-align: left;">设置服务器支持的最高 SMB 协议版本。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>socket options</code></strong></td>
+<td style="text-align: left;"><code>TCP_NODELAY</code></td>
+<td style="text-align: left;">调整网络套接字选项以优化性能，对广域网或高速局域网有用。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>预配解析：</strong></p>
+<div class="highlight"><pre><span></span><code>[global]
+        workgroup = SAMBA   # 服务器所属的工作组或域名
+        security = user # 安全认证模式
+
+        passdb backend = tdbsam # 用户与密码的存储方式
+
+        printing = cups # 打印系统的集成方式
+        printcap name = cups    # 指定打印系统的配置文件路径
+        load printers = yes # 是否自动加载系统中的所有打印机并共享
+        cups options = raw  # 表示直接发送原始打印数据到打印机，不进行额外的格式转换。
+
+        include = /etc/samba/usershares.conf    # 加载其他配置文件
+</code></pre></div>
+<hr />
+<h5 id="222">2.2.2.共享常用参数</h5>
+<div class="highlight"><pre><span></span><code>[共享名称]
+    comment = 共享描述
+    path = 共享路径
+    browseable = yes/no
+    writable = yes/no
+    valid users = 用户列表
+    guest ok = yes/no
+    create mask = 文件创建权限掩码
+    directory mask = 目录创建权限掩码
+    read only = yes/no
+    public = yes/no
+    available = yes/no
+</code></pre></div>
+<p><strong>基本设置：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">必需？</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>path</code></strong></td>
+<td style="text-align: left;"><strong>是</strong></td>
+<td style="text-align: left;">指定要共享的目录在 Linux 文件系统上的<strong>绝对路径</strong>。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>comment</code></strong></td>
+<td style="text-align: left;">否</td>
+<td style="text-align: left;">共享的描述信息，帮助用户识别。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>访问控制：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>browseable</code></strong></td>
+<td style="text-align: left;">是否允许在网络邻居中“看到”这个共享名。不影响直接访问。</td>
+<td style="text-align: left;"><code>browseable = yes</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>guest ok</code></strong></td>
+<td style="text-align: left;">是否允许匿名用户（不需要密码）访问。通常与 <code>public</code>同义。</td>
+<td style="text-align: left;"><code>guest ok = no</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>read only</code></strong></td>
+<td style="text-align: left;">共享是否为只读。<code>yes</code>只读，<code>no</code>可读写。</td>
+<td style="text-align: left;"><code>read only = no</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>writable</code></strong></td>
+<td style="text-align: left;">与 <code>read only</code>相反。<code>yes</code>可读写，<code>no</code>只读。</td>
+<td style="text-align: left;"><code>writable = yes</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>valid users</code></strong></td>
+<td style="text-align: left;"><strong>明确指定</strong>允许访问此共享的用户列表（逗号分隔）。最安全的方式。</td>
+<td style="text-align: left;"><code>valid users = alice, bob, @marketing</code>（<code>@marketing</code>表示 marketing 组）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>write list</code></strong></td>
+<td style="text-align: left;">拥有写权限的用户列表，即使 <code>read only = yes</code>。</td>
+<td style="text-align: left;"><code>write list = alice, @admins</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>read list</code></strong></td>
+<td style="text-align: left;">拥有只读权限的用户列表，即使 <code>read only = no</code>。</td>
+<td style="text-align: left;"><code>read list = guest, @guests</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>权限与文件系统集成：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">参数</th>
+<th style="text-align: left;">说明</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong><code>create mask</code></strong></td>
+<td style="text-align: left;">控制客户端新建文件的 Linux 权限掩码。</td>
+<td style="text-align: left;"><code>create mask = 0644</code>（文件权限：rw-r--r--）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>directory mask</code></strong></td>
+<td style="text-align: left;">控制客户端新建目录的 Linux 权限掩码。</td>
+<td style="text-align: left;"><code>directory mask = 0755</code>（目录权限：rwxr-xr-x）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>force user</code></strong></td>
+<td style="text-align: left;">所有通过共享进行的文件操作，都强制以该 Linux 用户身份执行。用于统一权限。</td>
+<td style="text-align: left;"><code>force user = share_user</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>force group</code></strong></td>
+<td style="text-align: left;">类似 <code>force user</code>，但强制设置组身份。</td>
+<td style="text-align: left;"><code>force group = share_group</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="223">2.2.3.特殊的共享</h5>
+<p><strong>[homes]</strong></p>
+<p>当用户（如 <code>alice</code>）连接时，Samba 会自动将其家目录（如 <code>/home/alice</code>）共享为 <code>[homes]</code>。</p>
+<div class="highlight"><pre><span></span><code>[homes]
+    comment = Home Directories
+    browseable = no # 不要在网络上显示 [homes] 这个共享名
+    writable = yes
+    valid users = %S # %S 代表当前登录的用户名
+</code></pre></div>
+<p>用户 <code>alice</code>通过 <code>\\server\alice</code>访问自己的家目录，而不是 <code>\\server\homes</code>。</p>
+<p><strong>[printers]</strong></p>
+<p>这个节会自动共享<code>Linux</code>系统上已配置的打印机。</p>
+<div class="highlight"><pre><span></span><code>[printers]
+    comment = All Printers
+    path = /var/spool/samba # 打印队列目录
+    browseable = no
+    guest ok = no
+    printable = yes # 必须设为 yes，表示这是打印机共享
+</code></pre></div>
+<hr />
+<h4 id="23samba">2.3.samba的用户</h4>
+<ul>
+<li><strong>双重身份验证</strong>：</li>
+<li>Samba 用户必须首先是一个 <strong>Linux 系统用户</strong>（存在于 <code>/etc/passwd</code>中）。</li>
+<li>然后通过 <code>smbpasswd</code>或 <code>pdbedit</code>工具将其添加到 Samba 的用户数据库（如 <code>tdbsam</code>或 <code>ldapsam</code>）。</li>
+<li><strong>密码独立</strong>：</li>
+<li>Samba 用户的密码可以与系统登录密码不同，由 Samba 独立管理。</li>
+<li>例如：用户 <code>alice</code>的 Linux 登录密码为 <code>123456</code>，但 Samba 密码可设为 <code>samba_secure</code>。</li>
+</ul>
+<p><strong>匿名用户：</strong></p>
+<p><strong>匿名用户</strong> 指的是一个<strong>未经过身份验证</strong>的网络用户。当客户端访问<code>Samba</code>共享时，它没有提供、或者提供了一个无效/空的用户名和密码。</p>
+<p>在<code>Samba</code>的配置逻辑中，这类访问会被映射为一个特定的、权限极低的 <strong>Guest</strong> 账户。</p>
+<hr />
+<h4 id="24">2.4.实验</h4>
+<p>在<code>openEuler</code>上配置<code>samba</code>的两种共享：</p>
+<ol>
+<li><strong>安全共享</strong>（需用户名/密码访问，精细权限控制）。</li>
+<li><strong>匿名共享</strong>（无需密码，仅限读取）。</li>
+</ol>
+<h5 id="241samba">2.4.1.安装samba</h5>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# yum install samba -y
+</code></pre></div>
+<h5 id="242">2.4.2.创建共享目录</h5>
+<ul>
+<li>创建一个只有授权用户能访问的共享目录 <code>/srv/secure_share</code>，用户 <code>user1</code>和 <code>user2</code>可读写，<code>user3</code>只能读取。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# mkdir -p /srv/secure_share
+[root@qyt-gujun ~]# chmod 775 /srv/secure_share/    # 组与用户可读写   
+[root@qyt-gujun ~]# groupadd smbusers   # 创建组
+[root@qyt-gujun ~]# chown :smbusers /srv/secure_share/  # 修改所属组
+
+[root@qyt-gujun ~]# useradd -M -s /usr/sbin/nologin user1   # 创建用户，禁止登录
+[root@qyt-gujun ~]# useradd -M -s /usr/sbin/nologin user2
+[root@qyt-gujun ~]# useradd -M -s /usr/sbin/nologin user3
+[root@qyt-gujun ~]# usermod -aG smbusers user1  # 将用户加入smbusers组
+[root@qyt-gujun ~]# usermod -aG smbusers user2
+[root@qyt-gujun ~]# usermod -aG smbusers user3
+[root@qyt-gujun ~]# smbpasswd -a user1  # 设置smaba用户密码与系统密码独立
+New SMB password:
+Retype new SMB password:
+Added user user1.
+[root@qyt-gujun ~]# smbpasswd -a user2
+New SMB password:
+Retype new SMB password:
+Added user user2.
+[root@qyt-gujun ~]# smbpasswd -a user3
+New SMB password:
+Retype new SMB password:
+Added user user3.
+</code></pre></div>
+<h5 id="243">2.4.3.配置共享目录</h5>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# vim /etc/samba/smb.conf
+[SecureShare]
+    comment = 安全共享（需密码访问）
+    path = /srv/secure_share
+    valid users = @smbusers      # 允许 smbusers 组的成员访问
+    read list = user3           # user3 只读
+    write list = user1, user2    # user1 和 user2 可读写
+    browseable = yes            # 允许发现
+    guest ok = no               # 禁止匿名访问
+    create mask = 0664          # 新建文件权限
+    directory mask = 0775       # 新建目录权限
+</code></pre></div>
+<h5 id="244">2.4.4.配置匿名访问</h5>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# mkdir -p /srv/public_read
+[root@qyt-gujun ~]# chown nobody: /srv/public_read/
+[root@qyt-gujun ~]# chmod 755 /srv/public_read
+
+[root@qyt-gujun ~]# vim /etc/samba/smb.conf
+[global]
+        map to guest = baduser  # 当提供的用户名不存在或密码错误时，将其映射为匿名用户
+        guest account = nobody  # 匿名用户在Linux系统上映射为nobody
+[PublicRead]
+    comment = 公共只读共享（匿名访问）
+    path = /srv/public_read
+    browseable = yes
+    guest ok = yes               # 允许匿名访问
+    read only = yes              # 只读
+    guest only = yes             # 强制所有访问者为匿名用户
+    force user = nobody          # 所有操作以 nobody 身份执行
+</code></pre></div>
+<h5 id="245">2.4.5.启动服务</h5>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# systemctl start smb nmb
+[root@qyt-gujun ~]# systemctl enable smb nmb
+Created symlink /etc/systemd/system/multi-user.target.wants/smb.service → /usr/lib/systemd/system/smb.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/nmb.service → /usr/lib/systemd/system/nmb.service.
+
+[root@qyt-gujun ~]# systemctl stop firewalld
+</code></pre></div>
+<h5 id="246windows">2.4.6.windows测试</h5>
+<p><img alt="image-20251016022717866" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251016022717942.png" /></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# ll /srv/secure_share/
+总用量 4
+drwxrwxr-x 2 user1 user1 4096 10月 16 02:27 user1
+-rw-rw-r-- 1 user1 user1    0 10月 16 02:27 user1.txt
+</code></pre></div>
+<h5 id="247linux">2.4.7.Linux测试</h5>
+<ol>
+<li>在客户端上安装<code>smbclient</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# yum install samba-client -y
+</code></pre></div>
+<ul>
+<li><strong>基本语法：</strong><code>smbclient [选项] //服务器IP/共享名 -U 用户名</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">选项</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>-L</code></td>
+<td style="text-align: left;">列出服务器上的共享列表</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-U</code></td>
+<td style="text-align: left;">指定用户名（格式：<code>用户名</code>或 <code>域名\用户名</code>）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-N</code></td>
+<td style="text-align: left;">匿名访问（不提供密码）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-p</code></td>
+<td style="text-align: left;">指定端口（默认 445）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-W</code></td>
+<td style="text-align: left;">指定工作组/域名</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-c</code></td>
+<td style="text-align: left;">直接执行命令后退出（适合脚本）</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>列出服务器上的所有共享：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# smbclient -L //192.168.80.100 -U user1
+Password for [SAMBA\user1]:
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        SecureShare     Disk      test
+        PublicRead      Disk      public
+        IPC$            IPC       IPC Service (Samba 4.17.5)
+        user1           Disk      Home Directories
+SMB1 disabled -- no workgroup available
+</code></pre></div>
+<ol>
+<li>匿名访问共享：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# cd /srv/public_read/
+[root@qyt-gujun public_read]# echo &quot;hello guest&quot; &gt; test.txt
+[root@qyt-gujun public_read]# chmod 655 test.txt
+
+[root@qyt-gujun ~]# smbclient //192.168.80.100/PublicRead -n
+Password for [SAMBA\root]:
+Try &quot;help&quot; to get a list of possible commands.
+smb: \&gt; dir
+  .                                   D        0  Thu Oct 16 02:35:38 2025
+  ..                                  D        0  Thu Oct 16 02:20:16 2025
+  test.txt                            N       12  Thu Oct 16 02:35:38 2025
+
+                99528824 blocks of size 1024. 92138708 blocks available
+smb: \&gt; get test.txt
+getting file \test.txt of size 12 as test.txt (11.7 KiloBytes/sec) (average 11.7 KiloBytes/sec)
+smb: \&gt; quit
+[root@qyt-gujun ~]# cat test.txt
+hello guest
+
+[root@qyt-gujun ~]# smbclient //192.168.80.100/PublicRead -U user2
+Password for [SAMBA\user2]:
+Try &quot;help&quot; to get a list of possible commands.
+smb: \&gt; mkdir 1
+NT_STATUS_ACCESS_DENIED making remote directory \1
+smb: \&gt; dir
+  .                                   D        0  Thu Oct 16 02:35:38 2025
+  ..                                  D        0  Thu Oct 16 02:20:16 2025
+  test.txt                            N       12  Thu Oct 16 02:35:38 2025
+
+                99528824 blocks of size 1024. 92138672 blocks available
+</code></pre></div>
+<ol>
+<li><code>user2</code>访问测试：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# smbclient //192.168.80.100/SecureShare -U user2
+Password for [SAMBA\user2]:
+Try &quot;help&quot; to get a list of possible commands.
+smb: \&gt; dir
+  .                                   D        0  Thu Oct 16 02:28:01 2025
+  ..                                  D        0  Thu Oct 16 02:20:16 2025
+  user1.txt                           A        0  Thu Oct 16 02:27:00 2025
+  user1                               D        0  Thu Oct 16 02:27:59 2025
+
+                99528824 blocks of size 1024. 92138692 blocks available
+smb: \&gt; mkdir user2
+smb: \&gt; dir
+  .                                   D        0  Thu Oct 16 02:38:27 2025
+  ..                                  D        0  Thu Oct 16 02:20:16 2025
+  user1.txt                           A        0  Thu Oct 16 02:27:00 2025
+  user2                               D        0  Thu Oct 16 02:38:27 2025
+  user1                               D        0  Thu Oct 16 02:27:59 2025
+
+                99528824 blocks of size 1024. 92138672 blocks available
+</code></pre></div>
+<ol>
+<li><code>user3</code>访问测试：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# smbclient //192.168.80.100/SecureShare -U user3
+Password for [SAMBA\user3]:
+Try &quot;help&quot; to get a list of possible commands.
+smb: \&gt; mkdir user3
+NT_STATUS_ACCESS_DENIED making remote directory \user3
+smb: \&gt; dir
+  .                                   D        0  Thu Oct 16 02:38:27 2025
+  ..                                  D        0  Thu Oct 16 02:20:16 2025
+  user1.txt                           A        0  Thu Oct 16 02:27:00 2025
+  user2                               D        0  Thu Oct 16 02:38:27 2025
+  user1                               D        0  Thu Oct 16 02:27:59 2025
+
+                99528824 blocks of size 1024. 92138672 blocks available
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">命令</th>
+<th style="text-align: left;">功能</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>ls</code>或 <code>dir</code></td>
+<td style="text-align: left;">列出当前目录文件</td>
+<td style="text-align: left;"><code>smb: \&gt; ls</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>cd</code></td>
+<td style="text-align: left;">切换目录</td>
+<td style="text-align: left;"><code>smb: \&gt; cd Documents</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>get</code></td>
+<td style="text-align: left;">下载文件</td>
+<td style="text-align: left;"><code>smb: \&gt; get file.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>put</code></td>
+<td style="text-align: left;">上传文件</td>
+<td style="text-align: left;"><code>smb: \&gt; put local.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mget</code></td>
+<td style="text-align: left;">批量下载（支持通配符 <code>*</code>）</td>
+<td style="text-align: left;"><code>smb: \&gt; mget *.pdf</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mput</code></td>
+<td style="text-align: left;">批量上传</td>
+<td style="text-align: left;"><code>smb: \&gt; mput *.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>mkdir</code></td>
+<td style="text-align: left;">创建目录</td>
+<td style="text-align: left;"><code>smb: \&gt; mkdir NewFolder</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>rm</code></td>
+<td style="text-align: left;">删除文件</td>
+<td style="text-align: left;"><code>smb: \&gt; rm old.txt</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>rmdir</code></td>
+<td style="text-align: left;">删除目录</td>
+<td style="text-align: left;"><code>smb: \&gt; rmdir OldDir</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>exit</code>或 <code>quit</code></td>
+<td style="text-align: left;">退出</td>
+<td style="text-align: left;"><code>smb: \&gt; exit</code></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

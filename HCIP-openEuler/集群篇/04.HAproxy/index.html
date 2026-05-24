@@ -1,0 +1,3964 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../03.Nginx/">
+      
+      
+        <link rel="next" href="../05.KeepAlived/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>HAproxy - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04haproxy" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              HAproxy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.基础原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.基础原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.HAProxy是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.工作原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.传统模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.事件驱动模型与非阻塞I/O
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.进程模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.与Nginx对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.与Nginx对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.功能比较
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.使用场景比较
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.配置介绍
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.配置介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.配置文件基础结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.配置文件基础结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211global" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.global段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.defaults段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.frontend段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.backend段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215listen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.listen段
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22l7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.L7负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.L7负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.后端服务器配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.HAProxy配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5.客户端真实IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.6.日志
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#227listen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.7.listen段配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23l7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.L7负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.L7负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.HAProxy配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224listen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.listen段配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.进阶
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.进阶">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.健康检测
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1.健康检测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1.参数说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312l7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2.L7健康检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313l4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3.L4健康检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#314" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.4.监控面板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#315" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.5.故障转移
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.ACL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.ACL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1.ACL的核心语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2.基于路径的匹配条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3.基于域名的匹配条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4.基于源IP的匹配条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.5.逻辑与
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#326" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.6.逻辑或
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#327" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.7.逻辑非
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.基础原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.基础原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.HAProxy是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.工作原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.传统模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.事件驱动模型与非阻塞I/O
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.进程模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.与Nginx对比
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.与Nginx对比">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.功能比较
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.使用场景比较
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.配置介绍
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.配置介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.配置文件基础结构
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.配置文件基础结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211global" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.global段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212defaults" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.defaults段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.frontend段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.backend段
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215listen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.listen段
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22l7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.L7负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.L7负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.后端服务器配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.HAProxy配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5.客户端真实IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.6.日志
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#227listen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.7.listen段配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23l7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.L7负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.L7负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222haproxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.HAProxy配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224listen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.listen段配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.进阶
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.进阶">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.健康检测
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1.健康检测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1.参数说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312l7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2.L7健康检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313l4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3.L4健康检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#314" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.4.监控面板
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#315" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.5.故障转移
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.ACL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2.ACL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.1.ACL的核心语法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.2.基于路径的匹配条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.3.基于域名的匹配条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.4.基于源IP的匹配条件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.5.逻辑与
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#326" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.6.逻辑或
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#327" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.7.逻辑非
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="04haproxy">04.HAProxy</h1>
+<h3 id="1">1.基础原理</h3>
+<h4 id="11haproxy">1.1.HAProxy是什么？</h4>
+<p><code>HAProxy</code>是一款提供高可用性、负载均衡以及基于<code>TCP</code>和<code>HTTP</code>应用的<strong>代理</strong>服务器，支持虚拟主机，它是免费、快速并且可靠的一种解决方案。</p>
+<p>其核心使命是<strong>将客户端的网络请求分发到后端多个服务器上</strong>，以实现<strong>高可用性、高并发处理能力和可扩展性</strong>。</p>
+<p><strong>中文官方文档</strong>：<a href="https://docs.haproxy.cn/dev/intro.html#3.1"> HAProxy 文档</a></p>
+<p><strong>核心作用：</strong></p>
+<ol>
+<li><strong>TCP代理：</strong>在客户端和服务器之间建立两个独立的连接，桥接流量。</li>
+<li><strong>HTTP反向代理：</strong>接收<code>HTTP</code>请求，并以不同的连接将其转发给后端服务器。</li>
+<li><strong>SSL/TLS终结器/发起器/卸载器：</strong>可以处理客户端的<code>SSL</code>加密，也可以明文或重新加密的方式与服务器通信。</li>
+<li><strong>协议规范器：</strong>对<code>TCP</code>和<code>HTTP</code>协议进行验证和修复，保证后端服务器免受畸形协议数据包的攻击。</li>
+<li>
+<p><strong>流量调节器：</strong>可以实施速率限制，保护服务器免于过载。</p>
+</li>
+<li>
+<p><strong>缓存代理：</strong>可以在内存中缓存响应，但<strong>设计目标是节省HAProxy自身资源，而非替代专业缓存</strong>。</p>
+</li>
+</ol>
+<hr />
+<h4 id="12">1.2.工作原理</h4>
+<h5 id="121">1.2.1.传统模型</h5>
+<p>在<strong>传统的模型中</strong>，当操作系统收到一个连接请求就需要占用一个专门的进程为他服务。当有其他连接进入操作系统时就需要创建其他进程<strong>一对一服务</strong>，会导致频繁删除或创建进程，浪费<code>CPU</code>资源。当一个进程执行<code>accept()</code>或<code>read()</code>时，它会调用一个<strong>阻塞式的系统调用</strong>。例如进程需要等待网络数据到达、或读取、写入时，内核会让进程进入<strong>睡眠状态</strong>，直到它等待的事件（处理完毕）发生，内核才会叫醒它们，效率较低。</p>
+<p>综上所述，效率低下的原因有两点：</p>
+<ol>
+<li><strong>阻塞式：</strong>进程不是时时刻刻都处于活跃状态，且会被单一连接占用。</li>
+<li><strong>模型：</strong>内核在这里扮演的角色是<strong>叫醒服务</strong>，功能单一。</li>
+</ol>
+<hr />
+<h5 id="122io">1.2.2.<strong>事件驱动模型与非阻塞I/O</strong></h5>
+<p>在<strong>事件驱动模型</strong>中：</p>
+<ol>
+<li>
+<p><strong>统一监听</strong>：一个主进程负责监听所有连接（如网络端口）。</p>
+</li>
+<li>
+<p><strong>事件记录与等待</strong>：当没有事件发生时，进程并不主动轮询，而是休眠并将<code>CPU</code>资源让出。它依赖操作系统内核（通过<code>epoll</code>、<code>kqueue</code>等机制）来记录和通知哪些连接上有事件发生（如新连接到达、数据可读、可写）。</p>
+</li>
+<li>
+<p><strong>批量处理</strong>：当事件发生时（例如，一个网络数据包到达），操作系统会唤醒进程，并提供一个就绪事件列表。进程随后批量地、高效地处理这些已就绪的事件。</p>
+</li>
+<li>
+<p><strong>非阻塞处理</strong>：在处理每个事件时，进程使用非阻塞<code>I/O</code>进行操作。如果某个操作（如读取数据）不能立即完成，进程不会等待，而是立即处理列表中的下一个就绪事件。</p>
+</li>
+</ol>
+<p>从<code>0-1</code>：</p>
+<ol>
+<li>当前没有任何事件时，主进程休眠不占用任何<code>cpu</code>。</li>
+<li>当有事件发生时（新连接），内核先将该事件记录下来并唤醒主进程告诉其当前要做的任务。</li>
+<li>主进程被唤醒根据事件进行处理，调用内核执行<code>read()、write()</code>等，随后立即执行其他事件，永不等待。</li>
+<li>当处理结果出来后，内核会告知主进程让它来接手。</li>
+</ol>
+<p>从<code>1-2</code>：</p>
+<ol>
+<li>如果现在有非常多的任务，如读写未完成还有<code>100</code>个新连接等。</li>
+<li>主进程依旧是先完成手头能干的事，内核帮助它把当前可以干的事一一记录，然后告诉主进程。</li>
+<li>主进程按照顺序，一条一条处理。</li>
+</ol>
+<p>另外，在<strong>单进程模型中</strong>，只能使用一个<code>CPU</code>核心，负载非常高，只有当一个<code>CPU</code>核心被该进程百分百占满，才会引入多线程。所以，下面就研究单进程和多进程模型了。所以，多进程模型的目的是为了将负载<strong>分摊</strong>到多个<code>CPU</code>核心上，实现水平扩展。</p>
+<p><strong>总结：</strong></p>
+<ul>
+<li><strong>事件驱动模型：</strong>私人秘书，帮你不断汇总所有要处理的事，主进程就乖乖按照它的列表一条条干。</li>
+<li><strong>非阻塞：</strong>服务员帮你点完菜，会站在你边上等菜做完么？那肯定是有其他客人就服务其他客人，有盘子端就端盘子去了，没活干摸鱼去了呀！</li>
+</ul>
+<hr />
+<h5 id="123">1.2.3.进程模型</h5>
+<p>既然事件循环机制已经这么高效了，为什么还需要<strong>多进程/线程</strong>呢？</p>
+<ul>
+<li>和<strong>集群</strong>一样，单一情况下效率和性能再高也架不住<strong>量大</strong>。</li>
+</ul>
+<p>一个事件循环只能跑在一个<code>CPU</code>核心上。当负载非常高，单个<code>CPU</code>核心成为瓶颈时，就需要将负载分摊到多个核心上。在多进程/线程模型中，<strong>每个工作进程/线程都运行着自己独立的事件循环</strong>。这不再是“一个连接一个线程”的落后模式，而是 <strong>“一个CPU核心一个事件循环”</strong> 的高效模式。</p>
+<hr />
+<h5 id="124">1.2.4.状态机</h5>
+<p>从上文中我们已经得知，内核在事件驱动模型里是一个秘书的角色，它负责将任务汇总成表告知进程，指导主进程干活。那对于主进程来说，这张“表”是怎么指导它干活的呢？他怎么知道它要干什么、怎么干呢？——<strong>状态机</strong></p>
+<p><code>HAProxy</code>为不同协议（如纯<code>TCP</code>、<code>HTTP</code>）实现了不同的状态机。</p>
+<p><strong>以HTTP GET请求为例：</strong></p>
+<ol>
+<li>
+<p><strong>状态：<code>HTTP_MSG_RQBEFORE</code>（请求开始前）</strong></p>
+</li>
+<li>
+<p><strong>触发事件</strong>：事件循环通知：“客户端连接上有数据可读”。</p>
+</li>
+<li>
+<p><strong>处理动作</strong>：状态机被唤醒。它知道连接刚建立，应该等待HTTP请求行。它尝试从网络缓冲区中读取数据。</p>
+</li>
+<li>
+<p><strong>转换</strong>：如果读到了完整的请求行（如 <code>GET /index.html HTTP/1.1\r\n</code>），则<strong>状态转换</strong>到 <code>HTTP_MSG_RQLINE</code>（处理请求行）。</p>
+</li>
+<li>
+<p><strong>状态：<code>HTTP_MSG_RQLINE</code>（处理请求行）</strong></p>
+</li>
+<li>
+<p><strong>处理动作</strong>：解析请求行（方法、URI、版本）。验证其合法性。</p>
+</li>
+<li>
+<p><strong>转换</strong>：如果解析成功，则<strong>状态转换</strong>到 <code>HTTP_MSG_RQHDR</code>（等待解析请求头）。</p>
+</li>
+<li>
+<p><strong>状态：<code>HTTP_MSG_RQHDR</code>（处理请求头）</strong></p>
+</li>
+<li>
+<p><strong>处理动作</strong>：继续读取数据，一行一行地解析HTTP头部（如 <code>Host:</code>, <code>User-Agent:</code>），直到遇到一个空行 <code>\r\n</code>，表示头部结束。</p>
+</li>
+<li>
+<p><strong>转换</strong>：收到空行后，<strong>状态转换</strong>到 <code>HTTP_MSG_RQBODY</code>（等待请求体）。对于GET请求，没有请求体，所以可能立即转换到下一个状态。</p>
+</li>
+<li>
+<p><strong>状态：<code>HTTP_MSG_RQBODY</code>（处理请求体）</strong></p>
+</li>
+<li><strong>处理动作</strong>：对于GET请求，发现没有请求体（根据 <code>Content-Length</code>或 <code>Transfer-Encoding</code>判断）。</li>
+<li>
+<p><strong>转换</strong>：<strong>状态转换</strong>到 <code>HTTP_MSG_BACKEND_SELECT</code>（开始选择后端服务器）。</p>
+</li>
+<li>
+<p><strong>状态：<code>HTTP_MSG_BACKEND_SELECT</code>（选择后端）</strong></p>
+</li>
+<li><strong>处理动作</strong>：这不是网络I/O状态，而是逻辑状态。HAProxy根据配置的规则（ACL、负载均衡算法）选择一个可用的后端服务器。</li>
+<li>
+<p><strong>转换</strong>：选择完成后，<strong>状态转换</strong>到 <code>HTTP_MSG_CONNECT</code>（连接后端）。</p>
+</li>
+<li>
+<p><strong>状态：<code>HTTP_MSG_CONNECT</code>（连接后端）</strong></p>
+</li>
+<li><strong>处理动作</strong>：与选定的后端服务器建立TCP连接。</li>
+<li>
+<p><strong>转换</strong>：连接建立成功后，<strong>状态转换</strong>到 <code>HTTP_MSG_SEND_REQ</code>（发送请求）。</p>
+</li>
+<li>
+<p><strong>状态：<code>HTTP_MSG_SEND_REQ</code>（发送请求）</strong></p>
+</li>
+<li><strong>处理动作</strong>：将完整的HTTP请求（它已缓存在自己的缓冲区中）发送给后端服务器。</li>
+<li>
+<p><strong>转换</strong>：数据进入发送缓冲区后，<strong>状态转换</strong>到 <code>HTTP_MSG_WAIT_RESP</code>（等待响应）。</p>
+</li>
+<li>
+<p><strong>状态：<code>HTTP_MSG_WAIT_RESP</code>/ <code>HTTP_MSG_RESPONSE</code>（等待并处理响应）</strong></p>
+</li>
+<li>
+<p>这个过程类似于请求的处理，状态机会经历解析状态行、响应头、响应体等状态。</p>
+</li>
+<li>
+<p><strong>状态：<code>HTTP_MSG_DONE</code>（完成）</strong></p>
+</li>
+<li><strong>处理动作</strong>：记录日志，清理资源。</li>
+<li><strong>转换</strong>：如果连接是 <code>Keep-Alive</code>，状态机可能<strong>重置</strong>回初始状态，等待同一个连接上的下一个请求。否则，关闭连接。</li>
+</ol>
+<p><strong>总结：</strong></p>
+<p>所以，进程根据状态机机制会非常清楚的知道自己每一步需要干什么、怎么去操作。以及出现问题应该怎么去处理，保证它能够完美的处理事件。</p>
+<hr />
+<h4 id="13nginx">1.3.与Nginx对比</h4>
+<p><code>HAProxy</code>专为<strong>负载均衡</strong>而生，整个架构都围绕着如何在多个后端服务之间最高效、最可靠地分发流量。<code>Nginx</code>负载均衡对于它只是一个“副业”，本质上是<code>Web</code>服务器，负载均衡功能是其反向代理的延申，负载均衡的功能<strong>相对简单</strong>。</p>
+<h5 id="131">1.3.1.功能比较</h5>
+<ul>
+<li>
+<p><strong>负载均衡能力：</strong></p>
+</li>
+<li>
+<p><strong>HAProxy</strong>：主要专注于负载均衡，支持第<code>4</code>层和第<code>7</code>层的流量调度。它的强项在于处理复杂的负载均衡策略，如基于源 <code>IP</code>、<code>URL</code>路径、<code>Cookie</code>等的流量分发。</p>
+</li>
+<li>
+<p><strong>NGINX</strong>：虽然<code>NGINX</code>也支持第<code>4</code>层和第<code>7</code>层负载均衡，但其负载均衡功能相对简单，更适合处理<code>HTTP/HTTPS</code>流量。</p>
+</li>
+<li>
+<p><strong>性能表现：</strong></p>
+</li>
+<li>
+<p><strong>HAProxy</strong>：在处理<code>TCP</code>流量时表现出色，特别是在高并发场景下。它的连接管理能力非常强大，能够有效减少延迟。</p>
+</li>
+<li>
+<p><strong>NGINX</strong>：在处理静态文件和缓存时性能出众，其事件驱动架构使其能够高效处理大规模的<code>HTTP</code>请求。</p>
+</li>
+<li>
+<p><strong>扩展性：</strong></p>
+</li>
+<li>
+<p><strong>HAProxy</strong>：虽然<code>HAProxy</code>的功能专注于负载均衡，但通过其配置文件，可以实现非常复杂的流量控制策略。</p>
+</li>
+<li>
+<p><strong>NGINX</strong>：由于其模块化设计，<code>NGINX</code>的扩展性非常强，用户可以通过第三方模块实现额外功能。</p>
+</li>
+<li>
+<p><strong>健康检查：</strong></p>
+</li>
+<li>
+<p><strong>HAProxy</strong>：提供了高级的健康检查机制，可以基于各种条件进行后端服务器的状态检测。</p>
+</li>
+<li>
+<p><strong>NGINX</strong>：健康检查功能较为基础，但通过第三方模块可以扩展其功能。</p>
+</li>
+</ul>
+<h5 id="132">1.3.2.使用场景比较</h5>
+<ul>
+<li><strong>HAProxy适用场景：</strong></li>
+<li>大规模<code>Web</code>应用程序的负载均衡，尤其是需要复杂的流量控制策略时。</li>
+<li>高性能<code>TCP</code>负载均衡，如数据库集群的流量分发。</li>
+<li>
+<p>高可用性场景，如需要主备切换和会话保持的关键业务系统。</p>
+</li>
+<li>
+<p><strong>Nginx适用场景：</strong></p>
+</li>
+<li>需要多功能服务器的场景，如同时处理静态文件、代理流量、终止<code>SSL</code>、负载均衡等。</li>
+<li>高并发<code>HTTP</code>服务，如内容分发网络（<code>CDN</code>）、视频流媒体等。</li>
+<li>需要轻量级反向代理和缓存服务器的应用程序。</li>
+</ul>
+<p><strong>总结：</strong></p>
+<ul>
+<li>当你需要一个专业、可靠、需要精细控制和深度可视化的负载均衡软件时，可以选择<code>HAProxy</code>。</li>
+<li>当你需要一个功能全面的网关，希望它既能做负载均衡，又能高效处理静态文件、重写<code>URL</code>、运行<code>Lua</code>脚本等，可以选择<code>Nginx</code>。</li>
+</ul>
+<hr />
+<h3 id="2">2.配置介绍</h3>
+<h4 id="21">2.1.配置文件基础结构</h4>
+<p>一个典型的<code>HAProxy</code>配置文件包含以下五个主要部分，顺序是固定的：</p>
+<ul>
+<li><code>global</code>：全局配置，影响<code>HAProxy</code>进程本身的参数。</li>
+<li><code>defaults</code>：为后续的<code>frontend/backend/listen</code>设置默认参数。</li>
+<li><code>frontend</code>：定义如何接收客户端连接（前端）。</li>
+<li><code>backend</code>：定义将流量发送到哪些服务器（后端）。</li>
+<li><code>listen</code>：将<code>frontend</code>和<code>backend</code>合二为一的简化配置段。</li>
+</ul>
+<p>配置文件路径：<code>/etc/haproxy/haproxy.cfg</code>。</p>
+<hr />
+<h5 id="211global">2.1.1.global段</h5>
+<p>用于配置与<code>Linux</code>系统、性能、安全相关的全局参数。</p>
+<div class="highlight"><pre><span></span><code>global
+    daemon                    # 以守护进程方式运行
+    user haproxy              # 运行用户
+    group haproxy             # 运行组
+    maxconn 100000            # 每个进程的最大连接数
+    stats socket /var/run/haproxy/admin.sock mode 660 level admin
+                              # 启用管理套接字，用于动态管理
+    ssl-default-bind-ciphers ECDHE-RSA-AES128-GCM-SHA256
+                              # 全局SSL加密算法设置
+    log 127.0.0.1 local2      # 定义日志输出
+</code></pre></div>
+<p><strong>管理套接字的作用：</strong></p>
+<p>管理套接字是HAProxy的<strong>实时控制中心</strong>。它提供了一个UNIX套接字接口，允许你在<strong>不重启HAProxy进程</strong>的情况下，动态地查询状态、修改配置、进行故障排查。<code>HAProxy</code>的监控面板也是通过该功能实现的。</p>
+<ul>
+<li>实时服务器管理</li>
+</ul>
+<div class="highlight"><pre><span></span><code># 将服务器设置为维护模式
+echo &quot;disable server backend/web1&quot; | socat stdio /var/run/haproxy/admin.sock
+
+# 重新启用服务器
+echo &quot;enable server backend/web1&quot; | socat stdio /var/run/haproxy/admin.sock
+
+# 动态修改服务器权重
+echo &quot;set weight backend/web1 50&quot; | socat stdio /var/run/haproxy/admin.sock
+</code></pre></div>
+<ul>
+<li>实时统计和监控</li>
+</ul>
+<div class="highlight"><pre><span></span><code># 查看前端统计信息
+echo &quot;show info&quot; | socat stdio /var/run/haproxy/admin.sock
+
+# 查看后端服务器状态
+echo &quot;show stat&quot; | socat stdio /var/run/haproxy/admin.sock
+
+# 查看当前活动会话
+echo &quot;show sess&quot; | socat stdio /var/run/haproxy/admin.sock
+</code></pre></div>
+<p><strong>日志：</strong></p>
+<div class="highlight"><pre><span></span><code>global
+    log &lt;ip:port&gt; &lt;facility&gt; [level]
+</code></pre></div>
+<p><code>127.0.0.1</code>：日志的接收地址，将日志发送到本地主机的<code>syslog</code>守护进程。也可以配置为远程日志服务器<code>IP</code>，集中日志收集。</p>
+<p><code>local2</code>：日志设施，<code>syslog</code>的<strong>分类表示</strong>，取值范围是<code>0-7</code>。不同的设施可以用来区分不同来源的日志，便于过滤和处理。</p>
+<p><img alt="image-20251220041210290" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251220041210347.png" /></p>
+<ul>
+<li>
+<p>在<code>syslog</code>中的对应配置：<code>/etc/rsyslog.conf</code></p>
+</li>
+<li>
+<p><code># 将local2设施的日志写入单独文件
+    local2.* /var/log/haproxy.log</code></p>
+</li>
+</ul>
+<hr />
+<h5 id="212defaults">2.1.2.defaults段</h5>
+<p>定义<code>frotend</code>和<code>backend</code>的默认值，避免重复配置。后续的<code>frontend</code>/<code>backend</code>会自动继承这些参数，也可被覆盖。</p>
+<div class="highlight"><pre><span></span><code>defaults
+    mode                    http      # 工作模式：HTTP七层代理
+    log                     global    # 使用全局日志设置
+    option                  httplog   # 启用详细HTTP日志格式
+    option                  dontlognull # 不记录空连接，减少日志噪音
+    retries                 3         # 连接失败后重试3次
+    timeout http-request    5s        # 等待完整HTTP请求的超时（防慢速攻击）
+    timeout queue           1m        # 请求在队列中最长等待1分钟
+    timeout connect         5s        # 连接后端服务器的超时
+    timeout client          1m        # 客户端不活动超时
+    timeout server          1m        # 服务器端不活动超时
+    timeout http-keep-alive 5s        # Keep-Alive连接空闲超时
+    timeout check           5s        # 健康检查超时
+    maxconn                 3000      # 单个进程最大并发连接数
+    default_backend web_servers       # 未匹配规则时的默认后端
+</code></pre></div>
+<p><strong>配置优先级：</strong></p>
+<p><code>frontend</code>/ <code>backend</code>/ <code>listen</code>&gt; <code>defaults</code>&gt; <code>global</code></p>
+<ul>
+<li>
+<p>最具体的配置段拥有最高优先级</p>
+</li>
+<li>
+<p>如果没有特殊说明，就继承上一级的设置</p>
+</li>
+</ul>
+<p><strong>mode设置：</strong></p>
+<p><code>frontend/backend</code>中的<code>mode</code>覆盖<code>defaults</code></p>
+<div class="highlight"><pre><span></span><code>defaults
+    mode http        # 默认模式：HTTP
+
+frontend web_fe
+    bind *:80
+    # 这个frontend继承defaults的mode http
+
+backend api_be
+    mode tcp         # 明确覆盖为TCP模式
+    server s1 10.0.1.10:8080
+
+backend web_be
+    # 没有指定mode，继承defaults的mode http
+    server s2 10.0.1.11:80
+</code></pre></div>
+<p><strong>前后端配合：</strong></p>
+<ol>
+<li>前后端统一<code>TCP</code>模式（四层负载均衡）</li>
+<li>
+<p>前后端统一<code>HTTP</code>模式（七层负载均衡）</p>
+</li>
+<li>
+<p>不可以混合使用 。</p>
+</li>
+</ol>
+<hr />
+<h5 id="213frontend">2.1.3.frontend段</h5>
+<p>这是客户端连接的地方，定义监听地址、端口和入站流量规则。</p>
+<p><strong>配置示例：</strong></p>
+<div class="highlight"><pre><span></span><code>frontend web_front
+    bind *:80                 # 监听所有IP的80端口
+    bind *:443 ssl crt /etc/ssl/site.pem
+                              # 监听HTTPS，并指定证书，接收HTTPS请求并解密后续以明文方式向后端转发
+    # 访问控制：拒绝无效Host头
+    acl invalid_host hdr(host) -i # 检查HTTP请求头中的HOST字段是否为空，-i标识忽略大小写
+    http-request deny if invalid_host   # 若匹配上invalid_host则拒绝该请求
+
+    # 根据域名进行内容路由
+    acl host_blog hdr(host) -i blog.example.com # 请求头host匹配，忽略大小写
+    acl host_api hdr(host) -i api.example.com
+    acl static path_beg /static /images  
+                              # 匹配URL以/static或/images开头的路径
+
+    use_backend blog_servers if host_blog   # 如果匹配上了，向指定后端服务器组转发
+    use_backend api_servers if host_api
+    use_backend static_servers if static
+    default_backend         http_back
+    # 都不匹配时，使用default_backend
+</code></pre></div>
+<hr />
+<h5 id="214backend">2.1.4.backend段</h5>
+<p>用于定义一组真实服务器及其负载均衡策略。</p>
+<p><strong>配置示例：</strong></p>
+<div class="highlight"><pre><span></span><code>backend web_servers
+    balance roundrobin        # 负载均衡算法：轮询
+    option httpchk GET /healthcheck
+                              # 定义健康检查方式
+
+    # 定义真实服务器
+    server web1 192.168.1.10:80 check maxconn 100 weight 10
+    server web2 192.168.1.11:80 check maxconn 100 weight 10
+    server backup 192.168.1.12:80 check backup
+                              # 备份服务器，平时不接收流量
+
+backend static_servers
+    balance source           # 基于源IP的哈希算法
+    server static1 192.168.1.20:80 check
+</code></pre></div>
+<ul>
+<li>
+<p><code>check</code>：启用健康检查</p>
+</li>
+<li>
+<p><code>maxconn</code>：限制到该服务器的最大连接数</p>
+</li>
+<li>
+<p><code>weight</code>：权重，越高接收越多流量</p>
+</li>
+<li>
+<p><code>backup</code>：标记为备份服务器</p>
+</li>
+</ul>
+<hr />
+<h5 id="215listen">2.1.5.listen段</h5>
+<p>将<code>frontend</code>和<code>backend</code>合并的简化配置，适用于简单场景。</p>
+<div class="highlight"><pre><span></span><code>listen stats
+    bind *:1936
+    stats enable
+    stats uri /haproxy?stats
+    stats auth admin:password  # 认证信息
+
+listen web_service
+    bind *:80
+    server web1 192.168.1.10:80 check
+    server web2 192.168.1.11:80 check
+</code></pre></div>
+<hr />
+<h4 id="22l7">2.2.L7负载均衡</h4>
+<h5 id="221">2.2.1.实验规划</h5>
+<p>后端部署两台<code>Apache</code>：<code>http://192.168.80.101、http://192.168.80.102</code>。</p>
+<p>当客户端访问<code>http://192.168.80.100:4399</code>时，将请求根据负载均衡算法转发至后端。</p>
+<h5 id="222">2.2.2.后端服务器配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Apache1 ~]# yum install httpd -y
+
+[root@Apache1 ~]# echo &quot;This is Apache1&quot; &gt; /var/www/html/index.html
+
+[root@Apache1 ~]# systemctl start httpd
+
+[root@Apache2 ~]# yum install httpd -y
+
+[root@Apache2 ~]# echo &quot;This is Apache2&quot; &gt; /var/www/html/index.html
+
+[root@Apache2 ~]# systemctl start httpd
+</code></pre></div>
+<h5 id="223haproxy">2.2.3.HAProxy配置</h5>
+<div class="highlight"><pre><span></span><code>[root@HAProxy ~]# vim /etc/haproxy/haproxy.cfg
+frontend test
+    bind *:4399
+    mode http
+    default_backend web_servers
+backend web_servers
+    balance roundrobin
+    server web01 192.168.80.101:80
+    server web02 192.168.80.102:80
+
+[root@HAProxy ~]# systemctl start haproxy
+</code></pre></div>
+<h5 id="224">2.2.4.测试</h5>
+<div class="highlight"><pre><span></span><code>[root@HAProxy ~]# ss -tnulp | grep 4399
+tcp   LISTEN 0      3000         0.0.0.0:4399       0.0.0.0:*    users:((&quot;haproxy&quot;,pid=2061,fd=7))
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:4399
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:4399
+This is Apache2
+</code></pre></div>
+<h5 id="225ip">2.2.5.客户端真实IP</h5>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# cat /var/log/httpd/access_log
+192.168.80.100 - - [20/Dec/2025:06:14:40 +0800] &quot;GET / HTTP/1.1&quot; 200 16 &quot;-&quot; &quot;curl/8.16.0&quot;
+</code></pre></div>
+<p><code>HAProxy</code>同样也会出现后端服务器日志中没有记录客户端真实<code>IP</code>的问题。</p>
+<p><strong>代理配置：</strong></p>
+<ul>
+<li><code>HAProxy</code>只需要在<code>defaults</code>添加<code>forwardfor</code>，它会自动将客户端的真实<code>IP</code>地址添加到每个<code>HTTP</code>请求的<code>X-Forwarded-For</code>中。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[root@HAProxy ~]# vim /etc/haproxy/haproxy.cfg
+defaults
+    option                  forwardfor  except 127.0.0.0/8  # 排除探测报文
+
+[root@HAProxy ~]# systemctl start haproxy
+</code></pre></div>
+<p><strong>后端配置：</strong></p>
+<div class="highlight"><pre><span></span><code># 在httpd.conf或apache2.conf中添加：
+LogFormat &quot;%{X-Forwarded-For}i %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; proxy # 使用整个X-Forwarded-For代理链的地址
+CustomLog logs/access_log proxy
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# cat /var/log/httpd/access_log
+192.168.80.100 - - [20/Dec/2025:06:14:40 +0800] &quot;GET / HTTP/1.1&quot; 200 16 &quot;-&quot; &quot;curl/8.16.0&quot;
+192.168.80.100 - - [20/Dec/2025:06:14:41 +0800] &quot;GET / HTTP/1.1&quot; 200 16 &quot;-&quot; &quot;curl/8.16.0&quot;
+192.168.80.1 - - [20/Dec/2025:06:22:34 +0800] &quot;GET / HTTP/1.1&quot; 200 16 &quot;-&quot; &quot;curl/8.16.0&quot;
+</code></pre></div>
+<hr />
+<h5 id="226">2.2.6.日志</h5>
+<p><code>HAProxy</code>默认使用 <strong>UDP 协议</strong> 将日志发送到<code>syslog</code>服务器（<code>rsyslog</code>）。</p>
+<div class="highlight"><pre><span></span><code>[root@HAProxy ~]# vim /etc/rsyslog.conf
+$ModLoad imudp
+$UDPServerRun 514
+local2.*                                                /var/log/haproxy.log
+
+[root@HAProxy ~]# systemctl restart rsyslog.service
+
+[root@HAProxy ~]# systemctl restart haproxy.service
+
+[root@HAProxy ~]# cat /var/log/haproxy.log
+Dec 20 06:32:12 localhost haproxy[2334]: Server http_back/node1 is DOWN, reason: Layer4 connection problem, info: &quot;Connection refused&quot;, check duration: 0ms. 3 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+Dec 20 06:32:13 localhost haproxy[2334]: Server http_back/node2 is DOWN, reason: Layer4 connection problem, info: &quot;Connection refused&quot;, check duration: 0ms. 2 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+Dec 20 06:32:13 localhost haproxy[2334]: Server http_back/node3 is DOWN, reason: Layer4 connection problem, info: &quot;Connection refused&quot;, check duration: 0ms. 1 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+Dec 20 06:32:14 localhost haproxy[2334]: Server http_back/node4 is DOWN, reason: Layer4 connection problem, info: &quot;Connection refused&quot;, check duration: 0ms. 0 active and 0 backup servers left. 0 sessions active, 0 requeued, 0 remaining in queue.
+Dec 20 06:32:14 localhost haproxy[2334]: backend http_back has no server available!
+Dec 20 06:32:19 localhost haproxy[2334]: 192.168.80.1:52665 [20/Dec/2025:06:32:16.851] test web_servers/web01 0/0/-1/-1/3030 503 217 - - SC-- 1/1/0/0/3 0/0 &quot;GET / HTTP/1.1&quot;
+Dec 20 06:32:25 localhost haproxy[2334]: 192.168.80.1:52668 [20/Dec/2025:06:32:25.550] test web_servers/web02 0/0/0/0/0 200 243 - - ---- 1/1/0/0/0 0/0 &quot;GET / HTTP/1.1&quot;
+</code></pre></div>
+<hr />
+<h5 id="227listen">2.2.7.listen段配置</h5>
+<p>通过<code>listen</code>段实现该实验的目的：</p>
+<div class="highlight"><pre><span></span><code>[root@HAProxy ~]# vim /etc/haproxy/haproxy.cfg
+listen web_service
+    bind *:4399
+    mode http
+    balance roundrobin
+    server web01 192.168.80.101:80
+    server web02 192.168.80.102:80
+
+[root@HAProxy ~]# systemctl restart haproxy.service
+</code></pre></div>
+<p><img alt="image-20251220064101634" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251220064101695.png" /></p>
+<hr />
+<h4 id="23l7">2.3.L7负载均衡</h4>
+<h5 id="221_1">2.2.1.实验规划</h5>
+<p>后端部署两台<code>Apache</code>：<code>http://192.168.80.101、http://192.168.80.102</code>。</p>
+<p>当客户端访问<code>192.168.80.100:666</code>时，将请求根据负载均衡算法转发至后端。</p>
+<hr />
+<h5 id="222haproxy">2.2.2.HAProxy配置</h5>
+<div class="highlight"><pre><span></span><code>[root@HAProxy ~]# vim /etc/haproxy/haproxy.cfg
+frontend L4
+    mode tcp
+    bind *:666
+    default_backend test
+
+backend test
+    mode tcp
+    balance roundrobin
+    server node01 192.168.80.101:80
+    server node02 192.168.80.102:80
+
+[root@HAProxy ~]# systemctl restart haproxy
+</code></pre></div>
+<hr />
+<h5 id="223">2.2.3.测试</h5>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache1
+</code></pre></div>
+<hr />
+<h5 id="224listen">2.2.4.listen段配置</h5>
+<p>通过<code>listen</code>段实现该实验的目的：</p>
+<div class="highlight"><pre><span></span><code>[root@HAProxy ~]# vim /etc/haproxy/haproxy.cfg
+listen L4
+    bind *:666
+    mode tcp
+    balance roundrobin
+    server node01 192.168.80.101:80
+    server node02 192.168.80.102:80
+
+[root@HAProxy ~]# systemctl restart haproxy
+</code></pre></div>
+<p><img alt="image-20251220070034821" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251220070034910.png" /></p>
+<hr />
+<h3 id="3">3.进阶</h3>
+<h4 id="31">3.1.健康检测</h4>
+<h5 id="311">3.1.1.参数说明</h5>
+<div class="highlight"><pre><span></span><code>server web1 192.168.1.101:80 check 
+    inter 5s      # 每5秒检测一次
+    fall 3        # 3次失败后标记为DOWN
+    rise 2        # 2次成功后恢复为UP
+    fastinter 1s  # 快速检测间隔（服务器DOWN时）
+    downinter 10s # 服务器DOWN时的检测间隔
+    maxconn 100   # 最大连接数
+    weight 50     # 权重
+    backup        # 备份服务器（主服务器都DOWN时才启用）
+</code></pre></div>
+<hr />
+<h5 id="312l7">3.1.2.L7健康检测</h5>
+<div class="highlight"><pre><span></span><code>listen web_service
+    bind *:4399
+    mode http
+    balance roundrobin
+    option httpchk
+    http-check expect status 200
+    server web01 192.168.80.101:80 check inter 3s fall 2 rise 2
+    server web02 192.168.80.102:80 check inter 3s fall 2 rise 2
+</code></pre></div>
+<hr />
+<h5 id="313l4">3.1.3.L4健康检测</h5>
+<div class="highlight"><pre><span></span><code>[root@HAProxy ~]# vim /etc/haproxy/haproxy.cfg
+listen L4
+    bind *:666
+    mode tcp
+    option tcp-check
+    balance roundrobin
+    tcp-check connect
+    server node01 192.168.80.101:80 check inter 3s fall 2 rise 2
+    server node02 192.168.80.102:80 check inter 3s fall 2 rise 2
+</code></pre></div>
+<hr />
+<h5 id="314">3.1.4.监控面板</h5>
+<p>在<code>HAProxy</code>中，可以使用<strong>内置监控界面</strong>来监控和管理负载均衡器与后端服务器状态。<code>HAProxy</code>的监控界面提供了实时的信息，包括后端服务器的状态、当前会话、响应时间等。</p>
+<p><strong>最简配置：</strong></p>
+<div class="highlight"><pre><span></span><code>listen stats
+    bind *:1936
+    stats enable
+    stats uri /haproxy?stats
+    stats refresh 5s
+    stats auth admin:password123
+</code></pre></div>
+<p><strong>完整配置：</strong></p>
+<div class="highlight"><pre><span></span><code>listen stats
+    # 绑定和模式
+    bind *:8080
+    mode http
+
+    # 启用统计
+    stats enable
+    stats hide-version          # 隐藏版本号
+    stats show-legends          # 显示图例
+    stats show-node             # 显示节点名
+    stats show-desc &quot;Production LB&quot;  # 显示描述
+
+    # 访问控制
+    stats uri /haproxy?stats    # 统计页面URI
+    stats realm &quot;HAProxy Statistics&quot;  # 认证域
+    stats auth admin:password123      # 基本认证
+    stats refresh 5s            # 自动刷新间隔
+    # 权限控制
+    stats admin if TRUE         # 管理权限条件，允许在监控界面上执行管理操作，如禁用服务器。
+</code></pre></div>
+<p><img alt="image-20251220073452618" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251220073452715.png" /></p>
+<p><strong>服务器状态管理：</strong></p>
+<p><img alt="image-20251220074018448" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251220074018518.png" /></p>
+<p><strong>健康检查控制：</strong></p>
+<p><img alt="image-20251220074048611" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251220074048685.png" /></p>
+<p><strong>代理检查控制：</strong></p>
+<p><img alt="image-20251220074106455" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251220074106524.png" /></p>
+<hr />
+<h5 id="315">3.1.5.故障转移</h5>
+<p><strong>主备、优先级故障转移示例：</strong></p>
+<div class="highlight"><pre><span></span><code>backend multi_tier_failover
+    balance roundrobin
+    option httpchk GET /health
+
+    # 第一优先级 - 高性能服务器
+    server primary01 192.168.1.101:80 check weight 200 maxconn 500
+    server primary02 192.168.1.102:80 check weight 200 maxconn 500
+
+    # 第二优先级 - 普通服务器
+    server secondary01 192.168.1.201:80 check weight 100 maxconn 300
+    server secondary02 192.168.1.202:80 check weight 100 maxconn 300
+
+    # 第三优先级 - 备份服务器
+    server backup01 192.168.1.301:80 check weight 50 maxconn 100 backup
+    server backup02 192.168.1.302:80 check weight 50 maxconn 100 backup
+</code></pre></div>
+<p><strong>基本故障转移演示：</strong></p>
+<div class="highlight"><pre><span></span><code>listen L4
+    bind *:666
+    mode tcp
+    option tcp-check
+    balance roundrobin
+    tcp-check connect
+    server node01 192.168.80.101:80 check inter 3s fall 2 rise 2
+    server node02 192.168.80.102:80 check inter 3s fall 2 rise 2 backup
+</code></pre></div>
+<p><strong>普通测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache1
+</code></pre></div>
+<p><strong>模拟Apache1故障：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:666
+This is Apache1
+</code></pre></div>
+<p><img alt="image-20251220074638844" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251220074638940.png" /></p>
+<hr />
+<h4 id="32acl">3.2.ACL</h4>
+<p>在<code>HAProxy</code>中，<code>ACL</code>不是一份固定的列表，而是一条<strong>条件判断规则</strong>。它的核心作用是<strong>根据某个条件，从流量中提出信息，并进行逻辑判断，最终返回一个布尔值（真或假）</strong>。</p>
+<p>简单来说，<code>ACL</code>就是<code>if</code>语句中的条件部分。它让<code>HAProxy</code>能够<strong>智能地、动态地</strong>做出决策，例如：将请求路由到哪个后端、拒绝某个访问、修改请求头等。</p>
+<h5 id="321acl">3.2.1.ACL的核心语法</h5>
+<p>一条 ACL 规则由两部分组成：<strong>一个唯一名称</strong> 和 <strong>一个匹配条件</strong>。</p>
+<div class="highlight"><pre><span></span><code>acl &lt;acl 名称&gt; &lt;匹配条件&gt;
+</code></pre></div>
+<h5 id="322">3.2.2.基于路径的匹配条件</h5>
+<div class="highlight"><pre><span></span><code>frontend path
+    bind *:80
+    acl test1 path_beg -i /static/ /images/     # 以/static/或/images/开头的ACL
+    acl test2 path /                            # 路径正好等于/的ACL
+    acl test3 path_end -i /login                # 以/login结尾的ACL
+    use_backend test1 if test1                  # 若匹配则向test1后端服务器转发
+    use_backend test2 if test2
+    use_backend test3 if test3
+
+backend test1
+    balance roundrobin
+    server node1 192.168.80.101:80 check
+backend test2
+    balance roundrobin
+    server node2 192.168.80.102:80 check
+backend test3
+    balance roundrobin
+    server node3 192.168.80.103:80 check
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100/static/
+&lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML 2.0//EN&quot;&gt;
+&lt;html&gt;&lt;head&gt;
+&lt;title&gt;404 Not Found&lt;/title&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;Not Found&lt;/h1&gt;
+&lt;p&gt;The requested URL was not found on this server.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+
+C:\Users\Administrator&gt;curl http://192.168.80.100/login
+&lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML 2.0//EN&quot;&gt;
+&lt;html&gt;&lt;head&gt;
+&lt;title&gt;404 Not Found&lt;/title&gt;
+&lt;/head&gt;&lt;body&gt;
+&lt;h1&gt;Not Found&lt;/h1&gt;
+&lt;p&gt;The requested URL was not found on this server.&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[root@Apache1 ~]# cat /var/log/httpd/access_log
+192.168.80.100 - - [21/Dec/2025:00:24:40 +0800] &quot;GET / HTTP/1.1&quot; 200 15 &quot;-&quot; &quot;curl/7.79.1&quot;
+192.168.80.100 - - [21/Dec/2025:00:33:25 +0800] &quot;GET /static/ HTTP/1.1&quot; 404 196 &quot;-&quot; &quot;curl/8.16.0&quot;
+[root@Apache3 ~]# cat /var/log/httpd/access_log
+192.168.80.100 - - [21/Dec/2025:00:24:42 +0800] &quot;GET / HTTP/1.1&quot; 200 16 &quot;-&quot; &quot;curl/7.79.1&quot;
+192.168.80.100 - - [21/Dec/2025:00:33:40 +0800] &quot;GET /login HTTP/1.1&quot; 404 196 &quot;-&quot; &quot;curl/8.16.0&quot;
+</code></pre></div>
+<p>证明请求被转发至正确的后端。</p>
+<hr />
+<h5 id="323">3.2.3.基于域名的匹配条件</h5>
+<div class="highlight"><pre><span></span><code>frontend path
+    bind *:80
+    acl test1 hdr(host) -i www.example.com
+    acl test2 hdr(host) -i api.example.com
+    acl test3 hdr(host) -i blog.example.com
+    use_backend test1 if test1
+    use_backend test2 if test2
+    use_backend test3 if test3
+
+backend test1
+    balance roundrobin
+    server node1 192.168.80.101:80 check
+backend test2
+    balance roundrobin
+    server node2 192.168.80.102:80 check
+backend test3
+    balance roundrobin
+    server node3 192.168.80.103:80 check
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@client ~]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.80.100 www.example.com
+192.168.80.100 api.example.com
+192.168.80.100 blog.example.com
+
+[root@client ~]# curl http://www.example.com
+This is Apach1
+
+[root@client ~]# curl http://api.example.com
+This is Apache2
+
+[root@client ~]# curl http://blog.example.com
+This is Apache3
+</code></pre></div>
+<hr />
+<h5 id="324ip">3.2.4.基于源IP的匹配条件</h5>
+<div class="highlight"><pre><span></span><code>frontend path
+    bind *:80
+    acl test1 src 192.168.80.200/32
+    acl test2 src 192.168.80.1/32
+    use_backend test1 if test1
+    use_backend test2 if test2
+    default_backend test3
+backend test1
+    balance roundrobin
+    server node1 192.168.80.101:80 check
+backend test2
+    balance roundrobin
+    server node2 192.168.80.102:80 check
+backend test3
+    balance roundrobin
+    server node3 192.168.80.103:80 check
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100
+This is Apache2
+
+[root@client ~]# curl http://192.168.80.100
+This is Apach1
+</code></pre></div>
+<p><strong>ACL如果没有匹配上则：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@client ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.150/24 brd 192.168.80.255 scope global noprefixroute ens33
+
+[root@client ~]# curl http://192.168.80.100
+This is Apache3
+</code></pre></div>
+<hr />
+<h5 id="325">3.2.5.逻辑与</h5>
+<p><strong>逻辑与</strong>用于在所有条件都满足的情况下执行操作。在<code>HAProxy</code>中，默认情况下，同一行内的多个 <code>ACL</code>条件是以逻辑与关系组合的。</p>
+<div class="highlight"><pre><span></span><code>frontend path
+    bind *:80
+    acl test1 src 192.168.80.200/32
+    acl test2 src 192.168.80.1/32
+    acl test3 hdr(host) -i www.example.com
+    use_backend test1 if test1 test3
+    default_backend test3
+backend test1
+    balance roundrobin
+    server node1 192.168.80.101:80 check
+backend test2
+    balance roundrobin
+    server node2 192.168.80.102:80 check
+backend test3
+    balance roundrobin
+    server node3 192.168.80.103:80 check
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@client ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.150/24 brd 192.168.80.255 scope global noprefixroute ens33
+
+[root@client ~]# curl http://www.example.com
+This is Apache3
+
+[root@client ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.200/24 brd 192.168.80.255 scope global noprefixroute ens33
+[root@client ~]# curl http://www.example.com
+This is Apach1
+</code></pre></div>
+<hr />
+<h5 id="326">3.2.6.逻辑或</h5>
+<p><strong>逻辑或</strong>用于在任一条件满足的情况下执行操作。在<code>HAProxy</code>中，可以通过多行配置或者使用<code>acl</code>条件的反义（<code>negation</code>）来实现逻辑或。</p>
+<div class="highlight"><pre><span></span><code>frontend path
+    bind *:80
+    acl test1 src 192.168.80.200/32
+    acl test2 src 192.168.80.1/32
+    acl test3 hdr(host) -i www.example.com
+    use_backend test1 if test1 or test2
+    default_backend test3
+backend test1
+    balance roundrobin
+    server node1 192.168.80.101:80 check
+backend test2
+    balance roundrobin
+    server node2 192.168.80.102:80 check
+backend test3
+    balance roundrobin
+    server node3 192.168.80.103:80 check
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100
+This is Apach1
+
+[root@client ~]# curl http://192.168.80.100
+This is Apach1
+</code></pre></div>
+<hr />
+<h5 id="327">3.2.7.逻辑非</h5>
+<p><strong>逻辑非</strong>用于在特定条件不满足的情况下执行操作。在<code>HAProxy</code>中，可以通过在条件前加感叹号（<code>!</code>）来实现逻辑非。</p>
+<div class="highlight"><pre><span></span><code>frontend path
+    bind *:80
+    acl test1 src 192.168.80.200/32
+    acl test2 src 192.168.80.1/32
+    acl test3 hdr(host) -i www.example.com
+    use_backend test1 if !test1
+    default_backend test3
+backend test1
+    balance roundrobin
+    server node1 192.168.80.101:80 check
+backend test2
+    balance roundrobin
+    server node2 192.168.80.102:80 check
+backend test3
+    balance roundrobin
+    server node3 192.168.80.103:80 check
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100
+This is Apach1
+
+[root@client ~]# curl http://192.168.80.100
+This is Apache3
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

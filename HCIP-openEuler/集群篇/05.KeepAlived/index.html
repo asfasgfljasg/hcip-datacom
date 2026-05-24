@@ -1,0 +1,4064 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../04.HAproxy/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>KeepAlived - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#05keepalived" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              KeepAlived
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.基础原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.基础原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.技术背景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.KeepAlived是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13vrrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.VRRP协议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.VRRP协议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.选举机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.备份组
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#136keepalivevrrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.6.Keepalive中的VRRP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#137" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.7.脑裂
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#138" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.8.健康检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.Keepalived的组成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.配置文件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.基本结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152global_defs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.2.global_defs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153vrrp_script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.3.vrrp_script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154vrrp_instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.4.vrrp_instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155lvs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.5.LVS配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156tcp_check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.6.TCP_CHECK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157http_check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.7.HTTP_CHECK
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.实验演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.实验演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.实验：Nginx高可用集群
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.实验：Nginx高可用集群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.安装软件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.Nginx首页配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.Keepalived配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214vip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.问题一：VIP错误绑定接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.验证结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.问题二：无法检测Nginx服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.实验：双活Nginx高可用集群
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.实验：双活Nginx高可用集群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.安装软件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.Nginx首页配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.keepalived配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.验证结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5.增加本地检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.实验：主备负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.实验：主备负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.软件安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.Apache首页配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3.Nginx负载均衡配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234nginxvip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.4.Nginx配置VIP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235nginxarp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.5.Nginx配置ARP抑制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6.keepalived配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#237" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.7.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.实验：双活负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.实验：双活负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.Nginx配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.keepalived配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.基础原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.基础原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.技术背景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.KeepAlived是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13vrrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.VRRP协议
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3.VRRP协议">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.1.概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.2.状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.3.选举机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.4.备份组
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#135" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.5.工作原理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#136keepalivevrrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.6.Keepalive中的VRRP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#137" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.7.脑裂
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#138" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.8.健康检查
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.Keepalived的组成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.配置文件
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.配置文件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.基本结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152global_defs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.2.global_defs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153vrrp_script" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.3.vrrp_script
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154vrrp_instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.4.vrrp_instance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155lvs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.5.LVS配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#156tcp_check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.6.TCP_CHECK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#157http_check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.7.HTTP_CHECK
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.实验演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.实验演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.实验：Nginx高可用集群
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.实验：Nginx高可用集群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.安装软件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.Nginx首页配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.Keepalived配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214vip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.问题一：VIP错误绑定接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.验证结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.问题二：无法检测Nginx服务
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.实验：双活Nginx高可用集群
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.实验：双活Nginx高可用集群">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.安装软件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.Nginx首页配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.keepalived配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.验证结果
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5.增加本地检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.实验：主备负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.实验：主备负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.软件安装
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.Apache首页配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3.Nginx负载均衡配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234nginxvip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.4.Nginx配置VIP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235nginxarp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.5.Nginx配置ARP抑制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6.keepalived配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#237" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.7.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.实验：双活负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.实验：双活负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.Nginx配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242keepalived" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.keepalived配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="05keepalived">05.KeepAlived</h1>
+<h3 id="1">1.基础原理</h3>
+<h4 id="11">1.1.技术背景</h4>
+<p>假设我们搭建了一个<strong>电商网站</strong>，一开始业务量较小，只有一台服务器对客户提供业务。</p>
+<p><img alt="image-20251227004349844" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227004349881.png" /></p>
+<p>随着我们的业务不断扩大，慢慢的这台服务器已经无法支撑电商网站的流量，随时都有宕机的风险。于是我们决定使用<code>Nginx</code>实现负载均衡功能。</p>
+<p><img alt="image-20251218005120862" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227004529726.png" /></p>
+<p>部署了<code>Nginx</code>实现负载均衡集群后，我们的业务可用性越来越强，能够承受住很高的流量。但是当前所有的流量都需要经过<code>Nginx</code>负载均衡器，<code>Nginx</code>成为了当前的<strong>流量瓶颈</strong>，且<code>Nginx</code>服务器当前有<strong>单点故障</strong>的风险，但凡<code>Nginx</code>出现问题无法工作，会直接导致<strong>业务中断</strong>。</p>
+<p>此时，我们可以增加<strong>高可用集群</strong><code>KeepAlived</code>软件加<strong>负载均衡集群</strong><code>Nginx</code>作为我们的架构。</p>
+<p><img alt="image-20251227005039239" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227005039271.png" /></p>
+<p>如上图，正常情况下业务流量依旧由<code>master Nginx</code>进程处理，当<code>master Nginx</code>出现故障无法正常使用时，<code>slave Nginx</code>会及时感知并替代<code>master Nginx</code>的工作。</p>
+<hr />
+<h4 id="12keepalived">1.2.KeepAlived是什么？</h4>
+<p><code>Keepalived</code>是<code>Linux</code>下一个轻量级的高可用解决方案，可以实现服务或者网络的高可用。<code>Keepalived</code>提供了兼具负载均衡和高可用性的框架。负载均衡功能使用<code>Linux Virtual Server(IPVS)</code>内核模块，该模块提供第<code>4</code>层负载均衡。</p>
+<p><code>Keepvalived</code>实现了一组健康检查程序，根据其健康状况动态、自适应维护和管理负载均衡的后端服务器组。高可用性是通过<code>VRRP</code>虚拟路由冗余协议来实现的，<code>VRRP</code>是<code>Keepalived</code>中故障转移的基础。</p>
+<p><code>Keepalived</code>起初就是为了<code>LVS</code>设计的，专门用来监控后端服务器中各个服务节点的状态，如果某个服务器节点出现故障，<code>Keepalived</code>将自动将节点从调度列表中剔除。当故障节点恢复后，<code>Keepalived</code>会自动将该服务器重新加入到调度列表。</p>
+<p>而<code>VRRP</code>功能则是增强了<code>LVS</code>本身的高可用性，部署多台<code>LVS</code>一台主设备多台备用设备。<code>VIP</code>正常情况下绑定在主用设备的网卡上，由主用设备接收并转发客户请求。备用设备负责通过监听心跳链路及时发现主用设备的状态，一旦主用设备出现故障，则在所有备用设备中选择一台作为新的主用设备接替其工作。</p>
+<p><strong>主要功能：</strong></p>
+<ul>
+<li><code>VRRP</code>：让多个服务器共享<code>VIP</code>。主服务器持有这个<code>VIP</code>，备用服务器监视主服务器的状态。一旦主服务器失效，备用服务器自动接管<code>VIP</code>，保证服务的持续性。</li>
+<li>健康检查：</li>
+<li>负载均衡健康检查：用于定期向后端服务器发送健康检测报文，检测后端服务器状态，决定是否将请求调度到具体的后端服务器。</li>
+<li>本机服务的健康检查：用于定期执行管理员配置的脚本，检测当前设备的上层服务状态，用于决定是否降低自身<code>VRRP</code>优先级。</li>
+<li>负载均衡：与<code>Linux</code>内核中的<code>IPVS</code>模块结合，提供基于网络层的负载均衡能力，将流量分发到不同的后端服务器上。你可以认为是，<code>Keepalived</code>的出现就是为了弥补<code>LVS</code>不支持健康检测的问题。</li>
+</ul>
+<hr />
+<h4 id="13vrrp">1.3.VRRP协议</h4>
+<p><code>VRRP(Virtual Router Redundancy Protocol)</code>虚拟路由冗余协议，是一种用于提高网络可靠性的容错协议。通过<code>VRRP</code>，可以在主机的下一跳设备出现故障时，及时将业务切换到备份设备，从而保障网络通信的连续性和可靠性。</p>
+<h5 id="131">1.3.1.概述</h5>
+<p><code>VRRP</code>最早、最常用的场景是在路由器、交换机上使用的，主要是为<strong>终端</strong>服务。在网络中为了避免单点故障，可以部署多台路由器、多台交换机、堆叠、双机热备、链路聚合等高可用技术，但这些技术是设备或链路高可用。</p>
+<p><img alt="image-20250908223826512" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227150233335.png" /></p>
+<p>如上图，我们平时使用的终端设备想要上网时都必须要有<strong>网关</strong>，网关指的是距离终端设备最近的三层设备，终端三层互访的流量都必须经过<strong>网关</strong>进行转发。终端需要在网卡的配置中指定网关的<code>IP</code>地址。</p>
+<p>但是，如果网络中的终端只有一台网关设备，一旦网关设备出现故障，所有终端都无法上网。然而你能想到最简单的方式肯定是再部署一台网关设备，但是这里有一个限制，终端设备的网卡中只能配置一个网关！</p>
+<p><img alt="image-20250908223938333" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227150801493.png" /></p>
+<p>此时，<code>VRRP</code>协议隆重登场，<code>VRRP</code>协议将多台设备组成一个虚拟设备，该虚拟设备拥有自己的虚拟<code>IP</code>地址和虚拟<code>MAC</code>地址（格式：<code>00-00-53-00-01-{VRID}</code>）。所有的内网主机需要将该虚拟<code>IP</code>地址设置为自己的<strong>默认网关</strong>。</p>
+<hr />
+<p>如下图，组成虚拟设备的两台或多台设备会提前根据规则进行选举，选举出一个<code>Master</code>设备和一个或多个<code>Backup</code>设备。<code>Master</code>设备负责接收所有内网主机的流量承担<strong>网关</strong>的角色，<code>Master</code>设备真正拥有虚拟<code>IP</code>地址，负责接收并转发内网主机流量。</p>
+<p>而<code>Backup</code>设备负责监听<code>Master</code>设备的状态，一旦<code>Master</code>设备出现故障无法胜任当前工作时，<code>Backup</code>设备便会切换成<code>Master</code>设备，拥有虚拟<code>IP</code>地址，负责接收并转发内网主机流量。</p>
+<p>所以，下图中<code>Router A</code>一开始是<code>Master</code>，当它发生故障后，<code>Router B</code>会第一时间感知到这个变化，并最快速度将虚拟<code>IP</code>地址所承载的流量接收到本端并进行转发。</p>
+<p><img alt="image-20250908224406954" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227151533195.png" /></p>
+<hr />
+<h5 id="132">1.3.2.状态机</h5>
+<p><code>VRRP</code>协议中定义了三种状态机：初始状态（<code>Initialize</code>）、活动状态（<code>Master</code>）、备份状态（<code>Backup</code>）。其中，只有处于<code>Master</code>状态的设备才可以转发那些发送到虚拟<code>IP</code>地址的报文。下表详细描述了三种状态。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">状态 (State)</th>
+<th style="text-align: center;">说明 (Description)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Initialize</strong></td>
+<td style="text-align: center;">该状态为VRRP不可用状态，在此状态时设备不会对VRRP通告报文做任何处理。通常设备启动时或设备检测到故障时会进入Initialize状态。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Master</strong></td>
+<td style="text-align: center;">当VRRP设备处于Master状态时，它将会承担虚拟路由设备的所有转发工作，并定期向整个VRRP备份组内发送VRRP通告报文。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Backup</strong></td>
+<td style="text-align: center;">当VRRP设备处于Backup状态时，它不会承担虚拟路由设备的转发工作，并定期接受Master设备的VRRP通告报文，判断Master的工作状态是否正常。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="133">1.3.3.选举机制</h5>
+<p>由两台或以上运行了<code>VRRP</code>的设备组成的虚拟设备又称为<code>VRRP</code>备份组。一个<code>VRRP</code>备份组在逻辑上为一台路由器。<code>VRRP</code>备份组建立后（配置完毕），各设备会根据所配置的优先级来选举<code>Master</code>设备，选举方式如下：</p>
+<p><img alt="Master设备选举过程" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227151834712.png" /></p>
+<p>从上图中可看出，<code>VRRP</code>备份组中的所有设备如果优先级未设置为<code>255</code>，默认情况下都会先进入<code>Master</code>状态，然后发送<code>VRRP</code>报文比较优先级，优先级最大的称为<code>Master</code>其他设备成为<code>Backup</code>。如果优先级都相同，则比较接口主<code>IP</code>地址，最大的成为<code>Master</code>。</p>
+<p>其中<strong>优先级</strong>是一个非常重要的内容，它的取值范围是<code>0 ~ 255</code>。<code>0</code>和<code>255</code>是两个非常特殊的值：</p>
+<ul>
+<li>当设备的<code>VRRP</code>优先级设置为<code>255</code>时，跳过选举直接成为当前<code>VRRP</code>备份组的<code>Master</code>。</li>
+<li>当设备的<code>VRRP</code>的优先级设置为<code>0</code>时，代表放弃当前<code>Master</code>身份，用来通知备份组中的<code>backup</code>设备。</li>
+</ul>
+<p>如下图，实际上在华为设备中你能够手动配置的<code>VRRP</code>优先级的范围是<code>1-254</code>：</p>
+<ul>
+<li>优先级<code>255</code>的情况只会出现在，接口的<strong>物理地址</strong>和<strong>虚拟地址</strong>一致的情况下。</li>
+<li>优先级<code>0</code>的情况只会出现在，<code>Master</code>设备主动放弃<code>Master</code>的身份的情况，如手动删除<code>VRRP</code>配置。</li>
+</ul>
+<p><img alt="image-20250908231021804" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227151834665.png" /></p>
+<hr />
+<h5 id="134">1.3.4.备份组</h5>
+<p>你可以将<code>VRRP</code>备份组理解成“虚拟路由器团队”，每一个<code>VRRP</code>备份组服务于不同的网段。一个<code>VRRP</code>备份组中会选举出一个<code>Master</code>和多个<code>Backup</code>。由组中的<code>Master</code>设备拥有虚拟<code>IP</code>和虚拟<code>MAC</code>地址的所有权。</p>
+<p>一台<code>VRRP</code>设备上可以配置多个<code>VRRP</code>组，通过<code>VRID</code>这个参数进行区分。不同的<code>VRRP</code>组中的<code>IP</code>地址一定是不同的，根据管理员配置为准。不同的<code>VRRP</code>组中的虚拟<code>MAC</code>地址根据<code>VRID</code>区分，<code>00-00-53-00-01-{VRID}</code>。</p>
+<p><code>VRID</code>也是管理员手动指定的，用于区分不同<code>VRRP</code>备份组。</p>
+<hr />
+<h5 id="135">1.3.5.工作原理</h5>
+<p><strong>初始化阶段：</strong></p>
+<p>如下图，在<code>VRRP</code>备份组中的多个路由器中，根据选举规则成功选举出<code>Master</code>。<code>Master</code>会立即周期性（默认为1秒）的向<code>VRRP</code>备份组中所有<code>Backup</code>路由器发送<code>VRRP</code>报文，以维持自己<code>Master</code>的身份。</p>
+<p>同时<code>Master</code>会广播发送免费<code>ARP</code>报文，将<code>VRRP</code>备份组的虚拟<code>MAC</code>地址和虚拟<code>IP</code>地址通告给与它连接的交换机。下行的交换机的<code>MAC</code>表项会记录虚拟<code>MAC</code>地址与<code>Master</code>设备端口的对应关系。</p>
+<p>由于内网的<code>PC</code>将网关设置为<code>VRRP</code>备份组的虚拟<code>IP</code>地址，所以当内网<code>PC</code>访问外网产生流量时，首先会广播<code>ARP</code>报文，请求虚拟<code>IP</code>地址对应的虚拟<code>MAC</code>地址。这时只有<code>Master</code>路由器会回应此<code>ARP</code>报文，将虚拟<code>MAC</code>地址回应给<code>PC</code>。</p>
+<p><img alt="image-20250908232351971" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227151919722.png" /></p>
+<hr />
+<p><strong>稳定后的情况：</strong></p>
+<p>当<code>VRRP</code>备份组中<code>Master</code>选举成功后，且已经发送<code>VRRP</code>免费报文，导致交换机和<code>PC</code>都已经成功学习到虚拟<code>MAC</code>地址和虚拟<code>IP</code>地址的对应关系时。</p>
+<p>当<code>PC1</code>需要访问上行流量时，<code>PC</code>会将虚拟<code>MAC</code>地址作为数据包中的目的<code>MAC</code>地址，构建完数据包后将该数据包单播转发给网关（虚拟网关<code>Master</code>）。交换机收到该报文后，查找<code>MAC</code>地址表，发现应该从<code>Ethernet0/0/1</code>接口发出（<code>master</code>）转发给路由器A。</p>
+<p>路由器A收到后，因为自己是<code>Master</code>所以会处理该报文并转发。</p>
+<hr />
+<p><strong>故障的情况：</strong></p>
+<p><img alt="image-20250908233712576" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227151919740.png" /></p>
+<p>如果此时，<code>Master</code>设备出现故障（路由器A的G0/0/0接口断开）时，它将无法发送<code>VRRP</code>报文通知<code>Backup</code>路由器。当<code>Backup</code>路由器在定时器（默认三秒）超时后仍不能收到<code>Master</code>发送的<code>VRRP</code>报文，则认为<code>Master</code>故障，自己切换为<code>Master</code>。</p>
+<p>或者<code>Master</code>主动放弃身份，向<code>Backup</code>发送优先级为<code>0</code>的<code>VRRP</code>报文，此时<code>Backup</code>路由器会立即切换为<code>master</code>，如果有多台<code>backup</code>依旧需要选举。</p>
+<p><code>VRRP</code>备份组的状态切换完成后，新的<code>Master</code>设备会立即发送携带虚拟<code>IP</code>地址和虚拟<code>MAC</code>地址的免费<code>ARP</code>报文，刷新它与下行设备（交互机）的<code>MAC</code>表项。</p>
+<hr />
+<h5 id="136keepalivevrrp">1.3.6.Keepalive中的VRRP</h5>
+<p><img alt="image-20251227155202045" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227155202082.png" /></p>
+<p>如上图，这是最基本的<code>Keepalived</code>场景，两台<code>HTTP</code>服务器部署<code>Keepalived</code>，一般我们会在这两台服务器上使用额外的一张网卡充当<strong>心跳链路</strong>，在心跳链路上两台服务器会进行<code>VRRP</code>的主备选举，随后<code>master</code>设备会在该心跳链路上周期性发送心跳报文，<code>backup</code>设备则在该接口监听<code>master</code>状态。</p>
+<p>根据心跳链路中<code>VRRP</code>的协商结果，<code>master</code>设备会将<code>VIP</code>绑定在自己的网卡上，并发送免费<code>ARP</code>报文声明当前<code>VIP\VMAC</code>与自己的绑定关系，而这个免费<code>ARP</code>实际上是在影响交换机的<code>MAC</code>地址表。此时，客户端向<code>VIP</code>发送的请求报文都会被转发至<code>master</code>设备。</p>
+<p>另外，若你的场景中不方便额外使用网卡作为心跳接口，也可以使用业务网卡作为心跳接口，发送<code>VRRP</code>报文进行选举与维护。</p>
+<hr />
+<h5 id="137">1.3.7.脑裂</h5>
+<p>脑裂指的是由于<strong>心跳链路</strong>出现故障，备用设备无法感知到主用设备，随即备用设备认为主用设备<code>down</code>机，将<code>VIP</code>绑定在自己的网卡上开始接收客户流量。但实际上此时主用设备依旧正常，就会导致多台设备都绑定<code>VIP</code>。最终出现地址冲突、网络不稳定等情况，导致客户端无法正常访问目标服务。</p>
+<p>脑裂最朴素的解决方法是，增加心跳链路的可用性，比如增加心跳链路的数量，保证<code>VRRP</code>报文在设备之间的畅通。也可以多跟链路进行捆绑实现高可用的心跳链路。</p>
+<hr />
+<h5 id="138">1.3.8.健康检查</h5>
+<p>现在我们可能会产生一个想法，<code>keepalived</code>如果单纯的做<strong>高可用</strong>没有<code>LVS</code>功能时，是不是我们就不需要它的健康检查功能了，因为没有后端服务器啊，我们只需要通过<code>VRRP</code>报文就可以实现<strong>主备检测与切换了</strong>。</p>
+<p>这种想法是错误的，在网络世界里的<code>VRRP</code>是给客户端一个<strong>IP地址</strong>，为它们提供<code>IP</code>转发功能，仅此而已。但是在<code>Keepalived</code>中，我们需要给客户端提供的是<strong>服务</strong>，不是一个简单的地址。</p>
+<p><img alt="image-20251227155202045" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227161055724.png" /></p>
+<p>举个例子，如果<code>master</code>设备当前的<code>HTTP</code>服务本身出现问题，但是设备依旧正常运转，那么它依旧会周期性向<code>backup</code>设备发送<code>VRRP</code>报文，不会出现主备切换这个动作。那客户端依旧发送的请求会被转发至<code>master</code>，但<code>master</code>此时是没有处理该请求的能力的，导致客户端请求失败。</p>
+<p>所以，此时我们需要的健康检测不是用来检测<strong>后端服务器</strong>的，而是用来检测<strong>自身</strong>的。从<strong>负载均衡的健康检查</strong>转变为<strong>本机服务的健康检查</strong>。<code>keepalived</code>提供给我们脚本检查机制，它会定期执行我们配置的脚本（<code>vrrp_script</code>）定期检测当前机器的<code>TCP/HTTP</code>服务，一旦检测失败，<code>Keepalived</code>会降低本机的<code>VRRP</code>优先级，触发<code>VRRP</code>抢占功能，<code>backup</code>设备就会接管当前<code>VIP</code>，而本机就会成为<code>backup</code>设备。</p>
+<hr />
+<h4 id="14keepalived">1.4.Keepalived的组成</h4>
+<p><code>Keepalived</code>采用了<strong>模块化、事件驱动</strong>的设计，清晰地分离了用户空间和内核空间地功能，通过<strong>控制平面</strong>和<strong>数据平面</strong>的协同工作，实现了高可用性和负载均衡。</p>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227162355385.png" /></p>
+<p><strong>控制平面：</strong>负责解析<code>keepalived.conf</code>配置文件，将配置转化为内部数据结构，分发给各个功能模块，支持动态配置重载（<code>HUP</code>信号）。</p>
+<p><strong>核心调度层：</strong><code>Scheduler</code>架构的“大脑”，基于<code>epoll</code>等机制，统一调度所有<code>I/O</code>事件和定时器事件，协调各模块的异步执行。统一管理内存分配和释放。</p>
+<p><strong>核心组件区：</strong></p>
+<ul>
+<li><strong>检查检查子系统（Checkers）：</strong>用于定期检查后端或本机的状态，支持<code>TCP/HTTP/HTTPS/SSL/MISC</code>等检查机制。</li>
+<li>
+<p><strong>VRRP协议栈（VRRP Stack）：</strong>实现<code>VRRP</code>协议，负责主备选举和状态同步。</p>
+</li>
+<li>
+<p><strong>IPVS wrapper：</strong>用户空间对<code>IPVS</code>的接口，将配置转换为<code>IPVS</code>规则，如果只做高可用不做<code>LVS</code>，此模块不活跃。</p>
+</li>
+<li><strong>系统调用接口（System call）：</strong>用户空间与内核的通用接口，执行网络配置、进程管理等操作。</li>
+<li><strong>Netlink反射器：</strong>专门用于接收内核的网络事件通知，监听接口状态、路由表变化等。</li>
+<li><strong>SMTP客户端：</strong>向管理员发送告警邮件，在状态切换时通知管理员。</li>
+<li><strong>看门狗（WatchDog）：</strong>监控<code>Keepalived</code>自身进程状态，防止进程僵死。</li>
+</ul>
+<p><strong>内核空间模块：</strong></p>
+<ul>
+<li><code>IPVS</code>模块：<code>Linux</code>内核的负载均衡器。</li>
+<li><strong>NETLINKK接口：</strong>用户空间与内核通信的主要机制，用于添加/删除<code>VIP</code>、修改路由表、调整<code>ARP</code>参数，监听网络事件等。</li>
+</ul>
+<hr />
+<h4 id="15">1.5.配置文件</h4>
+<h5 id="151">1.5.1.基本结构</h5>
+<div class="highlight"><pre><span></span><code>配置文件区块          对应架构图中的模块
+---------------------------------------------------------------
+global_defs         全局配置，影响所有模块
+vrrp_script         -&gt; Checkers模块（健康检查）
+vrrp_instance       -&gt; VRRP Stack模块
+virtual_server      -&gt; IPVS wrapper模块
+real_server         -&gt; Checkers模块 + IPVS wrapper
+virtual_server_group -&gt; IPVS wrapper模块
+</code></pre></div>
+<hr />
+<h5 id="152global_defs">1.5.2.global_defs</h5>
+<div class="highlight"><pre><span></span><code>global_defs {
+   notification_email {     # 出现故障时发送通知的电子邮件
+     acassen@firewall.loc   
+     failover@firewall.loc
+     sysadmin@firewall.loc
+   }
+   notification_email_from Alexandre.Cassen@firewall.loc    # 自身使用的邮件地址
+   smtp_server 192.168.200.1    # 邮件服务器地址
+   smtp_connect_timeout 30      # SMTP服务器连接超时事件
+   router_id LVS_DEVEL          # 标识Keepalived的唯一标识符
+   vrrp_skip_check_adv_addr     # keepalived 默认会检查 VRRP 收到的广播包中的源地址是否在同一个子网内，若不在则丢弃，如果配置了这个参数，则会跳过这个检查。
+   vrrp_strict                  # 启用 VRRP 严格模式。在严格模式下，如果发现 VRRP 包不符合标准协议规范，keepalived 将丢弃这些包，并可能触发故障转移。
+   vrrp_garp_interval 0         # 控制 Keepalived 发送 Gratuitous ARP（GARP） 请求的间隔时间，单位为秒。Gratuitous ARP 是在网络中广播的 ARP 请求，用于更新网络设备（如交换机、路由器和主机）中的 ARP 缓存。   设置 vrrp_garp_interval 为 0 表示不发送 GARP 请求，这可能用于防止不必要的网络流量。  
+   vrrp_gna_interval 0          # 控制 Keepalived 发送 Gratuitous Neighbor Advertisement（GNA，邻居通告）的间隔时间，单位为秒。 GNA 是一种 IPv6 环境下的广播机制，类似于 ARP 在 IPv4 中的作用，用于通告 IPv6 地址的所有权。 设置 vrrp_gna_interval 为 0 表示不发送 GNA 请求。
+}
+</code></pre></div>
+<hr />
+<h5 id="153vrrp_script">1.5.3.vrrp_script</h5>
+<div class="highlight"><pre><span></span><code>vrrp_script chk_nginx {
+    script &quot;/etc/keepalived/check_nginx.sh&quot;  # 执行检查脚本
+    interval 2      # 检查间隔(秒)
+    fall 2         # 失败次数触发降级
+    rise 1         # 成功次数触发恢复
+    weight -20     # 失败时优先级降低值
+    timeout 2      # 检查超时时间
+    user nobody    # 执行脚本的用户
+}
+</code></pre></div>
+<hr />
+<h5 id="154vrrp_instance">1.5.4.vrrp_instance</h5>
+<div class="highlight"><pre><span></span><code>vrrp_instance VI_1 {
+    state MASTER           # 初始状态
+    interface eth0         # 绑定的网络接口
+    virtual_router_id 51   # VRID，必须唯一
+    priority 100          # 初始优先级(0-255)
+    advert_int 1          # 心跳间隔(秒)
+
+    # 认证配置
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+
+    # 虚拟IP地址
+    virtual_ipaddress {
+        192.168.1.100/24 dev eth0
+    }
+
+    # 引用健康检查
+    track_script {
+        chk_nginx
+    }
+
+    # 通知脚本
+    notify_master &quot;/etc/keepalived/notify.sh master&quot;
+    notify_backup &quot;/etc/keepalived/notify.sh backup&quot;
+    notify_fault &quot;/etc/keepalived/notify.sh fault&quot;
+}
+</code></pre></div>
+<p>通知脚本是<strong>Keepalived状态变化的回调机制</strong>，允许用户在特定事件发生时执行自定义操作。</p>
+<hr />
+<h5 id="155lvs">1.5.5.LVS配置</h5>
+<div class="highlight"><pre><span></span><code>virtual_server 192.168.1.100 80 {
+    delay_loop 6          # 检查间隔
+    lb_algo wrr           # 调度算法
+    lb_kind DR           # 工作模式(DR/NAT/TUN)
+    persistence_timeout 50 # 持久连接
+    protocol TCP
+
+    # 真实服务器
+    real_server 192.168.1.10 80 {
+        weight 1
+        # TCP健康检查
+        TCP_CHECK {
+            connect_timeout 3
+            nb_get_retry 3
+            delay_before_retry 3
+        }
+        # HTTP健康检查
+        HTTP_GET {
+            url {
+                path /health
+                status_code 200
+            }
+            connect_timeout 3
+            nb_get_retry 3
+            delay_before_retry 3
+        }
+    }
+}
+</code></pre></div>
+<hr />
+<h5 id="156tcp_check">1.5.6.TCP_CHECK</h5>
+<p>在 <code>Keepalived</code> 中，<code>TCP_CHECK</code> 配置用于对后端服务器执行基于 TCP 的健康检查。它通过建立 TCP 连接来验证后端服务器的可用性和响应性。  </p>
+<p><code>TCP_CHECK</code> 通常配置在 <code>real_server</code> 块中，用于指定检查后端服务器的具体方式。以下是配置的详细说明和示例：  </p>
+<ul>
+<li><code>connect_ip &lt;IP ADDRESS&gt;</code>: 指定连接的 IP 地址，默认为真实服务器的 IP 地址。</li>
+<li><code>connect_port &lt;PORT&gt;</code>: 指定连接的端口，默认为真实服务器提供服务的端口。</li>
+<li><code>bindto &lt;IP ADDRESS&gt;</code>: 指定发起连接的源 IP 地址。</li>
+<li><code>bind_port &lt;PORT&gt;</code>: 指定发起连接的源端口。</li>
+<li><code>connect_timeout &lt;INT&gt;</code>: 连接超时时间，默认为 <code>5</code> 秒。</li>
+<li><code>fwmark &lt;INTEGER&gt;</code>: 对检查数据包使用 <code>fwmark</code> 标记。</li>
+<li>
+<p>设置 <code>fwmark</code> 标记，便于通过防火墙规则对检查数据包进行处理。  </p>
+</li>
+<li>
+<p><code>warmup &lt;INT&gt;</code>: 指定随机延迟时间，最大为 N 秒，默认为 <code>0</code>（关闭）。</p>
+</li>
+<li><code>retry &lt;INIT&gt;</code>: 连接失败时的重试次数，默认为 <code>1</code> 次。</li>
+<li><code>delay_before_retry &lt;INT&gt;</code>: 重试之前的延迟时间，默认为 <code>1</code> 秒。</li>
+</ul>
+<hr />
+<h5 id="157http_check">1.5.7.HTTP_CHECK</h5>
+<ul>
+<li><code>url</code>: 指定要检查的 URL 路径和预期的响应内容。</li>
+<li><code>digest</code>: 指定预期响应内容的 MD5 摘要值。</li>
+<li><code>connect_timeout &lt;INT&gt;</code>: 设置连接超时时间，默认为 <code>5</code> 秒。</li>
+<li><code>send</code>: 发送自定义 HTTP 请求数据。</li>
+<li><code>recv</code>: 期望的响应数据。</li>
+<li><code>expect</code>: 期望的 HTTP 状态码。</li>
+</ul>
+<hr />
+<h3 id="2">2.实验演示</h3>
+<h4 id="21nginx">2.1.实验：Nginx高可用集群</h4>
+<p><code>Nginx1</code>和<code>Nginx</code>运行<code>Keepalived</code>组成高可用集群，<code>VMnet1</code>网卡作为心跳接口，<code>VIP</code>为<code>192.168.80.200</code>对外提供服务。<code>Nginx1</code>作为集群的<code>Master</code>设备，当该机器或<code>Nginx</code>服务本身出现问题则将<code>VIP</code>地址漂移到<code>Nginx2</code>上。</p>
+<p><img alt="image-20251229142628332" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251229142628409.png" /></p>
+<h5 id="211">2.1.1.安装软件</h5>
+<div class="highlight"><pre><span></span><code>yum install nginx keepalived -y
+</code></pre></div>
+<h5 id="212nginx">2.1.2.Nginx首页配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# echo &quot;This is Nginx1&quot; &gt; /usr/share/nginx/html/index.html
+[root@Nginx1 ~]# systemctl start nginx
+
+[root@Nginx2 ~]# echo &quot;This is Nginx2&quot; &gt; /usr/share/nginx/html/index.html
+[root@Nginx2 ~]# systemctl start nginx
+</code></pre></div>
+<h5 id="213keepalived">2.1.3.Keepalived配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# vim /etc/keepalived/keepalived.conf
+global_defs {
+   router_id Nginx1
+}
+
+vrrp_instance VI_1 {
+    state MASTER
+    interface ens34
+    virtual_router_id 51
+    priority 150
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.80.200
+    }
+}
+[root@Nginx1 ~]# systemctl start keepalived.service
+
+[root@Nginx2 ~]# vim /etc/keepalived/keepalived.conf
+global_defs {
+   router_id LVS_DEVEL
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    interface ens34
+    virtual_router_id 51
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.80.200
+    }
+}
+[root@Nginx2 ~]# systemctl start keepalived.service
+</code></pre></div>
+<h5 id="214vip">2.1.4.问题一：VIP错误绑定接口</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# ip addr
+1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:0c:29:71:a0:54 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.80.100/24 brd 192.168.80.255 scope global noprefixroute ens33
+       valid_lft forever preferred_lft forever
+    inet6 fe80::20c:29ff:fe71:a054/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+3: ens34: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:0c:29:71:a0:5e brd ff:ff:ff:ff:ff:ff
+    inet 192.168.10.100/24 brd 192.168.10.255 scope global noprefixroute ens34
+       valid_lft forever preferred_lft forever
+    inet 192.168.80.200/32 scope global ens34
+       valid_lft forever preferred_lft forever
+    inet6 fe80::20c:29ff:fe71:a05e/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+</code></pre></div>
+<p>在当前<code>Nginx1</code>设备上检查<code>VIP</code>发现其绑定在<code>ens34</code>心跳网卡上，需要修改配置解决：</p>
+<div class="highlight"><pre><span></span><code>    virtual_ipaddress {
+        192.168.80.200/24 dev ens33
+    }
+</code></pre></div>
+<p>测试：</p>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.100/24 brd 192.168.80.255 scope global noprefixroute ens33
+    inet 192.168.80.200/24 scope global secondary ens33
+</code></pre></div>
+<hr />
+<h5 id="215">2.1.5.验证结果</h5>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.200
+This is Nginx1
+
+C:\Users\Administrator&gt;curl http://192.168.80.200
+This is Nginx1
+
+C:\Users\Administrator&gt;curl http://192.168.80.200
+This is Nginx1
+</code></pre></div>
+<p><img alt="image-20251227182711216" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251227182711275.png" /></p>
+<p><strong>关闭Nginx1 Keepalived服务：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# systemctl stop keepalived.service
+</code></pre></div>
+<p><strong>验证：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@Nginx2 ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.101/24 brd 192.168.80.255 scope global noprefixroute ens33
+    inet 192.168.80.200/24 scope global secondary ens33
+
+[root@Nginx2 ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.101/24 brd 192.168.80.255 scope global noprefixroute ens33
+    inet 192.168.80.200/24 scope global secondary ens33
+</code></pre></div>
+<hr />
+<h5 id="216nginx">2.1.6.问题二：无法检测Nginx服务</h5>
+<p>对于当前场景有一个漏洞，如果<code>master</code>设备自身的<code>Nginx</code>服务出现问题是不会触发地址漂移的。所以，我们需要使用本地健康检测。</p>
+<p><strong>创建脚本：</strong></p>
+<div class="highlight"><pre><span></span><code>#!/bin/bash
+
+systemctl is-active  nginx.service &gt; /dev/null 2&gt;&amp;1
+# 检查 nginx 服务是否处于活动状态
+if [ $? = 0 ]; then
+    exit 0  # nginx 正在运行，返回状态码 0 表示健康
+else
+    # 尝试重启 nginx 服务
+    echo &quot;nginx is not running. Attempting to restart...&quot;
+    systemctl restart nginx.service
+
+    # 等待 2 秒以便服务有时间启动
+    sleep 2
+
+    # 再次检查 nginx 服务状态
+    systemctl is-active  nginx.service  &gt; /dev/null 2&gt;&amp;1
+    if [ $? == 0 ]; then
+        echo &quot;nginx状态正常&quot;
+        exit 0  # nginx 成功启动，返回状态码 0 表示健康
+    else
+        echo &quot;nginx状态错误&quot;
+        exit 1  # nginx 仍未运行，返回状态码 1 表示不健康
+    fi
+fi
+</code></pre></div>
+<p><strong>修改Keepalived：</strong></p>
+<div class="highlight"><pre><span></span><code>! Configuration File for keepalived
+global_defs {
+   router_id Nginx1
+}
+vrrp_script check_nginx {   #一定要把这一段写在前面
+        script &quot;/etc/keepalived/keepalived.sh&quot;
+        interval 5  #每五秒执行一次
+        timeout 10  #脚本的超时时间为 10 秒。如果脚本执行时间超过 10 秒，将被视为失败。
+        fall 2  #如果连续两次检查失败（即脚本退出状态码为非零），则脚本的状态将被认为是失败。
+        rise 2  #如果连续两次检查成功（即脚本退出状态码为零），则脚本的状态将被认为是成功。
+}   
+vrrp_instance Nginx {
+    state MASTER
+    interface ens36
+    virtual_router_id 100
+    priority 200
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass Huawei@123
+    }
+    virtual_ipaddress {
+        192.168.100.10/24 dev ens33
+    }
+    track_script {
+        check_nginx # 将定义的脚本与虚拟服务器关联。
+    }
+}
+</code></pre></div>
+<p>在该场景中，如果<code>Nginx</code>进程出现问题，脚本会为我自动重启<code>Nginx</code>。可以删除<code>Nginx.conf</code>导致自动拉活失败，此时，<code>master</code>会将自己的优先级设置为<code>0</code>，从而实现故障转移。当<code>Nginx</code>恢复后，会自动抢占<code>Master</code>状态。</p>
+<p>也可以手动设置权重值，例如，当检测时<code>nginx</code>发生故障，降低当前权重值:</p>
+<div class="highlight"><pre><span></span><code>vrrp_script check_nginx {
+        script &quot;/etc/keepalived/keepalived.sh&quot;
+        interval 5
+        timeout 10
+        fall 2
+        rise 2
+        weight -150
+}
+</code></pre></div>
+<hr />
+<h4 id="22nginx">2.2.实验：双活Nginx高可用集群</h4>
+<p>在上个实验中存在一个问题，只能够实现<strong>高可用</strong>但是无法分担流量。所以，现在我们修改<code>keepalived</code>配置，从原本的主备修改为<strong>双活（主主）</strong>。</p>
+<p><code>vrrp</code>备份组<code>1</code>里<code>Nginx1</code>为<code>master</code>、<code>Nginx2</code>为<code>backup</code>，<code>vip</code>为<code>192.168.80.200</code>。<code>vrrp</code>备份组<code>2</code>里<code>Nginx2</code>为<code>master</code>、<code>Nginx1</code>为<code>backup</code>，<code>VIP</code>为<code>192.168.80.201</code>。</p>
+<p><img alt="image-20251229142919503" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251229142919574.png" /></p>
+<h5 id="221">2.2.1.安装软件</h5>
+<div class="highlight"><pre><span></span><code>yum install nginx keepalived -y
+</code></pre></div>
+<h5 id="222nginx">2.2.2.Nginx首页配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# echo &quot;This is Nginx1&quot; &gt; /usr/share/nginx/html/index.html
+[root@Nginx1 ~]# systemctl start nginx
+
+[root@Nginx2 ~]# echo &quot;This is Nginx2&quot; &gt; /usr/share/nginx/html/index.html
+[root@Nginx2 ~]# systemctl start nginx
+</code></pre></div>
+<h5 id="223keepalived">2.2.3.keepalived配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# vim /etc/keepalived/keepalived.conf
+global_defs {
+   router_id Nginx1
+}
+
+vrrp_instance VI_1 {
+    state MASTER
+    interface ens34
+    virtual_router_id 51
+    priority 150
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.80.200/24 dev ens33
+    }
+}
+
+vrrp_instance VI_2 {
+    state BACKUP
+    interface ens34
+    virtual_router_id 52
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.80.201/24 dev ens33
+    }
+}
+[root@Nginx1 ~]# systemctl start keepalived.service
+
+[root@Nginx2 ~]# vim /etc/keepalived/keepalived.conf
+global_defs {
+   router_id Nginx2
+}
+
+vrrp_instance VI_1 {
+    state BACKUP
+    interface ens34
+    virtual_router_id 51
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.80.200/24 dev ens33
+    }
+}
+
+vrrp_instance VI_2 {
+    state MASTER
+    interface ens34
+    virtual_router_id 52
+    priority 150
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.80.201/24 dev ens33
+    }
+}
+[root@Nginx2 ~]# systemctl start keepalived.service
+</code></pre></div>
+<h5 id="224">2.2.4.验证结果</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.100/24 brd 192.168.80.255 scope global noprefixroute ens33
+    inet 192.168.80.200/24 scope global secondary ens33
+
+[root@Nginx2 ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.101/24 brd 192.168.80.255 scope global noprefixroute ens33
+    inet 192.168.80.201/24 scope global secondary ens33
+
+C:\Users\Administrator&gt;curl http://192.168.80.200
+This is Nginx1
+
+C:\Users\Administrator&gt;curl http://192.168.80.201
+This is Nginx2
+</code></pre></div>
+<h5 id="225">2.2.5.增加本地检测</h5>
+<p><strong>创建脚本：</strong></p>
+<div class="highlight"><pre><span></span><code>#!/bin/bash
+
+systemctl is-active  nginx.service &gt; /dev/null 2&gt;&amp;1
+# 检查 nginx 服务是否处于活动状态
+if [ $? = 0 ]; then
+    exit 0  # nginx 正在运行，返回状态码 0 表示健康
+else
+    # 尝试重启 nginx 服务
+    echo &quot;nginx is not running. Attempting to restart...&quot;
+    systemctl restart nginx.service
+
+    # 等待 2 秒以便服务有时间启动
+    sleep 2
+
+    # 再次检查 nginx 服务状态
+    systemctl is-active  nginx.service  &gt; /dev/null 2&gt;&amp;1
+    if [ $? == 0 ]; then
+        echo &quot;nginx状态正常&quot;
+        exit 0  # nginx 成功启动，返回状态码 0 表示健康
+    else
+        echo &quot;nginx状态错误&quot;
+        exit 1  # nginx 仍未运行，返回状态码 1 表示不健康
+    fi
+fi
+</code></pre></div>
+<p><strong>修改Keepalived：</strong></p>
+<div class="highlight"><pre><span></span><code>! Configuration File for keepalived
+global_defs {
+   router_id Nginx1
+}
+vrrp_script check_nginx {   #一定要把这一段写在前面
+        script &quot;/etc/keepalived/keepalived.sh&quot;
+        interval 5  #每五秒执行一次
+        timeout 10  #脚本的超时时间为 10 秒。如果脚本执行时间超过 10 秒，将被视为失败。
+        fall 2  #如果连续两次检查失败（即脚本退出状态码为非零），则脚本的状态将被认为是失败。
+        rise 2  #如果连续两次检查成功（即脚本退出状态码为零），则脚本的状态将被认为是成功。
+}   
+vrrp_instance Nginx {
+    state MASTER
+    interface ens36
+    virtual_router_id 100
+    priority 200
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass Huawei@123
+    }
+    virtual_ipaddress {
+        192.168.100.10/24 dev ens33
+    }
+    track_script {
+        check_nginx # 将定义的脚本与虚拟服务器关联。
+    }
+}
+</code></pre></div>
+<p>在该场景中，如果<code>Nginx</code>进程出现问题，脚本会为我自动重启<code>Nginx</code>。可以删除<code>Nginx.conf</code>导致自动拉活失败，此时，<code>master</code>会将自己的优先级设置为<code>0</code>，从而实现故障转移。当<code>Nginx</code>恢复后，会自动抢占<code>Master</code>状态。</p>
+<p>也可以手动设置权重值，例如，当检测时<code>nginx</code>发生故障，降低当前权重值:</p>
+<div class="highlight"><pre><span></span><code>vrrp_script check_nginx {
+        script &quot;/etc/keepalived/keepalived.sh&quot;
+        interval 5
+        timeout 10
+        fall 2
+        rise 2
+        weight -150
+}
+</code></pre></div>
+<hr />
+<h4 id="23">2.3.实验：主备负载均衡</h4>
+<p>该实验需要<code>6</code>台<code>openEuler</code>，其中两台作为<code>keepalived</code>负责实现主备与<code>LVS</code>。两台作为<code>Nginx</code>代理服务器，<code>keepalived</code>将流量调度到<code>Nginx</code>上，<code>Nginx</code>再将流量调度到后端两台<code>Apache</code>上。</p>
+<table>
+<thead>
+<tr>
+<th>服务名称</th>
+<th>IP地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>apache1</td>
+<td>192.168.80.104</td>
+</tr>
+<tr>
+<td>apache2</td>
+<td>192.168.80.105</td>
+</tr>
+<tr>
+<td>nginx1</td>
+<td>192.168.80.102</td>
+</tr>
+<tr>
+<td>nginx2</td>
+<td>192.168.80.103</td>
+</tr>
+<tr>
+<td>keepalived1</td>
+<td>192.168.80.100</td>
+</tr>
+<tr>
+<td>keepalived2</td>
+<td>192.168.80.101</td>
+</tr>
+<tr>
+<td>VIP</td>
+<td>192.168.80.10</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="image-20251230012033686" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251230012033791.png" /></p>
+<hr />
+<h5 id="231">2.3.1.软件安装</h5>
+<div class="highlight"><pre><span></span><code>yum install keepalived -y
+yum install nginx -y
+yum install httpd -y
+</code></pre></div>
+<hr />
+<h5 id="232apache">2.3.2.Apache首页配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Apache1 ~]# echo &quot;This is Apache1&quot; &gt; /var/www/html/index.html
+[root@Apache1 ~]# systemctl start httpd
+
+[root@Apache2 ~]# echo &quot;This is Apache2&quot; &gt; /var/www/html/index.html
+[root@Apache2 ~]# systemctl start httpd
+
+# 在httpd.conf或apache2.conf中添加：
+LogFormat &quot;%{X-Forwarded-For}i %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; proxy # 使用整个X-Forwarded-For代理链的地址
+CustomLog logs/access_log proxy
+</code></pre></div>
+<hr />
+<h5 id="233nginx">2.3.3.Nginx负载均衡配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# vim /etc/nginx/nginx.conf
+    upstream lvs {
+        server 192.168.80.104;
+        server 192.168.80.105;
+        }
+    server {
+        listen       80;
+        listen       [::]:80;
+        server_name  _;
+        root         /usr/share/nginx/html;
+        location / {
+                proxy_pass http://lvs;
+                proxy_set_header host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+                }
+    }
+[root@Nginx1 ~]# systemctl start nginx
+</code></pre></div>
+<hr />
+<h5 id="234nginxvip">2.3.4.Nginx配置VIP</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# nmcli conn add type dummy ifname dummy2 ipv4.method manual ipv4.addresses 192.168.80.10/32
+连接 &quot;dummy-dummy2&quot; (cc757f7a-65b6-4da5-8576-2b340d7f0ac9) 已成功添加。
+
+[root@Nginx2 ~]# nmcli conn add type dummy ifname dummy2 ipv4.method manual ipv4.addresses 192.168.80.10/32
+连接 &quot;dummy-dummy2&quot; (7705766f-348f-464f-a9e2-a5a6a5f62264) 已成功添加。
+</code></pre></div>
+<hr />
+<h5 id="235nginxarp">2.3.5.Nginx配置ARP抑制</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# echo 1 &gt; /proc/sys/net/ipv4/conf/all/arp_ignore
+[root@Nginx1 ~]# echo 2 &gt; /proc/sys/net/ipv4/conf/all/arp_announce
+[root@Nginx1 ~]# echo 1 &gt; /proc/sys/net/ipv4/conf/dummy2/arp_ignore
+[root@Nginx1 ~]# echo 2 &gt; /proc/sys/net/ipv4/conf/dummy2/arp_announce
+
+[root@Nginx2 ~]# echo 1 &gt; /proc/sys/net/ipv4/conf/all/arp_ignore
+[root@Nginx2 ~]# echo 2 &gt; /proc/sys/net/ipv4/conf/all/arp_announce
+[root@Nginx2 ~]# echo 1 &gt; /proc/sys/net/ipv4/conf/dummy2/arp_ignore
+[root@Nginx2 ~]# echo 2 &gt; /proc/sys/net/ipv4/conf/dummy2/arp_announce
+</code></pre></div>
+<hr />
+<h5 id="236keepalived">2.3.6.keepalived配置</h5>
+<div class="highlight"><pre><span></span><code>[root@LVS1 ~]# cp /etc/keepalived/keepalived.conf /etc/keepalived/keepalived.conf.bak
+
+[root@LVS1 ~]# vim /etc/keepalived/keepalived.conf
+! Configuration File for keepalived
+
+global_defs {
+   router_id lvs1
+}
+
+vrrp_instance VI_1 {
+    state MASTER
+    interface ens34
+    virtual_router_id 51
+    priority 150
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.80.10/24 dev ens33
+    }
+}
+
+virtual_server 192.168.80.10 80 {
+    delay_loop 6
+    lb_algo rr
+    lb_kind DR
+    persistence_timeout 50
+    protocol TCP
+
+    real_server 192.168.80.102 80 {
+        weight 1
+        TCP_CHECK {
+            connect_timeout 3
+            retry 3
+            delay_before_retry 3
+        }
+}
+    real_server 192.168.80.103 80 {
+        weight 1
+        TCP_CHECK {
+            connect_timeout 3
+            retry 3
+            delay_before_retry 3
+        }
+
+}
+}
+
+[root@LVS1 ~]# systemctl start keepalived.service
+</code></pre></div>
+<hr />
+<h5 id="237">2.3.7.测试</h5>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.10
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.10
+This is Apache2
+
+[root@Apache1 ~]# cat /var/log/httpd/access_log
+192.168.80.1 - - [30/Dec/2025:01:40:06 +0800] &quot;GET / HTTP/1.0&quot; 200 16 &quot;-&quot; &quot;curl/8.16.0&quot;
+
+[root@Apache2 ~]# cat /var/log/httpd/access_log
+192.168.80.1 - - [30/Dec/2025:01:40:06 +0800] &quot;GET / HTTP/1.0&quot; 200 16 &quot;-&quot; &quot;curl/8.16.0&quot;
+</code></pre></div>
+<ul>
+<li>测试<code>keepalived master</code>失效后是否会切换，连接是否中断。</li>
+<li>测试<code>Nginx</code>出现故障是否正常调度，连接是否中断。</li>
+<li>测试<code>Apache</code>出现故障是否正常调度，连接是否中断。</li>
+</ul>
+<hr />
+<h4 id="24">2.4.实验：双活负载均衡</h4>
+<p>该实验需要<code>6</code>台<code>openEuler</code>，其中两台作为<code>keepalived</code>负责实现主备与<code>LVS</code>。两台作为<code>Nginx</code>代理服务器，<code>keepalived</code>将流量调度到<code>Nginx</code>上，<code>Nginx</code>再将流量调度到后端两台<code>Apache</code>上。</p>
+<table>
+<thead>
+<tr>
+<th>服务名称</th>
+<th>IP地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>apache1</td>
+<td>192.168.80.104</td>
+</tr>
+<tr>
+<td>apache2</td>
+<td>192.168.80.105</td>
+</tr>
+<tr>
+<td>nginx1</td>
+<td>192.168.80.102</td>
+</tr>
+<tr>
+<td>nginx2</td>
+<td>192.168.80.103</td>
+</tr>
+<tr>
+<td>keepalived1</td>
+<td>192.168.80.100</td>
+</tr>
+<tr>
+<td>keepalived2</td>
+<td>192.168.80.101</td>
+</tr>
+<tr>
+<td>VIP1</td>
+<td>192.168.80.10</td>
+</tr>
+<tr>
+<td>VIP2</td>
+<td>192.168.80.11</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="image-20251230012033686" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251230012033791.png" /></p>
+<hr />
+<h5 id="241nginx">2.4.1.Nginx配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx1 ~]# nmcli conn add type dummy ifname dummy3 ipv4.method manual ipv4.addresses 192.168.80.11/32
+连接 &quot;dummy-dummy3&quot; (1c0df35a-e5ed-45bd-9ead-88e2708cbae8) 已成功添加。
+
+[root@Nginx2 ~]# nmcli conn add type dummy ifname dummy3 ipv4.method manual ipv4.addresses 192.168.80.11/32
+连接 &quot;dummy-dummy3&quot; (6c6c5327-e141-4e3d-82f6-7c86fba88aca) 已成功添加。
+</code></pre></div>
+<hr />
+<h5 id="242keepalived">2.4.2.keepalived配置</h5>
+<div class="highlight"><pre><span></span><code>[root@LVS1 ~]# vim /etc/keepalived/keepalived.conf
+! Configuration File for keepalived
+
+global_defs {
+   router_id lvs1
+}
+
+vrrp_instance VI_1 {
+    state MASTER
+    interface ens34
+    virtual_router_id 51
+    priority 150
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.80.10/24 dev ens33
+    }
+}
+
+vrrp_instance VI_2 {
+    state BACKUP
+    interface ens34
+    virtual_router_id 52
+    priority 100
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.80.11/24 dev ens33
+    }
+}
+
+
+virtual_server 192.168.80.10 80 {
+    delay_loop 6
+    lb_algo rr
+    lb_kind DR
+    persistence_timeout 50
+    protocol TCP
+
+    real_server 192.168.80.102 80 {
+        weight 1
+        TCP_CHECK {
+            connect_timeout 3
+            retry 3
+            delay_before_retry 3
+        }
+}
+    real_server 192.168.80.103 80 {
+        weight 1
+        TCP_CHECK {
+            connect_timeout 3
+            retry 3
+            delay_before_retry 3
+        }
+
+}
+}
+
+virtual_server 192.168.80.11 80 {
+    delay_loop 6
+    lb_algo rr
+    lb_kind DR
+    persistence_timeout 50
+    protocol TCP
+
+    real_server 192.168.80.102 80 {
+        weight 1
+        TCP_CHECK {
+            connect_timeout 3
+            retry 3
+            delay_before_retry 3
+        }
+}
+    real_server 192.168.80.103 80 {
+        weight 1
+        TCP_CHECK {
+            connect_timeout 3
+            retry 3
+            delay_before_retry 3
+        }
+
+}
+}
+
+[root@LVS1 ~]# systemctl restart keepalived.service
+</code></pre></div>
+<hr />
+<h5 id="243">2.4.3.测试</h5>
+<div class="highlight"><pre><span></span><code>[root@LVS1 ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.100/24 brd 192.168.80.255 scope global noprefixroute ens33
+    inet 192.168.80.10/24 scope global secondary ens33
+
+[root@LVS2 ~]# ip addr | grep ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    inet 192.168.80.101/24 brd 192.168.80.255 scope global noprefixroute ens33
+    inet 192.168.80.11/24 scope global secondary ens33
+
+C:\Users\Administrator&gt;curl http://192.168.80.11
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.11
+This is Apache2
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

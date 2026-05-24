@@ -1,0 +1,5055 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../1.HTTP%E5%8D%8F%E8%AE%AE/">
+      
+      
+        <link rel="next" href="../3.Nginx/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Apache - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2apache" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Apache
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.Apache概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.Apache概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.进程模型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.进程模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111prefork-mpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1.Prefork MPM（预派生模型）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112prefork-mpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.调整Prefork MPM模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113worker-mpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.3.Worker MPM（工作者模型）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.4.长连接场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115worker-mpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.5.调整Worker MPM模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#116eventio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.6.event异步IO事件模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#117event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.7.调整event模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2apache_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.Apache配置讲解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.Apache配置讲解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.基本配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.基本配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.目录结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.apache版本查看
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.主配置文件解读
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.实验一：首页文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.实验二：文件类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.实验三：网站编码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.长连接设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.访问策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.访问策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231require" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.Require方式介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.逻辑判断：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3.复杂示例：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.4.基于客户端IP地址：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.5.基于主机名：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6.基于用户名：
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.6.基于用户名：">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2361basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6.1Basic认证：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2362digest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6.2.Digest认证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.数据压缩
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.数据压缩">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.工作过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.精细控制配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.针对浏览器禁止压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5.禁止特定后缀压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.日志
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5.日志">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1.自定义日志
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2.错误日志
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.虚拟主机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6.虚拟主机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1.基于端口的虚拟主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2.基于IP地址的虚拟主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3.基于域名的虚拟主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.HTTPS配置演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7.HTTPS配置演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.自建CA方式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7.1.自建CA方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2711" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.1.整体流程：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2712" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.2.实验步骤：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.2.云主机方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.编译安装Apache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.PHP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.PHP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31cgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.什么是CGI？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32fastcgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.FastCGI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.套接字和端口方式的区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34php-fpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.PHP-FPM的本质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35mod_php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5.使用mod_php模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36php-fpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6.使用PHP-FPM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.Apache概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.Apache概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.进程模型
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.进程模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111prefork-mpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1.Prefork MPM（预派生模型）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112prefork-mpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.调整Prefork MPM模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113worker-mpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.3.Worker MPM（工作者模型）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.4.长连接场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#115worker-mpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.5.调整Worker MPM模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#116eventio" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.6.event异步IO事件模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#117event" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.7.调整event模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2apache_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.Apache配置讲解
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.Apache配置讲解">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.基本配置
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.基本配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.目录结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.apache版本查看
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.主配置文件解读
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.实验一：首页文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.实验二：文件类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.实验三：网站编码
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.长连接设置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.访问策略
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.访问策略">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231require" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.Require方式介绍
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.逻辑判断：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.3.复杂示例：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.4.基于客户端IP地址：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.5.基于主机名：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6.基于用户名：
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.6.基于用户名：">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2361basic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6.1Basic认证：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2362digest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.6.2.Digest认证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.数据压缩
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.数据压缩">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.工作过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.参数
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.精细控制配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.针对浏览器禁止压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5.禁止特定后缀压缩
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.日志
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5.日志">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1.自定义日志
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2.错误日志
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.虚拟主机
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6.虚拟主机">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1.基于端口的虚拟主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2.基于IP地址的虚拟主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3.基于域名的虚拟主机
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27https" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.HTTPS配置演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7.HTTPS配置演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.自建CA方式
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7.1.自建CA方式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2711" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.1.整体流程：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2712" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.2.实验步骤：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.2.云主机方式
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28apache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.编译安装Apache
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.PHP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.PHP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31cgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.什么是CGI？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32fastcgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.FastCGI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.套接字和端口方式的区别
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34php-fpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.PHP-FPM的本质
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35mod_php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.5.使用mod_php模式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#36php-fpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.6.使用PHP-FPM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="2apache">2.Apache</h1>
+<h3 id="1apache">1.Apache概述</h3>
+<p><code>Apache HTTP Server</code>是由<code>Apache</code>软件基金会开发和维护的，简称为<code>apache</code>。<code>Apache</code>软件基金会是一个由众多开发者和贡献者组成的开源社区，不是由单一的个人开发的。众多的开发者和志愿者通过贡献代码、修复漏洞、改进性能等方式共同推动了<code>Apache HTTP Server</code>的发展和演进。</p>
+<p><img alt="image-20251120132936733" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251120132936775.png" /></p>
+<p>简单来说，<code>Apache</code>是一个基于<code>HTTP/HTTPS</code>协议的软件，监听来自客户端的请求，找到对应的网页文件并响应。</p>
+<p><code>Apache</code>的核心特点是<strong>模块化设计</strong>，绝大多数功能（如<code>SSL</code>、<code>URL</code>重写、<code>PHP</code>解析、身份验证等）都通过可加载模块实现。</p>
+<hr />
+<h4 id="11">1.1.进程模型</h4>
+<p>在<code>Apache</code>中有三种<strong>进程模型</strong>，进程模型指的是<strong>系统如何创建、管理、调度和销毁进程的一套规则和机制</strong>。也就是<code>Apache</code>在面对请求时不同的工作方式。</p>
+<p><strong>进程：</strong>一个正在运行的程序的实例。每个进程都有自己独立的内存空间。进程之间切换开销较大。</p>
+<p><strong>线程：</strong>进程内的一个执行流。同一进程下的所有线程共享内存空间。线程之间切换开销比进程小得多。</p>
+<hr />
+<h5 id="111prefork-mpm">1.1.1.Prefork MPM（预派生模型）</h5>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251120145751714.png" /></p>
+<p><strong>工作原理：</strong></p>
+<ol>
+<li>主进程（以 <code>root</code> 权限启动）预先创建（<code>fork</code>）一批子进程。</li>
+<li>每个子进程都是<strong>单线程</strong>的，并且在它的整个生命周期内，<strong>一次只处理一个请求</strong>。</li>
+<li>主进程不处理请求，只负责监控子进程的数量：</li>
+<li>当请求增多，空闲进程不足时，主进程会创建新的子进程。</li>
+<li>当请求减少，空闲进程过多时，主进程会终止一些空闲的子进程。</li>
+<li>每个请求都由一个独立的、完整的进程来处理。</li>
+</ol>
+<p><strong>优点：</strong></p>
+<ol>
+<li><strong>稳定性高：</strong>进程之间隔离，当一个子进程崩溃不会影响其他进程工作。</li>
+<li><strong>兼容性好：</strong>支持线程不安全的模块，例如某些老旧的<code>PHP</code>模块。</li>
+<li><strong>易于调试：</strong>由于进程是独立的，定位和调试问题更简单。</li>
+</ol>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>每个请求都需要一个独立的进程资源开销大，不适合高并发或大流量场景。</li>
+<li>对进程的创建和删除较频繁，消耗的<code>CPU</code>会比较多。</li>
+</ol>
+<p><strong>应用场景：</strong></p>
+<ol>
+<li>
+<p>依赖<code>apache</code>较老的模块。</p>
+</li>
+<li>
+<p>低频安全访问场景，如网络设备的<code>web</code>管理系统。</p>
+</li>
+</ol>
+<hr />
+<h5 id="112prefork-mpm">1.1.2.调整Prefork MPM模型</h5>
+<p><strong>步骤一：</strong>查看当前<code>apache</code>默认模型</p>
+<p><img alt="image-20251120150504247" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251120150504275.png" /></p>
+<p><strong>步骤二：</strong>将当前模型修改为<code>Prefork MPM</code></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# cat /etc/httpd/conf.modules.d/00-mpm.conf | grep -v &quot;#&quot;
+LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
+
+[root@qyt-gujun ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251120150706938" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251120150706967.png" /></p>
+<p><strong>步骤三：</strong>查看空闲状态下的工作进程数量</p>
+<p><code>apache</code>的主进程由<code>root</code>用户启动，为了绑定主机<code>80</code>端口并分配资源。所有的工作进程都使用普通用户启动，即使普通用户被入侵也只会获得普通用户的权限。</p>
+<p><img alt="image-20251120150758968" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251120150759005.png" /></p>
+<p>从上图得知默认情况下，空闲状态<code>apache</code>的工作进程有<code>5</code>个。</p>
+<p><strong>步骤四：</strong>使用<code>ab</code>工具测试<code>apache Prefork</code>模型并发情况下的状态</p>
+<div class="highlight"><pre><span></span><code>[root@client ~]# yum install httpd-tools -y
+[root@qyt-gujun ~]# ab -c 1000 -n 10000 http://192.168.80.100/index.html
+
+### ab：ab（ApacheBench）是一个用于性能测试和压力测试的工具，主要用来测试 Web 服务器的响应能力和吞吐量。它是 Apache HTTP Server 附带的一个简单而高效的命令行工具，能够模拟多个并发请求并统计 Web 服务器的性能指标。
+    -c：指定并发请求的数量
+    -n：指定总共要发送的请求数量
+</code></pre></div>
+<p><img alt="image-20251120151705506" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251120151705543.png" /></p>
+<p><strong>步骤五：</strong>调整工作进程数量</p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# vim /etc/httpd/conf.modules.d/00-mpm.conf
+&lt;IfModule mpm_prefork_module&gt;
+        StartServers              5
+        MinSpareServers           5
+        MaxSpareServers          10
+        MaxRequestWorkers         150
+        MaxConnectionsPerChild   0
+&lt;/IfModule&gt;
+[root@qyt-gujun ~]# systemctl restart httpd
+</code></pre></div>
+<ul>
+<li><code>StartServers</code>：<code>Apache</code>启动时立即创建的子进程数量。</li>
+<li><code>MinSpareServers</code>：系统中<strong>最小空闲进程数</strong>。如果空闲进程少于这个值，<code>Apache</code>会快速创建新的子进程。</li>
+<li><code>MaxSpareServers</code>：系统中最大空闲进程数。如果空闲进程多于这个值，<code>Apache</code>会清理掉多余的进程释放资源。</li>
+<li><code>MaxRequestWorkers</code>：<code>Apache</code>同时能处理的<strong>最大请求数</strong>。超过这个数的请求将被放入队列等待。重要</li>
+<li>
+<p>实际上就代表<code>apache</code>可以创建的最大子进程数量。根据内存大小调整。</p>
+</li>
+<li>
+<p><code>MaxConnectionsPerChild</code>：每个子进程在处理完一定数量的请求后会自动消亡。设置为<code>0</code>表示永不消亡。</p>
+</li>
+</ul>
+<p><strong>调优示例：</strong></p>
+<p>假设你有一台 <code>2GB</code> 内存的服务器，专门用于运行<code>Apache</code>，每个<code>Apache</code>进程大约占用 <code>20MB</code> 内存。那么最大进程数可以估算为：</p>
+<div class="highlight"><pre><span></span><code>2048MB / 20MB ≈ 100
+</code></pre></div>
+<p>可以这样配置：</p>
+<div class="highlight"><pre><span></span><code>&lt;IfModule mpm_prefork_module&gt;
+        StartServers                     5
+        MinSpareServers           5
+        MaxSpareServers          10
+        MaxRequestWorkers         100
+        MaxConnectionsPerChild   10000
+&lt;/IfModule&gt;
+</code></pre></div>
+<hr />
+<h5 id="113worker-mpm">1.1.3.Worker MPM（工作者模型）</h5>
+<p><code>Worker MPM</code>是一种混合（多进程-多线程）模型，旨在保持稳定性的同时，提高并发能力。</p>
+<p><img alt="image-20251120153901215" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251120153901252.png" /></p>
+<p><strong>工作原理：</strong></p>
+<ol>
+<li>
+<p>主进程创建多个子进程（与<code>Prefork</code>类似）。</p>
+</li>
+<li>
+<p>每个子进程内部会创建多个线程。</p>
+</li>
+<li>
+<p>每个线程一次处理一个请求。</p>
+</li>
+</ol>
+<p>这样一来，服务器就可以用较少的进程资源来服务大量的并发请求。</p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>进程和线程是两种并发单位，进程负责隔离，线程负责高效的请求处理。</li>
+<li>线程比进程更轻量化，线程共享同一进程内的内存空间，因此在处理大量并发请求时内存消耗会更低。</li>
+</ul>
+<p>在高并发场景下创建进程，需要分配独立的、完整的内存空间，类似于造一栋房子，开销很大。但是创建线程类似于在大办公室里增加一个工位，开销小的多。在<code>Linux</code>上启动一个进程的开销可能是启动一个进程的<code>10</code>倍甚至更高。</p>
+<p>举个例子，把进程理解成厨房，把线程理解成厨师。现在需要服务一百名顾客，用<code>Prefork</code>的方式需要有一百间厨房，每间厨房分配一名厨师。而<code>Worker</code>模式有几间非常大的中央厨房，每间厨房多名厨师一起工作，当客户变多，只需要增加厨师，不需要再盖厨房了。</p>
+<p><strong>适用场景：</strong></p>
+<ol>
+<li>高并发网站：例如社交媒体、电子商务平台等需要处理大量并发请求的应用。</li>
+<li>内存有限的服务器：在内存有限的情况下，<code>Worker</code>模型比<code>Prefork</code>模型更加高效。</li>
+</ol>
+<hr />
+<h5 id="114">1.1.4.<strong>长连接场景</strong></h5>
+<p>需要清楚的是在<strong>长连接</strong>的场景中不论是<code>Prefork</code>还是<code>Worker</code>模型都会出现<strong>资源占用</strong>的情况。</p>
+<p><strong>Prefork：</strong>当一个进程处理完用户发送的请求后，发现其是一个<code>Keep-alive</code>，在<code>Keep-alive</code>时间到达之前，这个进程必须被<strong>占用</strong>，它只能够等待。一旦在这个连接里有了新的请求它需要立刻响应，如果没有任何响应那当超时时间到达后，他就可以去干别的工作。</p>
+<p><strong>Worker：</strong>与<code>Prefork</code>基本一致，只不过当前<code>Worker</code>模型是用<strong>线程</strong>来处理请求的。其资源浪费要比<code>Prefork</code>少的多。</p>
+<hr />
+<h5 id="115worker-mpm">1.1.5.调整Worker MPM模型</h5>
+<p><strong>修改配置文件</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# vim /etc/httpd/conf.modules.d/00-mpm.conf
+LoadModule mpm_worker_module modules/mod_mpm_worker.so
+&lt;IfModule mpm_worker_module&gt;
+    # 天花板参数
+    ServerLimit          10  # 最大进程数： 250 / 25 = 10
+    ThreadLimit          25  # 每个进程最大线程数
+    ThreadsPerChild      25  # 每个进程固定线程数
+    MaxRequestWorkers    250 # 总线程数 = 10 * 25 = 250
+
+    # 动态调整参数
+    StartServers          3   # 启动时创建3个进程
+    MinSpareThreads      50  # 最小空闲线程数 (约2个进程的线程量)
+    MaxSpareThreads     150  # 最大空闲线程数
+
+    # 稳定性参数
+    MaxConnectionsPerChild 10000 # 每个进程处理10000个请求后重启
+&lt;/IfModule&gt;
+</code></pre></div>
+<ol>
+<li><strong>监控内存占用</strong>：使用 <code>htop</code>或 <code>ps aux</code>观察，发现平均每个Apache线程（httpd）占用约15MB内存。</li>
+<li><strong>计算最大线程数</strong>：<code>4096MB / 15MB ≈ 270</code>。我们保守设置为 <code>MaxRequestWorkers = 250</code>。</li>
+<li><strong>设计进程/线程比例</strong>：我们决定让每个进程包含25个线程。那么需要的进程数为 <code>250 / 25 = 10</code>。</li>
+</ol>
+<p><strong>查看进程：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# ps -aux | grep httpd
+</code></pre></div>
+<p><strong>查看线程：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# ps -eLf | grep apache | grep -v grep | wc -l
+176
+</code></pre></div>
+<hr />
+<h5 id="116eventio">1.1.6.event异步IO事件模型</h5>
+<p><code>Event MPM</code>将其工作单元分为三类：</p>
+<ol>
+<li><strong>监听线程：</strong>负责接受新的网络连接。通常只有一个或极少数监听线程，因为她非常高效，一个线程就能轻松管理数万个连接。</li>
+<li><strong>工作线程池：</strong>真正干活的线程。当监听线程发现某个连接上有数据可读（如<code>HTTP</code>请求头），它会从池中分配一个空闲的工作线程来处理请求。工作线程基本上全部的时间都在处理实际的计算和<code>I/O</code>操作，永远不会因为等待网络而阻塞。</li>
+<li><strong>连接对象：</strong>代表了每个独立的<code>HTTP</code>连接。它们由监听线程管理，并被分配给工作线程。</li>
+</ol>
+<p><img alt="image-20251120160827420" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251120160827462.png" /></p>
+<p><strong>长连接处理：</strong></p>
+<p>由于有监听线程的参与，所有的连接和请求都是给到<strong>监听线程</strong>，然后由监听线程判断并分配给具体的工作线程。工作线程百分百专注于<strong>工作</strong>，当它被监听线程分配一个任务后，它会立刻进行处理，处理完毕后立即释放，连接交还给<strong>监听线程</strong>。而这个工作线程会被分配到其他工作任务，不会去等待<strong>长连接</strong>。</p>
+<p>等于说将任务分层了，原本一个工作线程即要处理请求，又要监听。</p>
+<hr />
+<h5 id="117event">1.1.7.调整event模型</h5>
+<p>要求<code>Linux</code>内核必须在<code>2.6</code>以上，支持<code>epoll</code>事件。</p>
+<div class="highlight"><pre><span></span><code>&lt;IfModule mpm_event_module&gt;
+    # --- 定义“天花板” ---
+    ServerLimit              10      # 最大进程数（硬上限）
+    ThreadsPerChild         25      # 每个进程的工作线程数
+    MaxRequestWorkers      250      # 最大并发请求数 = ServerLimit * ThreadsPerChild
+
+    # --- 定义异步连接处理 ---
+    AsyncRequestWorkerFactor 2      # 【Event特有】计算初始异步监听线程数 (通常= CPU核心数 * 此因子)
+    ListenBacklog          511      # 等待Accept的连接队列长度
+
+    # --- 进程/线程池的动态调整 ---
+    StartServers            3       # 启动时创建的进程数
+    MinSpareThreads        75       # 最小空闲工作线程数
+    MaxSpareThreads       250       # 最大空闲工作线程数
+
+    # --- 进程生命周期管理 ---
+    MaxConnectionsPerChild  10000   # 每个进程处理多少请求后重启（防内存泄漏）
+&lt;/IfModule&gt;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;IfModule mpm_event_module&gt;
+    ServerLimit              10
+    ThreadsPerChild         25
+    MaxRequestWorkers      250
+    AsyncRequestWorkerFactor 2
+    ListenBacklog          511
+    StartServers            3
+    MinSpareThreads        75
+    MaxSpareThreads       250
+    MaxConnectionsPerChild  10000
+&lt;/IfModule&gt;
+</code></pre></div>
+<hr />
+<h3 id="2apache_1">2.Apache配置讲解</h3>
+<h4 id="21">2.1.基本配置</h4>
+<h5 id="211">2.1.1.目录结构</h5>
+<p><img alt="image-20251120163854342" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251120163854401.png" /></p>
+<hr />
+<h5 id="212apache">2.1.2.apache版本查看</h5>
+<p>通过命令<code>http -v/-V</code>查看当前版本：</p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# httpd -v
+Server version: Apache/2.4.51 (Unix)    # 一般在其他Linux发行版中会填写版本
+Server built:   Sep  3 2025 17:21:11
+
+[root@qyt-gujun ~]# httpd -V
+Server version: Apache/2.4.51 (Unix)
+Server built:   Sep  3 2025 17:21:11
+Server&#39;s Module Magic Number: 20120211:134  # 用于检查模块与当前版本是否兼容
+Server loaded:  APR 1.7.0, APR-UTIL 1.6.1   # APR是可移植运行时库，用来让不同操作系统上运行apache的，这里说明了它的版本
+Compiled using: APR 1.7.0, APR-UTIL 1.6.1
+Architecture:   64-bit  # 64位的程序
+Server MPM:     event   # 模型
+  threaded:     yes (fixed thread count)    # 支持多线程。并且每个子进程内部创建的线程数量是固定的。这指的是 Event MPM 的工作方式。每个子进程在启动时就会创建固定数量的工作线程（由配置参数 ThreadsPerChild决定），形成一个工作线程池。
+    forked:     yes (variable process count) # 支持多进程。并且子进程的数量是可变的。
+</code></pre></div>
+<hr />
+<h5 id="213">2.1.3.主配置文件解读</h5>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# awk &#39;!/^[ \t]*#/ &amp;&amp; NF&#39; /etc/httpd/conf/httpd.conf
+ServerRoot &quot;/etc/httpd&quot; # 定义了apache的主工作目录
+Listen 80   # 指定Apache的监听端口，默认为80
+Include conf.modules.d/*.conf   # 加载模块目录下的所有配置文件
+User apache # 指定运行Apache进程的用户和用户组
+Group apache    
+ServerAdmin root@localhost  # 指定服务器管理员的电子邮箱地址
+&lt;Directory /&gt;   # 根目录设置
+    AllowOverride none  # 禁止在该目录中使用.htaccess文件覆盖当前配置    
+    Require all denied  # 拒绝所有对根目录的访问请求，为了防止客户端通过URL访问到根目录
+&lt;/Directory&gt;
+DocumentRoot &quot;/var/www/html&quot;    # 指定网站的根目录，即存放网站文件的位置
+&lt;Directory &quot;/var/www&quot;&gt;  # 目录设置
+    AllowOverride None  
+    Require all granted # 允许所有对该目录的访问请求
+&lt;/Directory&gt;
+&lt;Directory &quot;/var/www/html&quot;&gt; # 目录设置
+    Options Indexes FollowSymLinks  # 启用目录索引和允许跟随符号链接
+    AllowOverride None  
+    Require all granted
+&lt;/Directory&gt;
+&lt;IfModule dir_module&gt;
+    DirectoryIndex index.html # 当访问目录时，如果没有指定具体的文件，默认显示 index.html 文件。可以配置多个首页文件，但它们之间是有优先级的，从左到右依次读取，如果读到位于前面的文件，就不会再向下读取了。
+&lt;/IfModule&gt;
+&lt;Files &quot;.ht*&quot;&gt;  # 禁止访问网站目录中的文件
+    Require all denied
+&lt;/Files&gt;
+ErrorLog &quot;logs/error_log&quot;   # 指定错误日志的文件路径
+LogLevel warn   # 日志级别
+&lt;IfModule log_config_module&gt;    # 如果log_config_module模块被加载，则执行以下日志格式和记录配置
+    LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; combined
+    LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common
+    &lt;IfModule logio_module&gt;
+      LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %I %O&quot; combinedio
+    &lt;/IfModule&gt;
+    CustomLog &quot;logs/access_log&quot; combined
+&lt;/IfModule&gt;
+&lt;IfModule alias_module&gt;
+    ScriptAlias /cgi-bin/ &quot;/var/www/cgi-bin/&quot;
+&lt;/IfModule&gt;
+&lt;Directory &quot;/var/www/cgi-bin&quot;&gt;
+    AllowOverride None
+    Options None
+    Require all granted
+&lt;/Directory&gt;
+&lt;IfModule mime_module&gt;  # 该字段定义了Aapche支持的文件类型，默认情况下HTTP把所有文件都堪称文本，需要通过引入mime.types映射文件后缀名和文件类型
+    TypesConfig /etc/mime.types # 指定MIME类型的配置文件路径
+    AddType application/x-compress .Z   
+    AddType application/x-gzip .gz .tgz
+    AddType text/html .shtml
+    AddOutputFilter INCLUDES .shtml
+&lt;/IfModule&gt;
+AddDefaultCharset UTF-8
+&lt;IfModule mime_magic_module&gt;
+    MIMEMagicFile conf/magic
+&lt;/IfModule&gt;
+EnableSendfile on
+IncludeOptional conf.d/*.conf   # 引入conf.d目录留下所有.conf结尾的配置文件，这条引入语句在httpd.conf的最后，意味着当你拥有虚拟主机时，虚拟主机都可以继承httpd.conf里的配置。
+</code></pre></div>
+<hr />
+<h5 id="214">2.1.4.实验一：首页文件</h5>
+<p>在主配置文件中<code>DirectoryIndex</code>字段规定了当用户访问网站目录时，若没有指定具体的文件，默认显示<code>index.html</code>。该字段可以配置多个<strong>首页文件</strong>，但它们之间是有优先级的，从左到右依次读取，如果先读到位于左边的文件就不会在向下读取了。</p>
+<ol>
+<li>修改首页文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;IfModule dir_module&gt;
+    DirectoryIndex index.html index.openeuler
+&lt;/IfModule&gt;
+[root@Server ~]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>当网站目录中同时存在<code>index.html</code>和<code>index.openeuler</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# echo &quot;index html&quot; &gt; /var/www/html/index.html
+[root@Server ~]# echo &quot;index openeuler&quot; &gt; /var/www/html/index.openeuler
+[root@Server ~]# curl 127.0.0.1
+index html
+</code></pre></div>
+<ol>
+<li>当网站目录中只存在<code>index.openeuler</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# rm -rf /var/www/html/index.html
+[root@Server ~]# curl 127.0.0.1
+index openeuler
+</code></pre></div>
+<ol>
+<li>当网站目录中没有存在任何首页文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# rm -rf /var/www/html/index.openeuler
+</code></pre></div>
+<p>当没有任何首页文件时，会出现欢迎页面，状态码<code>403</code>。报错日志如下：</p>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# cat /var/log/httpd/error_log | grep error
+[Fri Nov 21 16:31:17.352086 2025] [autoindex:error] [pid 1841:tid 1957] [client 192.168.80.1:65080] AH01276: Cannot serve directory /var/www/html/: No matching DirectoryIndex (index.html,index.openeuler) found, and server-generated directory index forbidden by Options directive
+</code></pre></div>
+<p><img alt="image-20251121163229416" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251121163229535.png" /></p>
+<ol>
+<li>当网站目录中没有首页文件，但存在其他文件时</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# echo &quot;html&quot; &gt; /var/www/html/1.html
+[root@Server ~]# curl 192.168.80.100/1.html # 需要指定文件路径
+html
+</code></pre></div>
+<ol>
+<li>在没有首页文件的情况下，是及其不方便的用户完全不知道你的站点下有哪些文件，可以列出目录下的文件，作为一个常见的下载站给用户预览</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;Directory &quot;/var/www/html&quot;&gt;
+    Options Indexes
+    AllowOverride None
+    Require all granted
+&lt;/Directory&gt;
+[root@Server ~]# rm -rf /etc/httpd/conf.d/welcome.conf  # 移除欢迎页面
+[root@Server ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251121164123225" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251121164123280.png" /></p>
+<ol>
+<li>当你的网站目录下有很多文件，当你不希望它们被用户发现，你可以在该目录下放置一个空的<code>index</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# touch /var/www/html/index.html
+</code></pre></div>
+<p><img alt="image-20251121164246162" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251121164246220.png" /></p>
+<hr />
+<h5 id="215">2.1.5.实验二：文件类型</h5>
+<p>在<code>apache</code>中<strong>文件类型</strong>的作用是告知浏览器“发送给你的文件是哪一种文件类型”，默认情况下由浏览器自己决定最终如何处理该类型的文件。<code>apache</code>的主配置文件及<code>/etc/mime.types</code>文件中定义了文件类型。</p>
+<p>例如，在主配置文件中增加如下字段，使客户端在访问<code>*.pdf</code>时进行下载：</p>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# cat /etc/httpd/conf/httpd.conf | grep pdf | grep -v &#39;^#&#39;
+&lt;IfModule mime_module&gt;
+    AddType application/x-pdf .pdf
+&lt;/IfModule&gt;
+[root@http-server ~]# echo &quot;this is pdf&quot; &gt; /var/www/html/1.pdf
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251122021104030" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122021104116.png" /></p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>当服务端可以识别到该文件的类型时，会将其携带在响应标头的<code>Content-Type</code>字段告知浏览器。</li>
+</ul>
+<p><img alt="image-20251122022339084" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122022339135.png" /></p>
+<ul>
+<li>若服务端在主配置文件和<code>mime.types</code>文件中没有识别到该文件的类型，则响应标头中无<code>Content-Type</code>字段</li>
+<li>在没有<code>Content-Type</code>的情况下，如何处理该文件由浏览器决定，若该文件字段较小浏览器会以“文本”的形式在线预览该文件。</li>
+</ul>
+<p><img alt="image-20251122022525916" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122022525977.png" /></p>
+<hr />
+<p>我们可以修改<code>mime.types</code>文件使特定后缀也被识别为<code>mp4</code>或<code>pdf</code>等。</p>
+<div class="highlight"><pre><span></span><code>[root@Server ~]# cat /etc/mime.types | grep video/mp4 | grep -v &#39;^#&#39;
+video/mp4                                       111
+[root@http-server ~]# echo &quot;111&quot; &gt; /var/www/html/1.111
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251122024830045" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122024830125.png" /></p>
+<hr />
+<p><img alt="image-20251122022942663" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122022942749.png" /></p>
+<p>从上图中可以得知，浏览器是通过<code>Content-Disposition</code>来判断对一个文件是“下载”还是“在线预览”。当服务器发送的<strong>响应标头中</strong>没有<code>Content-Disposition</code>字段时才会根据文件类型判断执行动作。</p>
+<p>以<code>*.mp4</code>为例，<code>mime.types</code>文件中默认已经识别了<code>mp4</code>类型，所以发送给浏览器的响应标头中表明了类型，浏览器默认会以<strong>预览</strong>的形式执行。</p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# echo &quot;mp4&quot; &gt; /var/www/html/good.mp4
+</code></pre></div>
+<p><img alt="image-20251122024222230" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122024222310.png" /></p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;FilesMatch &quot;\.mp4$&quot;&gt;   # 所有mp4文件
+    Header set Content-Disposition &quot;attachment&quot; # 强制下载
+&lt;/FilesMatch&gt;
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251122024433480" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122024433541.png" /></p>
+<p>用刚才随便创建的<code>3.333</code>为例，再次实验：</p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;FilesMatch &quot;\.333$&quot;&gt;   # 所有333文件
+    Header set Content-Disposition &quot;attachment&quot; # 强制下载
+&lt;/FilesMatch&gt;
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251122024558886" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122024558971.png" /></p>
+<hr />
+<h5 id="216">2.1.6.实验三：网站编码</h5>
+<div class="highlight"><pre><span></span><code>AddDefaultCharset UTF-8
+</code></pre></div>
+<p>在<code>httpd.conf</code>中定义了<code>apache</code>默认的网站字符编码，当网站的字符编码和网站文件的字符编码不相同时就会出现乱码的情况。</p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# echo &quot;我是谁？&quot; &gt; /var/www/html/zifu.txt
+</code></pre></div>
+<p>由于是<code>UTF-8</code>所以正常情况下浏览器可以识别到该文件内容：</p>
+<p><img alt="image-20251122025134830" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122025134887.png" /></p>
+<p>通过<code>vim</code>编辑器修改上述文件的编码类型：</p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /var/www/html/zifu.txt
+:set fileencoding=gb2312
+</code></pre></div>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122025359408.png" /></p>
+<p><img alt="image-20251122025305216" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122025305284.png" /></p>
+<p>所以字符编码非常重要，在下载部署网页文件时，需要确定这个编码格式与<code>apache</code>的是否一致，若不一致就会出现乱码情况。</p>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122025646024.png" /></p>
+<hr />
+<h4 id="22">2.2.长连接设置</h4>
+<p>在<code>apache</code>中默认已经开启了<strong>*长连接</strong><code>Keep-Alive</code>。开启了<code>Kepp-Alive</code>后在一个<code>TCP</code>套接字上可以发送多个<code>HTTP</code>请求和响应。但是长连接会使某个进程或线程一直处于等待状态，即使没有数据传输也需要在超时时间到达后才结束连接。</p>
+<p>在<code>apache</code>中关于<code>Keep-Alive</code>的参数定义在<code>/usr/share/doc/httpd/httpd-default.conf</code>文件中，这是<code>apache</code>服务器相关的<strong>示例配置文件</strong>，若要修改参数需要在<code>httpd.conf</code>定义。</p>
+<div class="highlight"><pre><span></span><code>KeepAlive On    # 开启Keep-Alive功能，Off关闭
+MaxKeepAliveRequests 100    # 单个TCP连接上允许承载的最大请求数量
+KeepAliveTimeout 5  # 超时时间，如果在超时时间内没有新的请求，连接将会被关闭
+</code></pre></div>
+<p>如下图，在响应标头中显示了<code>Keep-Alive</code>功能是否开启，以及<code>Keep-Alive</code>的参数：</p>
+<p><img alt="image-20251122030431768" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122030431841.png" /></p>
+<p>尝试修改为<code>200</code>个最大请求数量，超时时间为<code>15s</code>：</p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+KeepAlive On
+MaxKeepAliveRequests 200
+KeepAliveTimeout 15
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251122030935732" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122030935799.png" /></p>
+<p>如果需要关闭<code>Keep-Alive</code>功能，需在<code>httpd.conf</code>中配置：</p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+KeepAlive Off
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251122031038782" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122031038854.png" /></p>
+<hr />
+<h4 id="23">2.3.访问策略</h4>
+<p><code>apache</code>中根据版本有两种访问策略设置类型：</p>
+<ol>
+<li><strong>旧时代（Apache 2.2）</strong>：使用 <code>Order</code>，<code>Allow</code>，<code>Deny</code>（来自 <code>mod_access_compat</code>模块）</li>
+<li><strong>新时代（Apache 2.4+）</strong>：使用 <code>Require</code>（来自 <code>mod_authz_core</code>和 <code>mod_authz_host</code>模块）</li>
+</ol>
+<h5 id="231require">2.3.1.Require方式介绍</h5>
+<p><code>Require</code>指令更直观、强大，是当前的标准做法。它必须包含在 <code>&lt;RequireAll&gt;</code>, <code>&lt;RequireAny&gt;</code>, 或 <code>&lt;RequireNone&gt;</code>等指令块中（不过对于简单的单条规则，Apache 会隐式理解为 <code>&lt;RequireAll&gt;</code>）。</p>
+<p><strong>基本语法：</strong></p>
+<div class="highlight"><pre><span></span><code>&lt;Directory &quot;/var/www/html&quot;&gt;
+    # 允许所有访问
+    Require all granted
+&lt;/Directory&gt;
+
+&lt;Directory &quot;/var/www/html&quot;&gt;
+    # 拒绝所有访问
+    Require all denied
+&lt;/Directory&gt;
+</code></pre></div>
+<hr />
+<h5 id="232">2.3.2.<strong>逻辑判断：</strong></h5>
+<p>当写两条或两条以上<code>Require</code>字段时，就必须使用逻辑判断语句。当只有一条<code>RequireAll</code>语句时默认使用<code>RequireAll</code>。</p>
+<ul>
+<li><strong><code>&lt;RequireAll&gt;</code></strong> = <strong>AND</strong> 逻辑（与）→ 所有条件都必须满足</li>
+</ul>
+<div class="highlight"><pre><span></span><code>&lt;Directory &quot;/var/www/secure&quot;&gt;
+    &lt;RequireAll&gt;
+        Require ip 192.168.1.0/24      # 条件1：IP必须在192.168.1.0/24网段
+        Require user admin             # 条件2：必须通过用户认证且用户名为admin
+    &lt;/RequireAll&gt;
+&lt;/Directory&gt;
+</code></pre></div>
+<ul>
+<li><strong><code>&lt;RequireAny&gt;</code></strong> = <strong>OR</strong> 逻辑（或）→ 任意一个条件满足即可</li>
+</ul>
+<div class="highlight"><pre><span></span><code>&lt;Directory &quot;/var/www/site&quot;&gt;
+    &lt;RequireAny&gt;
+        Require ip 192.168.1.100      # 条件1：来自IP 192.168.1.100
+        Require ip 10.0.0.50          # 条件2：来自IP 10.0.0.50
+        Require user guest            # 条件3：用户名为guest
+    &lt;/RequireAny&gt;
+&lt;/Directory&gt;
+</code></pre></div>
+<ul>
+<li>
+<p><strong><code>&lt;RequireNone&gt;</code></strong> = <strong>NOR</strong> 逻辑（或非）→ 所有条件都不满足</p>
+</li>
+<li>
+<p><strong>访问结果</strong>：用户必须<strong>既不</strong>满足条件1也<strong>不</strong>满足条件2才能访问。</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>&lt;Directory &quot;/var/www/safe&quot;&gt;
+    &lt;RequireNone&gt;
+        Require ip 192.168.1.50       # 条件1：不能来自192.168.1.50
+        Require ip 203.0.113.100      # 条件2：不能来自203.0.113.100
+    &lt;/RequireNone&gt;
+&lt;/Directory&gt;
+</code></pre></div>
+<hr />
+<h5 id="233">2.3.3.<strong>复杂示例：</strong></h5>
+<div class="highlight"><pre><span></span><code>&lt;Directory &quot;/var/www/complex&quot;&gt;
+    &lt;RequireAll&gt;
+        # 必须满足：基础网络条件 AND (用户认证条件 OR 特殊IP条件)
+
+        # 基础网络条件：来自内网
+        Require ip 192.168.0.0/16
+
+        &lt;RequireAny&gt;
+            # 用户认证条件：是管理员或审计员
+            &lt;RequireAll&gt;
+                Require valid-user
+                Require user admin auditor
+            &lt;/RequireAll&gt;
+
+            # 特殊IP条件：来自管理网段
+            Require ip 10.1.1.0/24
+        &lt;/RequireAny&gt;
+    &lt;/RequireAll&gt;
+&lt;/Directory&gt;
+</code></pre></div>
+<hr />
+<h5 id="234ip">2.3.4.<strong>基于客户端IP地址：</strong></h5>
+<ul>
+<li>
+<p><strong>黑名单：</strong>允许所有<code>IP</code>访问，同时拒绝一个或多个<code>IP</code>。</p>
+</li>
+<li>
+<p>需要使用<code>&lt;RequireALL&gt;</code>进行包裹</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>&lt;Directory &quot;/var/www/html&quot;&gt;
+  &lt;RequireALL&gt;    #表示Require中所有的指令同时生效
+    Require not ip 192.168.80.1
+    Require all granted
+  &lt;/RequireALL&gt;
+&lt;/Directory&gt;
+</code></pre></div>
+<p><img alt="image-20251122032417480" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122032417546.png" /></p>
+<ul>
+<li>
+<p><strong>白名单：</strong>拒绝所有<code>IP</code>访问，同时允许一个或多个IP。</p>
+</li>
+<li>
+<p>不需要使用<code>&lt;RequireALL&gt;</code>因为默认就是拒绝所有</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>&lt;Directory &quot;/var/www/html&quot;&gt;
+    Require ip 192.168.80.1
+&lt;/Directory&gt;
+</code></pre></div>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122032626295.png" /></p>
+<p><img alt="image-20251122033233491" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122033233571.png" /></p>
+<hr />
+<h5 id="235">2.3.5.<strong>基于主机名：</strong></h5>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;Directory &quot;/var/www/html&quot;&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Require host www.gujun.com
+&lt;/Directory&gt;
+[root@http-server ~]# systemctl restart httpd
+[root@http-server ~]# cat /etc/hosts
+192.168.80.1 www.gujun.com
+</code></pre></div>
+<p><img alt="image-20251122033613900" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122033613980.png" /></p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;Directory &quot;/var/www/html&quot;&gt;
+  &lt;RequireALL&gt;
+    Require host www.gujun.com
+    Require not host gujun.com
+  &lt;/RequireALL&gt;
+&lt;/Directory&gt;
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251122033905686" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122033905773.png" /></p>
+<hr />
+<h5 id="236">2.3.6.基于用户名：</h5>
+<h6 id="2361basic">2.3.6.1<strong>Basic认证：</strong></h6>
+<p><strong>工作原理：</strong>客户端在请求受保护的资源时，服务器返回 <code>401 Unauthorized</code> 状态码，并在 <code>WWW-Authenticate</code> 响应头中提供认证领域的名称。客户端随后在新的请求中以 <code>Authorization</code> 请求头发送用户名和密码，这些信息以<code>Base64</code>编码的形式传输。</p>
+<p><strong>安全性：</strong>安全性较低，因为用户名和密码只是简单地进行<code>Base64</code>编码，并非加密。在网络传输过程中，如果被截获，可以相对容易地解码出明文用户名和密码。</p>
+<ol>
+<li>创建用户和密码文件：</li>
+</ol>
+<div class="highlight"><pre><span></span><code># 创建密码文件（第一次使用-c参数，后续不要加-c）
+[root@http-server ~]# htpasswd -c /opt/passwd test1
+[root@http-server ~]# htpasswd /opt/passwd test2
+</code></pre></div>
+<ol>
+<li>配置<code>Basic</code>访问控制：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;Directory &quot;/var/www/html&quot;&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    AuthType Basic  # 表示使用基本认证方式
+    AuthName &quot;lalala&quot;   # 显示给用户的认证提示信息
+    AuthUserFile /opt/passwd    # 指定包含用户信息的文件路径
+    Require valid-user  # 所有认证用户都允许
+&lt;/Directory&gt;
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><strong>响应内容：</strong></p>
+<p><img alt="image-20251122034707935" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122034708020.png" /></p>
+<p><strong>请求内容：</strong></p>
+<p><img alt="image-20251122034806097" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122034806182.png" /></p>
+<hr />
+<p><strong>白名单：</strong>只允许特定用户</p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;Directory &quot;/var/www/html&quot;&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    AuthType Basic  # 表示使用基本认证方式
+    AuthName &quot;lalala&quot;   # 显示给用户的认证提示信息
+    AuthUserFile /opt/passwd    # 指定包含用户信息的文件路径
+    Require user test # 只允许该用户
+&lt;/Directory&gt;
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><strong>黑名单：</strong>拒绝特定用户</p>
+<div class="highlight"><pre><span></span><code>&lt;Directory &quot;/var/www/html&quot;&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    AuthType Basic
+    AuthName &quot;lalala&quot;
+    AuthUserFile /opt/passwd
+  &lt;RequireALL&gt;
+    Require valid-user
+    Require not user test1
+  &lt;/RequireALL&gt;
+&lt;/Directory&gt;
+</code></pre></div>
+<hr />
+<h6 id="2362digest">2.3.6.2.Digest认证</h6>
+<p><strong>工作原理：</strong>服务器向客户端发送一个随机生成的<code>nonce</code>值。客户端使用用户名、密码、给定的<code>nonce</code>值、<code>HTTP</code>方法和请求的<code>URI</code>计算出一个响应值，并在 <code>Authorization</code> 请求头中发送给服务器。服务器根据存储的用户信息进行相同的计算，对比客户端发送的响应值，如果匹配则认证成功。</p>
+<ol>
+<li>使用<code>htdigest</code>创建用户名和密码文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# htdigest -c /opt/passwd openeuler test1   # Realm认证域，相同用户名在不同保护域内可以有不同的密码
+[root@http-server ~]# htdigest /opt/passwd openeuler test2
+</code></pre></div>
+<ol>
+<li>配置<code>Digest</code>访问控制</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;Directory &quot;/var/www/html&quot;&gt;
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    AuthType Digest
+    AuthName &quot;openeuler&quot;
+    AuthUserFile /opt/passwd
+    Require valid-user
+&lt;/Directory&gt;
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251122040010886" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122040010982.png" /></p>
+<hr />
+<h4 id="24">2.4.数据压缩</h4>
+<p><code>apache</code>的数据压缩功能通过<code>mod_deflate</code>模块实现，可以显著减小传输文件的大小，提高网站加载速度。</p>
+<div class="highlight"><pre><span></span><code># 查看已加载模块
+httpd -M | grep deflate
+或
+[root@http-server ~]# cat /etc/httpd/conf.modules.d/00-base.conf | grep deflate
+LoadModule deflate_module modules/mod_deflate.so
+</code></pre></div>
+<p>即使激活了<code>mod_deflate</code>模块，<code>apache</code>也不会自动压缩任何文件类型，需要通过配置明确指定要压缩的<code>MIME</code>类型。</p>
+<h5 id="241">2.4.1.工作过程</h5>
+<p>当客户端向<code>Apache</code>服务器发送请求获取资源时：</p>
+<ol>
+<li>浏览器发送的请求头上会添加<code>Accept-Encoding</code>字段，告知对方自己支持的解压方式（默认为<code>gzip</code>）。</li>
+</ol>
+<p><img alt="image-20251122040646141" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122040646233.png" /></p>
+<ol>
+<li>
+<p>服务器收到请求后，根据自身配置判断是否对响应数据进行压缩。</p>
+</li>
+<li>
+<p>如果配置中指定对当前响应的文件类型进行压缩，服务器会使用<code>mod_deflate</code>模块对数据进行压缩。</p>
+</li>
+<li>
+<p>压缩过程中，服务器会按照设定的压缩级别（<code>1-9</code>）对数据进行压缩，以达到减少数据量的目的。压缩级别越高，压缩效果越好，但是服务器<code>CPU</code>开销也越大。</p>
+</li>
+<li>
+<p>压缩完成后，服务器在响应头中添加<code>Content-Encoding</code>字段，告知客户端传输的数据经过什么协议压缩。</p>
+</li>
+<li>
+<p>客户端收到响应后，根据<code>Content-Encoding</code>信息得知压缩算法，根据算法进行解压缩。</p>
+</li>
+<li>
+<p>解压缩后客户端可以正常显示或处理获取到的内容。</p>
+</li>
+</ol>
+<hr />
+<h5 id="242">2.4.2.参数</h5>
+<div class="highlight"><pre><span></span><code>SetOutputFilter DEFLATE # 启用全局数据压缩，针对所有文件压缩
+DeflateCompressionLevel 1-9 # 设置数据压缩级别
+AddOutputFilterByType DEFLATE # 定义对哪些类型的文件进行压缩
+</code></pre></div>
+<p><strong>基本配置：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;IfModule mod_deflate.c&gt;
+    # 启用压缩
+    SetOutputFilter DEFLATE     # 启用全局压缩，默认针对所有文件进行压缩
+    DeflateCompressionLevel 6   # 压缩级别
+    AddOutputFilterByType DEFLATE text/plain    # 在没有SetOutputFilter情况下，针对具体文件类型
+&lt;/IfModule&gt;
+[root@http-server ~]# systemctl restart httpd
+[root@http-server ~]# cp /etc/passwd /var/www/html/passwd   # 文件太小是不会触发压缩的
+</code></pre></div>
+<p><img alt="image-20251122042240311" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122042240419.png" /></p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# curl -H &quot;Accept-Encoding: gzip&quot; 192.168.80.100/passwd -o /opt/test1
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   700  100   700    0     0  1168k      0 --:--:-- --:--:-- --:--:--  683k
+[root@http-server ~]# file /opt/test1
+/opt/test1: gzip compressed data, from Unix, original size modulo 2^32 1666
+</code></pre></div>
+<p><strong>注意：</strong>经过测试如果文件小于<code>180b</code>是不会触发压缩的。</p>
+<hr />
+<h5 id="243">2.4.3.精细控制配置</h5>
+<div class="highlight"><pre><span></span><code>&lt;IfModule mod_deflate.c&gt;
+    # 压缩级别
+    DeflateCompressionLevel 6
+
+    # 记录压缩日志（可选）
+    LogFormat &#39;&quot;%r&quot; %{output_info}n/%{input_info}n (%{ratio_info}n%%)&#39; deflate
+    CustomLog /var/log/httpd/deflate_log deflate
+
+    # 压缩所有文本类内容
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFlterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/font-woff
+    AddOutputFilterByType DEFLATE application/font-woff2
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/ttf
+
+    # 排除已压缩的文件格式
+    SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|png|zip|gz|bz2|rar|pdf|mp3|mp4|avi|flv)$ no-gzip dont-vary
+
+    # 排除特定浏览器（旧浏览器压缩问题）
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+
+    # 排除代理请求
+    SetEnvIfNoCase Request_URI proxy no-gzip dont-vary
+&lt;/IfModule&gt;
+</code></pre></div>
+<hr />
+<h5 id="244">2.4.4.针对浏览器禁止压缩</h5>
+<p>浏览器在访问时发送的<strong>请求</strong>会包含<code>User-Agent</code>字段，代表了客户端使用的是哪种浏览器。可通过此种方式禁止针对某款浏览器压缩。</p>
+<p><strong>查看User-Agent：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# cat /var/log/httpd/access_log
+192.168.80.1 - - [22/Nov/2025:04:28:59 +0800] &quot;GET /passwd HTTP/1.1&quot; 200 1666 &quot;-&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0&quot;
+</code></pre></div>
+<p><strong>配置禁止压缩：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@http-server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;IfModule mod_deflate.c&gt;
+    SetOutputFilter DEFLATE
+    DeflateCompressionLevel 6
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    BrowserMatch Edg no-gzip
+&lt;/IfModule&gt;
+[root@http-server ~]# systemctl restart httpd
+</code></pre></div>
+<p><strong>Edge验证：</strong></p>
+<p><img alt="image-20251122043556611" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122043556729.png" /></p>
+<p><strong>Firefox验证：</strong></p>
+<p><img alt="image-20251122043615390" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251122043615531.png" /></p>
+<hr />
+<h5 id="245">2.4.5.禁止特定后缀压缩</h5>
+<div class="highlight"><pre><span></span><code>[root@server ~]# vim /etc/httpd/conf/httpd.conf
+SetEnvIfNoCase Request_URI \.(mp4|mov|avi)$ no-gzip
+
+[root@http-server ~]# cp /etc/passwd /var/www/html/test.mp4
+
+[root@http-server ~]# curl -H &quot;Accept-Encoding: gzip&quot; 192.168.80.100/test.mp4 -o /opt/mp4
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1666  100  1666    0     0  2291k      0 --:--:-- --:--:-- --:--:-- 1626k
+
+[root@http-server ~]# file /opt/mp4
+/opt/mp4: ASCII text
+
+[root@http-server ~]# curl -H &quot;Accept-Encoding: gzip&quot; 192.168.80.100/passwd -o /opt/passwd1
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   700  100   700    0     0   757k      0 --:--:-- --:--:-- --:--:--  683k
+
+[root@http-server ~]# file /opt/passwd1
+/opt/passwd1: gzip compressed data, from Unix, original size modulo 2^32 1666
+</code></pre></div>
+<hr />
+<h4 id="25">2.5.日志</h4>
+<p>在<code>apache</code>中主要有两种日志：</p>
+<ul>
+<li><strong>访问日志：</strong>记录所有对服务器的请求。包括客户端<code>IP</code>、请求时间、请求的资源、状态码等。</li>
+<li><strong>错误日志：</strong>记录服务器处理请求时出现的错误、警告等信息。对于调试问题至关重要。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>ErrorLog &quot;logs/error_log&quot;   # 指定错误日志的文件路径
+LogLevel warn   # 日志级别
+&lt;IfModule log_config_module&gt;    # 如果log_config_module模块被加载，则执行以下日志格式和记录配置
+    LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; combined
+    LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b&quot; common
+    &lt;IfModule logio_module&gt;
+      LogFormat &quot;%h %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot; %I %O&quot; combinedio
+    &lt;/IfModule&gt;
+    CustomLog &quot;logs/access_log&quot; combined
+&lt;/IfModule&gt;
+</code></pre></div>
+<p>这一段是<code>Apache</code>默认的日志配置。</p>
+<p><strong>基本语法：</strong></p>
+<div class="highlight"><pre><span></span><code>CustomLog “日志文件路径” 日志格式名称
+</code></pre></div>
+<p><strong>定义日志格式：</strong><code>LogFormat</code>指令</p>
+<p><code>apache</code>允许你自定义日志记录的内容。常见的预定格式有：</p>
+<ul>
+<li><code>common</code>：<code>apache</code>的通用标准格式。</li>
+<li><code>combined</code>：包含更多信息，是最常用的格式。</li>
+</ul>
+<p><strong>常用日志格式符说明：</strong></p>
+<ul>
+<li><code>%h</code>：客户端IP地址。</li>
+<li><code>%l</code>：由 <code>identd</code>决定的用户身份（通常为 <code>-</code>）。</li>
+<li><code>%u</code>：HTTP认证的用户名。</li>
+<li><code>%t</code>：请求时间。</li>
+<li><code>%r</code>：请求的第一行（包括方法、URI、协议）。</li>
+<li><code>%&gt;s</code>：最终的状态码。</li>
+<li><code>%b</code>：返回给客户端的字节数（不含头信息）。</li>
+<li><code>%{Referer}i</code>：请求头中的 "Referer"（用户从哪个页面链接过来）。</li>
+<li><code>%{User-Agent}i</code>：客户端使用的浏览器（用户代理）。</li>
+<li><code>%T</code>：处理请求所花费的时间，以秒为单位。</li>
+</ul>
+<hr />
+<h5 id="251">2.5.1.自定义日志</h5>
+<div class="highlight"><pre><span></span><code>&lt;IfModule log_config_module&gt;
+    LogFormat &quot;客户端IP: %h \n 日期：%t 状态码：%&gt;s&quot; test # 定义日志模板
+    CustomLog &quot;logs/test_log&quot; test  # 调用日志模板
+&lt;/IfModule&gt;
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# cat /var/log/httpd/test_log
+客户端IP: 192.168.80.1
+ 日期：[22/Nov/2025:16:15:04 +0800] 状态码：200
+客户端IP: 192.168.80.1
+ 日期：[22/Nov/2025:16:15:04 +0800] 状态码：404
+</code></pre></div>
+<hr />
+<h5 id="252">2.5.2.错误日志</h5>
+<p>错误日志的配置指令是<code>ErrorLog</code>。</p>
+<p><strong>基本语法：</strong></p>
+<div class="highlight"><pre><span></span><code>ErrorLog “日志文件路径”
+LogLevel 日志级别
+</code></pre></div>
+<p><code>LogLevel</code>用于控制记录错误的严重程度。</p>
+<div class="highlight"><pre><span></span><code>trace8... trace1-&gt; debug-&gt; info-&gt; notice -&gt; warn -&gt; error -&gt; crit-&gt; alert-&gt; emerg
+</code></pre></div>
+<ul>
+<li><strong>生产环境</strong>：使用 <code>warn</code>或 <code>error</code>，避免日志文件过大。</li>
+<li><strong>调试环境</strong>：使用 <code>debug</code>或 <code>info</code>，以获得最详细的信息。</li>
+</ul>
+<hr />
+<h4 id="26">2.6.虚拟主机</h4>
+<p>默认情况下，一台<code>apache</code>只能维护一个网站。例如我需要部署博客和论坛两个业务，那就必须拥有两台<code>apache</code>，那在成本上就会增加很多管理难度也会提高。</p>
+<p>虚拟主机可以在一台服务器上运行多个网站，高效且成本低廉。之前学习的所有内容都可以在虚拟主机中配置。拥有了虚拟主机后，等于同时拥有了多台<code>Web</code>服务器。</p>
+<p><strong>虚拟主机的好处：</strong></p>
+<ul>
+<li><strong>资源隔离：</strong>不同的虚拟主机拥有独立的配置，包括服务器名称、网站根目录、访问控制规则等。</li>
+<li><strong>节省成本：</strong>通过在一台服务器上配置多个虚拟主机，可以同时运行多个网站，无需为每个网站单独配置物理服务器，从而降低硬件成本和维护成本。</li>
+<li><strong>灵活部署：</strong>可以轻松的添加、删除、修改虚拟主机的配置，快速适应业务的变化和扩展需求。</li>
+<li>
+<p><strong>优化性能：</strong>可以根据每个虚拟主机的流量和资源需求，进行有针对性地性能优化，如缓存设置、连接限制等。</p>
+</li>
+<li>
+<p><strong>共享资源：</strong>多个虚拟主机可以共享服务器地硬件资源，如<code>CPU</code>、内存等。</p>
+</li>
+<li><strong>域名绑定：</strong>能够将不同的域名绑定到对应地虚拟主机上，使用户可以通过不同的域名访问不同地网站。</li>
+</ul>
+<p><strong>虚拟主机的分类：</strong></p>
+<ul>
+<li><strong>基于域名：</strong>这是最常见的类型，通过不同地域名来区分不同网站，服务器根据客户端请求中的域名来决定提供相应的网站内容。</li>
+<li><strong>基于<code>IP</code>：</strong>服务器为每个虚拟主机绑定不同的<code>IP</code>地址，通过请求的<code>IP</code>地址来确定要提供的服务。这种方式需要服务器拥有多个<code>IP</code>地址。</li>
+<li><strong>基于端口：</strong>通过不同的端口来区分不同的虚拟主机。用户在访问时需要在<code>URL</code>中指定端口号。</li>
+</ul>
+<p><code>Web</code>服务器是通过客户端请求中携带的<code>Host</code>头判断访问的是哪台虚拟主机，随后加载虚拟主机配置将对应内容给到客户端。</p>
+<hr />
+<h5 id="261">2.6.1.基于端口的虚拟主机</h5>
+<p><strong>规划：</strong></p>
+<p><code>192.168.80.100:80</code>作为默认网站，<code>192.168.80.100:81</code>作为<code>site1</code>站点，<code>192.168.80.100:82</code>作为<code>site2</code>站点。</p>
+<ol>
+<li>创建网站目录及文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# mkdir -p /site/{site1,site2}
+[root@HTTP-Server ~]# echo &quot;site1&quot; &gt; /site/site1/index.html
+[root@HTTP-Server ~]# echo &quot;site2&quot; &gt; /site/site2/index.html
+[root@HTTP-Server ~]# echo &quot;default site&quot; &gt; /var/www/html/index.html
+</code></pre></div>
+<ol>
+<li>配置虚拟主机配置文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# vim /etc/httpd/conf.d/port_site1.conf
+Listen 81
+&lt;VirtualHost *:81&gt;
+   DocumentRoot /site/site1
+   &lt;Directory /site/site1&gt;
+       Require all granted
+   &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+[root@HTTP-Server ~]# vim /etc/httpd/conf.d/port_site2.conf
+Listen 82
+&lt;VirtualHost *:82&gt;
+   DocumentRoot /site/site2
+   &lt;Directory /site/site2&gt;
+       Require all granted
+   &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+[root@HTTP-Server ~]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>验证</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# curl http://192.168.80.100
+default site
+[root@HTTP-Server ~]# curl http://192.168.80.100:81
+site1
+[root@HTTP-Server ~]# curl http://192.168.80.100:82
+site2
+</code></pre></div>
+<p><img alt="image-20251123061406013" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123061406128.png" /></p>
+<hr />
+<h5 id="262ip">2.6.2.基于IP地址的虚拟主机</h5>
+<p><strong>规划：</strong></p>
+<p><code>192.168.80.100</code>作为默认站点，<code>192.168.80.101</code>作为<code>site3</code>站点，<code>192.168.80.102</code>作为<code>site4</code>站点。</p>
+<ol>
+<li>创建网站目录及文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# mkdir -p /site/{site3,site4}
+[root@HTTP-Server ~]# echo &quot;site3&quot; &gt; /site/site3/index.html
+[root@HTTP-Server ~]# echo &quot;site4&quot; &gt; /site/site4/index.html
+</code></pre></div>
+<ol>
+<li>在服务器上增加两个<code>IP</code>地址</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# ip addr add 192.168.80.101/24 dev ens33
+[root@HTTP-Server ~]# ip addr add 192.168.80.102/24 dev ens33
+[root@HTTP-Server ~]# ip addr show ens33
+2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 00:0c:29:71:a0:54 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.80.100/24 brd 192.168.80.255 scope global noprefixroute ens33
+       valid_lft forever preferred_lft forever
+    inet 192.168.80.101/24 scope global secondary ens33
+       valid_lft forever preferred_lft forever
+    inet 192.168.80.102/24 scope global secondary ens33
+       valid_lft forever preferred_lft forever
+    inet6 fe80::20c:29ff:fe71:a054/64 scope link noprefixroute
+       valid_lft forever preferred_lft forever
+</code></pre></div>
+<ol>
+<li>配置虚拟主机配置文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# vim /etc/httpd/conf.d/ip_site3.conf
+&lt;VirtualHost 192.168.80.101:80&gt;
+   DocumentRoot /site/site3
+   &lt;Directory /site/site3&gt;
+        Require all granted
+   &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+[root@HTTP-Server ~]# vim /etc/httpd/conf.d/ip_site4.conf
+&lt;VirtualHost 192.168.80.102:80&gt;
+   DocumentRoot /site/site4
+   &lt;Directory /site/site4&gt;
+        Require all granted
+   &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+[root@HTTP-Server ~]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>测试</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# curl http://192.168.80.100
+default site
+[root@HTTP-Server ~]# curl http://192.168.80.101
+site3
+[root@HTTP-Server ~]# curl http://192.168.80.102
+site4
+</code></pre></div>
+<p><img alt="image-20251123061953287" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123061953397.png" /></p>
+<hr />
+<h5 id="263">2.6.3.基于域名的虚拟主机</h5>
+<p><strong>规划：</strong></p>
+<p><code>test1.openeuler.com</code>作为默认站点，<code>test2.openeuler.com</code>作为<code>site5</code>站点，<code>test3.openeuler.com</code>作为<code>site6</code>站点。</p>
+<ol>
+<li>创建网站目录及文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# mkdir /site/{site5,site6}
+[root@HTTP-Server ~]# echo &quot;site5&quot; &gt; /site/site5/index.html
+[root@HTTP-Server ~]# echo &quot;site6&quot; &gt; /site/site6/index.html
+</code></pre></div>
+<ol>
+<li>在客户端的<code>/etc/hosts</code>文件中添加解析记录</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# vim /etc/hosts
+192.168.80.100 test1.openeuler.com
+192.168.80.100 test2.openeuler.com
+192.168.80.100 test3.openeuler.com
+</code></pre></div>
+<ol>
+<li>配置虚拟主机</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# vim /etc/httpd/conf.d/hostname_site5.conf
+&lt;VirtualHost *:80&gt;
+   ServerName test2.openeuler.com
+   DocumentRoot /site/site5
+   &lt;Directory /site/site5&gt;
+        Require all granted
+   &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+[root@HTTP-Server ~]# vim /etc/httpd/conf.d/hostname_site6.conf
+&lt;VirtualHost *:80&gt;
+   ServerName test3.openeuler.com
+   DocumentRoot /site/site6
+   &lt;Directory /site/site6&gt;
+        Require all granted
+   &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+
+[root@HTTP-Server ~]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>测试</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# curl http://test1.openeuler.com
+site5
+[root@HTTP-Server ~]# curl http://test2.openeuler.com
+site5
+[root@HTTP-Server ~]# curl http://test3.openeuler.com
+site6
+</code></pre></div>
+<p>上述的结果明显是错误的，<code>http://test1.openeuler.com</code>并没有绑定到默认站点。</p>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# apachectl -S
+VirtualHost configuration:
+*:80                   is a NameVirtualHost
+         default server test2.openeuler.com (/etc/httpd/conf.d/hostname_site5.conf:1)
+         port 80 namevhost test2.openeuler.com (/etc/httpd/conf.d/hostname_site5.conf:1)
+         port 80 namevhost test3.openeuler.com (/etc/httpd/conf.d/hostname_site6.conf:1)
+</code></pre></div>
+<p><strong>注意：</strong>当使用基于<strong>域名</strong>的虚拟主机后，<code>Apache</code>就会忽略主配置文件中的<code>ServerName</code>和<code>DocumentRoot</code>。根据虚拟主机配置文件的文件名加载，按照配置文件加载顺序选择一个虚拟主机作为默认虚拟站点。所有<strong>无法匹配到具体</strong><code>ServerName</code>的请求都会由这个默认虚拟主机处理。</p>
+<div class="highlight"><pre><span></span><code>1. 精确匹配 ServerName
+2. 匹配 ServerAlias  
+3. 回退到第一个虚拟主机（默认站点）
+</code></pre></div>
+<p><strong>解决方法：</strong></p>
+<p>在主配置文件中定义默认虚拟主机，需要在<code>Include</code>扩展配置文件之前：</p>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# vim /etc/httpd/conf/httpd.conf
+&lt;VirtualHost _default_:80&gt;
+    ServerName test1.openeuler.com
+    DocumentRoot &quot;/var/www/html&quot;
+&lt;/VirtualHost&gt;
+IncludeOptional conf.d/*.conf
+
+[root@HTTP-Server ~]# systemctl restart httpd
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# curl http://test1.openeuler.com
+default site
+[root@HTTP-Server ~]# curl http://test2.openeuler.com
+site5
+[root@HTTP-Server ~]# curl http://test3.openeuler.com
+site6
+
+[root@HTTP-Server ~]# apachectl -S
+VirtualHost configuration:
+*:80                   is a NameVirtualHost
+         default server test1.openeuler.com (/etc/httpd/conf/httpd.conf:355)
+         port 80 namevhost test1.openeuler.com (/etc/httpd/conf/httpd.conf:355)
+         port 80 namevhost test2.openeuler.com (/etc/httpd/conf.d/hostname_site5.conf:1)
+         port 80 namevhost test3.openeuler.com (/etc/httpd/conf.d/hostname_site6.conf:1)
+</code></pre></div>
+<hr />
+<h4 id="27https">2.7.HTTPS配置演示</h4>
+<h5 id="271ca">2.7.1.自建CA方式</h5>
+<h6 id="2711">2.7.1.1.<strong>整体流程：</strong></h6>
+<ol>
+<li>创建证书颁发机构</li>
+<li>为服务器生成证书签名请求</li>
+<li>使用自建<code>CA</code>签署服务器证书</li>
+<li>配置<code>Apache</code>使用<code>HTTPS</code></li>
+<li>将自建<code>CA</code>证书导入客户端信任库</li>
+</ol>
+<h6 id="2712">2.7.1.2.<strong>实验步骤：</strong></h6>
+<ol>
+<li>创建证书目录结构</li>
+</ol>
+<div class="highlight"><pre><span></span><code># 创建SSL目录结构
+[root@HTTP-Server ~]# mkdir -p /etc/ssl/{ca,certs,private,csr}
+[root@HTTP-Server ~]# mkdir -p /etc/ssl/ca/{newcerts,crl,private}
+
+# 设置权限
+[root@HTTP-Server ~]# chmod 700 /etc/ssl/private
+[root@HTTP-Server ~]# chmod 700 /etc/ssl/ca/private
+
+# 创建必要文件，该文件是openssl CA数据库文件，用于记录所有由该CA签发证书的详细信息
+[root@HTTP-Server ~]# touch /etc/ssl/ca/index.txt
+[root@HTTP-Server ~]# echo &quot;01&quot; | sudo tee /etc/ssl/ca/serial
+01
+</code></pre></div>
+<ol>
+<li>创建<code>OpenSSL</code>配置文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>tee /etc/ssl/openssl.cnf &gt; /dev/null &lt;&lt; &#39;EOF&#39;
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+dir               = /etc/ssl/ca
+certs             = $dir/certs
+crl_dir           = $dir/crl
+database          = $dir/index.txt
+new_certs_dir     = $dir/newcerts
+certificate       = $dir/ca.crt
+serial            = $dir/serial
+crl               = $dir/crl.pem
+private_key       = $dir/private/ca.key
+RANDFILE          = $dir/private/.rand
+
+x509_extensions   = usr_cert
+name_opt          = ca_default
+cert_opt          = ca_default
+default_days      = 375
+default_crl_days  = 30
+default_md        = sha256
+preserve          = no
+policy            = policy_match
+
+[ policy_match ]
+countryName             = match
+stateOrProvinceName     = match
+organizationName        = match
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ req ]
+default_bits        = 2048
+default_md          = sha256
+default_keyfile     = privkey.pem
+distinguished_name  = req_distinguished_name
+attributes          = req_attributes
+x509_extensions     = v3_ca
+string_mask         = utf8only
+
+[ req_distinguished_name ]
+countryName                     = Country Name (2 letter code)
+countryName_default             = CN
+countryName_min                 = 2
+countryName_max                 = 2
+
+stateOrProvinceName             = State or Province Name (full name)
+stateOrProvinceName_default     = Beijing
+
+localityName                    = Locality Name (city, district)
+localityName_default            = Beijing
+
+0.organizationName              = Organization Name (company)
+0.organizationName_default      = MyCompany
+
+organizationalUnitName          = Organizational Unit Name (department)
+organizationalUnitName_default  = IT Department
+
+commonName                      = Common Name (FQDN or your name)
+commonName_max                  = 64
+commonName_default              = test1.openeuler.com
+
+emailAddress                    = Email Address
+emailAddress_max                = 64
+emailAddress_default            = admin@mycompany.com
+
+[ req_attributes ]
+challengePassword               = A challenge password
+challengePassword_min           = 4
+challengePassword_max           = 20
+
+[ usr_cert ]
+basicConstraints = CA:FALSE
+nsComment = &quot;OpenSSL Generated Certificate&quot;
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+
+[ v3_ca ]
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = CA:true
+keyUsage = cRLSign, keyCertSign
+
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+
+[ server_cert ]
+basicConstraints = CA:FALSE
+nsCertType = server
+nsComment = &quot;OpenSSL Generated Server Certificate&quot;
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer:always
+keyUsage = digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+subjectAltName = @alt_names
+
+[ alt_names ]
+DNS.1 = test1.openeuler.com
+DNS.2 = www.test1.openeuler.com
+IP.1 = 127.0.0.1
+EOF
+</code></pre></div>
+<ol>
+<li>生成<code>CA</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code># 生成CA私钥，4096代表密钥长度
+openssl genrsa -out /etc/ssl/ca/private/ca.key 4096
+
+# req证书请求，-new创建新证书请求，-days证书有效期，-key指定私钥，-out输出证书文件，-config指定配置文件，-subj设置证书主题信息，
+openssl req -new -x509 -days 3650 -key /etc/ssl/ca/private/ca.key \
+  -out /etc/ssl/ca/ca.crt -config /etc/ssl/openssl.cnf \
+  -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=MyCompany/OU=IT Department/CN=MyCompany Root CA&quot;
+
+[root@HTTP-Server ~]# chmod 400 /etc/ssl/ca/private/ca.key
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">字段</th>
+<th style="text-align: left;">代码</th>
+<th style="text-align: left;">含义</th>
+<th style="text-align: left;">示例值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>C</code></td>
+<td style="text-align: left;">Country</td>
+<td style="text-align: left;">国家代码</td>
+<td style="text-align: left;">CN（中国）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ST</code></td>
+<td style="text-align: left;">State/Province</td>
+<td style="text-align: left;">省/州</td>
+<td style="text-align: left;">Beijing（北京）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>L</code></td>
+<td style="text-align: left;">Locality</td>
+<td style="text-align: left;">城市</td>
+<td style="text-align: left;">Beijing（北京）</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>O</code></td>
+<td style="text-align: left;">Organization</td>
+<td style="text-align: left;">组织名称</td>
+<td style="text-align: left;">MyCompany</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>OU</code></td>
+<td style="text-align: left;">Organizational Unit</td>
+<td style="text-align: left;">部门</td>
+<td style="text-align: left;">IT Department</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>CN</code></td>
+<td style="text-align: left;">Common Name</td>
+<td style="text-align: left;">通用名称</td>
+<td style="text-align: left;">MyCompany Root CA</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>生成服务器证书</li>
+</ol>
+<div class="highlight"><pre><span></span><code>openssl genrsa -out /etc/ssl/private/apache.key 2048
+
+openssl req -new -key /etc/ssl/private/apache.key \
+  -out /etc/ssl/csr/apache.csr -config /etc/ssl/openssl.cnf \
+  -subj &quot;/C=CN/ST=Beijing/L=Beijing/O=MyCompany/OU=IT Department/CN=test1.openeuler.com&quot;
+
+# ca证书管理命令，-extensions使用配置文件中定义的服务器证书扩展，-notext无文本输出
+openssl ca -config /etc/ssl/openssl.cnf -extensions server_cert \
+  -days 730 -notext -md sha256 \
+  -in /etc/ssl/csr/apache.csr -out /etc/ssl/certs/apache.crt
+
+chmod 400 /etc/ssl/private/apache.key
+
+chmod 444 /etc/ssl/certs/apache.crt
+</code></pre></div>
+<ol>
+<li>验证生成的证书</li>
+</ol>
+<div class="highlight"><pre><span></span><code>openssl verify -CAfile /etc/ssl/ca/ca.crt /etc/ssl/certs/apache.crt
+
+openssl x509 -in /etc/ssl/certs/apache.crt -text -noout
+
+openssl rsa -in /etc/ssl/private/apache.key -check -noout
+</code></pre></div>
+<ol>
+<li>安装和配置<code>Apache</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# yum install httpd mod_ssl -y
+</code></pre></div>
+<ol>
+<li>配置<code>Apache SSL</code>虚拟主机</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# vim /etc/httpd/conf.d/ssl.conf
+&lt;VirtualHost _default_:443&gt;
+DocumentRoot &quot;/var/www/html&quot;
+ServerName test1.openeuler.com
+SSLCertificateFile /etc/ssl/certs/apache.crt
+SSLCertificateKeyFile /etc/ssl/private/apache.key
+SSLCertificateChainFile /etc/ssl/ca/ca.crt
+</code></pre></div>
+<ol>
+<li>创建网页文件</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# echo &quot;HTTPS&quot; &gt; /var/www/html/index.html
+
+[root@HTTP-Server ~]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>验证</li>
+</ol>
+<div class="highlight"><pre><span></span><code># 导出ca.crt传递到客户端
+[root@HTTP-Server ~]# cp /etc/ssl/ca/ca.crt ~
+[root@HTTP-Server ~]# scp ca.crt root@192.168.80.101:~
+
+# 编辑hosts文件
+[root@HTTP-Client ~]# vim /etc/hosts
+192.168.80.100 test1.openeuler.com
+
+# 不使用证书进行测试，无法验证服务器的SSL证书，因为包含自签名证书。
+[root@HTTP-Client ~]# curl https://test1.openeuler.com
+curl: (60) SSL certificate problem: self signed certificate in certificate chain
+More details here: https://curl.se/docs/sslcerts.html
+
+curl failed to verify the legitimacy of the server and therefore could not
+establish a secure connection to it. To learn more about this situation and
+how to fix it, please visit the web page mentioned above.
+
+# 使用证书进行测试
+[root@HTTP-Client ~]# curl --cacert ~/ca.crt https://test1.openeuler.com
+HTTPS
+</code></pre></div>
+<ol>
+<li>增加<code>HTTP</code>到<code>HTTPS</code>的重定向</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# vim /etc/httpd/conf.d/ssl.conf
+&lt;VirtualHost *:80&gt;
+    ServerName test1.openeuler.com
+    Redirect permanent / https://test1.openeuler.com/
+&lt;/VirtualHost&gt;
+[root@HTTP-Server ~]# systemctl restart httpd
+</code></pre></div>
+<hr />
+<h5 id="272">2.7.2.云主机方式</h5>
+<p>这个实验需要准备一台云服务器与域名，挑选价格最低的就行。我选择的是火山云的<code>2G2M</code>云服务器花了二十多一年，域名也是在火山云购买的一年十多块并且能很方便的域名备案。</p>
+<p>注意：需要先在平台上备案大概几个小时可以成功，备案后才可以购买域名。</p>
+<p><strong>添加DNS A记录</strong></p>
+<p>在控制台中添加<code>DNS A</code>记录，需要几分钟时间才能生效：</p>
+<p><img alt="image-20251123212631593" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123212631717.png" /></p>
+<p><img alt="image-20251123221823415" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123221823546.png" /></p>
+<p>验证域名是否绑定成功：</p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;nslookup www.gugujun.site
+服务器:  UnKnown
+Address:  240e:58:c000:1000:116:228:111:118
+
+非权威应答:
+名称:    www.gugujun.site
+Address:  101.126.138.178
+
+C:\Users\Administrator&gt;nslookup gugujun.site
+服务器:  UnKnown
+Address:  240e:58:c000:1000:116:228:111:118
+
+非权威应答:
+名称:    gugujun.site
+Address:  101.126.138.178
+</code></pre></div>
+<p><strong>云服务器配置</strong></p>
+<p>在云服务器上安装<code>httpd</code>和<code>mod_ssl</code>：</p>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# yum install httpd mod_ssl -y
+</code></pre></div>
+<p><strong>申请证书：方式一<code>ZeroSSL</code></strong></p>
+<p><img alt="image-20251123213825692" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123213825816.png" /></p>
+<p><img alt="image-20251123213857507" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123213857632.png" /></p>
+<p><img alt="image-20251123213913380" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123213913500.png" /></p>
+<p><img alt="image-20251123213930280" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123213930416.png" /></p>
+<p><img alt="image-20251123213956672" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123213956797.png" /></p>
+<p><img alt="image-20251123214009639" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123214009757.png" /></p>
+<p><img alt="image-20251123214245739" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123214245879.png" /></p>
+<p><img alt="image-20251123214355769" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123214355903.png" /></p>
+<p><strong>注意：</strong>需要<code>gugujun.site</code>和<code>www.gugujun.site</code>都指向云服务器的<code>IP</code>地址。</p>
+<p><strong>在云服务器上进行配置：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# mkdir -p /var/www/html/.well-known/pki-validation/
+[root@HTTP-Server ~]# cp 09754F6574E48D2A87EE9CA41845A136.txt /var/www/html/.well-known/pki-validation/
+[root@HTTP-Server ~]# systemctl restart httpd
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<p><img alt="image-20251123214641681" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123214641793.png" /></p>
+<p><img alt="image-20251123214655650" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123214655769.png" /></p>
+<p><img alt="image-20251123214716888" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251123214717019.png" /></p>
+<p><img alt="image-20251206144909110" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251206144909273.png" /></p>
+<p><img alt="image-20251206144937535" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251206144937699.png" /></p>
+<hr />
+<p><strong>Apache配置HTTPS：</strong></p>
+<ol>
+<li>上传证书至服务器：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# ll
+total 12
+-rw-r--r-- 1 root root   93 Nov 23 21:45 09754F6574E48D2A87EE9CA41845A136.txt
+-rw-r--r-- 1 root root 6750 Dec  6 14:54 gugujun.site.zip
+
+[root@HTTP-Server ~]# mkdir /opt/pki
+
+[root@HTTP-Server ~]# cp gugujun.site.zip /opt/pki
+
+[root@HTTP-Server ~]# cd /opt/pki
+
+[root@HTTP-Server pki]# unzip gugujun.site.zip
+Archive:  gugujun.site.zip
+ extracting: certificate.crt
+ extracting: ca_bundle.crt
+ extracting: private.key
+
+[root@HTTP-Server pki]# ll
+total 20
+-rw-r--r-- 1 root root 2431 Dec  6 06:49 ca_bundle.crt
+-rw-r--r-- 1 root root 2289 Dec  6 06:49 certificate.crt
+-rw-r--r-- 1 root root 6750 Dec  6 14:54 gugujun.site.zip
+-rw-r--r-- 1 root root 1702 Dec  6 06:49 private.key
+</code></pre></div>
+<ol>
+<li>在云服务器的<code>apache</code>上指定证书路径：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server pki]# vim /etc/httpd/conf.d/ssl.conf
+    SSLCertificateFile /opt/pki/certificate.crt
+    SSLCertificateKeyFile /opt/pki/private.key
+[root@HTTP-Server pki]# systemctl restart httpd
+</code></pre></div>
+<p><img alt="image-20251206145726327" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251206145726547.png" /></p>
+<ol>
+<li>配置<code>https</code>重定向：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@HTTP-Server ~]# vim /etc/httpd/conf/httpd.conf
+    RewriteEngine On    #打开重定向
+    RewriteCond %{HTTPS} off
+    #当当前请求使用的协议为 HTTP（非 HTTPS）时，满足这个条件，后续的重写规则 RewriteRule 才会被执行。
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    #当满足前面定义的条件（当前请求为 HTTP 而非 HTTPS ）时，将请求永久重定向到对应的 HTTPS 版本的相同 URL ，并且是最后应用的重写规则。
+# ^(.*)$ 这部分匹配任何路径，包括空路径。
+#https://：表示目标协议是 HTTPS。 %{HTTP_HOST}这是 Apache 的一个变量，表示当前请求的主机名（即请求头中的 Host）。
+#%{REQUEST_URI}表示当前请求的完整 URI 路径（包括查询字符串）。
+#L表示这是最后一条规则，处理完这条规则后，Apache 不会继续执行后续的重写规则。
+#R=301表示这是一个重定向操作，且返回的 HTTP 状态码是 301 Moved Permanently，表示永久重定向。
+[root@HTTP-Server ~]# systemctl restart httpd
+</code></pre></div>
+<hr />
+<h4 id="28apache">2.8.编译安装Apache</h4>
+<p><strong>安装编译Apache所需的依赖和工具：</strong></p>
+<div class="highlight"><pre><span></span><code>dnf install -y \
+    wget \
+    tar \
+    gcc \
+    gcc-c++ \
+    make \
+    pcre-devel \
+    apr-devel \
+    apr-util-devel \
+    zlib-devel \
+    openssl-devel
+</code></pre></div>
+<p><strong>创建存放源码的目录，下载源码包并解压：</strong></p>
+<div class="highlight"><pre><span></span><code># 创建并进入源码目录
+mkdir -p ~/src &amp;&amp; cd ~/src
+
+# 下载httpd源码包
+wget https://mirrors.aliyun.com/apache/httpd/httpd-2.4.65.tar.gz
+
+# 解压源码包
+tar -zxvf httpd-2.4.65.tar.gz
+
+# 进入httpd目录
+cd httpd-2.4.65
+</code></pre></div>
+<p><strong>配置编译环境：</strong></p>
+<div class="highlight"><pre><span></span><code>./configure \
+    --prefix=/usr/local/apache2 \
+    --enable-so \
+    --enable-ssl \
+    --enable-cgi \
+    --enable-rewrite \
+    --with-zlib \
+    --with-pcre \
+    --with-mpm=event
+</code></pre></div>
+<ul>
+<li><code>--prefix=/usr/local/apache2</code>：指定安装路径。</li>
+<li><code>--enable-so</code>：启用动态模块支持。</li>
+<li><code>--enable-ssl</code>：启用 HTTPS 支持。</li>
+<li><code>--enable-cgi</code>：启用 CGI 支持。</li>
+<li><code>--enable-rewrite</code>：启用 URL 重写模块。</li>
+<li><code>--with-zlib</code>：启用<code>zlib</code>压缩库支持，用于内容压缩。</li>
+<li><code>--with-pcre</code>：启用<code>PCRE</code>支持，提供正则表达式能力。</li>
+<li><code>--with-mpm=event</code>：选择 <code>event</code> 模式的多线程处理模块。</li>
+</ul>
+<p><strong>编译并安装：</strong></p>
+<div class="highlight"><pre><span></span><code>make -j$(nproc)     #执行编译操作，根据makefile文件编译源代码
+
+make install        #将编译好的二进制文件、库文件、配置文件等复制到指定安装目录
+</code></pre></div>
+<p><strong>配置环境变量：</strong></p>
+<div class="highlight"><pre><span></span><code>echo &#39;export PATH=/usr/local/apache2/bin:$PATH&#39; &gt;&gt; ~/.bashrc
+# 将/usr/local/apache2/bin这个可执行文件添加到现有的环境变量中
+# ~/.bashrc是用户的配置文件，用来存储用户的环境变量
+# 该操作使用户可直接使用httpd命令
+
+source ~/.bashrc
+# 立即重新加载 ~/.bashrc 文件，使刚刚添加的 PATH 修改生效，而无需关闭并重新打开终端。
+</code></pre></div>
+<p><strong>启动、停止、重启Apache：</strong></p>
+<div class="highlight"><pre><span></span><code># 启动 Apache
+httpd -k start
+
+# 停止 Apache
+httpd -k stop
+
+# 重启 Apache
+httpd -k restart
+
+# 查看 Apache 配置文件是否有语法错误
+httpd -t
+
+netstat -tnlp | grep httpd
+
+curl 127.0.0.1
+</code></pre></div>
+<p><strong>报错处理：</strong></p>
+<div class="highlight"><pre><span></span><code>[root@Server1 httpd-2.4.62]# httpd -k start
+AH00558: httpd: Could not reliably determine the server&#39;s fully qualified domain name, using fe80::20c:29ff:fe86:8dab%ens33. Set the &#39;ServerName&#39; directive globally to suppress this message
+# 这个代表没有设置“ServerName”，编辑/usr/local/apache2/conf/httpd.conf，把Servername加上
+# 加上后再重启就可以了
+</code></pre></div>
+<hr />
+<h3 id="3php">3.PHP</h3>
+<p><code>Apache</code>默认只提供静态网页资源访问，无法提供动态应用程序的访问。通过<code>fastcgi</code>等方法可以使<code>Apache</code>支持动态应用程序。</p>
+<p><code>Apache</code>可以通过多种方式运行<code>PHP</code>，主要区别在于<code>PHP</code>解释器的集成方式：</p>
+<p><strong>mod_php模块（传统方法）：</strong></p>
+<ul>
+<li><code>PHP</code>作为<code>Apache</code>的一个模块直接加载</li>
+<li>每个<code>Apache</code>进程都内置了<code>PHP</code>解释器，紧紧捆绑在一起无法分开</li>
+<li>处理<code>PHP</code>请求的工作落到了<code>Apache</code>工作线程身上</li>
+<li>适合传统的共享主机环境</li>
+</ul>
+<p><strong>FastCGI模式（现代方式）：</strong></p>
+<ul>
+<li><code>PHP</code>通过<code>PHP-FPM(FastCGI Process Manager)</code>独立运行</li>
+<li><code>Apache</code>通过<code>mod_proxy_fcgi</code>模块与<code>PHP-FPM</code>通信</li>
+<li>该场景中<code>Apache</code>和<code>PHP</code>解耦，运行环境更灵活</li>
+</ul>
+<hr />
+<h4 id="31cgi">3.1.什么是CGI？</h4>
+<p><code>CGI</code>通用网关接口，是一种标准的接口规范，用于<code>Web</code>服务器与外部程序之间的通信，以实现动态网页的生成。<code>CGI</code>的优点是简单易懂，易于实现。但它的缺点也很明显，每次请求都需要启动一个新的进程进行处理，这会带来较大的性能开销，特别是在高并发的情况下。</p>
+<p><strong>CGI的处理流程：</strong></p>
+<ol>
+<li>客户端向<code>Web</code>服务器发送一个访问动态资源的请求。</li>
+<li><code>Web</code>服务器收到请求后，确定该请求需要调用<code>CGI</code>程序进行处理。</li>
+<li><code>Web</code>服务器启动一个新的进程来运行<code>CGI</code>程序，并将客户端<strong>请求</strong>相关信息通过环境变量和标准输入传递给<code>CGI</code>程序。</li>
+<li><code>CGI</code>程序从环境变量和标准输入中获取所需的数据，传递给后端进程如<code>PHP</code></li>
+<li><code>CGI</code>程序根据处理结果生成动态的<code>HTML</code>或其他类型的输出，并将其通过标准输出返回给<code>Web</code>服务器。</li>
+<li><code>Web</code>服务器获取<code>CGI</code>程序的输出，并将其作为响应发送回客户端的浏览器。</li>
+<li>浏览器接收并显示服务器返回的响应内容。</li>
+</ol>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251124141852900.png" /></p>
+<hr />
+<h4 id="32fastcgi">3.2.FastCGI</h4>
+<p><code>FastCGI</code>快速通用网关接口是一种通信协议和接口，用于在<code>Web</code>服务器和后端的应用程序之间进行高效的数据交换和处理。</p>
+<p><code>FastCGI</code>致力于减少<code>Web</code>服务器与<code>CGI</code>程序之间互动的开销，从而使服务器可以同时处理更多的<code>Web</code>请求。与为每个请求创建一个新的进程不同，<code>FastCGI</code>使用持续的进程来处理一连串的请求。这些进程由<code>FastCGI</code>进程管理器管理，而不是<code>Web</code>服务器。</p>
+<p><strong>FastCGI的处理流程：</strong></p>
+<ol>
+<li><code>Web</code>服务器启动时，会初始化<code>FastCGI</code>环境。</li>
+<li>当客户端发送动态网页请求到<code>Web</code>服务器时，<code>Web</code>服务器根据配置确定需要使用<code>FastCGI</code>来处理该请求。</li>
+<li><code>Web</code>服务器通过预先建立的网络连接（通常是<code>TCP</code>连接或<code>Unix Domain Socket</code>）将请求信息按照<code>FastCGI</code> 协议的格式发送给<code>FastCGI</code>进程。</li>
+<li><code>FastCGI</code>进程接收到请求后，进行解析和处理。它从接收到的数据中获取请求的方法、路径、参数等信息。</li>
+<li><code>FastCGI</code>进程根据请求执行相应的处理逻辑，可能包括与数据库交互、计算、生成动态内容等。</li>
+<li>处理完成后，<code>FastCGI</code>进程将响应的状态码、头部信息和主体内容按照<code>FastCGI</code>协议的格式通过网络连接回传给<code>Web</code>服务器。</li>
+<li>Web 服务器接收到<code>FastCGI</code>进程的响应，并将其发送给客户端。</li>
+</ol>
+<hr />
+<h4 id="33">3.3.套接字和端口方式的区别</h4>
+<p>在使用<code>PHP-FPM</code>时可以选择通过<code>Unix</code>套接字或<code>TCP</code>端口进行通信。两者各有优缺点，选择哪种方式主要取决于性能需求和部署环境。</p>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251124142447924.png" /></p>
+<hr />
+<h4 id="34php-fpm">3.4.PHP-FPM的本质</h4>
+<p><code>PHP-FPM</code>有三个身份：</p>
+<ol>
+<li><code>PHP</code>进程管理器</li>
+</ol>
+<div class="highlight"><pre><span></span><code>ps aux | grep php-fpm
+root      1234  0.0  0.1 123456  7890 ?        Ss   10:00   0:00 php-fpm: master process (/etc/php/8.1/fpm/php-fpm.conf)
+www-data  1235  0.0  0.5 234567 12345 ?        S    10:00   0:01 php-fpm: pool www
+www-data  1236  0.0  0.5 234567 12345 ?        S    10:00   0:01 php-fpm: pool www
+</code></pre></div>
+<ul>
+<li>主进程：管理所有<code>Worker</code>进程。</li>
+<li>
+<p>工作进程：实际处理<code>PHP</code>请求的工作进程。</p>
+</li>
+<li>
+<p><code>FastCGI</code>协议实现：使得<code>Web</code>服务器能够与<code>PHP</code>进程通信。</p>
+</li>
+<li>
+<p><code>PHP</code>解释器载体：每个<code>Worker</code>进程都包含完整的<code>PHP</code>解释器。</p>
+</li>
+</ul>
+<p><strong>完整请求处理流程：</strong></p>
+<div class="highlight"><pre><span></span><code>客户端请求
+    ↓
+Apache/Nginx (Web服务器)
+    ↓ 通过FastCGI协议通信
+PHP-FPM (主进程 + Worker进程)
+    ↓ Worker进程执行PHP代码
+PHP解释器
+    ↓
+返回HTML响应
+</code></pre></div>
+<hr />
+<h4 id="35mod_php">3.5.使用mod_php模式</h4>
+<p>通过在<code>Apache</code>上启用<code>PHP</code>模块，使<code>Apache</code>可以处理动态网页请求。</p>
+<p><strong>注意：</strong></p>
+<p>当你安装了<code>php</code>时，已经安装了<code>php-fpm</code>包了，此时如果你打开<code>httpd</code>后可以直接处理动态网页请求的话，极有可能当前是使用<code>FastCGI</code>进行处理的。</p>
+<p>可通过此命令<code>ps aux | grep php</code>进行查看，如果看到有 <code>php-fpm</code> 进程在运行，那么很可能是通过<code>PHP-FPM</code> 处理的。如果没有看到 <code>php-fpm</code> 进程，而看到了与<code>Apache</code>相关的<code>PHP</code>模块进程，那么可能是通过<code>Apache PHP</code>模块处理的。</p>
+<p>在没有安装<code>php-fpm</code>的情况下，我们只需要把<code>Apache</code>的工作模式调整成<code>prefork</code>即可。</p>
+<p><strong>疑问：</strong></p>
+<ol>
+<li>
+<p>为什么使用<code>mod_php</code>模块必须把模式调整为<code>perfork</code>呢？</p>
+</li>
+<li>
+<p><code>mod_php</code>的本质是将<code>php</code>的解释器直接嵌入到<code>apache</code>的进程中，每个<code>apache</code>子进程都会加载整个<code>php</code>环境。</p>
+</li>
+<li>
+<p><code>PHP</code>默认编译为<code>NTS</code>版本，该版本无法安全地在多线程环境中运行（<code>worker、event</code>），而<code>perfor</code>进程间隔离。</p>
+</li>
+<li>
+<p>为什么安装完<code>php</code>包后，就可以直接识别到<code>php</code>的文件呢？</p>
+</li>
+<li>当我们使用<code>yum</code>或<code>dnf</code>进行安装的时候，包管理器自动帮我们进行检测已经安装的<code>Web</code>服务器，安装对应的模块，生成对应的配置文件。</li>
+</ol>
+<p><strong>配置演示：</strong></p>
+<ol>
+<li>安装<code>Apache</code>和<code>PHP</code></li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# yum install httpd php -y
+[root@qyt-gujun ~]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>默认情况下，<code>PHP</code>使用<code>PHP-FPM</code>作为解释器：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# ps aux | grep php-fpm
+root        1784  0.0  0.5  35196 17548 ?        Ss   14:31   0:00 php-fpm: master process (/etc/php-fpm.conf)
+apache      1785  0.0  0.2  35716  8756 ?        S    14:31   0:00 php-fpm: pool www
+apache      1786  0.0  0.2  35716  8756 ?        S    14:31   0:00 php-fpm: pool www
+apache      1787  0.0  0.2  35716  8756 ?        S    14:31   0:00 php-fpm: pool www
+apache      1788  0.0  0.2  35716  8756 ?        S    14:31   0:00 php-fpm: pool www
+apache      1789  0.0  0.2  35716  8756 ?        S    14:31   0:00 php-fpm: pool www
+root        1970  0.0  0.0  22112  2260 pts/0    S+   14:31   0:00 grep --color=auto php-fpm
+</code></pre></div>
+<ol>
+<li>添加<code>php</code>测试页：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# echo &quot;&lt;?php phpinfo(); ?&gt;&quot; &gt; /var/www/html/test.php
+</code></pre></div>
+<p><img alt="image-20251124143257640" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251124143257812.png" /></p>
+<ol>
+<li>调整<code>Apache</code>的工作模型为<code>prefork</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# cat /etc/httpd/conf.modules.d/00-mpm.conf | grep -v &#39;#&#39;
+LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
+</code></pre></div>
+<ol>
+<li>此时重启<code>httpd</code>会报错，因为<code>prefork</code>模型对应的<code>php</code>模块配置文件支持的默认版本是<code>php7</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# vim /etc/httpd/conf.modules.d/15-php.conf
+&lt;IfModule !mod_php5.c&gt;
+  &lt;IfModule prefork.c&gt;
+    LoadModule php_module modules/libphp.so
+  &lt;/IfModule&gt;
+&lt;/IfModule&gt;
+
+[root@qyt-gujun ~]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>此时还不能解析<code>php</code>版本，需要修改<code>/etc/httpd/conf.d/php.conf</code>，注释掉<code>php-fpm</code>相关的配置，更改为使用<code>httpd</code>内置模块：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# vim /etc/httpd/conf.d/php.conf
+    &lt;FilesMatch \.(php|phar)$&gt;
+        #SetHandler &quot;proxy:unix:/run/php-fpm/www.sock|fcgi://localhost&quot;
+        SetHandler application/x-httpd-php
+    &lt;/FilesMatch&gt;
+
+[root@qyt-gujun ~]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>测试</li>
+</ol>
+<p><img alt="image-20251124143827646" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251124143827827.png" /></p>
+<hr />
+<h4 id="36php-fpm">3.6.使用PHP-FPM</h4>
+<p>默认情况下使用的就是<code>PHP-FPM</code>，如果你想从<code>mod_php</code>模式修改为<code>PHP-FPM</code>，只需要修改一个字段：</p>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# vim /etc/httpd/conf.d/php.conf
+    &lt;FilesMatch \.(php|phar)$&gt;
+        SetHandler &quot;proxy:unix:/run/php-fpm/www.sock|fcgi://localhost&quot;
+        #SetHandler application/x-httpd-php
+    &lt;/FilesMatch&gt;
+
+[root@qyt-gujun ~]# systemctl restart httpd
+</code></pre></div>
+<ul>
+<li><code>SetHandler</code> 指令用于指定请求的处理方式。</li>
+<li><code>proxy:unix:/run/php-fpm/www.sock</code> 表示通过 Unix 套接字 <code>/run/php-fpm/www.sock</code> 与 PHP-FPM 进行通信。</li>
+<li><code>fcgi://localhost</code> 则是另一种指定与本地的 FastCGI 进程进行通信的方式。</li>
+<li>所以在我们安装完php-fpm后，默认情况下使用套接字与本地的FastCGI进行通信，把PHP的请求交给本地PHP进行处理。</li>
+</ul>
+<hr />
+<p><strong>使用端口连接PHP-FPM：</strong></p>
+<ol>
+<li>修改<code>/etc/httpd/conf.d/php.conf</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# vim /etc/httpd/conf.d/php.conf
+    &lt;FilesMatch \.(php|phar)$&gt;
+        #SetHandler &quot;proxy:unix:/run/php-fpm/www.sock|fcgi://localhost&quot;
+        SetHandler &quot;proxy:fcgi://127.0.0.1:9000&quot;
+    &lt;/FilesMatch&gt;
+</code></pre></div>
+<ol>
+<li>修改<code>/etc/php-fpm.d/www.conf</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# vim /etc/php-fpm.d/www.conf
+;listen = /run/php-fpm/www.sock
+listen = 9000
+</code></pre></div>
+<ol>
+<li>重启<code>apache</code>和<code>php-fpm</code>：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# systemctl restart php-fpm
+[root@qyt-gujun ~]# systemctl restart httpd
+</code></pre></div>
+<ol>
+<li>测试：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[root@qyt-gujun ~]# netstat -tnulp | grep 9000
+tcp6       0      0 :::9000                 :::*                    LISTEN      2299/php-fpm: maste
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

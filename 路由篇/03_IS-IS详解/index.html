@@ -1,0 +1,4041 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../02_OSPF%E8%AF%A6%E8%A7%A3/">
+      
+      
+        <link rel="next" href="../04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>IS-IS详解 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#03_is-is" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              IS-IS详解
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1is-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.IS-IS概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.IS-IS概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11nsap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.NSAP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.NSAP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1.NET
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.多NET
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2is-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.IS-IS的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.IS-IS的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.区域划分
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.路由器的分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.网络类型概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.度量值
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.度量值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.默认值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242narrowwide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.Narrow与Wide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.自动计算开销
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.Cost的区域性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25is-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.IS-IS的三张表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5.IS-IS的三张表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1.邻居表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252lsdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2.LSDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.3.路由表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.报文
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6.报文">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261iihis-is-hello" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1.IIH（IS-IS Hello）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262lsplink-state-packet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2.LSP（Link-State Packet）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263csnpcomplete-sequence-number-pdu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3.CSNP（Complete Sequence Number PDU，完全序列号报文）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264psnppartial-sequence-number-pdu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.4.PSNP（Partial Sequence Number PDU，部分序列号报文）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27is-is-pdu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.IS-IS PDU的组成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7.IS-IS PDU的组成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.通用头部
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272tlv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.2.TLV
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.邻接关系
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.邻接关系">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.1.邻居状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.2.广播网络
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283dis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.3.DIS与伪节点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#284lsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.4.广播网络LSP同步过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#285" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.5.点到点网络
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#286lsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.6.点到点网络LSP同步过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#287spt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.7.SPT分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#288" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.8.邻居关系建立须知
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#289lsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.9.LSP的处理机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.进阶
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.进阶">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.路由计算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1.路由计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1.次优路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2.路由渗透
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313spt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3.SPT计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.4.默认路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.认证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.路由汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3.路由汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331level-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1.Level-1汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332level-1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2.Level-1-2汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333level-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.3.Level-2汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34silent-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.Silent-Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1is-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.IS-IS概述
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.IS-IS概述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11nsap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.NSAP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1.NSAP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.1.NET
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112net" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.2.多NET
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2is-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.IS-IS的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.IS-IS的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.区域划分
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.路由器的分类
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.网络类型概述
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.度量值
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.度量值">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.默认值
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242narrowwide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.Narrow与Wide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.自动计算开销
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.Cost的区域性
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25is-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.IS-IS的三张表
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5.IS-IS的三张表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1.邻居表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252lsdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2.LSDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.3.路由表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.报文
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6.报文">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261iihis-is-hello" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1.IIH（IS-IS Hello）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262lsplink-state-packet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2.LSP（Link-State Packet）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263csnpcomplete-sequence-number-pdu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3.CSNP（Complete Sequence Number PDU，完全序列号报文）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264psnppartial-sequence-number-pdu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.4.PSNP（Partial Sequence Number PDU，部分序列号报文）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27is-is-pdu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.IS-IS PDU的组成
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7.IS-IS PDU的组成">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.1.通用头部
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272tlv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.2.TLV
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.邻接关系
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.邻接关系">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.1.邻居状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.2.广播网络
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283dis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.3.DIS与伪节点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#284lsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.4.广播网络LSP同步过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#285" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.5.点到点网络
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#286lsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.6.点到点网络LSP同步过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#287spt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.7.SPT分析
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#288" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.8.邻居关系建立须知
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#289lsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.9.LSP的处理机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.进阶
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.进阶">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.路由计算
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1.路由计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1.次优路径
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2.路由渗透
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313spt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.3.SPT计算
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.4.默认路由
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.认证
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.路由汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3.路由汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331level-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1.Level-1汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332level-1-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2.Level-1-2汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333level-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.3.Level-2汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34silent-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.4.Silent-Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="03_is-is">03_IS-IS详解</h1>
+<h3 id="1is-is">1.IS-IS概述</h3>
+<p><code>IS-IS(Intermediate System to Intermediate System)</code>中间系统到中间系统，是一种<strong>链路状态路由协议</strong>，在运营商网络中被广泛使用。</p>
+<p><code>IS-IS</code>是<code>ISO(International Organization for Standardization)</code>国际标准化组织为它的<code>CLNP</code>无连接网络协议设计的一种动态路由协议。随着<code>TCP/IP</code>的流行，为了提供对<code>IP</code>路由的支持，<code>IETF</code>对其进行了扩充和修改，使它能够同时应用在<code>TCP/IP</code>和<code>OSI</code>中。扩展后的<code>IS-IS</code>，我们将其称为集成<code>IS-IS</code>。</p>
+<p><img alt="image-20250817215525476" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135027867.png" /></p>
+<hr />
+<p><code>IS-IS</code>与<code>OSPF</code>有很多相似之处：</p>
+<pre><code>运行`IS-IS`的直连设备之间会通过`Hello`报文发现彼此，然后建立邻居关系，并交互链路状态信息。在`IS-IS`中，链路状态信息叫做`LSP(Link-State Packet)`链路状态报文。每一台运行`IS-IS`的设备都会产生`LSP`，设备产生的`LSP`会被泛洪到网络中适当的范围，所有的设备都将自己产生的、以及网络中泛洪的`LSP`存储在自己的`LSDB`中。
+
+`IS-IS`设备基于自己的`LSDB`采用`SPF`算法进行计算，最终得到`IS-IS`路由信息。另外，与`OSPF`一样，`IS-IS`也支持层次化的网络架构，支持`VLSM`，支持手工路由汇总等功能。
+</code></pre>
+<hr />
+<p><strong>术语介绍：</strong></p>
+<p>以下的术语大多都是和<code>OSI</code>协议栈相关的：</p>
+<ul>
+<li><code>ISO</code>国际标准化组织：全球性非政府组织，<code>1946</code>年成立，促进各领域的标准化实现。<code>OSI</code>参考模型就是它的杰作。</li>
+<li>
+<p><code>IS(Intermediate System)</code>：指的是<code>OSI</code>中的路由器。</p>
+</li>
+<li>
+<p><code>IS-IS</code>中间系统到中间系统：用于在<code>IS</code>之间实现动态路由信息交互的协议。</p>
+</li>
+<li><code>CLNP</code>无连接网络协议：这是<code>OSI</code>的无连接网络协议，他与<code>TCP/IP</code>中的<code>IP</code>协议的功能类似。</li>
+<li><code>LSP</code>链路状态报文：这是<code>IS-IS</code>用于描述链路状态信息的关键数据，类似<code>OSPF</code>的<code>LSA</code>。</li>
+<li><code>LSP</code>分为两种：<code>Level-1</code>和<code>Level-2</code>。</li>
+</ul>
+<hr />
+<h4 id="11nsap">1.1.NSAP</h4>
+<p>在<code>TCP/IP</code>协议栈中，<code>IP</code>地址用于标识网络中的设备，从而实现网络层寻址。</p>
+<p>在<code>OSI</code>协议栈中，<code>NSAP</code>网络服务接入点被视为<code>CLNP</code>地址，它是一种用于在<code>OSI</code>协议栈中定位资源的地址。<code>IP</code>地址只用于标识设备，并不标识该设备的上层协议类型或服务类型，而<code>NSAP</code>地址中除了包含用于标识设备的地址信息，还包含用于表示上层协议类型或服务类型的内容，类似于<code>TCP/IP</code>中的<code>IP</code>地址与<code>TCP</code>或<code>UDP</code>端口号的组合。</p>
+<hr />
+<p><code>NSAP</code>地址由<code>IDP</code>初始域部分和<code>DSP</code>域指定部分两部分构成，而<code>IDP</code>及<code>DSP</code>这两部分又被进一步划分，如下图所示：</p>
+<p><img alt="image-20250817221055269" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135027856.png" /></p>
+<p>在<code>NSAP</code>地址中，<code>IDP</code>和<code>DSP</code>都是可变长的，这使得<code>NSAP</code>地址的总长度并不固定，最短为<code>8Byte</code>，最长则可以达到<code>20Byte</code>。</p>
+<ul>
+<li>
+<p><code>AFI(Authority and Format Identifier)</code>授权组织和格式标识符：长度为<code>1Byte</code>，用于标识地址分配机构。另外，该字段值同时也指定了地址的格式。一个在实验室环境中经常被使用到的<code>AFI</code>值为<code>49</code>，该值表示本地管理，即私有地址空间。</p>
+</li>
+<li>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">AFI值</th>
+<th style="text-align: center;">用途说明</th>
+<th style="text-align: center;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>49</strong></td>
+<td style="text-align: center;">私有地址（相当于IP中的192.168.0.0/16）</td>
+<td style="text-align: center;"><strong>最常用</strong>，企业/运营商私有网络</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>47</strong></td>
+<td style="text-align: center;">国际代码（ISO 3166国家代码）</td>
+<td style="text-align: center;">跨国组织（需注册）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>39</strong></td>
+<td style="text-align: center;">美国DOD代码</td>
+<td style="text-align: center;">军事/政府网络</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>00</strong></td>
+<td style="text-align: center;">本地管理（类似IPv6的FE80）</td>
+<td style="text-align: center;">实验室测试环境</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><code>IDI(Initial Domain Identifier)</code>初始域标识符：该字段用于表示域，其长度是可变的。</p>
+</li>
+<li>
+<p><code>DSP</code>高位部分：也就是<code>DSP</code>中的高比特位部分（在二进制数中，最靠近左边的比特位被视为高比特位），该字段的长度是可变的，它用于在一个域中进一步划分区域。</p>
+</li>
+<li>
+<p>系统ID<code>(system Identification)</code>：用于在一个区域内标识某台设备。在华为路由器上，系统<code>ID</code>的长度固定为<code>6Byte</code>，而且通常采用<code>16</code>进制呈现，例如<code>0122.a2f1.0031</code>。在网络部署过程中，必须保证域内设备的系统<code>ID</code>的唯一性。考虑到在以太网环境中，设备的<code>MAC</code>地址具有全局唯一性，而且正好长度也是<code>6Byte</code>，因此使用<code>MAC</code>地址作为系统<code>ID</code>也是一个不错的方案。</p>
+</li>
+<li>
+<p><code>NSEL</code>：长度为<code>1Byte</code>，用于标识上层协议类型或服务类型。</p>
+</li>
+</ul>
+<p>在<code>IS-IS</code>中，<code>NSAP</code>的<code>IDP</code>及<code>DSP</code>高位部分加在一起被称为区域地址，区域地址就是区域<code>ID</code>。</p>
+<p><img alt="image-20250817232500816" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135027864.png" /></p>
+<hr />
+<h5 id="111net">1.1.1.NET</h5>
+<p><code>NET(Network Entity Title)</code>网络实体名称，用于在网络层标识一台设备，可以简单看作<code>NSEL</code>为<code>0x00</code>的<code>NSAP</code>。由于<code>NSEL</code>为<code>0x00</code>，因此<code>NET</code>不标识任何上层协议类型，只用于标识设备本身。</p>
+<p>在<code>TCP/IP</code>环境中部署<code>IS-IS</code>，必须为每一台准备运行<code>IS-IS</code>的设备分配<code>NET</code>，否则<code>IS-IS</code>将无法正常工作。一旦网络管理员为一台设备指定了<code>NET</code>，该设备便可以从<code>Net</code>中解析出区域<code>ID</code>，以及设备的系统<code>ID</code>。系统<code>ID</code>相当于<code>OSPF</code>中的<code>Router-ID</code>。</p>
+<p>在<code>IS-IS</code>中<code>SPF</code>计算时通过<code>System-ID</code>识别拓扑节点。<code>Net</code>中的<code>Area-ID</code>决定路由器所属的<code>IS-IS</code>区域。</p>
+<div class="highlight"><pre><span></span><code>[Area ID] + [System ID] + [NSEL] 
+</code></pre></div>
+<p><img alt="image-20250817233020082" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135027859.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">方案</th>
+<th style="text-align: center;">实现方式</th>
+<th style="text-align: center;">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>MAC地址转换</strong></td>
+<td style="text-align: center;">使用设备MAC地址（去掉分隔符）</td>
+<td style="text-align: center;">小型网络</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>IPv4地址映射</strong></td>
+<td style="text-align: center;">将IPv4地址转为3段16进制（如10.1.1.1→<code>0a01.0101</code>）</td>
+<td style="text-align: center;">便于记忆</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>序列化编码</strong></td>
+<td style="text-align: center;">按设备部署顺序分配（0000.0001→0000.0002）</td>
+<td style="text-align: center;">大规模可扩展网络</td>
+</tr>
+</tbody>
+</table>
+<p>也可像如下方式配置：</p>
+<div class="highlight"><pre><span></span><code>49.0001.1921.6800.1001.00
+49.0001.0010.0100.1001.00
+</code></pre></div>
+<p><img alt="image-20250817234058343" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135027879.png" /></p>
+<p><strong>配置命令如下：</strong></p>
+<div class="highlight"><pre><span></span><code>isis 1
+    network-entity 49.0001.0000.0000.0001.00
+</code></pre></div>
+<p><strong>提问：</strong></p>
+<p>如果某台<code>IS-IS</code>设备配置了<code>NET</code>：<code>49.1524.2011.2102.0000.2192.00</code>，那么该设备所属的区域<code>ID</code>是（）？</p>
+<p>A.<code>49.1524.2011.2102.0000.2192</code></p>
+<p>B.<code>49.1524.2011.2102.0000</code></p>
+<p>C.<code>49.1524.2011.2102</code></p>
+<p>D.<code>49.1524.2011</code></p>
+<hr />
+<h5 id="112net">1.1.2.多NET</h5>
+<p>每台运行<code>IS-IS</code>的网络设备至少需要拥有一个<code>NET</code>，一台设备也可以同时配置多个<code>NET</code>，但是这些<code>NET</code>的<code>System ID</code>必须相同。</p>
+<p>多<code>NET</code>的作用大多是使用在<strong>区域迁移</strong>，当路由器需要从一个区域迁移到另一个区域时，同时保留旧<code>NET</code>和新<code>NET</code>，形成过渡期双区域身份，避免因突然变更<code>Area ID</code>导致邻居关系中断和路由震荡。</p>
+<p>其他情况可能是多区域融合或网络角色转换。</p>
+<hr />
+<h3 id="2is-is">2.IS-IS的基本概念</h3>
+<h4 id="21">2.1.区域划分</h4>
+<p>通过区域划分可在网络规模较大的情况下，减少泛洪所造成的开销与设备的负担。</p>
+<p><code>IS-IS</code>采用两级分层结构：骨干网络及常规区域。</p>
+<p>需要注意的是，<code>IS-IS</code>在区域上与<code>OSPF</code>不同：</p>
+<ul>
+<li><code>OSPF</code>以接口划分区域</li>
+<li><code>IS-IS</code>以设备划分区域</li>
+</ul>
+<p><img alt="image-20250818141528785" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135027872.png" /></p>
+<hr />
+<h4 id="22">2.2.路由器的分类</h4>
+<p>在<code>IS-IS</code>中根据路由器所处区域的不同，分为以下三种<code>IS-IS</code>路由器：</p>
+<p><img alt="image-20250818142040873" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028028.png" /></p>
+<ul>
+<li><code>Level-1</code>路由器：常规区域路由器。</li>
+<li>它只与属于同一区域的<code>Level-1</code>和<code>Level-1-2</code>路由器形成邻接关系，这种邻接关系称为<code>Level-1</code>邻接关系，<code>Level-1</code>路由器无法与<code>Level02</code>路由器建立邻接关系。</li>
+<li>
+<p><code>Level-1</code>路由器只负责维护<code>Level-1</code>的链路状态数据库<code>LSDB</code>，该<code>LSDB</code>只包含区本区域的路由信息。<code>Level-1</code>路由器想要访问其他区域时，前提必须通过<code>Level-1-2</code>路由器接入骨干区域。</p>
+</li>
+<li>
+<p><code>Level-2</code>路由器：骨干路由器。</p>
+</li>
+<li><code>Level-2</code>路由器可以与同一或者不同区域的<code>Level-2</code>路由器或者<code>Level-1-2</code>路由器形成邻接关系。<code>Level-2</code>路由器维护一个<code>Level-2</code>的<code>LSDB</code>，该<code>LSDB</code>包含整个<code>IS-IS</code>域的所有路由信息。</li>
+<li>
+<p>所有<code>Level-2</code>级别的路由器组成路由域的骨干网，负责在不同区域间通信。路由域中<code>Level-2</code>级别的路由器必须是物理连续的，以保证骨干网的连续性。</p>
+</li>
+<li>
+<p><code>Level-1-2</code>路由器：用于连接常规区域与骨干区域，类似于<code>ABR</code>。</p>
+</li>
+<li><code>Level-1-2</code>路由器维护两个<code>LSDB</code>。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR1-isis-1]is-level ?
+  level-1    Level-1
+  level-1-2  Level-1-2
+  level-2    Level-2
+</code></pre></div>
+<p>华为路由器默认的<code>IS-IS</code>路由器类型是<code>Level-1-2</code></p>
+<hr />
+<p><strong>总结：</strong></p>
+<ul>
+<li><code>Level-1</code>路由器只能与<strong>同区域的</strong><code>Level-1</code>和<code>Level-1-2</code>路由器建立邻接关系。</li>
+<li><code>Level-1</code>路由器默认只能学习到本区域的<code>LSP</code>和一条由<code>Level-1-2</code>路由器下发的默认路由。</li>
+<li><code>IS-IS</code>的骨干区域不仅仅以区域号规定，所有同区域或不同区域的<code>Level-2</code>路由器组成了骨干区域，但前提是它们彼此之间互联。</li>
+<li><code>Level-1-2</code>路由器的区域号应与其相连的<code>Level-1</code>路由器一致。</li>
+</ul>
+<hr />
+<h4 id="23">2.3.网络类型概述</h4>
+<p>在<code>IS-IS</code>中支持两种网络类型：</p>
+<ul>
+<li><code>Broadcast</code>广播</li>
+<li><code>p2p(Point-to-Point)</code>点到点</li>
+</ul>
+<p><img alt="image-20250818152509881" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028036.png" /></p>
+<p>当设备的接口激活<code>IS-IS</code>后，<code>IS-IS</code>会自动根据该接口的数据链路层封装决定接口的网络类型。</p>
+<p>不同的网络类型在实际邻居关系建立和<code>LSP</code>泛洪时都会有显著区别，与<code>OSPF</code>一样在广播类型的<code>IS-IS</code>中建立邻接关系时，存在一个类似于<code>DR/BDR</code>的概念，叫做<code>DIS</code>。</p>
+<hr />
+<h4 id="24">2.4.度量值</h4>
+<h5 id="241">2.4.1.默认值</h5>
+<p><code>IS-IS</code>与<code>OSPF</code>一样采用<code>Cost</code>作为路由度量值，<code>Cost</code>越小，路由越优。<code>IS-IS</code>的<code>Cost</code>也与设备的接口有关，每一个激活了<code>IS-IS</code>的接口都会维护接口<code>Cost</code>。</p>
+<p>但是，<code>IS-IS</code>接口的<code>Cost</code>在缺省情况下与接口的带宽无关！无论接口的带宽是多少，缺省<code>Cost</code>值均为<code>10</code>。虽然，你可以手动的根据自己的需求修改接口的<code>Cost</code>值。</p>
+<p>但是，这种设计方式在某些场景会存在问题，例如可能会导致设备选择<code>Cost</code>更优的低带宽路径，而不是选择<code>Cost</code>更差的高带宽路径。如下图：</p>
+<p><img alt="image-20250818154227532" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028050.png" /></p>
+<p><img alt="image-20250818161538963" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028053.png" /></p>
+<hr />
+<h5 id="242narrowwide">2.4.2.Narrow与Wide</h5>
+<p>在华为设备中默认使用的<code>IS-IS Cost</code>类型为<code>Narrow</code>，当使用这类<code>Cost</code>时，<code>IS-IS</code>接口<code>Cost</code>的长度为<code>6bit</code>，也就是说这个接口所支持的<code>Cost</code>值范围是<code>1-63</code>。</p>
+<p>另外，<code>Cost</code>的长度为<code>10 bit</code>，这就导致接收到的路由最大<code>Cost</code>值为<code>1023</code>。很显然，这在现网大规模网络下会成为瓶颈，完全是不够看的。</p>
+<p><img alt="image-20250818161610070" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028081.png" /></p>
+<p>所以，<code>IS-IS</code>引入了<code>Wide</code>类型的<code>Cost</code>，当<code>IS-IS</code>使用<code>Wide</code>类型的<code>Cost</code>时，接口<code>Cost</code>变成了<code>24bit</code>，这使得设备的接口支持更大的<code>Cost</code>值范围。命令如下：</p>
+<div class="highlight"><pre><span></span><code>isis 1
+cost-style wide
+</code></pre></div>
+<p>在现网中，需确保<code>IS-IS</code>域内所有的路由器配置一致的<code>IS-IS Cost</code>类型，否则会影响接收。</p>
+<p><img alt="image-20250818161641495" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028090.png" /></p>
+<hr />
+<h5 id="243">2.4.3.自动计算开销</h5>
+<p><code>IS-IS</code>接口默认<code>10</code>的<code>Cost</code>在某些场景下肯定是不合适的，<code>IS-IS</code>提供了自动计算接口<code>Cost</code>的功能。这个功能被激活后，设备将自动根据接口的带宽值进行该接口<code>Cost</code>值的计算，与<code>OSPF</code>类似。</p>
+<p>设备将使用参考带宽值（缺省<code>100Mbps</code>，可以在<code>IS-IS</code>视图下通过<code>bandwidth-reference</code>命令修改）除以接口的带宽值，再将所得结果乘以10，得到接口的<code>Cost</code>值。</p>
+<p>只有当<code>Cost</code>类型修改为<code>Wide</code>或<code>Wide-compatible</code>宽度量兼容模式时，上述计算才会发生，如果设备的<code>IS-IS Cost</code>类型为<code>Narrow、Narrow-compatible、Compatible</code>，则激活了自动接口<code>Cost</code>计算功能后，设备将采用下表所示的对应关系为接口设置缺省<code>Cost</code>值。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>接口带宽范围</strong></th>
+<th style="text-align: center;"><strong>Cost值</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">接口带宽 ≤ 10 Mbit/s</td>
+<td style="text-align: center;">60</td>
+</tr>
+<tr>
+<td style="text-align: center;">10 Mbit/s &lt; 带宽 ≤ 100 Mbit/s</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr>
+<td style="text-align: center;">100 Mbit/s &lt; 带宽 ≤ 155 Mbit/s</td>
+<td style="text-align: center;">40</td>
+</tr>
+<tr>
+<td style="text-align: center;">155 Mbit/s &lt; 带宽 ≤ 622 Mbit/s</td>
+<td style="text-align: center;">30</td>
+</tr>
+<tr>
+<td style="text-align: center;">622 Mbit/s &lt; 带宽 ≤ 2.5 Gbit/s</td>
+<td style="text-align: center;">20</td>
+</tr>
+<tr>
+<td style="text-align: center;">带宽 &gt; 2.5 Gbit/s</td>
+<td style="text-align: center;">10</td>
+</tr>
+</tbody>
+</table>
+<p>在<code>IS-IS</code>视图下，执行<code>auto-cost enable</code>命令后，可激活自动计算接口<code>Cost</code>的功能。默认未开启。</p>
+<p><img alt="image-20250818161812963" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028193.png" /></p>
+<hr />
+<h5 id="244cost">2.4.4.Cost的区域性</h5>
+<p>当你手动修改<code>Cost</code>值时需要注意，加上<code>level-1</code>关键字，那么该命令配置的接口的<code>Level-1 Cost</code>值，如果加上<code>level-2</code>关键字，那么该命令配置的是接口的<code>Level-2 Cost</code>。如果你没加上这两个关键字，默认则是两个都修改了。</p>
+<p><img alt="image-20250818162021114" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028198.png" /></p>
+<hr />
+<h4 id="25is-is">2.5.IS-IS的三张表</h4>
+<p>与<code>OSPF</code>一样，<code>IS-IS</code>也维护着三张非常重要的数据表：</p>
+<h5 id="251">2.5.1.邻居表</h5>
+<p>两台直连的<code>IS-IS</code>设备首先必须建立邻居关系，然后才能够开始交互<code>LSP</code>。<code>IS-IS</code>将设备直连链路上发现的邻居加载到自己的邻居表中。</p>
+<p>使用命令<code>display isis peer</code>命令可查看设备的<code>IS-IS</code>邻居表，在邻居表中能够看到邻居的系统<code>ID</code>、状态、保活时间及类型等信息。</p>
+<p><img alt="image-20250818173121652" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028212.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>参数</strong></th>
+<th style="text-align: center;"><strong>说明</strong></th>
+<th style="text-align: center;"><strong>示例值/状态</strong></th>
+<th style="text-align: center;"><strong>重要性</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>System Id</strong></td>
+<td style="text-align: center;">邻居路由器的唯一标识符，格式为6字节的MAC地址（通常以点分十六进制表示）。</td>
+<td style="text-align: center;"><code>0000.0000.0002</code></td>
+<td style="text-align: center;">用于唯一标识IS-IS网络中的设备，类似OSPF中的Router ID。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Interface</strong></td>
+<td style="text-align: center;">本地与邻居建立IS-IS邻接关系的物理或逻辑接口。</td>
+<td style="text-align: center;"><code>GE0/0/0</code></td>
+<td style="text-align: center;">帮助定位连接的具体链路（如千兆以太网接口）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Circuit Id</strong></td>
+<td style="text-align: center;">IS-IS电路的标识符，由本地路由器的System ID + 两位数字组成，标识链路在拓扑中的逻辑编号。</td>
+<td style="text-align: center;"><code>0000.0000.0001.02</code></td>
+<td style="text-align: center;">用于区分同一设备上的不同邻接关系（如多链路场景）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>State</strong></td>
+<td style="text-align: center;">邻接关系的当前状态： • <code>Up</code>：邻接正常，可交换路由信息。 • <code>Init</code>或<code>Down</code>：邻接异常。</td>
+<td style="text-align: center;"><code>Up</code></td>
+<td style="text-align: center;">直接反映邻居连通性，<code>Up</code>是正常通信的前提。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>HoldTime</strong></td>
+<td style="text-align: center;">邻居保持时间（秒），表示在收到下一个Hello报文前，邻居关系将保持的有效时间。超时后邻接断开。</td>
+<td style="text-align: center;"><code>24s</code></td>
+<td style="text-align: center;">需与Hello间隔配合，若持续递减到0，说明邻居通信故障。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type</strong></td>
+<td style="text-align: center;">邻居的层级类型： • <code>L1</code>：Level-1路由器（同一区域） • <code>L2</code>：Level-2路由器（骨干区域） • <code>L1L2</code>：同时支持。</td>
+<td style="text-align: center;"><code>L2</code></td>
+<td style="text-align: center;">决定路由传递范围： • <code>L2</code>邻居参与区域间路由，<code>L1</code>仅限本区域。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>PRI</strong></td>
+<td style="text-align: center;">邻居的DIS（指定中间系统）选举优先级，范围0-127，值越高越优先成为广播网络中的DIS。</td>
+<td style="text-align: center;"><code>64</code></td>
+<td style="text-align: center;">仅影响广播网络（如以太网）中的DIS选举，点对点链路中无效。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Total Peer(s)</strong></td>
+<td style="text-align: center;">当前IS-IS进程的邻居总数。</td>
+<td style="text-align: center;"><code>1</code></td>
+<td style="text-align: center;">快速确认网络规模或邻接状态是否完整（如预期应有多个邻居但显示1，可能配置错误）。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="252lsdb">2.5.2.LSDB</h5>
+<p>在邻居关系建立完成且<code>LSP</code>交互后，<code>IS-IS</code>设备将自己产生的、以及网络中所泛洪的<code>LSP</code>收集后存储在自己的<code>LSDB</code>中。与<code>OSPF</code>类似，<code>IS-IS</code>也使用<code>LSDB</code>存储链路状态信息，这些信息将被用于网络拓扑绘制及路由计算。</p>
+<p><img alt="image-20250818173737347" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028228.png" /></p>
+<p>由于<code>R1</code>是一台<code>Level-2</code>的路由器，所以它只维护<code>Level-2</code>的<code>LSDB</code>，从以上信息可以看出，<code>R1</code>的<code>Level-2 LSDB</code>中存在三个<code>LSP</code>。</p>
+<p>每个<code>LSP</code>都采用<code>LSP ID(Link-State Packet ID</code>链路状态报文标识)进行标识，<code>LSP</code>由三部分组成：</p>
+<ul>
+<li>系统<code>ID</code>6个字节：产生该<code>LSP</code>的<code>IS-IS</code>路由器的系统<code>ID</code>。</li>
+<li>伪节点<code>ID</code>1个字节：该字段值存在<code>0</code>或非<code>0</code>两种情况。对于普通的<code>LSP</code>，该字段总是<code>0</code>。对于伪节点<code>LSP</code>，<code>DIS</code>负责为该字段分配一个非<code>0</code>的值。</li>
+<li>分片号1个字节：如果<code>LSP</code>过大，导致始发设备需要对其进行分片，那么该设备通过为每个<code>LSP</code>分片设置不同的分片号来对它们进行标识及区分。同一个<code>LSP</code>的不同分片必须拥有相同的系统<code>ID</code>及伪节点<code>ID</code>。</li>
+</ul>
+<p><img alt="image-20250818180645599" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028241.png" /></p>
+<p>如果<code>LSPID</code>后有<code>*</code>号，代表该<code>LSP</code>是本设备产生的。</p>
+<p><code>Seq Num</code>与<code>OSPF</code>中<code>LSA</code>的序列号概念非常相似，用来表示一个<code>LSP</code>的新旧。</p>
+<hr />
+<h5 id="253">2.5.3.路由表</h5>
+<p>每台<code>IS-IS</code>设备都会基于自己的<code>LSDB</code>运行相应的算法，最终计算出最优路由。<code>IS-IS</code>计算出的路由存放在<code>IS-IS</code>路由表中，通过<code>display isis route</code>命令可以查看设备的<code>IS-IS</code>路由表。</p>
+<p><code>IS-IS</code>路由表中的路由未必最终一定被加载到设备的全局路由表，这还取决于路由优先级等因素。</p>
+<p><img alt="image-20250818181105216" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028254.png" /></p>
+<hr />
+<h4 id="26">2.6.报文</h4>
+<p><code>IS-IS</code>的协议报文直接采用数据链路层封装，所以<code>IS-IS</code>相比<code>OSPF</code>少了<code>IP</code>层的封装，相比之下<code>IS-IS</code>报文的封装效率更高。</p>
+<p>在以太网环境中，<code>IS-IS</code>报文载荷直接封装在以太网数据帧中。<code>IS-IS</code>使用了以下几种<code>PDU(Protocol Data Unit)</code>协议数据单元：</p>
+<hr />
+<h5 id="261iihis-is-hello">2.6.1.IIH（IS-IS Hello）</h5>
+<p><code>IIH PDU</code>用于建立及维护<code>IS-IS</code>的邻居关系。在<code>IS-IS</code>中存在三种<code>IIH PDU</code>：</p>
+<ul>
+<li><code>Level-1 LAN IIH</code>：广播，<code>Level-1</code>设备</li>
+<li>
+<p><code>Level-2 LAN IIH</code>：广播，<code>Level-2</code>设备</p>
+</li>
+<li>
+<p><code>P2P IIH</code>：点到点</p>
+</li>
+</ul>
+<p><img alt="image-20250819190346562" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028356.png" /></p>
+<p>如果设备类型为<code>Level-1-2</code>，在缺省情况下，它在<code>Broadcast</code>类型的接口上发送及侦听这两种类型的<code>LAN IIH</code>。</p>
+<p><strong>时间：</strong></p>
+<p><strong>广播网络：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">默认值</th>
+<th style="text-align: center;">华为CLI配置命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Hello Interval</td>
+<td style="text-align: center;">10秒</td>
+<td style="text-align: center;"><code>isis timer hello 10</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">Hello Multiplier</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><code>isis timer holding-multiplier 3</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">Dead Time</td>
+<td style="text-align: center;">30秒</td>
+<td style="text-align: center;">自动计算（10×3）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>点到点网络：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">默认值</th>
+<th style="text-align: center;">华为CLI配置命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Hello Interval</td>
+<td style="text-align: center;">10秒</td>
+<td style="text-align: center;"><code>isis timer hello 10</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">Hello Multiplier</td>
+<td style="text-align: center;">3</td>
+<td style="text-align: center;"><code>isis timer holding-multiplier 3</code></td>
+</tr>
+<tr>
+<td style="text-align: center;">Dead Time</td>
+<td style="text-align: center;">30秒</td>
+<td style="text-align: center;">自动计算（10×3）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dead Time = Hello Interval × Hello Multiplier</strong></p>
+<ul>
+<li><strong>Hello Interval</strong>：发送Hello报文的时间间隔（默认10秒）。</li>
+<li><strong>Hello Multiplier</strong>：乘数因子（默认3）。</li>
+<li><strong>Dead Time</strong>：若在此时间内未收到Hello，则认为邻居失效（默认10×3=30秒）</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR2-GigabitEthernet0/0/0]isis timer ?
+  csnp                Set CSNP packet sending interval
+  hello               Set hello packet sending interval
+  holding-multiplier  Set holding multiplier value
+  ldp-sync            Ldp-Sync
+  lsp-retransmit      Set retransmission interval of the same LSP packet on P2P 
+                      links
+  lsp-throttle        Set minimum interval between sending a batch of LSPs or 
+</code></pre></div>
+<hr />
+<h5 id="262lsplink-state-packet">2.6.2.LSP（Link-State Packet）</h5>
+<p><code>IS-IS</code>使用<code>LSP</code>承载链路状态信息，<code>LSP</code>类似<code>OSPF</code>中的<code>LSA</code>。</p>
+<p><code>LSP</code>存在<code>Level-1 LSP</code>及<code>Level-2 LSP</code>之分，具体发送哪一种<code>LSP</code>视<code>IS-IS</code>邻居关系的类型而定。</p>
+<p><img alt="image-20250820132136747" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028440.png" /></p>
+<ul>
+<li><code>PDU</code>长度（<code>PDU Length</code>）：指示该<code>PDU</code>的总长度（单位字节）</li>
+<li>剩余生存时间（<code>Remaining Lifetime</code>）：指示该<code>LSP</code>的剩余存活时间（单位为秒）</li>
+<li><code>LSP</code>标识符（<code>LSP ID</code>）：<code>LSP ID</code>由三部分组成：该设备的系统<code>ID</code>、伪节点<code>ID</code>、分片编号。</li>
+<li>序列号（<code>Sequence Number</code>）：该<code>LSP</code>的序列号。在<code>IS-IS</code>中，<code>LSP</code>序列号的作用与<code>OSPF</code>中<code>LSA</code>序列号的作用类似，主要用于区分<code>LSP</code>的新旧。</li>
+<li>校验和（<code>Checksum</code>）：校验和。</li>
+<li><code>P(Partition Repair)</code>：如果设备支持区域划分修复特性，则其产生的<code>LSP</code>中该比特位将被设置为1。</li>
+<li><code>ATT(Attached bits)</code>：关联位，实际上该字段共包含四个比特位（分别对应四种度量值类型），华为只使用了其中一个比特位（<code>Default Metric</code>）。</li>
+<li>如果<code>Level-1-2</code>路由器连接着<code>IS-IS</code>骨干网时，会在自己产生的<code>Level-1 LSP</code>中，将<code>ATT</code>置1。</li>
+<li><code>OL(Overload bit)</code>：过载位。正常情况下，<code>IS-IS</code>设备产生的<code>LSP</code>中该比特位被设置位<code>0</code>；如果该比特位被设置为<code>1</code>，则意味着该<code>LSP</code>的始发设备希望通过该比特位声明自己已经“过载”，而收到该<code>LSP</code>的其他<code>IS-IS</code>设备在进行路由计算时，只会计算到达该<code>LSP</code>始发设备的直连路由，而不会计算穿越该设备、到达远端目的网段的路由。</li>
+<li><code>IS</code>类型（<code>IS Type</code>）：用于指示产生该<code>LSP</code>的路由器是<code>Level-1</code>还是<code>Level-2</code>类型，如果该字段值为二进制<code>01</code>，则表示<code>Level-1</code>路由器；如果为二进制的<code>11</code>，则表示<code>Level-2</code>路由器。</li>
+</ul>
+<hr />
+<h5 id="263csnpcomplete-sequence-number-pdu">2.6.3.CSNP（Complete Sequence Number PDU，完全序列号报文）</h5>
+<p><code>CSNP</code>存在<code>Level-1 CSNP</code>与<code>Level-2 CSNP</code>之分，不同的<code>IS-IS</code>邻居关系交互不同类型的<code>CSNP</code>。</p>
+<p>一个<code>IS-IS</code>设备发送的<code>CSNP</code>包含该设备<code>LSDB</code>中所有的<code>LSP</code>摘要。<code>CSNP</code>主要用于确保<code>LSDB</code>的同步，与<code>OSPF</code>的<code>DD</code>报文类似。</p>
+<p><code>CSNP</code>包含<code>LSDB</code>中所有<code>LSP</code>的摘要信息，一条摘要信息包含四个重要信息：</p>
+<ul>
+<li><code>LSP ID</code></li>
+<li>序列号</li>
+<li>剩余生存时间</li>
+<li>校验和</li>
+</ul>
+<p><strong>在广播网络中，<code>CSNP</code>由<code>DIS</code>定期发送（缺省的发送周期为<code>10s</code>）。</strong></p>
+<p><strong>在点到点网络上，<code>CSNP</code>只在第一次建立邻接关系时发送。</strong></p>
+<p><img alt="image-20250820133533764" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028436.png" /></p>
+<hr />
+<h5 id="264psnppartial-sequence-number-pdu">2.6.4.PSNP（Partial Sequence Number PDU，部分序列号报文）</h5>
+<p><code>PSNP</code>存在<code>Level-1 PSNP</code>与<code>Level-2 PSNP</code>之分，与<code>CSNP</code>不同，<code>PSNP</code>中只包含部分<code>LSP</code>的摘要信息。<code>PSNP</code>主要用于请求<code>LSP</code>更新。</p>
+<p>另外，<code>PSNP</code>还用于在<code>P2P</code>网络中对收到的<code>LSP</code>进行确认，所以，类似于<code>OSPF</code>的<code>LSR</code>及<code>LSAck</code>。</p>
+<p>当<code>IS-IS</code>路由器发现<code>LSDB</code>不同步时，发送<code>PSNP</code>来请求邻居发送新的<code>LSP</code>。</p>
+<p>在点到点网络中，当收到<code>LSP</code>时，使用<code>PSNP</code>对收到的<code>LSP</code>进行确认。</p>
+<p><img alt="image-20250820133725122" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028439.png" /></p>
+<hr />
+<h4 id="27is-is-pdu">2.7.IS-IS PDU的组成</h4>
+<p><code>IS-IS PDU</code>由三部分组成：</p>
+<ul>
+<li>通用头部</li>
+<li><code>PDU</code>特有头部：取决于<code>PDU</code>类型，如<code>IIH、LSP、SNP</code></li>
+<li><code>TLV</code></li>
+</ul>
+<p><img alt="image-20250819191153481" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028474.png" /></p>
+<hr />
+<h5 id="271">2.7.1.通用头部</h5>
+<p><img alt="image-20250819194413497" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028468.png" /></p>
+<p><img alt="image-20250819195007636" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028537.png" /></p>
+<hr />
+<h5 id="272tlv">2.7.2.TLV</h5>
+<p><code>TLV（Type-Length-Value）</code>是<code>IS-IS</code>协议的核心设计机制，其核心作用是 <strong>以灵活、可扩展的方式封装协议数据</strong>，使 <code>IS-IS</code> 能够适应复杂的网络需求（如多协议支持、动态拓扑变化等）。</p>
+<ol>
+<li>
+<p><strong>灵活扩展：</strong>无需修改协议头部即可支持新功能（如<code>IPv6</code>，流量工程等）</p>
+</li>
+<li>
+<p><strong>动态适配：</strong>不同类型的数据（如邻居、<code>IP</code>地址、认证信息）通过独立的<code>TLV</code>封装，互补干扰。</p>
+</li>
+<li><strong>高效解析与兼容性：</strong>接收方通过<code>Type</code>字段快速识别<code>TLV</code>类型，仅处理支持的<code>TLV</code>，忽略未知类型。</li>
+</ol>
+<p><code>TLV(Type-Length-Value)</code>：每个元素的描述如下：</p>
+<ul>
+<li>类型（<code>Type</code>）：该字段的长度为<code>1Byte</code>，它标识了这个<code>TLV</code>的类型，<code>IS-IS</code>定义了丰富的<code>TLV</code>类型，不同的<code>TLV</code>类型用于携带不同的信息。</li>
+<li>长度<code>Length</code>：该字段的长度为<code>1Byte</code>，它存储的数据用于指示后面的值的长度。由于不同的<code>TLV</code>类型所描述的信息不同，因此信息的长度可能也有所不同，本字段指示了该<code>TLV</code>中值的长度。</li>
+<li>值<code>value</code>：该字段的长度是可变的，所占用的字节数在长度字段中描述。本字段的值就是该<code>TLV</code>所携带的有效内容。</li>
+</ul>
+<p><code>TLV</code>就类似于<strong>模块</strong>，当需要什么功能时，添加对应的模块即可。</p>
+<table>
+<thead>
+<tr>
+<th><strong>TLV</strong> <strong>Type</strong></th>
+<th><strong>名称</strong></th>
+<th><strong>PDU</strong>类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Area Addresses                                      区域地址</td>
+<td>IIH、 LSP</td>
+</tr>
+<tr>
+<td>2</td>
+<td>IS Neighbors（LSP）                               中间系统邻接</td>
+<td>LSP</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Partition Designated Level2 IS                区域分段指定L2中间系统</td>
+<td>L2 LSP</td>
+</tr>
+<tr>
+<td>6</td>
+<td>IS Neighbors（MAC Address）                        中间系统邻接</td>
+<td>LAN IIH</td>
+</tr>
+<tr>
+<td>7</td>
+<td>IS Neighbors（SNPA Address）                       中间系统邻接</td>
+<td>LAN IIH</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Padding                                              填充</td>
+<td>IIH</td>
+</tr>
+<tr>
+<td>9</td>
+<td>LSP Entries                                         LSP条目</td>
+<td>SNP</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Authentication Information                             验证信息</td>
+<td>IIH、 LSP、 SNP</td>
+</tr>
+<tr>
+<td>128</td>
+<td>IP Internal Reachability Information                 IP内部可达性信息</td>
+<td>LSP</td>
+</tr>
+<tr>
+<td>129</td>
+<td>Protocols Supported                                 支持的协议</td>
+<td>IIH、 LSP</td>
+</tr>
+<tr>
+<td>130</td>
+<td>IP External Reachability Information                IP外部可达性信息</td>
+<td>LSP</td>
+</tr>
+<tr>
+<td>131</td>
+<td>Inter-Domain Routing Protocol Information        域间路由选择协议信息</td>
+<td>L2 LSP</td>
+</tr>
+<tr>
+<td>132</td>
+<td>IP Interface Address                                 IP接口地址</td>
+<td>IIH、 LSP</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="28">2.8.邻接关系</h4>
+<h5 id="281">2.8.1.邻居状态机</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>状态</strong></th>
+<th style="text-align: center;"><strong>触发条件</strong></th>
+<th style="text-align: center;"><strong>行为说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Down</strong></td>
+<td style="text-align: center;">初始状态或邻居超时</td>
+<td style="text-align: center;">不发送Hello，不生成LSP</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Init</strong></td>
+<td style="text-align: center;">收到对端Hello但未包含本端System ID</td>
+<td style="text-align: center;">等待对端确认（广播网络需检查两次Hello）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Up</strong></td>
+<td style="text-align: center;">收到包含本端System ID的Hello</td>
+<td style="text-align: center;">邻接建立完成，开始同步LSDB（广播网络选举DIS）</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="282">2.8.2.广播网络</h5>
+<p>在广播网络中，使用三次握手建立邻接关系。</p>
+<p><img alt="image-20250819223249388" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028618.png" /></p>
+<ol>
+<li>假设<code>R1</code>率先在<code>GE0/0/0</code>接口上激活了<code>IS-IS</code>，由于<code>R1</code>是<code>Level-1</code>路由器，因此它的<code>GE0/0/0</code>接口的<code>Level</code>为<code>Level-1</code>，它将在该接口上周期性地发送<code>Level-1 LAN IIH</code>，这些<code>PDU</code>以组播地形式发送，目的<code>MAC</code>地址是<code>0180-c200-0014</code>，该<code>Level-1 LAN IIH</code>中记录了<code>R1</code>的系统<code>ID</code> <code>(0000.0000.0001)</code>，还包含多个<code>TLV</code>，其中区域地址<code>TLV</code>记录了<code>R1</code>的区域<code>ID</code> （<code>49.0012</code>）。</li>
+<li><code>R2</code>在其<code>GE0/0/0</code>接口上收到了<code>R1</code>发送的<code>IIH</code>，它会针对<code>PDU</code>中的相关内容进行检查（比如是否处在相同区域），检查通过后，<code>R2</code>其<code>IS-IS</code>邻居表中将<code>R1</code>的状态设置为<code>Init</code>，并在自己发送的<code>IIH</code>报文中增加<code>IS</code>邻居<code>TLV</code>，在该<code>TLV</code>中写入<code>R1</code>的接口<code>MAC</code>地址。</li>
+<li><code>R1</code>收到<code>R2</code>发送的含有<code>R1 GE0/0/0</code>接口<code>MAC</code>地址的<code>IIH</code>报文后，在其<code>IS-IS</code>邻居表中将<code>R2</code>的状态设置为<code>UP</code>，然后发送包含对端设备<code>MAC</code>地址的<code>IIH</code>报文。</li>
+<li><code>R2</code>收到该<code>IIH</code>后，在其<code>IS-IS</code>邻居表中将<code>R1</code>的状态设置为<code>UP</code>。双方的邻居状态到此建立完毕。</li>
+</ol>
+<p>本例使用的是<code>Level-1</code>邻居关系的建立过程为例，<code>Level-2</code>除了使用<code>Level-2 LAN IIH</code>建立邻居关系以及<code>MAC</code>地址为<code>0180-c200-0015</code>外其他没区别。</p>
+<p><strong>实验观察：</strong></p>
+<p><img alt="image-20250819232224811" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028608.png" /></p>
+<p><img alt="image-20250819232626700" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028648.png" /></p>
+<p><img alt="image-20250819232712200" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028661.png" /></p>
+<p><img alt="image-20250819232758912" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028683.png" /></p>
+<p><img alt="image-20250819232835713" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028698.png" /></p>
+<p><strong>抓包发现</strong>：邻居关系建立完成后，过了一段时间<code>DIS</code>才同步。</p>
+<p><img alt="image-20250819233048203" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028770.png" /></p>
+<hr />
+<h5 id="283dis">2.8.3.DIS与伪节点</h5>
+<p>在广播网络中，<code>IS-IS</code>需要在所有的路由器中选举一个路由器作为<code>DIS(Designated Intermediate System,指定中间系统)</code>。<code>DIS</code>的概念与<code>OSPF</code>中的<code>DR</code>很像，主要作用是在<code>LAN</code>中虚拟出一个<strong>伪节点</strong>，并产生伪节点<code>LSP</code>，用来描述这个网络上有哪些网络设备。</p>
+<p>生成了伪节点后，设备仅需在其泛洪的<code>LSP</code>中描述自己与伪节点的邻居关系即可，无需再描述自己与其他非为节点的邻居关系。</p>
+<p>以下图为例，本身对于<code>R1</code>它需要泛洪三条<code>LSP</code>用来描述它的所有邻居关系，但现在只需要一条。</p>
+<p><img alt="image-20250819225446104" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028866.png" /></p>
+<p>伪节点<code>LSP</code>用于描述伪节点与<code>LAN</code>中所有设备（包括<code>DIS</code>）的邻居关系，从而区域内的其他<code>IS-IS</code>设备能够根据伪节点<code>LSP</code>计算出该<code>LAN</code>内的拓扑。伪节点<code>LSP</code>由<code>DIS</code>生成。</p>
+<p>所以，伪节点及伪节点<code>LSP</code>减小了网络中所泛洪的<code>LSP</code>的体积，另外，当拓扑发生变化，网络中需要泛洪的<code>LSP</code>数量也减少了，对设备造成的负担自然也就相应减小了。</p>
+<p>为了确保<code>LSDB</code>的同步，<code>DIS</code>会在<code>LAN</code>内周期性地泛洪<code>CSNP</code>，<code>LAN</code>中地其他设备收到该<code>CSNP</code>后，会执行一致性检查，以确保本地<code>LSDB</code>与<code>DIS</code>同步。</p>
+<p><code>DIS</code>周期性发送<code>CSNP</code>的时间间隔为<code>10s</code>，可以在<code>DIS</code>相应的接口上使用<code>isis timer csnp</code>命令修改。可以加上<code>Level1</code>或<code>Level2</code>参数，指定对什么类型生效，如果不加，则对当前级别的生效。</p>
+<hr />
+<p><strong>选举规则</strong></p>
+<ol>
+<li>比较接口<code>DIS</code>优先级，优先级最高的设备称为该<code>LAN</code>的<code>DIS</code>。<code>DIS</code>优先级数值越大，则优先级越高。</li>
+<li>如果<code>DIS</code>优先级相等，则接口<code>MAC</code>地址最大设备将成为该<code>LAN</code>的<code>DIS</code>。</li>
+</ol>
+<p>接口的默认<code>DIS</code>优先级为<code>64</code>，可通过在接口视图下执行<code>isis dis-priority</code>命令修改接口的<code>DIS</code>优先级，取值范围为<code>0-127</code>。修改优先级时，可指定<code>level-1</code>或<code>level-2</code>参数，若未指定则同时修改。另外，即使接口的<code>DIS</code>优先级设置为<code>0</code>，该设备依旧会参与<code>DIS</code>选举。</p>
+<hr />
+<p><strong>其他</strong></p>
+<ul>
+<li>非<code>DIS</code>依旧会与其他所有该<code>LAN</code>中的<code>IS-IS</code>设备建立邻居关系，所以，<code>DIS</code>其实并没有减少<code>LAN</code>中的邻居关系数量。</li>
+<li>在一个<code>LAN</code>中，<code>Level-1</code>及<code>Level-2</code>的<code>DIS</code>独立选举，互补干扰。</li>
+<li><code>IS-IS</code>没有定义备份<code>DIS</code>，当<code>DIS</code>发生故障时，立即启动新的<code>DIS</code>选举过程。</li>
+<li><code>DIS</code>可以抢占，即使已经选举出<code>DIS</code>，如果有优先级更高的，则该设备将抢占当前<code>DIS</code>的角色，成为新的<code>DIS</code>。</li>
+</ul>
+<hr />
+<p><strong>实验：</strong></p>
+<p><img alt="image-20250819233428776" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028859.png" /></p>
+<p><img alt="image-20250819233929797" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028874.png" /></p>
+<hr />
+<h5 id="284lsp">2.8.4.广播网络LSP同步过程</h5>
+<p><strong>端到端建立的情况</strong></p>
+<p><img alt="image-20250820134117148" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028881.png" /></p>
+<p>当<code>AR1</code>与<code>AR2</code>成功建立完成邻居关系后，就开始<code>LSP</code>的交互过程。</p>
+<ol>
+<li>一旦双方邻居进入<code>up</code>状态后，即泛洪自己的<code>LSP</code>。</li>
+<li>其中，<code>DIS</code>泛洪的<code>LSP</code>是为了描述当前<code>LAN</code>中的所有路由器。</li>
+<li>其他，<code>LSP</code>都是真正的由<code>IS-IS</code>路由器泛洪出来的<strong>路由信息</strong>。</li>
+</ol>
+<p><img alt="image-20250820140106367" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028884.png" /></p>
+<p><img alt="image-20250820140259619" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135028919.png" /></p>
+<p><img alt="image-20250820140321647" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029018.png" /></p>
+<ol>
+<li><code>DIS</code>负责周期性（默认<code>10s</code>）发送<code>CSNP</code>报文（<code>LSDB</code>摘要），告知当前<code>LAN</code>中所有路由器。</li>
+<li>如果，其他路由器在对比<code>CSNP</code>后发现自己少了某些路由，会组播发送<code>PSNP</code>来请求。</li>
+<li>但在我现在的实验中，你抓不到任何的<code>PSNP</code>报文，因为一开始互相已经泛洪了，不缺任何路由。</li>
+</ol>
+<p><strong>问题：</strong>为啥，没有<code>PSNP</code>呢？<code>PSNP</code>本身不也是类似于<code>LSAck</code>的存在么？</p>
+<p>因为，在广播网络中<code>IS-IS</code>不依赖显示<code>ACK</code>来确认<code>LSP</code>。你可以简单理解为，<strong>沉默即同意</strong>。</p>
+<ul>
+<li>一开始互相泛洪的情况下，如果成功把对端发送的<code>LSP</code>加入到<code>LSDB</code>后，下次发送的<code>LSP</code>的序列号就会加<code>1</code>。</li>
+<li>如果路由器B收到路由器A的LSP（Seq=5），且<strong>没有用自己的LSP反驳</strong>（即没有发送Seq≥5的相同LSP），说明B认可该LSP。</li>
+<li>此时，B会在下次发送LSP时<strong>递增自己的序列号</strong>，表示“我已同步你的信息”。</li>
+</ul>
+<hr />
+<p><strong>后加的情况</strong></p>
+<p><img alt="image-20250820141253545" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029056.png" /></p>
+<hr />
+<h5 id="285">2.8.5.点到点网络</h5>
+<p>在<code>P2P</code>网络中，<code>IS-IS</code>邻居关系的建立过程存在两种方式：</p>
+<ul>
+<li>两次握手</li>
+<li>三次握手</li>
+</ul>
+<p><strong>两次握手</strong></p>
+<p>邻居关系的建立过程不存在确认机制，只要设备在其接口上收到<code>P2P IIH</code>，并且对<code>PDU</code>中的内容检查通过后，便单方面将该邻居的状态视为<code>UP</code>。这显然是不可靠的，因为即使双方的互联链路存在单通故障，也依然会有一方认为邻居关系已经建立，此时网络就必然会出现问题。</p>
+<p><img alt="image-20250820144211257" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029048.png" /></p>
+<p><strong>三次握手</strong></p>
+<p><img alt="image-20250820151415199" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029067.png" /></p>
+<p>三次握手机制，设备将在<code>P2P IIH</code>中增加一个特殊的<code>TLV</code>，<code>P2P</code>三向邻接<code>TLV</code>（<code>Point-to-Point Three-Way Adjacency TLV</code>），用于实现三次握手。</p>
+<ol>
+<li>假设<code>R3</code>率先在接口上激活了<code>IS-IS</code>，开始在该接口上发送<code>P2P IIH</code>。在该<code>IIH</code>中，包含<code>R3</code>的系统<code>ID</code>、区域<code>ID</code>等信息，此外还有一个关键的<code>TLV</code>，<code>P2P</code>三向邻接<code>TLV</code>，由于此时<code>R3</code>还没有在该接口上收到<code>P2P IIH</code>，因此它将该<code>TLV</code>中的邻接状态设置为<code>Down</code>。</li>
+<li><code>R4</code>收到<code>R3</code>发送的<code>P2P IIH</code>，它会针对该<code>PDU</code>中的相关内容进行检查，检查通过后，<code>R4</code>在其<code>IS-IS</code>邻居表中将邻居<code>R3</code>的状态设置为<code>Initial</code>，并在自己发送的<code>IIH</code>的<code>P2P</code>三向邻接<code>TLV</code>中，将邻接状态设置为<code>Init</code>，并且在该<code>TLV</code>的邻居系统<code>ID</code>字段中写入<code>R3</code>的系统<code>ID</code>。</li>
+<li><code>R3</code>收到该<code>P2P IIH</code>后，发现在该<code>PDU</code>中，<code>P2P</code>三向邻接<code>TLV</code>的邻接状态为<code>Init</code>，且邻居系统<code>ID</code>字段填写的是自己的系统<code>ID</code>，于是他认为自己与邻居完成了两次握手过程，接下来，它在自己发送的<code>IIH</code>三向邻接<code>TLV</code>中，将该邻接状态设置为<code>UP</code>，然后在该<code>TLV</code>的邻居系统<code>ID</code>字段中写入<code>R4</code>的系统<code>ID</code>。</li>
+<li><code>R4</code>收到后，认为自己与邻居完成了三次握手过程，便在<code>IS-IS</code>邻居表中，将该邻居的状态设置为<code>UP</code>。然后发送<code>IIH</code>，并且在三向邻接<code>TLV</code>中，将邻接状态设置为<code>UP</code>，然后在邻居系统<code>ID</code>字段中写入<code>R3</code>的系统<code>ID</code>。</li>
+<li><code>R3</code>收到后，也认为自己与对方完成了三次握手，便在<code>IS-IS</code>邻居表中，将该邻居的状态设置为<code>UP</code>。到此，邻居关系建立完成。</li>
+</ol>
+<p><strong>在华为路由器上默认是三次握手，可以通过<code>isis ppp-negotiation 2-way</code>命令修改。</strong></p>
+<hr />
+<p><strong>抓包</strong></p>
+<ol>
+<li>彼此先发送了<code>Down</code>的<code>IIH</code></li>
+</ol>
+<p><img alt="image-20250820153704987" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029054.png" /></p>
+<p><img alt="image-20250820153726482" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029081.png" /></p>
+<ol>
+<li><code>AR1</code>发送<code>Init</code>的<code>IIH</code></li>
+</ol>
+<p><img alt="image-20250820153759195" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029240.png" /></p>
+<ol>
+<li><code>AR2</code>发送<code>up</code>的<code>IIH</code></li>
+</ol>
+<p><img alt="image-20250820153829152" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029288.png" /></p>
+<ol>
+<li><code>AR1</code>发送<code>up</code>的<code>IIH</code></li>
+</ol>
+<p><img alt="image-20250820153851681" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029247.png" /></p>
+<hr />
+<h5 id="286lsp">2.8.6.点到点网络LSP同步过程</h5>
+<p><img alt="image-20250820155309621" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029292.png" /></p>
+<ol>
+<li>邻居<code>up</code>后全量泛洪<code>LSP</code></li>
+<li>收到对方的<code>LSP</code>后，向对方发送<code>PSNP</code>用来确认。</li>
+<li>互相发送<code>CSNP</code>，如果不一致，则继续发送<code>PSNP</code>进行请求。<code>P2P</code>链路上<code>CSNP</code>仅在初始同步时发送。</li>
+</ol>
+<p><img alt="image-20250820155351693" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029281.png" /></p>
+<p><strong>与广播类型相比，只少了<code>DIS</code>发送的<code>LSP</code>，其他基本一致。</strong></p>
+<hr />
+<h5 id="287spt">2.8.7.SPT分析</h5>
+<p><img alt="image-20250819235135745" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029278.png" /></p>
+<p><strong>对R1 LSDB分析：</strong></p>
+<p><code>AR1</code>已经通过下图中列出的<code>LSP</code>学习到了所有<code>LAN</code>中邻居宣告的网段。其中，具体的地址是<strong>实节点</strong>，网段是<strong>叶子</strong>。</p>
+<p><img alt="image-20250819235232952" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029473.png" /></p>
+<hr />
+<p>后续，<code>AR2</code>和<code>AR4</code>建立了邻居关系，并在<code>R4</code>上宣告<code>4.4.4.4/32</code>后，<code>R1</code>会得到<code>AR4</code>泛洪的<code>LSP</code>，其中就包含<code>AR4</code>建立<code>IS-IS</code>的接口地址以及<code>4.4.4.4/32</code>这个网段。</p>
+<p>那么，<code>AR1</code>就已经通过<code>24.1.1.4</code>得知实节点和<code>Cost</code>了（<code>AR1 --&gt; AR2</code> + <code>AR2 --&gt; AR4</code>）：</p>
+<p><img alt="image-20250819235919446" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029394.png" /></p>
+<p>注意，上图中<code>Cost</code>指的是<code>Ar4</code>到达<code>Ar2</code>的<code>Cost</code>值。<code>IP-Internal 24.1.1.0</code>中的<code>Cost</code>也就是<code>24.1.1.2</code>到达<code>24.1.1.4</code>的<code>Cost</code>。</p>
+<hr />
+<h5 id="288">2.8.8.邻居关系建立须知</h5>
+<ol>
+<li>建立<code>IS-IS</code>邻居关系的两台设备必须是同一个<code>Level</code>的设备。</li>
+<li>两台之连设备如需建立<code>Level-1</code>邻居关系，则两者的区域<code>ID</code>必须相同。</li>
+<li>建立<code>IS-IS</code>邻居关系的两台<code>IS-IS</code>设备，直连接口需使用相同的网络类型。</li>
+</ol>
+<hr />
+<h5 id="289lsp">2.8.9.LSP的处理机制</h5>
+<p><img alt="image-20250820155543589" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029536.png" /></p>
+<hr />
+<h3 id="3">3.进阶</h3>
+<h4 id="31">3.1.路由计算</h4>
+<p><img alt="image-20250821132324551" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029620.png" /></p>
+<p>根据之前所学的基础知识可得出，<code>R2</code>和<code>R3</code>作为<code>Level-1-2</code>路由器，会将<code>R1</code>产生的<code>Level-1 LSP</code>传递给所有<code>Level-2</code>路由器，所以<code>Level-2</code>路由器会拥有当前整个<code>IS-IS</code>网络的完整<code>LSP</code>。</p>
+<p>而<code>R1</code>根据<code>LSDB</code>中的<code>Level-1 LSP</code>计算出<code>Area 49.0001</code>内的拓扑，另外，<code>R2</code>和<code>R3</code>会向<code>Level-1</code>区域下的<code>LSP</code>中设置<code>ATT</code>标志位，用于向区域内的<code>Level-1</code>路由器宣布可以通过自己到达其他区域，<code>R1</code>根据该标志位，计算出指向<code>R2</code>和<code>R3</code>的默认路由。</p>
+<hr />
+<p>分析此实验中<code>AR1</code>与<code>AR4</code>的路由信息：</p>
+<ul>
+<li><code>AR1</code>：从下述两张图中可分析出，当前<code>AR1</code>通过<code>IS-IS</code>学习到了所有<code>Level-1</code>邻居通告的网段，包括<code>AR2、AR3</code>的<code>GE0/0/1</code>接口。</li>
+<li>但是，从路由表中可得知，除了<code>24.1.1.0/30</code>和<code>35.1.1.0/30</code>之外，还有两条<code>0.0.0.0/0</code>的默认路由。</li>
+<li>可是，没有从<code>LSDB</code>看到这两条默认路由啊？原因很简单，<code>IS-IS Level-1</code>路由器学习到了默认路由，和<code>OSPF</code>不一样，这条默认路由并不是邻居通告给它的，而是由自己生成的。</li>
+<li>如何生成呢？只要邻居发送的<code>LSP</code>中<code>ATT</code>标志位置位，则生成默认路由且下一跳为邻居直连接口。</li>
+</ul>
+<p><img alt="image-20250821134004199" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029615.png" /></p>
+<p><img alt="image-20250821134028400" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029624.png" /></p>
+<ul>
+<li><code>AR4</code>：</li>
+</ul>
+<p><img alt="image-20250821135405744" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029634.png" /></p>
+<p><img alt="image-20250821135418303" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029652.png" /></p>
+<hr />
+<h5 id="311">3.1.1.次优路径</h5>
+<p><img alt="image-20250821132324551" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029681.png" /></p>
+<p>从上图我们可以分析出，当前<code>AR1</code>去往<code>4.4.4.4/32</code>的最优路径是<code>AR1--&gt;AR2--&gt;AR4</code>，<code>AR1</code>去往<code>5.5.5.5/32</code>的最优路径是<code>AR1--&gt;AR3--&gt;AR5</code>。</p>
+<p>但是，当我用<code>tracert</code>命令在<code>AR1</code>测试时，实际路径却不是这样：</p>
+<p><img alt="image-20250821140304840" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029759.png" /></p>
+<p>经过测试发现，当前<code>AR1</code>上已经产生了次优路径了。原因如下：</p>
+<ul>
+<li><code>AR1</code>当前有两条默认路由，即负载分担，所以当跨区域的流量产生时，<code>AR1</code>选路不稳定，可能走<code>AR2</code>也可能走<code>AR3</code>这就是所谓的<strong>次优路径</strong>。</li>
+</ul>
+<hr />
+<h5 id="312">3.1.2.路由渗透</h5>
+<p><img alt="image-20250821132324551" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029788.png" /></p>
+<p>在此实验中需要在<code>AR2</code>和<code>AR3</code>上执行路由渗透，将<code>Level-2</code>中的明细路由传递给<code>Level-1</code>区域的<code>AR1</code>，此时<code>Ar1</code>就可以学习到其他区域的详细路由了，路由渗透这个操作需要在<code>Level-1-2</code>路由器上执行。</p>
+<div class="highlight"><pre><span></span><code>[AR2]isis 1
+[AR2-isis-1]import-route isis level-2 into level-1
+
+[AR3]isis 1
+[AR3-isis-1]import-route isis level-2 into level-1
+</code></pre></div>
+<p><strong>观察AR1的LSDB</strong></p>
+<p><img alt="image-20250821141259612" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029814.png" /></p>
+<p><strong>观察AR1的路由表</strong></p>
+<p><img alt="image-20250821141344665" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029798.png" /></p>
+<hr />
+<p><strong>拓展：</strong></p>
+<p>正常情况下路由渗透是把<code>Level-2</code>的路由渗透给<code>Level-1</code>。实际上也可以做<code>Level-1</code>的渗透给<code>Level-2</code>。</p>
+<p>因为，默认情况下<code>Level-1-2</code>路由器会将在<code>Level-1</code>学到的所有路由通告给<code>Level-2</code>，可以通过<code>import-route isis level-1 into level-2</code>命令渗透时，加上过滤参数，只将需要的路由渗透过去。</p>
+<hr />
+<h5 id="313spt">3.1.3.SPT计算</h5>
+<p>对于使用<code>SPF</code>算法计算出<code>SPT</code>以及最短路径的方式，实际上的诀窍就是搞清楚当前路由器的<strong>实节点</strong>与<strong>叶子节点</strong>。</p>
+<ul>
+<li><strong>实节点</strong>：当前路由器计算的拓扑图中的路由器节点，一般是接口链路地址。</li>
+<li><strong>叶子节点</strong>：也可以叫做<strong>附加节点</strong>，简单来说就是附加在<strong>实节点</strong>后的网段及掩码信息。</li>
+</ul>
+<p>在你搞明白什么是<strong>实节点</strong>，什么是<strong>叶子节点</strong>后，你就能很轻松的知道<code>IS-IS</code>到底是什么计算整个网络中的路径和最优路径的。</p>
+<ol>
+<li>以当前设备为<strong>树根</strong>计算出到达每一个<strong>实节点</strong>的<code>Cost</code>值。</li>
+<li>将所有<strong>附加节点</strong>附着在<strong>实节点</strong>的背后，当计算<strong>附加节点</strong>（网段）的<code>Cost</code>值时，只需要计算本节点到达对应实节点的<code>Cost</code>加上对应<strong>实节点</strong>到达<strong>附加节点</strong>的<code>Cost</code>。</li>
+</ol>
+<p>用下面的物理拓扑画出现在<code>AR1</code>的逻辑拓扑（<strong>路由渗透后</strong>）：</p>
+<p><img alt="image-20250821132324551" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029820.png" /></p>
+<p><img alt="image-20250821142659727" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029842.png" /></p>
+<hr />
+<h5 id="334">3.3.4.默认路由</h5>
+<p>在<code>IS-IS</code>中，主要通过以下三种方式来控制默认路由的生成与发布。</p>
+<p><strong>方式一：在<code>Level-1-2</code>设备上，控制器产生的<code>LSP</code>中的<code>ATT</code>比特位</strong></p>
+<p>前文已经学过，<code>Level-1</code>区域中的<code>Level-1-2</code>路由器如果与骨干网相连，那它在向<code>Level-1</code>区域发送的<code>LSP</code>中会将<code>ATT</code>置为<code>1</code>，区域内的<code>Level-1</code>路由器将自动根据该<code>LSP</code>生成默认路由。</p>
+<p>在<code>Level-1-2</code>路由器的<code>IS-IS</code>配置视图下，如果执行<code>attached-bit advertise always</code>命令，则该<code>Level-1-2</code>路由器无论是否连接到<code>IS-IS</code>骨干网，都会将<code>ATT</code>置位。</p>
+<p>如果配置<code>attached-bit advertise never</code>命令，则该路由器无论如何都会将<code>ATT</code>设置为<code>0</code>。</p>
+<hr />
+<p><strong>方式二：在<code>Level-1</code>设备上，通过配置使其即使收到了<code>ATT</code>置位的<code>LSP</code>也不会自动生成默认路由</strong></p>
+<p>在<code>Level-1</code>路由器的<code>IS-IS</code>配置视图下执行<code>attached-bit avoid-learning</code>命令，即使收到了<code>ATT</code>置位的也不会生成默认路由。</p>
+<hr />
+<p><strong>方式三：发布默认路由</strong></p>
+<p>通过<code>default-route-advertise</code>命令，用于在<code>IS-IS</code>中发布默认路由。可通过参数指定下发的路由级别。</p>
+<p>在<code>Level-1</code>路由器上使用命令：<code>default-route-advertise level-1</code>向<code>Level-1-2</code>路由器下发默认路由。还可以加上<code>avoid-learning</code>参数，使本端不学习默认路由。默认路由的传播范围为域内。</p>
+<hr />
+<h4 id="32">3.2.认证</h4>
+<p><code>IS-IS</code>认证是基于网络安全性的要求而实现的一种认证手段，通过在<code>IS-IS</code>报文中增加认证字段对报文进行认证。当本地路由器接收到远端路由器发送过来的<code>IS-IS</code>报文，如果发现认证密码不匹配，则将收到的报文进行丢弃，达到自我保护的目的。</p>
+<p>根据报文的种类，认证可以分为以下三类：</p>
+<ul>
+<li>
+<p><strong>接口认证：</strong>在接口视图下配置，对<code>Level-1</code>和<code>Level-2</code>的<code>Hello</code>报文进行认证。</p>
+</li>
+<li>
+<p>```
+    [AR2]int g0/0/0 
+    [AR2-GigabitEthernet0/0/0]isis authentication-mode md5 cipher Huawei@123</p>
+<p>[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/0]isis authentication-mode md5 cipher Huawei@123
+```</p>
+</li>
+<li>
+<p><strong>区域认证：</strong>在<code>IS-IS</code>进程视图下配置，对<code>Level-1</code>的<code>CSNP、PSNP</code>和<code>LSP</code>报文进行认证。</p>
+</li>
+<li>
+<p>```
+    [AR1-isis-1]area-authentication-mode md5 cipher Huawei@123</p>
+<p>[AR2-isis-1]area-authentication-mode md5 cipher Huawei@123</p>
+<p>[AR3-isis-1]area-authentication-mode md5 cipher Huawei@123
+```</p>
+</li>
+<li>
+<p><strong>路由域认证：</strong>在<code>IS-IS</code>进程视图下配置，对<code>Level-2</code>的<code>CSNP、PSNP</code>和<code>LSP</code>报文进行认证。</p>
+</li>
+<li>
+<p><code>[AR5-isis-1]domain-authentication-mode md5 cipher Huawei@123</code></p>
+</li>
+</ul>
+<p><strong>注意：</strong>区域认证和路由域认证主要是用来防护开启该功能的设备的。</p>
+<ul>
+<li>当本端开启了认证后，会对收到的<code>LSP</code>进行检查，如果这个<code>LSP</code>没有携带认证信息或者密码错误的话，都会被本地路由器忽略，不加入到<code>LSDB</code>。</li>
+<li>本端发送的<code>LSP</code>中也会携带认证信息，如果一台没有开启认证的设备收到后，会加入到<code>LSDB</code>中，不会忽略。</li>
+</ul>
+<p>有一个例外，如果你在配置认证时加了<code>all-send-only</code>参数后，本端路由器仅对发送的<code>PDU</code>进行身份验证，不检查接收到的<code>PDU</code>，也就是所有的<code>PDU</code>都收。</p>
+<div class="highlight"><pre><span></span><code>domain-authentication-mode md5 cipher Huawei@123 all-send-only
+</code></pre></div>
+<hr />
+<p>根据报文的认证方式，可以分为以下四类：</p>
+<ul>
+<li><strong>简单认证：</strong>不加密</li>
+<li><code>MD5</code>认证：通过将配置的密码进行<code>MD5</code>算法加密之后再加入报文中，提高密码的安全性。</li>
+<li><code>Keychian</code>认证：通过配置随时间变化的密码链表进一步提升网络的安全性。</li>
+<li><code>HMAC-SHA256</code>认证：通过将配置的密码进行<code>HMAC-SHA256</code>算法加密之后再加入报文中，提高密码的安全性。</li>
+</ul>
+<hr />
+<h4 id="33">3.3.路由汇总</h4>
+<h5 id="331level-1">3.3.1.Level-1汇总</h5>
+<p>在一个<code>Level-1</code>区域内，每一台<code>IS-IS</code>路由器都会产生自己的<code>Level-1 LSP</code>；<code>IS-IS</code>允许设备对其始发的路由执行汇总。</p>
+<p><img alt="image-20250821192601563" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135029913.png" /></p>
+<p><img alt="image-20250821193046506" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135030045.png" /></p>
+<p>在上图中，<code>AR1、AR2、AR3</code>属于<code>Level-1</code>区域，<code>R1</code>将<code>3</code>个回环口地址都宣告进<code>IS-IS</code>网络中，<code>AR2、AR3</code>都可以学到这些明细路由。为了简化<code>AR2、AR3</code>的路由表，可以在<code>AR1</code>上部署路由汇总。</p>
+<div class="highlight"><pre><span></span><code>[AR1]isis 1
+[AR1-isis-1]summary 192.168.0.0 255.255.0.0 level-1
+</code></pre></div>
+<p><img alt="image-20250821193126721" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135030032.png" /></p>
+<hr />
+<h5 id="332level-1-2">3.3.2.Level-1-2汇总</h5>
+<p>如下图，<code>AR1</code>在<code>Level-1</code>区域中泛洪<code>3</code>条<code>LSP</code>，<code>AR4</code>作为<code>Level-1-2</code>路由负责将该<code>LSP</code>转发给<code>AR5</code>。此时可以在<code>AR4</code>上配置路由汇总，将其通告给<code>AR5</code>。</p>
+<p><img alt="image-20250821193405016" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135030037.png" /></p>
+<p><img alt="image-20250821193810456" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135030041.png" /></p>
+<div class="highlight"><pre><span></span><code>[AR4]isis 1
+[AR4-isis-1]summary 192.168.0.0 255.255.0.0 level-2
+</code></pre></div>
+<p><img alt="image-20250821194013413" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135030048.png" /></p>
+<hr />
+<h5 id="333level-2">3.3.3.Level-2汇总</h5>
+<p>在下图中，<code>R6</code>为<code>Level-2</code>路由器，将三个回环口都宣告进<code>IS-IS</code>网络中，<code>R4</code>和<code>R5</code>都会学习到三条明细路由。此时可以在<code>AR6</code>上执行路由汇总。</p>
+<p><img alt="image-20250821194212061" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135030064.png" /></p>
+<p><img alt="image-20250821194454755" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135030215.png" /></p>
+<div class="highlight"><pre><span></span><code>[AR6]isis 1
+[AR6-isis-1]summary 172.16.0.0 255.255.0.0 level-2
+</code></pre></div>
+<p><img alt="image-20250821194552361" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902135030203.png" /></p>
+<hr />
+<h4 id="34silent-interface">3.4.Silent-Interface</h4>
+<div class="highlight"><pre><span></span><code>[AR5]int g0/0/0
+[AR5-GigabitEthernet0/0/0]isis silent
+</code></pre></div>
+<ul>
+<li><code>advertise-zero-cost</code>：<code>IS-IS</code>会将该接口的直连网段以<strong>开销=0</strong>的形式通告出去。如果不加参数，以实际开销发布。</li>
+</ul>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

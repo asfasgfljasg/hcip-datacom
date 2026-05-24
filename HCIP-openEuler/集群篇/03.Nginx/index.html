@@ -1,0 +1,3218 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../02.LVS/">
+      
+      
+        <link rel="next" href="../04.HAproxy/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Nginx - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#03nginx" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Nginx
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.基础原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.基础原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.Nginx是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.工作原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.反向代理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.正向代理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.负载均衡
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.动静分离
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.配置演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.配置演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.反向代理实验
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.反向代理实验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.后端服务器配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.Nginx反向代理配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.显示真实客户端IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.端口映射
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22l7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.L7负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.L7负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.后端服务器配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213nginx_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.Nginx配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.使用加权轮询算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216ip_hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.ip_hash算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#217" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.7.随机算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#218" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.8.最少连接
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#219" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.9.被动健康检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23l4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.L4负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.L4负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.Nginx配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.主动健康检测
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.主动健康检测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.编译安装Nginx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.配置Nginx主配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244nginxstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.登录Nginx的/status/
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.基础原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.基础原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.Nginx是什么？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.工作原理
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.工作原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.反向代理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.正向代理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.3.负载均衡
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#124" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.4.动静分离
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.配置演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.配置演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.反向代理实验
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.反向代理实验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.后端服务器配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.Nginx反向代理配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.显示真实客户端IP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.端口映射
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22l7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.L7负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.L7负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.后端服务器配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213nginx_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.Nginx配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.使用加权轮询算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216ip_hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.ip_hash算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#217" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.7.随机算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#218" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.8.最少连接
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#219" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.9.被动健康检测
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23l4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.L4负载均衡
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.L4负载均衡">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.Nginx配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.主动健康检测
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.主动健康检测">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.实验规划
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.编译安装Nginx
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.配置Nginx主配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244nginxstatus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.登录Nginx的/status/
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#245" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.5.测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="03nginx">03.Nginx</h1>
+<h3 id="1">1.基础原理</h3>
+<h4 id="11nginx">1.1.Nginx是什么？</h4>
+<p><code>Nginx(engine x)</code>是高性能<code>HTTP</code>和反向代理<code>web</code>服务器，同时也提供<code>IMAP/POP3/SMTP</code>等邮件代理功能。<code>Nginx</code>是由伊戈尔·赛索耶夫为俄罗斯访问量第二的<code>Rambler.ru</code>站点（俄文：<code>Рамблер</code>）开发的，第一个公开版本<code>0.1.0</code>发布于<code>2004</code>年<code>10</code>月<code>4</code>日。其将源代码以类<code>BSD</code>许可证的形式发布，因它的稳定性、丰富的功能集、简单的配置文件和低系统资源的消耗而闻名。<code>2011</code>年<code>6</code>月<code>1</code>日，<code>nginx 1.0.4</code>发布。</p>
+<p><code>Nginx</code>负载均衡是通过服务器充当<strong>反向代理服务器</strong>来实现的（负载均衡功能依赖于反向代理）。<code>Nginx</code>充当负载均衡器时接收客户端请求，根据预定义的负载均衡算法与后端服务器列表，将请求分发到指定后端服务器上。</p>
+<p><code>Nginx</code>的负载均衡功能具有高效、灵活、易于配置的特点，并且支持多种负载均衡算法和健康检查机制。另外，<code>Nginx</code>的负载均衡支持<code>L7</code>和<code>L4</code>，一段会话的请求与回复都需要经过<code>Nginx</code>，所以其支持端口映射。</p>
+<hr />
+<h4 id="12">1.2.工作原理</h4>
+<h5 id="121">1.2.1.反向代理</h5>
+<p><strong>反向代理</strong>是客户端请求的中间人，它负责接收客户端的请求，然后将请求转发到<strong>后端服务器</strong>，最后将服务器的响应返回给客户端。所以，反向代理是为后端服务器提供的。</p>
+<p><strong>工作过程：</strong></p>
+<ol>
+<li>
+<p>客户端浏览器输入<code>URL</code>经过<code>DNS</code>解析获取<strong>反向代理服务器</strong>的<code>IP</code>地址，随后向反向代理服务器发起<code>HTTP</code>请求。</p>
+</li>
+<li>
+<p>反向代理服务器解析客户端发送的<code>HTTP</code>请求，根据该请求中的<code>URL</code>与自身的配置文件决定是否转发到后端服务器。</p>
+</li>
+<li>
+<p><code>Nginx</code>与后端服务器建立一个<strong>新的、独立的TCP连接</strong>。</p>
+</li>
+<li><code>Nginx</code>重新构建并转发请求，新的请求中可能包含原始请求的<code>Host</code>、客户端真实<code>IP</code>、代理信息等。</li>
+<li>
+<p>若<code>Nginx</code>配置了缓存，会先检查是否有可用的缓存副本。如果没有或缓存过期才执行上一步。</p>
+</li>
+<li>
+<p>后端服务器接收到请求后，根据配置生成<code>HTTP</code>响应返回给<code>Nginx</code>。</p>
+</li>
+<li><code>Nginx</code>会将后端服务器的响应放置到缓冲区，然后立刻关闭与后端服务器的连接，同时不紧不慢将响应给到客户端。（缓冲）这是为了提升性能不占用与后端服务器的连接。</li>
+</ol>
+<p><img alt="image-20251218003605027" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218003951241.png" /></p>
+<p><strong>特点：</strong></p>
+<ul>
+<li><strong>隐藏后端服务器：</strong>客户端不知道真实服务器的存在。</li>
+<li><strong>SSL终止：</strong>可以在<code>Nginx</code>上处理<code>HTTPS</code>，减轻后端压力。</li>
+<li><strong>缓存静态内容：</strong>加快响应速度。</li>
+<li><strong>安全防护：</strong>作为额外的安全层。</li>
+<li><strong>URL重新：</strong>可修改请求路径。</li>
+<li><strong>端口映射：</strong>前后端端口可以不一致。</li>
+</ul>
+<hr />
+<h5 id="122">1.2.2.正向代理</h5>
+<p><img alt="image-20251218004222867" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218004222901.png" /></p>
+<p>正向代理和反向代理有明显的不同点。<strong>反向代理</strong>实际上是为<strong>服务端</strong>提供服务的，而正向代理是为<strong>客户端</strong>提供服务的。客户端主动指定代理服务器，代理服务器根据客户端请求，动态解析目标地址。代理服务器隐藏了客户端的真实<code>IP</code>，目标服务器只能看到代理服务器的<code>IP</code>。所以，<strong>正向代理</strong>是客户端访问<strong>边界的延申</strong>。</p>
+<p><strong>工作过程：</strong></p>
+<ol>
+<li>客户端将请求发往代理服务器。</li>
+<li>代理服务器转发请求到达目标服务器。</li>
+<li>目标服务器返回响应给代理服务器。</li>
+<li>代理服务器将响应返回给客户端。</li>
+</ol>
+<p>看似好像和反向代理相同，但是<strong>反向代理</strong>它再转发的时候是根据配置文件中预设的后端服务器地址进行转发。而<strong>正向代理</strong>是动态的根据客户端发送的请求中<code>Host</code>和<code>URI</code>字段进行转发的。所以，正向代理是主动的，反向代理是被动的。正向代理为客户端服务，目标动态决定。反向代理为服务器服务，目标预先固定的。</p>
+<hr />
+<h5 id="123">1.2.3.负载均衡</h5>
+<p><img alt="image-20251218005120862" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218005120901.png" /></p>
+<p><strong>负载均衡</strong>也是在<strong>反向代理</strong>上的一种扩展，提供了一种廉价有效的方法扩展网络设备和服务器的带宽、增加吞吐量、加强服务器请求处理能力和冗余性。</p>
+<p><strong>负载均衡</strong>的意思是将大量请求分摊到多台后端服务器上进行处理，从而整体提升业务处理能力。<strong>负载均衡</strong>可以针对多种服务进行集群搭建，例如：<code>HTTP</code>、<code>FTP</code>、<code>MAIL</code>等。</p>
+<p>简单来说，公司原本采用一台服务器处理<code>HTTP</code>业务，随着公司发展业务量增大原本的服务器已经无法胜任现在的工作。你现在有两个选择：升级当前服务器的硬件或增加多台服务器组成集群一起提供<code>HTTP</code>服务。很显然单台服务器即使预算再多，终究双拳难敌四手，增加服务器数量更灵活、成本更低。</p>
+<p>但服务器数量增多了，怎么能够让请求流量均匀分布到后端所有服务器上，防止出现一部分服务器请求较少另一部分服务器请求过多的问题？</p>
+<hr />
+<h5 id="124">1.2.4.动静分离</h5>
+<p><code>Nginx</code>的静态资源处理能力很强，但是动态资源资源处理能力不足，可以采用动静分离方式弥补。动静分离实际是采用<strong>代理</strong>的方式配合<code>location</code>实现。通过<code>location</code>实现静态资源由<code>Nginx</code>自身处理，而动态资源交由<code>PHP-FPM</code>或后端服务器进行处理。</p>
+<p><img alt="image-20251218133752344" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218133752382.png" /></p>
+<hr />
+<h3 id="2">2.配置演示</h3>
+<h4 id="21">2.1.反向代理实验</h4>
+<h5 id="211">2.1.1.实验规划</h5>
+<p>后端服务器部署<code>Apache</code>提供<code>HTTP</code>服务，当客户端访问<code>http://192.168.80.100/openeuler</code>时，将请求代理到后端服务器<code>http://192.168.80.101</code>。</p>
+<p><img alt="image-20251218141923387" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218141923409.png" /></p>
+<h5 id="212">2.1.2.后端服务器配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Apache ~]# yum install httpd -y
+
+[root@Apache ~]# echo &quot;This is Apache&quot; &gt; /var/www/html/index.html
+
+[root@Apache ~]# systemctl start httpd
+</code></pre></div>
+<h5 id="213nginx">2.1.3.Nginx反向代理配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx ~]# yum install -y nginx
+
+[root@Nginx ~]# vim /etc/nginx/nginx.conf
+    server {
+        location /openeuler/  {
+                proxy_pass http://192.168.80.101/;
+                }
+    }
+
+[root@Nginx ~]# systemctl restart nginx
+</code></pre></div>
+<h5 id="214">2.1.4.测试</h5>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100/openeuler/
+This is Apache
+</code></pre></div>
+<p><img alt="image-20251218143722899" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218143722945.png" /></p>
+<p>从抓包的现象能够看出：</p>
+<ol>
+<li>客户端与<code>Nginx</code>建立<code>TCP</code>连接。发送请求至<code>192.168.80.100</code>，<code>URI</code>为<code>openeuler</code>。</li>
+<li><code>Nginx</code>收到该请求后，紧接着向后端服务器建立<code>TCP</code>连接，并将请求转发至后端服务器。</li>
+<li>后端服务器处理完请求后回复响应给<code>Nginx</code>，并拆除<code>TCP</code>连接。</li>
+<li><code>Nginx</code>将该响应转发至客户端，关闭<code>TCP</code>连接。</li>
+</ol>
+<h5 id="215ip">2.1.5.显示真实客户端IP</h5>
+<p><strong>现象：</strong>在后端服务器上查看访问日志，客户端地址显示为<code>Nginx</code>，而并非客户端的实际<code>IP</code>。这是因为代理是单独向后端服务器开启新的会话，且默认没有修改访问头部。</p>
+<div class="highlight"><pre><span></span><code>[root@Apache ~]# cat /var/log/httpd/access_log
+192.168.80.100 - - [18/Dec/2025:14:36:19 +0800] &quot;GET / HTTP/1.0&quot; 200 15 &quot;-&quot; &quot;curl/8.16.0&quot;
+192.168.80.100 - - [18/Dec/2025:14:36:32 +0800] &quot;GET / HTTP/1.0&quot; 200 15 &quot;-&quot; &quot;curl/8.16.0&quot;
+</code></pre></div>
+<p><strong>传递真实<code>IP</code>地址的需求如下：</strong></p>
+<ol>
+<li><strong>日志记录和分析</strong>：真实 IP 地址对于日志分析和用户行为追踪至关重要。如果使用代理服务器的 IP 地址，所有请求看起来都来自同一来源，这会导致分析结果不准确。</li>
+<li><strong>安全和访问控制</strong>：基于 IP 地址的访问控制策略需要识别真实的客户端 IP 地址。如果只看到代理服务器的 IP 地址，访问控制策略将无法正确应用。</li>
+<li><strong>地理位置追踪</strong>：很多服务依赖于客户端的地理位置信息，而这些信息通常是基于 IP 地址进行的。如果无法获取到真实的客户端 IP 地址，地理位置服务将无法正常工作。</li>
+</ol>
+<p><strong>解决方法：</strong></p>
+<p>最常用的方法是通过<code>X-Forwarded-For</code>头部传递客户端的真实<code>IP</code>地址。<code>Nginx</code>可以在代理转发请求时添加这个头，以便后端服务器能够获取到真实客户端的<code>IP</code>地址。</p>
+<p><strong>Nginx配置：</strong></p>
+<div class="highlight"><pre><span></span><code>location /openeuler/  {
+        proxy_pass http://192.168.80.101/;
+        proxy_set_header Host $host;    # 将客户端原始请求的Host头部传递给后端服务器
+        proxy_set_header X-Real-IP $remote_addr;    # 传递客户端的真实IP地址
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;    # 记录整个代理链的IP路径，中间如果还有其他代理，也会一并记录
+        proxy_set_header X-Forwarded-Proto $scheme; # 传递客户端使用的原始协议（HTTP或HTTPS）
+        }
+</code></pre></div>
+<p><strong>Apache配置：</strong></p>
+<div class="highlight"><pre><span></span><code># 在httpd.conf或apache2.conf中添加：
+LogFormat &quot;%{X-Forwarded-For}i %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; proxy # 使用整个X-Forwarded-For代理链的地址
+CustomLog logs/access_log proxy
+</code></pre></div>
+<h5 id="216">2.1.6.端口映射</h5>
+<p>后端服务器的端口修改为<code>8080</code>。</p>
+<p><strong>Nginx配置：</strong></p>
+<div class="highlight"><pre><span></span><code>location /openeuler/  {
+        proxy_pass http://192.168.80.101:8080/;
+        }
+</code></pre></div>
+<p><strong>Apache配置：</strong></p>
+<div class="highlight"><pre><span></span><code>Listen 8080
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100/openeuler/
+This is Apache
+</code></pre></div>
+<hr />
+<h4 id="22l7">2.2.L7负载均衡</h4>
+<h5 id="211_1">2.1.1.实验规划</h5>
+<p>后端服务器部署两台<code>Apache</code>：<code>http://192.168.80.101:8080,http://192.168.80.102</code>。</p>
+<p>当客户端访问<code>http://192.168.80.100:81</code>时，将请求根据负载均衡算法转发至后端。</p>
+<p><img alt="image-20251218151358067" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218151358111.png" /></p>
+<h5 id="212_1">2.1.2.后端服务器配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Apache1 ~]# yum install httpd -y
+
+[root@Apache1 ~]# echo &quot;This is Apache1&quot; &gt; /var/www/html/index.html
+
+[root@Apache1 ~]# systemctl start httpd
+
+[root@Apache2 ~]# yum install httpd -y
+
+[root@Apache2 ~]# echo &quot;This is Apache2&quot; &gt; /var/www/html/index.html
+
+[root@Apache2 ~]# systemctl start httpd
+
+# 在httpd.conf或apache2.conf中添加：
+LogFormat &quot;%{X-Forwarded-For}i %l %u %t \&quot;%r\&quot; %&gt;s %b \&quot;%{Referer}i\&quot; \&quot;%{User-Agent}i\&quot;&quot; proxy # 使用整个X-Forwarded-For代理链的地址
+CustomLog logs/access_log proxy
+</code></pre></div>
+<h5 id="213nginx_1">2.1.3.Nginx配置</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx ~]# vim /etc/nginx/conf.d/proxy.conf
+### 后端服务器组，默认是轮询算法
+upstream openeuler {
+        server 192.168.80.101:8080;
+        server 192.168.80.102:80;
+}
+server {
+        listen 81;
+        location / {
+                proxy_pass http://openeuler/;   # 指定后端服务器组
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+        }
+}
+[root@Nginx ~]# systemctl restart nginx
+</code></pre></div>
+<h5 id="214_1">2.1.4.测试</h5>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache2
+
+[root@Apache1 ~]# cat /var/log/httpd/access_log
+192.168.80.1 - - [18/Dec/2025:15:31:38 +0800] &quot;GET / HTTP/1.0&quot; 200 16 &quot;-&quot; &quot;curl/8.16.0&quot;
+
+[root@Apache2 ~]# tail -n 1 /var/log/httpd/access_log
+192.168.80.1 - - [18/Dec/2025:15:31:39 +0800] &quot;GET / HTTP/1.0&quot; 200 16 &quot;-&quot; &quot;curl/8.16.0&quot;
+</code></pre></div>
+<h5 id="215">2.1.5.使用加权轮询算法</h5>
+<div class="highlight"><pre><span></span><code>upstream openeuler {
+        server 192.168.80.101:8080 weight=3;
+        server 192.168.80.102:80 weight=2;
+}
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache1
+</code></pre></div>
+<h5 id="216ip_hash">2.1.6.ip_hash算法</h5>
+<div class="highlight"><pre><span></span><code>upstream openeuler {
+        ip_hash;
+        server 192.168.80.101:8080;
+        server 192.168.80.102:80;
+}
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache2
+</code></pre></div>
+<h5 id="217">2.1.7.随机算法</h5>
+<div class="highlight"><pre><span></span><code>upstream openeuler {
+        random;
+        server 192.168.80.101:8080;
+        server 192.168.80.102:80;
+}
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:81
+This is Apache1
+</code></pre></div>
+<h5 id="218">2.1.8.最少连接</h5>
+<div class="highlight"><pre><span></span><code>upstream openeuler {
+        least_conn;
+        server 192.168.80.101:8080;
+        server 192.168.80.102:80;
+}
+</code></pre></div>
+<h5 id="219">2.1.9.被动健康检测</h5>
+<p><code>Nginx</code>的主动健康检测是商业版才能够使用的，开源版本通过<code>YUM</code>下载的只能使用<strong>被动健康检测</strong>。但是也可以通过源码安装方式添加<code>nginx_upstream_check_module</code>模块。</p>
+<p><code>Nginx</code>默认就已经开启了被动健康检测，即使你不配置任何健康检测参数，也有基本的被动健康检测：</p>
+<div class="highlight"><pre><span></span><code>upstream backend {
+    # 默认就有被动健康检测
+    server 192.168.1.100:8080;
+    server 192.168.1.101:8080;
+
+    # 等价于：
+    server 192.168.1.100:8080 max_fails=1 fail_timeout=10s;
+    server 192.168.1.101:8080 max_fails=1 fail_timeout=10s;
+}
+</code></pre></div>
+<ul>
+<li>
+<p><code>max_fails = 1</code>：1次失败就标记为不可用</p>
+</li>
+<li>
+<p><code>fail_timeout = 10s</code>：失败后暂停10秒</p>
+</li>
+</ul>
+<p><strong>工作原理：</strong></p>
+<div class="highlight"><pre><span></span><code>客户端请求 → Nginx → 后端服务器
+         ↓
+    请求失败（超时、连接拒绝等）
+         ↓
+    fail_timeout计数器+1
+         ↓
+    fail_timeout计数器 &gt;= max_fails ?
+         ↓
+     是 → 标记服务器为&quot;不可用&quot;
+         ↓
+    fail_timeout秒后自动恢复
+</code></pre></div>
+<p><strong>失败触发条件：</strong></p>
+<ol>
+<li>连接超时</li>
+<li>连接被拒绝</li>
+<li>读取超时</li>
+<li>无效的<code>HTTP</code>响应</li>
+<li>代理返回特定状态码</li>
+</ol>
+<p><strong>备用服务器：</strong></p>
+<div class="highlight"><pre><span></span><code>upstream openeuler {
+        server 192.168.80.101:8080 backup;
+        server 192.168.80.102:80;
+}
+</code></pre></div>
+<p>将<code>Apache1</code>设置为备用，正常情况下流量都会被调度到<code>Apache2</code>。当<code>Apache2</code>出现故障后，<code>Nginx</code>会将流量调度到<code>Apache1</code>备用服务器上。</p>
+<hr />
+<h4 id="23l4">2.3.L4负载均衡</h4>
+<h5 id="231">2.3.1.实验规划</h5>
+<p>后端服务器部署两台<code>Apache</code>：<code>192.168.80.101:8080,192.168.80.102</code>。</p>
+<p>当客户端访问<code>192.168.80.100:81</code>时，将请求根据负载均衡算法转发至后端。</p>
+<p><img alt="image-20251218164926918" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218164926960.png" /></p>
+<h5 id="232nginx">2.3.2.Nginx配置</h5>
+<p><code>Nginx L4</code>的负载均衡配置需要用到<code>stream</code>块，该配置块与<code>HTTP</code>配置开同级别。所以就不能再使用虚拟主机的方式去配置了。</p>
+<div class="highlight"><pre><span></span><code>[root@Nginx ~]# vim /etc/nginx/nginx.conf
+    stream {
+            upstream openeuler {
+                    server 192.168.80.101:8080;
+                    server 192.168.80.102:80;
+            }
+            server {
+                    listen 82;
+                    proxy_pass openeuler;
+            }
+    }
+
+[root@Nginx ~]# systemctl restart nginx
+</code></pre></div>
+<p><strong>测试：</strong></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100:82
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:82
+This is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:82
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100:82
+This is Apache1
+</code></pre></div>
+<p><img alt="image-20251218174421967" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218174422035.png" /></p>
+<p>从抓包现象能够看出<code>L4</code>的负载均衡与反向代理的工作原理是一样的。</p>
+<hr />
+<h4 id="24">2.4.主动健康检测</h4>
+<h5 id="241">2.4.1.实验规划</h5>
+<p>后端服务器部署三台<code>Apache</code>：<code>192.168.80.101,192.168.80.102,192.168.80.103</code>。</p>
+<p>当客户端访问<code>192.168.80.100:666</code>时，将请求根据负载均衡算法转发至后端。</p>
+<p><img alt="image-20251218214716736" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218214716802.png" /></p>
+<h5 id="242nginx">2.4.2.编译安装Nginx</h5>
+<p><a href="C:\Users\Administrator\Desktop\nginx_upstream_check_module-master.zip">nginx_upstream_check_module-master.zip</a> </p>
+<div class="highlight"><pre><span></span><code># 安装编译依赖
+sudo yum install -y gcc make pcre-devel zlib-devel openssl-devel
+
+# 下载 Nginx 源码
+wget https://nginx.org/download/nginx-1.20.1.tar.gz
+tar -xzvf nginx-1.20.1.tar.gz
+cd nginx-1.20.1/
+
+# 下载 nginx_upstream_check_module
+wget https://github.com/yaoweibin/nginx_upstream_check_module/archive/master.zip
+unzip master.zip
+
+# 打补丁（适配 Nginx 版本）
+patch -p1 &lt; nginx_upstream_check_module-master/check_1.20.1+.patch
+
+# 编译安装
+./configure --add-module=nginx_upstream_check_module-master
+make
+make install
+
+ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
+</code></pre></div>
+<h5 id="243nginx">2.4.3.配置<code>Nginx</code>主配置文件</h5>
+<div class="highlight"><pre><span></span><code>[root@Nginx ~]# vim /usr/local/nginx/conf/nginx.conf
+upstream openeuler {
+        server 192.168.80.101:80;
+        server 192.168.80.102:80;
+        server 192.168.80.103:80 backup;
+### 健康检查间隔为5000毫秒=5秒，连续成功两次标记为健康，连续失败三次标记为不健康，检查超时时间为1秒，协议为HTTP
+        check interval=5000 rise=2 fall=3 timeout=1000 type=http;
+### 检查报文发送HTTP请求，使用HEAD方法，请求根路径，HTTP1.0协议
+        check_http_send &quot;HEAD / HTTP/1.0\r\n\r\n&quot;;
+### 期望得到的状态码为2XX和3XX
+        check_http_expect_alive http_2xx http_3xx;
+        }
+server {
+    location /status {
+            check_status;
+            access_log off;
+    }
+    location /openeuler/ {
+            proxy_pass http://openeuler/;
+    }
+}
+[root@Nginx ~]# nginx 
+[root@Nginx ~]# nginx -s reload
+</code></pre></div>
+<h5 id="244nginxstatus">2.4.4.登录<code>Nginx</code>的<code>/status/</code></h5>
+<p><img alt="image-20251218220826885" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218220826959.png" /></p>
+<h5 id="245">2.4.5.测试</h5>
+<ul>
+<li>当预定义后端服务器没有报错时，不会将请求转发到<code>backup</code>设备。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100/openeuler/
+this is Apache1
+
+C:\Users\Administrator&gt;curl http://192.168.80.100/openeuler/
+This is Apache2
+</code></pre></div>
+<ul>
+<li>手动关闭<code>Apache1</code>进行测试，依旧只会转发至预定义的<code>Apache2</code>。</li>
+</ul>
+<p><img alt="image-20251218221000027" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218221000092.png" /></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100/openeuler/
+This is Apache2
+
+C:\Users\Administrator&gt;curl http://192.168.80.100/openeuler/
+This is Apache2
+</code></pre></div>
+<ul>
+<li>把<code>Apache2</code>的服务也关闭再进行测试：</li>
+</ul>
+<p><img alt="image-20251218221121257" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251218221121326.png" /></p>
+<div class="highlight"><pre><span></span><code>C:\Users\Administrator&gt;curl http://192.168.80.100/openeuler/
+This is Apache3
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

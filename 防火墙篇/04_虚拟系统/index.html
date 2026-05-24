@@ -1,0 +1,3573 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/">
+      
+      
+        <link rel="next" href="../05_IPsec%20VPN/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>虚拟系统 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#04_" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              虚拟系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/02_OSPF%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%B7%AF%E7%94%B1%E7%AF%87/06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.虚拟系统的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.虚拟系统的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.什么是虚拟化？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.什么是虚拟系统？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.虚拟系统的类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.虚拟系统管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.虚拟系统资源分配
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.虚拟系统资源分配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.带宽资源
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.虚拟系统的分流
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6.虚拟系统的分流">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.1.基于接口的虚拟系统分流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162vlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.2.基于VLAN的虚拟系统分流
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.虚拟系统互访
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.虚拟系统互访">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.虚拟接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.虚拟系统与根系统互访
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.虚拟系统与根系统互访">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.虚拟系统访问根系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.根系统访问虚拟系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.引流表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.实验演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.实验演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.实验一：虚拟系统通过路由表互访
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1.实验一：虚拟系统通过路由表互访">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1.实验需求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2.实验演示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.实验二：虚拟系统与根系统通过引流表互访
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.实验三：旁挂式防火墙
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3.实验三：旁挂式防火墙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1.汇聚交换机配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2.核心交换机配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.3.防火墙配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334ar1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.4.AR1配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#335ar2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.5.AR2配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#336" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.6.验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4vrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.VRF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.VRF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.背景
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1.背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.1.通过部署ACL实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.2.增加核心交换机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413vrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.3.通过VRF技术实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42vrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.VRF的实现过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43vrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.VRF基本配置命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.实验举例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.虚拟系统的基本概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.虚拟系统的基本概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.什么是虚拟化？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.什么是虚拟系统？
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.虚拟系统的类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.虚拟系统管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.虚拟系统资源分配
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5.虚拟系统资源分配">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.1.带宽资源
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.虚拟系统的分流
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6.虚拟系统的分流">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.1.基于接口的虚拟系统分流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162vlan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.2.基于VLAN的虚拟系统分流
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.虚拟系统互访
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.虚拟系统互访">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.虚拟接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.虚拟系统与根系统互访
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.虚拟系统与根系统互访">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.虚拟系统访问根系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.根系统访问虚拟系统
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.引流表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.实验演示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.实验演示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.实验一：虚拟系统通过路由表互访
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1.实验一：虚拟系统通过路由表互访">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.1.实验需求
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1.2.实验演示
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2.实验二：虚拟系统与根系统通过引流表互访
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.实验三：旁挂式防火墙
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3.实验三：旁挂式防火墙">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.1.汇聚交换机配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.2.核心交换机配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.3.防火墙配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#334ar1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.4.AR1配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#335ar2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.5.AR2配置
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#336" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3.6.验证
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4vrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.VRF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.VRF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.背景
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1.背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411acl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.1.通过部署ACL实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.2.增加核心交换机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413vrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1.3.通过VRF技术实现
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42vrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2.VRF的实现过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43vrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3.VRF基本配置命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4.实验举例
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="04_">04_虚拟系统</h1>
+<h3 id="1">1.虚拟系统的基本概念</h3>
+<h4 id="11">1.1.什么是虚拟化？</h4>
+<p>虚拟化<code>Virtualization</code>的含义很广泛，将任何一种形式的资源抽象成另一种形式，都可以称为虚拟化。虚拟化是资源的逻辑表示，是资源的分配不受物理限制。</p>
+<p>虚拟化使得在一台物理的服务器上可以跑多台虚拟机，虚拟机共享物理机的<code>CPU</code>、内存、<code>I/O</code>硬件资源，但逻辑上虚拟机之间是相互隔离的。虚拟化可以达到节省硬件成本、能耗和空间的目的。</p>
+<p><img alt="image-20250923225002232" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923225002262.png" /></p>
+<hr />
+<h4 id="12">1.2.什么是虚拟系统？</h4>
+<p>虚拟系统（<code>virtual System,VSYS</code>）是一种虚拟化技术，指在一台物理设备上划分出多个相互独立的逻辑设备。每个虚拟系统相当于一台真实的设备，拥有自己的资源，管理员可以对虚拟系统内部的业务和资源进行单独的配置和管理。</p>
+<p>由于网络管理变得越来越复杂，用户对于业务隔离、系统安全性和可靠性等方面的要求越来越高，使用虚拟系统技术可以从资源上进行物理隔离、实现业务隔离、同时简化网络部署和管理、加强系统安全性和可靠性。</p>
+<p><img alt="image-20250923231053934" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923231053957.png" /></p>
+<p><strong>虚拟系统的特点：</strong></p>
+<ul>
+<li><strong>管理独立：</strong>每个虚拟系统由独立的管理员进行管理，使得多个虚拟系统的管理更加清晰简单，所以非常适合大规模的组网环境。</li>
+<li><strong>资源分配：</strong>可以为每个虚拟系统分配固定的系统资源，保证不会因为一个虚拟系统的业务繁忙而影响其他虚拟系统。</li>
+<li><strong>流量隔离：</strong>虚拟系统之间的流量相互隔离，更加安全。在需要的时候，虚拟系统之间也可以进行安全互访。</li>
+<li><strong>配置独立：</strong>每个虚拟系统拥有独立的配置及路由表，这使得虚拟系统下的局域网<code>IP</code>地址范围可以一致。</li>
+</ul>
+<p><img alt="image-20250923234118850" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923234118883.png" /></p>
+<hr />
+<h4 id="13">1.3.虚拟系统的类型</h4>
+<p>在华为防火墙设备上存在两种类型的虚拟系统：</p>
+<ul>
+<li>根系统（<code>public</code>）：</li>
+<li>根系统是防火墙上缺省存在的一个特殊的虚拟系统。即使没有开启虚拟系统功能，根系统也依然存在。此时，管理员对防火墙的配置等同于对根系统进行配置。当启用虚拟系统功能后，根系统会继承先前防火墙上的配置。</li>
+<li>在虚拟系统这个特性中，根系统的作用是管理其他虚拟系统，并为虚拟系统间的通信提供服务。</li>
+<li>虚拟系统（<code>VSYS</code>）：</li>
+<li>虚拟系统是在防火墙上划分出来的、独立运行的逻辑设备。</li>
+</ul>
+<p><img alt="image-20250923231736552" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923231736574.png" /></p>
+<hr />
+<h4 id="14">1.4.虚拟系统管理</h4>
+<p>虚拟系统的管理和配置是相互独立的，所对应的管理员也是不同的。根据虚拟系统的类型，管理员分为根系统管理员和虚拟系统管理员。两类管理员的作用范围和功能都不相同。</p>
+<p><img alt="image-20250923231947469" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923231947498.png" /></p>
+<hr />
+<h4 id="15">1.5.虚拟系统资源分配</h4>
+<p>在防火墙虚拟系统中<strong>合理分配资源</strong>可以对单个虚拟系统的资源进行约束，避免因某个虚拟系统占用过多的资源，导致其他虚拟系统无法获取或业务无法正常运行。</p>
+<p>在防火墙中资源分配有三种方式：</p>
+<ul>
+<li><strong>定额分配</strong></li>
+<li><strong>手工分配</strong></li>
+<li><strong>共享抢占</strong></li>
+</ul>
+<p>防火墙实现<strong>虚拟系统业务</strong>的基础资源支持定额分配和手工分配，其他资源使用共享抢占的方式进行资源分配。</p>
+<p><img alt="image-20250923232328679" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923232328711.png" /></p>
+<h5 id="151">1.5.1.带宽资源</h5>
+<p>带宽资源指的是网络中关键业务所需的带宽，支持管理员手工分配，避免线路繁忙时影响关键业务。</p>
+<p>带宽资源分为<strong>入方向带宽、出方向带宽和整体带宽</strong>。一条数据流是受哪类带宽资源限制与流量的出接口或入接口有关。</p>
+<p><img alt="image-20250923232740955" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923232740986.png" /></p>
+<hr />
+<h4 id="16">1.6.虚拟系统的分流</h4>
+<p>当防火墙上开启了虚拟系统功能后，一个报文进入到防火墙，如何判断报文与虚拟系统的归属关系呢？</p>
+<p>防火墙通过<strong>分流</strong>将进入设备的报文送入正确的虚拟系统处理，分流方式有以下三种：</p>
+<ul>
+<li><strong>基于接口：</strong>接口工作在三层时，采用基于接口的分流方式。</li>
+<li><strong>基于VLAN：</strong>接口工作在二层时，采用基于<code>VLAN</code>的分流方式。</li>
+<li><strong>基于VNI：</strong>虚拟系统和<code>VXLAN</code>结合使用时，采用基于<code>VNI</code>的分流方式。</li>
+</ul>
+<p>所谓的<strong>分流</strong>实际上指的是<strong>确定报文与虚拟系统归属关系的过程</strong>。</p>
+<p><strong>分流</strong>完毕之后，报文仅根据虚拟系统内的策略和表项对报文进行处理，转发也仅需根据虚拟系统内的路由表。</p>
+<hr />
+<h5 id="161">1.6.1.基于接口的虚拟系统分流</h5>
+<p>将接口与虚拟系统绑定后，该接口收到的报文将根据虚拟系统配置进行处理。</p>
+<p><img alt="image-20250923233543780" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923233543808.png" /></p>
+<p>如上图，当防火墙的<code>GE0/0/1</code>接口收到报文后，根据分流将报文归属于<code>VSYS_A</code>，后续对报文的所有处理（包括路由查找和策略等）都依赖于<code>VSYS_A</code>。</p>
+<hr />
+<h5 id="162vlan">1.6.2.基于VLAN的虚拟系统分流</h5>
+<p><img alt="image-20250923233735205" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923233735234.png" /></p>
+<p>如上图，防火墙上配置了虚拟系统，并为防火墙上的不同接口配置了<code>VLAN Tag</code>。当防火墙收到报文时，根据其对应的<code>VLAN</code>来判断属于哪个虚拟系统。然后再根据该虚拟系统的<code>MAC</code>地址表查询出接口，确定报文出入接口的域间关系，最后通过策略决定报文是否允许转发。</p>
+<hr />
+<h3 id="2">2.虚拟系统互访</h3>
+<h4 id="21">2.1.虚拟接口</h4>
+<p>一台防火墙上的多个虚拟系统背后的网络是通过<strong>虚拟接口</strong>实现互访的。虚拟接口是创建虚拟系统时自动为其创建的一个逻辑接口，作为虚拟系统自身与其他虚拟系统之间通信的接口。</p>
+<p>虚拟接口名字的格式为<code>Virtual-if + 接口号</code>，根系统的虚拟接口名称为<code>Virtual-if 0</code>，其他虚拟系统的<code>Virtual-if</code>接口号从<code>1</code>开始，根据先后配置顺序依次分配。</p>
+<p><img alt="image-20250923235528015" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923235528042.png" /></p>
+<hr />
+<h4 id="22">2.2.虚拟系统与根系统互访</h4>
+<p>虚拟系统与根系统互访有两种场景：</p>
+<ul>
+<li>虚拟系统访问根系统</li>
+<li>根系统访问虚拟系统</li>
+</ul>
+<hr />
+<h5 id="221">2.2.1.虚拟系统访问根系统</h5>
+<p><img alt="image-20250923235815756" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250923235815789.png" /></p>
+<p>如上图，内部<code>PC</code>主动访问服务器。防火墙开启了虚拟系统功能，并在原有<code>Public</code>系统基础上创建了<code>VSYS_A</code>。该防火墙的<code>GE0/0/2</code>接口属于<code>VSYS_A</code>承载<code>10.3.0.0/24</code>网段的流量。该防火墙的<code>GE0/0/1</code>接口属于<code>Public</code>承载整个内网（通过<code>VSYS</code>），并与互联网相连。</p>
+<p>当防火墙的<code>GE0/0/2</code>接口接收到流量后，根据分流被分配到<code>VSYS_A</code>。此时根据报文的<strong>目的地址</strong>查找<code>VSYS_A</code>的<strong>路由表</strong>，发现匹配到默认路由，出接口为<code>Virtual-if 0</code>。随即，<code>VSYS_A</code>会检查其安全策略是否允许该流量通过，若允许则通过自身的<code>Virtual-if1</code>接口将报文转发给<code>Public</code>。</p>
+<p><code>Public</code>接收到之后，会根据路由表查找出接口和下一跳，并查看安全策略是否允许通过。</p>
+<p>当服务器返回数据包时，当该数据包到达<code>GE0/0/1</code>接口后会被防火墙分配给<code>Public</code>。<strong>根系统此时不需要配置去往<code>10.3.0.0</code>的路由，也不会查找路由表，它会根据会话表直接发送到虚拟系统中处理。</strong></p>
+<hr />
+<h5 id="222">2.2.2.根系统访问虚拟系统</h5>
+<p><img alt="image-20250924000931540" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250924000931575.png" /></p>
+<p>此时，防火墙将内网服务器映射到公网供外网客户端进行访问。当数据包进入防火墙时，由于是从<code>GE0/0/1</code>接口收到的报文，所以根据分流该数据包交由<code>Public</code>处理。此时，根系统会根据路由表将报文转发给<code>VSYS_A</code>前提是拥有对应安全策略。</p>
+<p><code>VSYS_A</code>收到后，同样是根据路由表和安全策略指导数据报文转发。</p>
+<p>当服务器返回报文给客户端时，<code>VSYS_A</code>不再需要配置回程路由，匹配到会话表后直接发送到<code>Public</code>进行处理。</p>
+<hr />
+<h5 id="223">2.2.3.引流表</h5>
+<p>之前我们介绍的场景中，虚拟系统和根系统都会按照防火墙转发流程对报文进行处理。针对互访的业务，虚拟系统和根系统都需要配置策略和建立会话。</p>
+<p>这么做一方面增加了配置的复杂性，一方面每条连接都需要创建两条绘画，业务量大时会造成整机的会话资源紧张。</p>
+<p>当配置引流表时，引流表中记录的是<code>IP</code>地址和虚拟系统的归属关系。若报文命中引流表，根系统无需建立会话，直接按照路由表或引流表转发报文，从而避免以上问题。</p>
+<p><img alt="image-20250924003134867" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250924003134900.png" /></p>
+<hr />
+<p><strong>正向命中：</strong></p>
+<p><img alt="image-20250924003159754" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250924003159787.png" /></p>
+<p>如上图，外网客户端访问内网服务器。此时，在根系统上配置了引流表，当目的地址为<code>10.3.0.8</code>时直接转发到<code>VSYS_A</code>，不再建立会话。</p>
+<p>当<code>VSYS_A</code>收到该报文后，根据路由表进行转发并创建对应会话。</p>
+<hr />
+<p><strong>反向命中：</strong></p>
+<p><img alt="image-20250924003413880" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250924003413916.png" /></p>
+<p>当内网<code>PC</code>主动访问外网服务器，且引流表的配置如上图时，数据包经过<code>VSYS_A</code>时根据路由表与策略进行转发并创建会话表。当数据包到达根系统时，由于源地址和源实例匹配到了引流表的目的地址和目的实例，所以这是<strong>反向命中</strong>。</p>
+<p>当报文反向命中引流表时，根系统根据自身的路由表指导报文转发，但不需要建立会话表。</p>
+<hr />
+<p><strong>总结：</strong></p>
+<p>正向命中和反向命中在这里的区别就是<strong>如何指导报文转发，都不建立会话表</strong>。</p>
+<ul>
+<li><strong>正向命中：</strong>根据引流表转发。</li>
+<li><strong>反向命中：</strong>根据路由表转发。</li>
+</ul>
+<hr />
+<h3 id="3">3.实验演示</h3>
+<h4 id="31">3.1.实验一：虚拟系统通过路由表互访</h4>
+<p><img alt="image-20250924152119715" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250924152119775.png" /></p>
+<p><img alt="image-20250925225052057" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250925225052107.png" /></p>
+<h5 id="311">3.1.1.实验需求</h5>
+<p>当前防火墙上存在三个虚拟系统分别是：<code>Public、VSYS_A、VSYS_B</code>。需要实现这三个虚拟系统后的网络互联互通，即<code>1.1.1.1、2.2.2.2、3.3.3.3</code>能够互访。</p>
+<p>防火墙的<code>G1/0/0、G1/0/1、G1/0/2</code>属于<code>Trust</code>区域，<code>Virtual-if</code>接口都属于<code>Untrust</code>区域。</p>
+<hr />
+<h5 id="312">3.1.2.实验演示</h5>
+<p><strong>防火墙开启虚拟系统功能：</strong></p>
+<div class="highlight"><pre><span></span><code>[FW1]vsys enable
+</code></pre></div>
+<p><strong>创建虚拟系统并分配接口：</strong></p>
+<div class="highlight"><pre><span></span><code>[FW1]vsys name VSYS_A   # 创建虚拟系统
+[FW1-vsys-VSYS_A]assign interface g1/0/0    # 将物理接口划分到虚拟系统
+[FW1-vsys-VSYS_A]quit
+
+[FW1]vsys name VSYS_B
+[FW1-vsys-VSYS_B]assign interface g1/0/1
+[FW1-vsys-VSYS_B]quit
+</code></pre></div>
+<p><strong>根系统的配置：</strong></p>
+<div class="highlight"><pre><span></span><code>[FW1]firewall zone trust 
+[FW1-zone-trust]add interface g1/0/2
+[FW1-zone-trust]quit
+
+[FW1]firewall zone untrust 
+[FW1-zone-untrust]add interface Virtual-if 0
+[FW1-zone-untrust]quit
+
+[FW1]interface g1/0/2
+[FW1-GigabitEthernet1/0/2]ip add 13.1.1.2 30
+[FW1-GigabitEthernet1/0/2]quit
+
+[FW1]ip route-static 0.0.0.0 0 13.1.1.1
+[FW1]ip route-static 1.1.1.1 32 vpn-instance VSYS_A
+[FW1]ip route-static 2.2.2.2 32 vpn-instance VSYS_B
+
+[FW1-policy-security]rule name hufang   
+[FW1-policy-security-rule-1_to_3]source-zone trust untrust  
+[FW1-policy-security-rule-1_to_3]destination-zone trust untrust 
+[FW1-policy-security-rule-1_to_3]action permit
+[FW1-policy-security-rule-1_to_3]quit
+[FW1-policy-security]quit
+</code></pre></div>
+<p><strong>虚拟系统VSYS_A的配置：</strong></p>
+<div class="highlight"><pre><span></span><code>[FW1]switch vsys VSYS_A # 切换到虚拟系统视图
+&lt;FW1-VSYS_A&gt;sys
+
+[FW1-VSYS_A]interface g1/0/0
+[FW1-VSYS_A-GigabitEthernet1/0/0]ip add 11.1.1.2 30
+[FW1-VSYS_A-GigabitEthernet1/0/0]quit
+
+[FW1-VSYS_A]firewall zone trust 
+[FW1-VSYS_A-zone-trust]add int g1/0/0
+[FW1-VSYS_A-zone-trust]quit
+
+[FW1-VSYS_A]firewall zone untrust   
+[FW1-VSYS_A-zone-untrust]add int Virtual-if 1
+[FW1-VSYS_A-zone-untrust]quit
+
+[FW1-VSYS_A]ip route-static 0.0.0.0 0 11.1.1.1
+[FW1-VSYS_A]ip route-static 3.3.3.3 32 public
+
+[FW1-VSYS_A]security-policy 
+[FW1-VSYS_A-policy-security]rule name hufang    
+[FW1-VSYS_A-policy-security-rule-hufang]source-zone trust untrust 
+[FW1-VSYS_A-policy-security-rule-hufang]destination-zone trust untrust 
+[FW1-VSYS_A-policy-security-rule-hufang]action permit
+[FW1-VSYS_A-policy-security-rule-hufang]quit
+[FW1-VSYS_A-policy-security]quit
+</code></pre></div>
+<p><strong>虚拟系统VSYS_B的配置：</strong></p>
+<div class="highlight"><pre><span></span><code>[FW1]switch vsys VSYS_B
+&lt;FW1-VSYS_B&gt;sys
+
+[FW1-VSYS_B]interface g1/0/1
+[FW1-VSYS_B-GigabitEthernet1/0/1]ip add 12.1.1.2 30
+[FW1-VSYS_B-GigabitEthernet1/0/1]quit
+
+[FW1-VSYS_B]firewall zone trust 
+[FW1-VSYS_B-zone-trust]add int g1/0/1
+[FW1-VSYS_B-zone-trust]quit
+
+[FW1-VSYS_B]firewall zone untrust   
+[FW1-VSYS_B-zone-untrust]add int Virtual-if 2
+[FW1-VSYS_B-zone-untrust]quit
+
+[FW1-VSYS_B]ip route-static 3.3.3.3 32 public
+[FW1-VSYS_B]ip route-static 0.0.0.0 0 12.1.1.1
+
+[FW1-VSYS_B]security-policy 
+[FW1-VSYS_B-policy-security]rule name fuhang    
+[FW1-VSYS_B-policy-security-rule-fuhang]source-zone trust untrust 
+[FW1-VSYS_B-policy-security-rule-fuhang]destination-zone trust untrust      
+[FW1-VSYS_B-policy-security-rule-fuhang]action permit
+[FW1-VSYS_B-policy-security-rule-fuhang]quit
+[FW1-VSYS_B-policy-security]quit
+</code></pre></div>
+<p><strong>实现虚拟系统VSYS_A和VSYS_B互访的方式一：</strong></p>
+<div class="highlight"><pre><span></span><code>[FW1]ip route-static vpn-instance VSYS_A 2.2.2.2 32 vpn-instance VSYS_B
+
+[FW1]ip route-static vpn-instance VSYS_B 1.1.1.1 32 vpn-instance VSYS_A
+</code></pre></div>
+<p><strong>互访测试：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]ping 2.2.2.2
+  PING 2.2.2.2: 56  data bytes, press CTRL_C to break
+    Reply from 2.2.2.2: bytes=56 Sequence=1 ttl=253 time=30 ms
+    Reply from 2.2.2.2: bytes=56 Sequence=2 ttl=253 time=20 ms
+    Reply from 2.2.2.2: bytes=56 Sequence=3 ttl=253 time=20 ms
+    Reply from 2.2.2.2: bytes=56 Sequence=4 ttl=253 time=20 ms
+    Reply from 2.2.2.2: bytes=56 Sequence=5 ttl=253 time=30 ms
+
+  --- 2.2.2.2 ping statistics ---
+    5 packet(s) transmitted
+    5 packet(s) received
+    0.00% packet loss
+    round-trip min/avg/max = 20/24/30 ms
+
+[AR1]ping 3.3.3.3
+  PING 3.3.3.3: 56  data bytes, press CTRL_C to break
+    Reply from 3.3.3.3: bytes=56 Sequence=1 ttl=253 time=10 ms
+    Reply from 3.3.3.3: bytes=56 Sequence=2 ttl=253 time=20 ms
+    Reply from 3.3.3.3: bytes=56 Sequence=3 ttl=253 time=10 ms
+    Reply from 3.3.3.3: bytes=56 Sequence=4 ttl=253 time=20 ms
+    Reply from 3.3.3.3: bytes=56 Sequence=5 ttl=253 time=20 ms
+
+  --- 3.3.3.3 ping statistics ---
+    5 packet(s) transmitted
+    5 packet(s) received
+    0.00% packet loss
+    round-trip min/avg/max = 10/16/20 ms
+
+[AR2]ping 3.3.3.3
+  PING 3.3.3.3: 56  data bytes, press CTRL_C to break
+    Reply from 3.3.3.3: bytes=56 Sequence=1 ttl=253 time=30 ms
+    Reply from 3.3.3.3: bytes=56 Sequence=2 ttl=253 time=20 ms
+    Reply from 3.3.3.3: bytes=56 Sequence=3 ttl=253 time=20 ms
+    Reply from 3.3.3.3: bytes=56 Sequence=4 ttl=253 time=20 ms
+    Reply from 3.3.3.3: bytes=56 Sequence=5 ttl=253 time=30 ms
+
+  --- 3.3.3.3 ping statistics ---
+    5 packet(s) transmitted
+    5 packet(s) received
+    0.00% packet loss
+    round-trip min/avg/max = 20/24/30 ms
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>&lt;FW1&gt;display firewall session table verbose vsys VSYS_A
+&lt;FW1&gt;display firewall session table verbose vsys VSYS_B
+&lt;FW1&gt;display firewall session table verbose
+</code></pre></div>
+<h4 id="32">3.2.实验二：虚拟系统与根系统通过引流表互访</h4>
+<p><img alt="image-20250924152119715" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250925215245841.png" /></p>
+<p>通过引流表使<code>3.3.3.3</code>能够成功访问<code>1.1.1.1</code>和<code>2.2.2.2</code>，并观察现象。</p>
+<p>由于基础配置一致，只演示引流表部分，配置前需要将<code>Public</code>的路由和安全策略删除</p>
+<div class="highlight"><pre><span></span><code>[FW1]firewall import-flow public 1.1.1.1 1.1.1.1 vpn-instance VSYS_A
+[FW1]firewall import-flow public 2.2.2.2 2.2.2.2 vpn-instance VSYS_B
+</code></pre></div>
+<p><strong>现象：</strong></p>
+<p><code>AR3</code>主动<code>ping</code>其他两个地址时，正向触发引流表，<code>Public</code>不会生成会话表也不需要安全策略允许直接放行。进入到虚拟系统时，需要检查对应安全策略以及路由并生成会话。</p>
+<p><code>AR1</code>或<code>AR2</code>主动访问<code>AR3</code>时，反向出发引流表，<code>VSYS_A</code>根据安全策略、路由放行并生成会话。当数据被传输到<code>Public</code>时不需要安全策略直接根据路由指导报文转发，且不会生成会话表。</p>
+<hr />
+<h4 id="33">3.3.实验三：旁挂式防火墙</h4>
+<p><img alt="image-20250925231029503" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250925231029567.png" /></p>
+<p>如上图，内网业务网段分别有两个<code>vlan</code>其网关分别是<code>LSW2</code>和<code>LSW3</code>。内网中所有网络设备通过<code>OSPF</code>的方式打通网络。</p>
+<ul>
+<li>
+<p><code>LSW1</code>的<code>vlan 206、208、209</code>都属于<code>vpn-instance qyt</code>建立<code>OSPF 2</code>，<code>vlan 210、204</code>属于<code>public</code>建立<code>OSPF 1</code>。</p>
+</li>
+<li>
+<p><code>FW1</code>的<code>vlan 204、206</code>都属于<code>vpn-instance qyt</code>建立<code>OSPF 2</code>。</p>
+</li>
+</ul>
+<hr />
+<h5 id="331">3.3.1.汇聚交换机配置</h5>
+<p><code>LSW2</code>的基本配置演示：</p>
+<div class="highlight"><pre><span></span><code>[LSW2]vlan ba 208 10
+[LSW2]int g0/0/2
+[LSW2-GigabitEthernet0/0/2]port link acc
+[LSW2-GigabitEthernet0/0/2]port def vlan 10
+[LSW2-GigabitEthernet0/0/2]quit
+[LSW2]int g0/0/1
+[LSW2-GigabitEthernet0/0/1]port link trunk
+[LSW2-GigabitEthernet0/0/1]port trunk all vlan 208
+[LSW2-GigabitEthernet0/0/1]quit
+[LSW2]int vlan 10
+[LSW2-Vlanif10]ip add 192.168.10.254 24
+[LSW2-Vlanif10]quit
+[LSW2]int vlan 208
+[LSW2-Vlanif208]ip add 12.1.1.2 30
+[LSW2-Vlanif208]quit
+</code></pre></div>
+<p><code>LSW3</code>的基本配置演示：</p>
+<div class="highlight"><pre><span></span><code>[LSW3]int g0/0/1
+[LSW3-GigabitEthernet0/0/1]port link trunk
+[LSW3-GigabitEthernet0/0/1]port trunk all vlan 209
+[LSW3-GigabitEthernet0/0/1]quit
+[LSW3]int g0/0/2
+[LSW3-GigabitEthernet0/0/2]port link acc
+[LSW3-GigabitEthernet0/0/2]port def vlan 20
+[LSW3-GigabitEthernet0/0/2]quit
+[LSW3]int vlan 209
+[LSW3-Vlanif209]ip add 13.1.1.2 30
+[LSW3-Vlanif209]quit
+[LSW3]int vlan 20
+[LSW3-Vlanif20]ip add 192.168.20.254 24
+[LSW3-Vlanif20]quit
+</code></pre></div>
+<p><code>LSW2</code>的<code>OSPF</code>配置演示：</p>
+<div class="highlight"><pre><span></span><code>[LSW2]ospf 1 router-id 2.2.2.2
+[LSW2-ospf-1]area 0
+[LSW2-ospf-1-area-0.0.0.0]network 12.1.1.2 0.0.0.0
+[LSW2-ospf-1-area-0.0.0.0]network 192.168.10.254 0.0.0.0
+[LSW2-ospf-1-area-0.0.0.0]quit
+[LSW2-ospf-1]quit
+</code></pre></div>
+<p><code>LSW3</code>的<code>OSPF</code>配置演示：</p>
+<div class="highlight"><pre><span></span><code>[LSW3]ospf 1 router-id 3.3.3.3
+[LSW3-ospf-1]area 0
+[LSW3-ospf-1-area-0.0.0.0]network 13.1.1.2 0.0.0.0
+[LSW3-ospf-1-area-0.0.0.0]network 192.168.20.254 0.0.0.0
+[LSW3-ospf-1-area-0.0.0.0]quit
+[LSW3-ospf-1]quit
+</code></pre></div>
+<hr />
+<h5 id="332">3.3.2.核心交换机配置</h5>
+<p>基础配置：</p>
+<div class="highlight"><pre><span></span><code>[LSW1]ip vpn-instance qyt   #创建vpn实例
+[LSW1-vpn-instance-qyt]ipv4-family
+[LSW1-vpn-instance-qyt-af-ipv4]quit
+[LSW1-vpn-instance-qyt]quit
+[LSW1]vlan ba 208 209 204 206 210
+[LSW1]int g0/0/1
+[LSW1-GigabitEthernet0/0/1]port link trunk
+[LSW1-GigabitEthernet0/0/1]port trunk all vlan 208
+[LSW1-GigabitEthernet0/0/1]quit
+[LSW1]int g0/0/2
+[LSW1-GigabitEthernet0/0/2]port link trunk
+[LSW1-GigabitEthernet0/0/2]port trunk all vlan 209
+[LSW1-GigabitEthernet0/0/2]quit
+[LSW1]int g0/0/3
+[LSW1-GigabitEthernet0/0/3]port link trunk
+[LSW1-GigabitEthernet0/0/3]port trunk all vlan 204
+[LSW1-GigabitEthernet0/0/3]undo port trunk all vlan 1
+[LSW1-GigabitEthernet0/0/3]quit
+[LSW1]int g0/0/4
+[LSW1-GigabitEthernet0/0/4]port link trunk
+[LSW1-GigabitEthernet0/0/4]port trunk all vlan 206
+[LSW1-GigabitEthernet0/0/4]undo port trunk all vlan 1
+[LSW1-GigabitEthernet0/0/4]quit
+[LSW1]int g0/0/5
+[LSW1-GigabitEthernet0/0/5]port link acc
+[LSW1-GigabitEthernet0/0/5]port def vlan 210
+[LSW1-GigabitEthernet0/0/5]quit
+[LSW1]int vlan 208
+[LSW1-Vlanif208]ip bin vpn-instance qyt
+[LSW1-Vlanif208]ip add 12.1.1.1 30
+[LSW1-Vlanif208]quit
+[LSW1]int vlan 209
+[LSW1-Vlanif209]ip bin vpn qyt
+[LSW1-Vlanif209]ip add 13.1.1.1 30
+[LSW1-Vlanif209]quit
+[LSW1]int vlan 210
+[LSW1-Vlanif210]ip add 11.1.1.1 30
+[LSW1-Vlanif210]quit
+[LSW1]int vlan 204
+[LSW1-Vlanif204]ip add 10.1.1.1 30
+[LSW1-Vlanif204]quit
+[LSW1]int vlan 206
+[LSW1-Vlanif206]ip bin vpn qyt
+[LSW1-Vlanif206]ip add 10.1.2.1 30
+[LSW1-Vlanif206]quit
+</code></pre></div>
+<p><code>OSPF</code>配置：</p>
+<div class="highlight"><pre><span></span><code>[LSW1]ospf 1
+[LSW1-ospf-1]area 0
+[LSW1-ospf-1-area-0.0.0.0]network 11.1.1.1 0.0.0.0
+[LSW1-ospf-1-area-0.0.0.0]network 10.1.1.1 0.0.0.0
+[LSW1-ospf-1-area-0.0.0.0]quit
+[LSW1-ospf-1]quit
+[LSW1]ospf 2 vpn-instance qyt
+[LSW1-ospf-2]area 0
+[LSW1-ospf-2-area-0.0.0.0]network 10.1.2.1 0.0.0.0
+[LSW1-ospf-2-area-0.0.0.0]network 12.1.1.1 0.0.0.0
+[LSW1-ospf-2-area-0.0.0.0]network 13.1.1.1 0.0.0.0
+[LSW1-ospf-2-area-0.0.0.0]quit  
+[LSW1-ospf-2]vpn-instance-capability simple 
+在MCE（Multi-VPN-Instance CE）设备上部署OSPF VPN多实例时，如果有Type3、Type5或Type7 LSA中设置DN Bit，就会导致这些路由无法计算，因为OSPF进行路由计算会进行防环路检测。这种情况下，通过配置vpn-instance-capability simple命令可以取消OSPF路由环路检测，不检查DN Bit和Route-tag而直接计算出所有OSPF路由，Route-tag恢复为缺省值1。
+[LSW1-ospf-2]quit
+</code></pre></div>
+<hr />
+<h5 id="333">3.3.3.防火墙配置</h5>
+<p>基础配置：
+<div class="highlight"><pre><span></span><code>[FW1]vlan ba 204 206
+[FW1]interface g1/0/0
+[FW1-GigabitEthernet1/0/0]portswitch
+[FW1-GigabitEthernet1/0/0]port link trunk
+[FW1-GigabitEthernet1/0/0]port trunk all vlan 204
+[FW1-GigabitEthernet1/0/0]undo port trunk all vlan 1
+[FW1-GigabitEthernet1/0/0]quit
+[FW1]int g1/0/1
+[FW1-GigabitEthernet1/0/1]portswitch 
+[FW1-GigabitEthernet1/0/1]port link trunk
+[FW1-GigabitEthernet1/0/1]port trunk all vlan 206
+[FW1-GigabitEthernet1/0/1]undo port trunk all vlan 1
+[FW1-GigabitEthernet1/0/1]quit
+
+[FW1]vsys enable 
+[FW1]vsys name qyt
+[FW1-vsys-qyt]assign vlan 204
+[FW1-vsys-qyt]assign vlan 206
+[FW1-vsys-qyt]quit
+
+[FW1]interface vlan 206
+[FW1-Vlanif206]ip add 10.1.2.2 30
+[FW1-Vlanif206]quit
+[FW1]interface vlan 204
+[FW1-Vlanif204]ip add 10.1.1.2 30
+[FW1-Vlanif204]quit
+
+[FW1]switch vsys qyt
+[FW1-qyt]firewall zone trust 
+[FW1-qyt-zone-trust]add int vlan 206
+[FW1-qyt-zone-trust]quit
+[FW1-qyt]firewall zone untrust 
+[FW1-qyt-zone-untrust]add int vlan 204
+[FW1-qyt-zone-untrust]quit
+</code></pre></div></p>
+<p>安全策略：</p>
+<div class="highlight"><pre><span></span><code>[FW1-qyt]security-policy 
+[FW1-qyt-policy-security]rule name in_to_out
+[FW1-qyt-policy-security-rule-in_to_out]source-zone trust 
+[FW1-qyt-policy-security-rule-in_to_out]destination-zone untrust 
+[FW1-qyt-policy-security-rule-in_to_out]source-address 192.168.10.0 24
+[FW1-qyt-policy-security-rule-in_to_out]source-address 192.168.20.0 24
+[FW1-qyt-policy-security-rule-in_to_out]action permit
+[FW1-qyt-policy-security-rule-in_to_out]quit
+[FW1-qyt-policy-security]quit
+</code></pre></div>
+<p><code>OSPF</code>配置：</p>
+<div class="highlight"><pre><span></span><code>[FW1]ospf 1 vpn-instance qyt
+[FW1-ospf-1]vpn-instance-capability simple 
+[FW1-ospf-1]area 0
+[FW1-ospf-1-area-0.0.0.0]network 10.1.1.2 0.0.0.0
+[FW1-ospf-1-area-0.0.0.0]network 10.1.2.2 0.0.0.0
+[FW1-ospf-1-area-0.0.0.0]quit
+[FW1-ospf-1]quit
+</code></pre></div>
+<hr />
+<h5 id="334ar1">3.3.4.AR1配置</h5>
+<p>基础配置：</p>
+<div class="highlight"><pre><span></span><code>[AR1]int g0/0/0
+[AR1-GigabitEthernet0/0/0]ip add 11.1.1.2 30
+[AR1-GigabitEthernet0/0/0]quit
+[AR1]int g0/0/1
+[AR1-GigabitEthernet0/0/1]ip add 202.100.100.1 30
+[AR1-GigabitEthernet0/0/1]quit
+
+[AR1]ip route-sta 0.0.0.0 0 202.100.100.2
+</code></pre></div>
+<p><code>OSPF</code>配置：</p>
+<div class="highlight"><pre><span></span><code>[AR1]ospf 1
+[AR1-ospf-1]area 0
+[AR1-ospf-1-area-0.0.0.0]network 11.1.1.2 0.0.0.0
+[AR1-ospf-1-area-0.0.0.0]quit
+[AR1-ospf-1]default-route-advertise 
+[AR1-ospf-1]quit
+</code></pre></div>
+<p><code>nat</code>配置：</p>
+<div class="highlight"><pre><span></span><code>[AR1]acl 2000
+[AR1-acl-basic-2000]rule permit source 192.168.10.0 0.0.0.255
+[AR1-acl-basic-2000]rule permit source 192.168.20.0 0.0.0.255
+[AR1-acl-basic-2000]quit
+
+[AR1]interface g0/0/1
+[AR1-GigabitEthernet0/0/1]nat outbound 2000
+[AR1-GigabitEthernet0/0/1]quit
+</code></pre></div>
+<h5 id="335ar2">3.3.5.AR2配置</h5>
+<div class="highlight"><pre><span></span><code>[AR2]int g0/0/0
+[AR2-GigabitEthernet0/0/0]ip add 202.100.100.2 30
+[AR2-GigabitEthernet0/0/0]quit
+[AR2]int g0/0/1
+[AR2-GigabitEthernet0/0/1]ip add 100.100.100.254 24
+[AR2-GigabitEthernet0/0/1]quit
+</code></pre></div>
+<h5 id="336">3.3.6.验证</h5>
+<p><strong>AR1查看路由表：</strong></p>
+<div class="highlight"><pre><span></span><code>&lt;AR1&gt;dis ip routing-table protocol ospf
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Public routing table : OSPF
+         Destinations : 6        Routes : 6        
+
+OSPF routing table status : &lt;Active&gt;
+         Destinations : 6        Routes : 6
+
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+
+       10.1.1.0/30  OSPF    10   2           D   11.1.1.1        GigabitEthernet
+0/0/0
+       10.1.2.0/30  OSPF    10   3           D   11.1.1.1        GigabitEthernet
+0/0/0
+       12.1.1.0/30  OSPF    10   4           D   11.1.1.1        GigabitEthernet
+0/0/0
+       13.1.1.0/30  OSPF    10   4           D   11.1.1.1        GigabitEthernet
+0/0/0
+   192.168.10.0/24  OSPF    10   5           D   11.1.1.1        GigabitEthernet
+0/0/0
+   192.168.20.0/24  OSPF    10   5           D   11.1.1.1        GigabitEthernet
+0/0/0
+
+OSPF routing table status : &lt;Inactive&gt;
+         Destinations : 0        Routes : 0
+</code></pre></div>
+<p><strong>client访问server</strong></p>
+<p><img alt="image-20250925235336823" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250925235336890.png" /></p>
+<p><strong>PC2 tracert测试：</strong></p>
+<div class="highlight"><pre><span></span><code>PC&gt;tracert 100.100.100.100
+
+traceroute to 100.100.100.100, 8 hops max
+(ICMP), press Ctrl+C to stop
+ 1  192.168.20.254   16 ms  16 ms  31 ms
+ 2  13.1.1.1   31 ms  47 ms  47 ms
+ 3    *  *  *
+ 4  10.1.1.1   78 ms  78 ms  78 ms
+ 5    *  *  *
+ 6  202.100.100.2   94 ms  109 ms  125 ms
+ 7  100.100.100.100   110 ms  78 ms  109 ms
+</code></pre></div>
+<hr />
+<h3 id="4vrf">4.VRF</h3>
+<h4 id="41">4.1.背景</h4>
+<p><img alt="image-20250926141722506" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250926141722577.png" /></p>
+<p>如上图，企业内部有生产和管理两个网络，这两张网络独占接入和汇聚层交换机，共享核心层交换机。核心交换机上同时连接了生产网络和管理网络的服务器群，两个网段均为<code>192.168.100.0/24</code>网段。</p>
+<p>现在需要实现生产和管理网络内部的数据正常通信，同时隔离两张网络之间的通信。</p>
+<h5 id="411acl">4.1.1.通过部署ACL实现</h5>
+<p>根据我们所学习过的内容，当前这种场景下可以通过<code>ACL</code>也就是过滤的方式实现。在核心交换机部署<code>ACL</code>，禁止生产和管理网络之间的互访流量。</p>
+<p>但是这么做的缺点很明显：</p>
+<ul>
+<li>配置繁琐，扩展性差。</li>
+<li>无法解决两张网络使用重叠网段的问题，需要在部署时规避重叠网段。</li>
+</ul>
+<p><img alt="image-20250926142144669" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250926142144739.png" /></p>
+<hr />
+<h5 id="412">4.1.2.增加核心交换机</h5>
+<p>另一种方法是在现有设备的基础上再增加一台核心交换机，从物理层面进行隔离。但是会额外增加设备的投入（成本）。</p>
+<p><img alt="image-20250926142137058" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250926142137126.png" /></p>
+<h5 id="413vrf">4.1.3.通过VRF技术实现</h5>
+<p><code>VRF</code>又称为（<code>VPN Instance</code>），是一种虚拟化技术。在物理设备上创建多个<code>VRF</code>，每个`VRF拥有独立的接口、路由表和路由协议进程等。</p>
+<p><img alt="image-20250926144502514" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250926144502584.png" /></p>
+<p><img alt="image-20250926144509508" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250926144509572.png" /></p>
+<hr />
+<h4 id="42vrf">4.2.VRF的实现过程</h4>
+<p><code>VRF</code>是对物理设备的一个逻辑划分，每个逻辑单元都被称为一个<code>VPN</code>示例，实例之间在路由层面是隔离的。</p>
+<p><code>VRF</code>实现过程如下：</p>
+<ol>
+<li>创建实例，并将三层接口（物理接口、子接口、<code>vlanif</code>）绑定到实例。</li>
+<li>配置与实例绑定的路由协议或静态路由。</li>
+<li>基于与实例绑定的接口和路由协议等建立实例路由表并基于实例路由表转发数据，实现实例间隔离。</li>
+</ol>
+<p><img alt="image-20250926144844236" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250926144844304.png" /></p>
+<h4 id="43vrf">4.3.VRF基本配置命令</h4>
+<ol>
+<li>创建<code>VPN</code>实例（进入<code>VPN</code>实例视图）：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] ip vpn-instance vpn-instance-name
+</code></pre></div>
+<ol>
+<li>使能<code>VPN</code>实例的<code>IPv4</code>类型的路由通告和数据转发功能：</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei-vpn-instance-InstanceName] ipv4-family
+</code></pre></div>
+<ul>
+<li>
+<p>该命令用于使能<code>VPN</code>实例的地址族，缺省情况下未使能<code>VPN</code>实例的<code>IPv4</code>地址族，接口不能与未只能任何地址族的<code>VPN</code>实例绑定。</p>
+</li>
+<li>
+<p>将接口绑定到<code>VPN</code>实例：</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[Huawei-GigabitEthernet0/0/0] ip binding vpn-instance vpn-instance-name
+</code></pre></div>
+<ul>
+<li>配置接口与<code>VPN</code>实例绑定后，或取消接口与<code>VPN</code>实例的绑定，都会清除该接口的<code>IP</code>地址、三层特性和<code>IP</code>相关的路由协议，如果需要应重新配置。</li>
+</ul>
+<hr />
+<h4 id="44">4.4.实验举例</h4>
+<p><img alt="image-20250926145908855" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250926145908925.png" /></p>
+<p><strong>创建VRF：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]ip vpn-instance test1  
+[AR1-vpn-instance-test1]ipv4-family
+[AR1-vpn-instance-test1-af-ipv4]quit
+[AR1-vpn-instance-test1]quit
+
+[AR1]ip vpn-instance test2
+[AR1-vpn-instance-test2]ipv4-family
+[AR1-vpn-instance-test2-af-ipv4]quit
+[AR1-vpn-instance-test2]quit
+</code></pre></div>
+<p><strong>绑定端口：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]interface g0/0/0   
+[AR1-GigabitEthernet0/0/0]ip binding vpn-instance test1
+[AR1-GigabitEthernet0/0/0]ip add 192.168.100.254 24
+[AR1-GigabitEthernet0/0/0]quit
+
+[AR1]interface g0/0/1   
+[AR1-GigabitEthernet0/0/1]ip binding vpn-instance test2
+[AR1-GigabitEthernet0/0/1]ip add 192.168.200.254 24
+[AR1-GigabitEthernet0/0/1]quit
+
+[AR1]interface g0/0/2.1
+[AR1-GigabitEthernet0/0/2.1]dot1q termination vid 10
+[AR1-GigabitEthernet0/0/2.1]ip binding vpn-instance test1
+[AR1-GigabitEthernet0/0/2.1]ip add 192.168.1.254 24
+[AR1-GigabitEthernet0/0/2.1]arp broadcast enable
+[AR1-GigabitEthernet0/0/2.1]quit
+
+[AR1]interface g0/0/2.2
+[AR1-GigabitEthernet0/0/2.2]dot1q termination vid 20    
+[AR1-GigabitEthernet0/0/2.2]ip binding vpn-instance test2
+[AR1-GigabitEthernet0/0/2.2]ip add 192.168.2.254 24
+[AR1-GigabitEthernet0/0/2.2]arp broadcast enable
+[AR1-GigabitEthernet0/0/2.2]quit
+</code></pre></div>
+<p><strong>交换机配置：</strong></p>
+<div class="highlight"><pre><span></span><code>[LSW1]vlan ba 10 20
+
+[LSW1]interface Ethernet0/0/1
+[LSW1-Ethernet0/0/1]port link trunk
+[LSW1-Ethernet0/0/1]port trunk all vlan 10 20
+[LSW1-Ethernet0/0/1]quit
+
+[LSW1]int Ethernet0/0/2
+[LSW1-Ethernet0/0/2]port link acc
+[LSW1-Ethernet0/0/2]port def vlan 10
+[LSW1-Ethernet0/0/2]quit
+
+[LSW1]int Ethernet0/0/3
+[LSW1-Ethernet0/0/3]port link acc
+[LSW1-Ethernet0/0/3]port def vlan 20
+[LSW1-Ethernet0/0/3]quit
+</code></pre></div>
+<p><strong>查看路由表：</strong></p>
+<div class="highlight"><pre><span></span><code>[AR1]display ip routing-table vpn-instance test1
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Routing Tables: test1
+         Destinations : 7        Routes : 7        
+
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+
+    192.168.1.0/24  Direct  0    0           D   192.168.1.254   GigabitEthernet
+0/0/2.1
+  192.168.1.254/32  Direct  0    0           D   127.0.0.1       GigabitEthernet
+0/0/2.1
+  192.168.1.255/32  Direct  0    0           D   127.0.0.1       GigabitEthernet
+0/0/2.1
+  192.168.100.0/24  Direct  0    0           D   192.168.100.254 GigabitEthernet
+0/0/0
+192.168.100.254/32  Direct  0    0           D   127.0.0.1       GigabitEthernet
+0/0/0
+192.168.100.255/32  Direct  0    0           D   127.0.0.1       GigabitEthernet
+0/0/0
+255.255.255.255/32  Direct  0    0           D   127.0.0.1       InLoopBack0
+
+[AR1]display ip routing-table vpn-instance test2
+Route Flags: R - relay, D - download to fib
+------------------------------------------------------------------------------
+Routing Tables: test2
+         Destinations : 7        Routes : 7        
+
+Destination/Mask    Proto   Pre  Cost      Flags NextHop         Interface
+
+    192.168.2.0/24  Direct  0    0           D   192.168.2.254   GigabitEthernet
+0/0/2.2
+  192.168.2.254/32  Direct  0    0           D   127.0.0.1       GigabitEthernet
+0/0/2.2
+  192.168.2.255/32  Direct  0    0           D   127.0.0.1       GigabitEthernet
+0/0/2.2
+  192.168.200.0/24  Direct  0    0           D   192.168.200.254 GigabitEthernet
+0/0/1
+192.168.200.254/32  Direct  0    0           D   127.0.0.1       GigabitEthernet
+0/0/1
+192.168.200.255/32  Direct  0    0           D   127.0.0.1       GigabitEthernet
+0/0/1
+255.255.255.255/32  Direct  0    0           D   127.0.0.1       InLoopBack0
+</code></pre></div>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

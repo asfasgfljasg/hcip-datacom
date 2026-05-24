@@ -1,0 +1,5530 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/">
+      
+      
+        <link rel="next" href="../03_IS-IS%E8%AF%A6%E8%A7%A3/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>OSPF详解 - 华为认证学习笔记</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#02_ospf" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="华为认证学习笔记" class="md-header__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            华为认证学习笔记
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OSPF详解
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+  
+
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="华为认证学习笔记" class="md-nav__button md-logo" aria-label="华为认证学习笔记" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    华为认证学习笔记
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-DATACOM
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-DATACOM
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-DATACOM%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    路由篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_%E8%B7%AF%E7%94%B1%E5%8D%8F%E8%AE%AE%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由协议介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    OSPF详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1ospf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.OSPF基础概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.OSPF基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.链路状态协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12router-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.区域与Router-ID
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.区域与Router-ID">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121ospfarea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.OSPF区域（Area）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122router-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.Router-ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.报文类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.网络类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.邻居状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.邻居发现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.邻居关系建立过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.邻接关系建立过程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8.邻接关系建立过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#181drbdr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.1.DR与BDR选举
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#182" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.2.邻接关系建立过程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8.2.邻接关系建立过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1exstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.ExStart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.Exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.Loading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.Full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#183" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.3.广播网络类型中报文目的地址
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#183_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.3.用实验验证理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8.3.用实验验证理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#184drbdr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.4.DR/BDR场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9.周期性泛洪与触发式泛洪
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.9.周期性泛洪与触发式泛洪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9.1.触发式泛洪
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9.2.周期性泛洪
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#110mtu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.10.MTU不一致
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#111p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.11.提问：p2p与广播是否可以建立邻居
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.进阶
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.进阶">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.LSA概述及泛洪
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.LSA概述及泛洪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.LSA格式及类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.泛洪机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.水平分割
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214lsdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.LSDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.新旧LSA判断
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.域内LSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.域内LSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221lsa1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.LSA1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222lsa2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.LSA2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.问题与总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224spf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.SPF算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225ispfincremental-spf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5.iSPF（Incremental SPF）==看看得了==
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226prcpartial-route-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.6.PRC（Partial Route Calculation）==看看得了==
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#227" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.7.实验验证理论
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.域间LSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.域间LSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231lsa3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.LSA3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.区域间路由防环机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24vlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.虚连接（Vlink）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.虚连接（Vlink）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241vlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.Vlink的应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.实验一：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.实验二：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.实验三（作业）：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.外部LSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5.外部LSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251lsa5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1.LSA5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252lsa4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2.LSA4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.3.度量值类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.特殊区域
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6.特殊区域">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261stub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1.Stub区域
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262totally-stub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2.Totally Stub区域
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263nssatotally-nssa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3.NSSA与Totally NSSA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263stub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3.实验一：Stub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265totally-stub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.5.实验二：Totally Stub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264nssa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.4.实验三：NSSA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265totally-nssa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.5.实验四：Totally NSSA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.选路规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.报文认证
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.报文认证">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.1.实验一：接口认证明文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.2.实验二：区域认证密文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.路由汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.9.路由汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#291" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.1.实验一：区域间汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#292" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.2.实验二：区域外汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#210silent-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.Silent-Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.填坑1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11.填坑1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.1.实验说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.填坑2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_IS-IS%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IS-IS详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_%E8%B7%AF%E7%94%B1%E7%AD%96%E7%95%A5%E4%B8%8E%E7%AD%96%E7%95%A5%E8%B7%AF%E7%94%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    路由策略与策略路由
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_BGP%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    BGP详解
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_MPLS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MPLS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    交换与无线篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    交换与无线篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/01_STP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    STP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/02_RSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/03_MSTP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MSTP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%A4%E6%8D%A2%E4%B8%8E%E6%97%A0%E7%BA%BF%E7%AF%87/04_WLAN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    WLAN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    防火墙篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/01_%E9%98%B2%E7%81%AB%E5%A2%99%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙基本概念
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/02_%E9%98%B2%E7%81%AB%E5%A2%99%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙NAT技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/03_%E9%98%B2%E7%81%AB%E5%A2%99%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    防火墙双机热备
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/04_%E8%99%9A%E6%8B%9F%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    虚拟系统
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%98%B2%E7%81%AB%E5%A2%99%E7%AF%87/05_IPsec%20VPN/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IPsec VPN
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIA-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIA-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/01_openEuler%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    openEuler操作系统入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/02_%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    命令行基础操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/03_%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    文本编辑器
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/04_%E7%94%A8%E6%88%B7%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    用户和权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/05_%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    软件包管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/06_%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%8F%8A%E5%AD%98%E5%82%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    管理文件系统及存储
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/07_%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/08_Samba%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samba文件共享服务器管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../openEuler%E7%AF%87/09_HCIA-openEuler%E7%BB%BC%E5%90%88%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIA-openEuler综合实验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HCIP-openEuler
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    HCIP-openEuler
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mindmaps/HCIP-openEuler%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    思维导图
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    常用服务篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    常用服务篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/1.HTTP%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP协议
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/2.Apache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Apache
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/3.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/4.DNS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/5.DNS%E4%B8%BB%E4%BB%8E/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    DNS主从
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/6.LAMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LAMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E5%B8%B8%E7%94%A8%E6%9C%8D%E5%8A%A1%E7%AF%87/7.LNMP/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LNMP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群篇
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    集群篇
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/01.%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    集群架构介绍
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/02.LVS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LVS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/03.Nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/04.HAproxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HAproxy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../HCIP-openEuler/%E9%9B%86%E7%BE%A4%E7%AF%87/05.KeepAlived/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    KeepAlived
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1ospf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.OSPF基础概念
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.OSPF基础概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1.链路状态协议
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12router-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.区域与Router-ID
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2.区域与Router-ID">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121ospfarea" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.1.OSPF区域（Area）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122router-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2.2.Router-ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.3.报文类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.4.网络类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.5.邻居状态机
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.6.邻居发现
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.7.邻居关系建立过程
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#18" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.邻接关系建立过程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8.邻接关系建立过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#181drbdr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.1.DR与BDR选举
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#182" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.2.邻接关系建立过程
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8.2.邻接关系建立过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1exstart" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.ExStart
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.Exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.Loading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4full" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.Full
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#183" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.3.广播网络类型中报文目的地址
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#183_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.3.用实验验证理论
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.8.3.用实验验证理论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#184drbdr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.8.4.DR/BDR场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9.周期性泛洪与触发式泛洪
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1.9.周期性泛洪与触发式泛洪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9.1.触发式泛洪
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.9.2.周期性泛洪
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#110mtu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.10.MTU不一致
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#111p2p" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.11.提问：p2p与广播是否可以建立邻居
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.进阶
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.进阶">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.LSA概述及泛洪
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1.LSA概述及泛洪">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.1.LSA格式及类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.2.泛洪机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#213" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.3.水平分割
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#214lsdb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.4.LSDB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#215lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.5.新旧LSA判断
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#216" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1.6.总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.域内LSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2.域内LSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221lsa1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.1.LSA1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222lsa2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.2.LSA2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.3.问题与总结
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224spf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.4.SPF算法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225ispfincremental-spf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.5.iSPF（Incremental SPF）==看看得了==
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226prcpartial-route-calculation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.6.PRC（Partial Route Calculation）==看看得了==
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#227" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2.7.实验验证理论
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.域间LSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.域间LSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231lsa3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.1.LSA3
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3.2.区域间路由防环机制
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24vlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.虚连接（Vlink）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4.虚连接（Vlink）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#241vlink" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.1.Vlink的应用场景
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#242" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.2.实验一：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#243" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.3.实验二：
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#244" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4.4.实验三（作业）：
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25lsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.外部LSA
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5.外部LSA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251lsa5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.1.LSA5
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252lsa4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.2.LSA4
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.5.3.度量值类型
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.特殊区域
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6.特殊区域">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261stub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.1.Stub区域
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262totally-stub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.2.Totally Stub区域
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263nssatotally-nssa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3.NSSA与Totally NSSA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263stub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.3.实验一：Stub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265totally-stub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.5.实验二：Totally Stub
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264nssa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.4.实验三：NSSA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265totally-nssa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.6.5.实验四：Totally NSSA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.7.选路规则
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.报文认证
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8.报文认证">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.1.实验一：接口认证明文
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.8.2.实验二：区域认证密文
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#29" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.路由汇总
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.9.路由汇总">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#291" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.1.实验一：区域间汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#292" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.9.2.实验二：区域外汇总
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#210silent-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.10.Silent-Interface
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2111" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.填坑1
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11.填坑1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.11.1.实验说明
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2122" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.12.填坑2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="02_ospf">02_OSPF详解</h1>
+<h3 id="1ospf">1.OSPF基础概念</h3>
+<p><code>OSPF (Open Shortest Path First)</code>开放式最短路径优先协议是<code>IETF</code>组织开发的一个基于<strong>链路状态的内部网关协议（IGP）</strong>。目前<code>OSPF</code>主要有两个版本：<code>OSPF Version2</code>针对<code>IPv4</code>、<code>OSPF Version3</code>针对<code>IPv6</code>。</p>
+<hr />
+<h4 id="11">1.1.链路状态协议</h4>
+<p>链路状态协议的核心思想是：<strong>每个路由器维护整个网络的拓扑数据库（LSDB），通过计算最短路径树（SPT）来决定最佳路由</strong>。</p>
+<p>当我们构建了一个<code>OSPF</code>网络后，网络设备两两之间会建立<code>OSPF</code>邻居关系。邻居关系建立完成后，网络设备会将自己的<strong>路由表</strong>同步给邻居，路由信息就会像流感一样传播到整个<code>OSPF</code>域中。</p>
+<p>但是，一个网络设备可能从多个邻居获取到相同网段的路由信息。根据路由表的规则（最优路由原则）会对相同网段的路由信息进行比较，只有最<strong>优选</strong>的才会放进路由表。这个比较的方式就是通过<code>SPF (Dijkstra)</code>算法计算得出的。</p>
+<p>简单讲讲怎么计算出来的，每个路由器都会拥有<strong>完整的链路状态数据库（LSDB）</strong>，包含网络中所有路由器和链路的详细信息（如链路开销、邻居关系等）。路由器以<strong>自身为起点（Root树根）</strong>，逐步计算到其他所有节点的最短路径。最终生成一颗<strong>最短路径树（SPT）</strong>，用于构建路由表。而实际路径选择的依据是<strong>链路开销（Cost）</strong>，开销越小优先级越高。</p>
+<p>所以，与距离数量路由协议相比，距离向量协议（如RIP）仅知道“下一跳”和“跳数”，而SPF算法基于全网拓扑计算最优路径。</p>
+<p><img alt="image-20250805194026891" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910487.png" /></p>
+<hr />
+<h4 id="12router-id">1.2.区域与Router-ID</h4>
+<h5 id="121ospfarea">1.2.1.OSPF区域（Area）</h5>
+<p>相同区域内的<code>OSPF</code>路由器拥有完全一致的<code>LSDB</code>，在区域内部，<code>OSPF</code>采用<code>SPF</code>算法完成路由计算。随着网络规模的扩大，路由器为了完成路由计算所消耗的内存、<code>CPU</code>等资源也越来越多，通过区域划分可以在一定程度上缓解路由器的压力。</p>
+<p><strong>区域的作用</strong></p>
+<ul>
+<li><strong>减少泛洪范围：</strong>限制<code>LSA</code>（链路状态通告）的传播范围，降低网络开销。</li>
+<li><strong>提高扩展性：</strong>通过分层设计（骨干区域 + 非骨干区域）支持大规模网络。</li>
+<li><strong>优化路由计算：</strong>区域内使用<code>SPF</code>算法，区域间可通过<code>ABR</code>汇总路由，减少计算复杂度。</li>
+</ul>
+<hr />
+<p><strong>区域的类型</strong></p>
+<p><strong>注意：</strong>==在<code>OSPF</code>中区域的概念存在于设备的接口，也就是说一台设备的不同接口可以属于不同的<code>OSPF</code>区域。==</p>
+<ol>
+<li><strong>骨干区域（Area 0）</strong></li>
+<li><strong>核心作用：</strong>所有非骨干区域必须直接连接到<code>Area 0</code>，或者使用虚链路（<code>Virtual Link</code>）</li>
+<li><strong>特点：</strong><ul>
+<li>负责在不同区域间传递路由信息，例如把区域1的路由传递给区域2。</li>
+<li>只有<code>ABR</code>能在<code>Area 0</code>和其他区域间转发路由。</li>
+</ul>
+</li>
+<li><strong>非骨干区域</strong></li>
+</ol>
+<p><img alt="image-20250805223327076" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910508.png" /></p>
+<ol>
+<li><strong>特殊区域</strong></li>
+</ol>
+<hr />
+<p><strong>区域设计原则</strong></p>
+<ul>
+<li><strong>所有非骨干区域必须与Area 0直连</strong></li>
+<li><strong>避免区域过大：</strong>单个区域内的路由器建议不超过50台</li>
+<li><strong>合理使用Stub/NSSA：</strong>减少路由表大小，提升性能</li>
+</ul>
+<hr />
+<p><strong>设备角色</strong></p>
+<p>区域将<code>OSPF</code>设备划分成多个部分，从而诞生出两种<code>OSPF</code>设备角色：</p>
+<ol>
+<li>
+<p><strong>ABR（Area Border Router）</strong></p>
+</li>
+<li>
+<p>连接多个区域（至少一个接口在<code>Area 0</code>）。就是在<code>OSPF</code>进程中，多个<code>OSPF</code>区域宣告了网段，且正常建立了邻居关系。</p>
+</li>
+<li>
+<p><code>ospf 1
+        area 0
+            network 192.168.1.0 0.0.0.255
+            network 192.168.2.0 0.0.0.255
+        area 1
+            network 192.168.3.0 0.0.0.255
+            network 192.168.4.0 0.0.0.255</code></p>
+</li>
+</ol>
+<p><img alt="image-20250805223522982" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910495.png" /></p>
+<ol>
+<li>
+<p><strong>ASBR（Autonomous System Boundary Router）</strong></p>
+</li>
+<li>
+<p>将外部路由（如<code>IS-IS</code>、静态路由、其他<code>OSPF</code>进程）重分发到<code>OSPF</code>。也就是<code>OSPF</code>域与其他路由协议的边界。</p>
+</li>
+</ol>
+<p><img alt="image-20250805223703408" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910527.png" /></p>
+<hr />
+<h5 id="122router-id">1.2.2.Router-ID</h5>
+<p><strong>Router-ID的作用：</strong></p>
+<ul>
+<li><strong>唯一表示<code>OSPF</code>设备：</strong>类似但不是<code>IP</code>地址，用于邻居建立和<code>LSA</code>标识。</li>
+<li><strong>选举DR/BDR：</strong>在广播网络中，<code>Router-ID</code>大的路由器优先称为<code>DR</code>。</li>
+</ul>
+<hr />
+<p><strong>Router-ID的确定规则：</strong></p>
+<ol>
+<li><strong>手动指定（推荐）</strong></li>
+</ol>
+<div class="highlight"><pre><span></span><code>ospf 1 router-id 1.1.1.1
+ospf 1
+</code></pre></div>
+<ol>
+<li>
+<p><strong>自动选择</strong></p>
+</li>
+<li>
+<p>选择当前设备上<strong>已配置的<code>Loopback</code>接口中最大的<code>IP</code>地址。</strong></p>
+</li>
+<li>若没有配置<code>LoopBack</code>，选择<strong>物理接口中最大的地址</strong>。</li>
+</ol>
+<hr />
+<p><strong>Router-ID的注意事项</strong></p>
+<ul>
+<li>修改<code>Router-ID</code>必须重启<code>OSPF</code>进程才能生效：</li>
+</ul>
+<div class="highlight"><pre><span></span><code>&lt;R&gt;reset ospf process
+</code></pre></div>
+<ul>
+<li>处于方便的角度考虑，一般指定的<code>Router-ID</code>都需要方便辨识。比如：<code>1.0.0.1、2.0.0.2</code>等，这样做的好处是在某一台设备上查看<code>OSPF LSDB</code>或邻居表，都会非常便利的知道对方的设备名。</li>
+</ul>
+<hr />
+<p><strong>提问环节1：</strong></p>
+<p>我在配置<code>OSPF</code>时没有指定<code>Router-ID</code>，当前设备上有如下几个<code>IP</code>地址，<code>OSPF</code>会选择哪一个作为<code>Router-ID</code>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>接口名称</strong></th>
+<th style="text-align: center;"><strong>IP地址</strong></th>
+<th style="text-align: center;"><strong>子网掩码</strong></th>
+<th style="text-align: center;">接口状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>loopback0</code></td>
+<td style="text-align: center;"><code>1.1.1.1</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">up</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>loopback1</code></td>
+<td style="text-align: center;"><code>2.2.2.2</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">up</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>loopback10</code></td>
+<td style="text-align: center;"><code>100.100.100.100</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">up</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>loopback20</code></td>
+<td style="text-align: center;"><code>224.0.0.1</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">up</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>G0/0/0</code></td>
+<td style="text-align: center;"><code>3.3.3.3</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">up</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>提问环节2：</strong></p>
+<p>我在配置<code>OSPF</code>时没有指定<code>Router-ID</code>，当前设备上有如下几个<code>IP</code>地址，<code>OSPF</code>会选择哪一个作为<code>Router-ID</code>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>接口名称</strong></th>
+<th style="text-align: center;"><strong>IP地址</strong></th>
+<th style="text-align: center;"><strong>子网掩码</strong></th>
+<th style="text-align: center;">接口状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">G0/0/0</td>
+<td style="text-align: center;"><code>1.1.1.1</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">up</td>
+</tr>
+<tr>
+<td style="text-align: center;">G0/0/1</td>
+<td style="text-align: center;"><code>2.2.2.2</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">up</td>
+</tr>
+<tr>
+<td style="text-align: center;">G0/0/2</td>
+<td style="text-align: center;"><code>100.100.100.100</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">down</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>提问环节3：</strong></p>
+<p>我在配置<code>OSPF</code>时没有指定<code>Router-ID</code>，当前设备上有如下几个<code>IP</code>地址，<code>OSPF</code>会选择哪一个作为<code>Router-ID</code>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>接口名称</strong></th>
+<th style="text-align: center;"><strong>IP地址</strong></th>
+<th style="text-align: center;"><strong>子网掩码</strong></th>
+<th style="text-align: center;">接口状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">G0/0/0</td>
+<td style="text-align: center;"><code>1.1.1.1</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">down</td>
+</tr>
+<tr>
+<td style="text-align: center;">G0/0/1</td>
+<td style="text-align: center;"><code>2.2.2.2</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">down</td>
+</tr>
+<tr>
+<td style="text-align: center;">G0/0/2</td>
+<td style="text-align: center;"><code>100.100.100.100</code></td>
+<td style="text-align: center;"><code>/32</code></td>
+<td style="text-align: center;">down</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h4 id="13">1.3.报文类型</h4>
+<p><code>OSPF</code>的报文总共有五种类型，它们的目的是为了发现邻居、建立邻居、维护邻居、交互<code>LSA</code>（链路状态通告）。</p>
+<p><img alt="image-20250812041646524" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910485.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>报文类型</strong></th>
+<th style="text-align: center;"><strong>报文作用</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Hello报文</strong></td>
+<td style="text-align: center;">周期性发送，用来发现和维持OSPF邻居关系。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>DD报文</strong> （Database Description）</td>
+<td style="text-align: center;">描述本地LSDB（链路状态数据库）的摘要信息，用于两台设备进行数据库同步。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>LSR报文</strong> （Link State Request）</td>
+<td style="text-align: center;">向对方请求所需的LSA。设备必须在成功交换DD报文后才会发送LSR报文。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>LSU报文</strong> （Link State Update）</td>
+<td style="text-align: center;">向对方发送其所需要的LSA（链路状态通告）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>LSAck报文</strong> （Link State Ack）</td>
+<td style="text-align: center;">对收到的LSA进行确认，确保可靠性传输。</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>[!NOTE]</p>
+<p>LSA指的是携带路由器接口、邻居、链路开销等信息的数据。用于构建链路状态数据库。链路状态通告</p>
+</blockquote>
+<hr />
+<h4 id="14">1.4.网络类型</h4>
+<p><code>OSPF</code>根据链路层协议类型，将网络分为如下四种类型：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>网络类型</strong></th>
+<th style="text-align: center;"><strong>含义及报文传输方式</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>广播类型（Broadcast）</strong></td>
+<td style="text-align: center;">当链路层协议是 Ethernet、FDDI 时，默认网络类型为 Broadcast。在该网络中： • 以组播形式发送 Hello、LSU、LSAck 报文（组播地址 <code>224.0.0.5</code> 和 <code>224.0.0.6</code>）。 • 需要选举 DR/BDR 以减少泛洪。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>NBMA类型</strong> （Non-Broadcast Multi-Access）</td>
+<td style="text-align: center;">当链路层协议是帧中继、X.25 时，默认网络类型为 NBMA。在该网络中： • <strong>以单播形式发送所有协议报文</strong>（Hello、DD、LSR、LSU、LSAck）。 • 必须手动配置邻居，且需选举 DR/BDR（因无广播能力）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>点到多点 P2MP</strong> （Point-to-Multipoint）</td>
+<td style="text-align: center;">无默认链路层协议属于此类型，通常由 NBMA 强制更改而来（适用于非全连通网络）。在该网络中： • 以组播形式发送 Hello 报文（<code>224.0.0.5</code>）。 • <strong>以单播形式发送其他报文</strong>（DD、LSR、LSU、LSAck）。 • <strong>不选举 DR/BDR</strong>。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>点到点 P2P</strong> （Point-to-Point）</td>
+<td style="text-align: center;">常见于 PPP、HDLC 链路。在该网络中： • 以组播形式发送 Hello 报文（<code>224.0.0.5</code>）。 • 以单播形式发送其他报文（DD、LSR、LSU、LSAck）。 • <strong>不选举 DR/BDR</strong>（仅两个节点直接通信）。</td>
+</tr>
+</tbody>
+</table>
+<p>需要注意的是，不同的网络类型中发送数据包的方式（单播、组播）、建立邻居（邻接）的方式会有所不同。</p>
+<hr />
+<h4 id="15">1.5.邻居状态机</h4>
+<p>在<code>OSPF</code>网络中，为了交换路由信息，<code>OSPF</code>设备之间首先要建立<strong>邻接</strong>关系，邻居（<code>Neighbors</code>）和邻接（<code>Adjacencies</code>）关系是两个不同的概念。</p>
+<ul>
+<li><strong>邻居关系：</strong><code>OSPF</code>设备启动后，会通过<code>OSPF</code>接口向外发送<code>Hello</code>报文，收到<code>Hello</code>报文的<code>OSPF</code>设备会检查报文中所定义的参数，如果双方一致就会形成邻居关系，两端设备互为邻居。</li>
+<li><strong>邻接关系：</strong>形成邻居关系后，如果两端设备成功交换<code>DD</code>报文和<code>LSA</code>，才建立邻接关系。</li>
+</ul>
+<p>可以理解为邻居是设备与设备之间互相信任的过程，邻居关系建立完成后，才可以互相交互<code>LSA</code>。当所有的<code>LSA</code>同步完成后（<code>LSDB</code>同步），进入邻接关系。邻接关系建立完成后，这才是<code>OSPF</code>设备之间的最终状态。</p>
+<p><code>OSPF</code>总共有八种状态机：<code>Down、Attempt、init、2-way、Exstart、Exchange、Loading、Full</code>。</p>
+<ul>
+<li><strong>Down：</strong>邻居会话的初始阶段，表明设备尚未检测到邻居或主动终止了邻居。</li>
+<li><strong>Attempt：</strong>该状态仅发生在<code>NBMA</code>网络中，表明对端在邻居失效时间间隔超时前仍然没有回复<code>Hello</code>报文。此时路由器依然按照<code>Hello interval</code>轮询向对端发送<code>Hello</code>报文。</li>
+<li><strong>Init：</strong>收到<code>Hello</code>报文后状态为<code>Init</code>。</li>
+<li><strong>2-way：</strong>收到的<code>Hello</code>报文中包含有自己的<code>Router-ID</code>，则状态切换为<code>2-way</code>；如果不需要形成邻接关系则邻居状态机就停留在次状态，否则进入<code>Exstart</code>状态。</li>
+<li><strong>Exstart：</strong>开始协商主从关系，并确定<code>DD</code>的序列号，此时状态为<code>Exstart</code>。</li>
+<li><strong>Exchange：</strong>主从关系协商完毕后开始交换<code>DD</code>报文，此时状态为<code>Exchanage</code>。</li>
+<li><strong>Loading：</strong><code>DD</code>报文交换完成即<code>Exchange done</code>，此时状态为<code>Loading</code>。</li>
+<li><strong>Full：</strong><code>LSR</code>重传列表为空，此时状态为<code>Full</code>。</li>
+</ul>
+<hr />
+<h4 id="16">1.6.邻居发现</h4>
+<p><code>OSPF</code>通过<code>Hello</code>报文发现和维持邻居关系。邻居关系不同于邻接关系，只有达到<code>2-way</code>状态的路由器才算邻居关系（双向邻居关系）建立起来。<code>OSPF</code>在当前设备所有启用<code>OSPF</code>协议的接口发送<code>Hello</code>报文，不同的网络上，<code>OSPF</code>发送<code>Hello</code>报文的间隔和目的地址不同：</p>
+<ul>
+<li>在广播和<code>p2p</code>网络中，<code>Hello</code>每<code>10s</code>发送一次，在<code>NBMA</code>和<code>p2mp</code>网络中每<code>30s</code>发送一次。</li>
+<li>在广播、<code>p2p</code>和<code>p2mp</code>的网络中，<code>OSPF</code>通过组播的<code>Hello</code>报文自动发现邻居，组播地址为：<code>224.0.0.5</code>（所有<code>OSPF</code>路由器）。在<code>NBMA</code>网络中，需要手工指定邻居。</li>
+</ul>
+<hr />
+<p>在建立邻居关系时，路由器必须对<code>Hello</code>报文中携带的参数达成一致，对收到的<code>Hello</code>报文中的参数进行检查比对，以下是比对内容：</p>
+<ul>
+<li><strong>Hello/Dead interval：</strong>时间一致才能建立邻居关系。<code>Dead interval</code>是<code>Hello interval</code>的四倍。</li>
+<li><strong>区域ID：</strong>相邻的路由器在同一区域才能建立邻居关系，检查<code>OSPF</code>头中的<code>Area ID</code>，<code>Area ID</code>出现在所有<code>OSPF</code>报文的头部而非<code>Hello</code>报文中。</li>
+<li>
+<p><strong>区域类型：</strong>区域类型要一致。判断区域类型是否一致要参考<code>Hello</code>报文中的<code>Option</code>位，其中<code>E</code>和<code>N/P</code>置位代表的含义不同，不同的<code>Option</code>置位决定了不同的区域类型。</p>
+</li>
+<li>
+<p><strong>认证类型和密钥一致：</strong>只有验证通过才能建立邻居关系。</p>
+</li>
+<li><strong>Router ID无冲突：</strong>直连路由器要建立邻居关系时，彼此间<code>Router ID</code>一定要不一样。</li>
+</ul>
+<p><img alt="image-20250806223348248" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910480.png" /></p>
+<hr />
+<h4 id="17">1.7.邻居关系建立过程</h4>
+<p><img alt="image-20250806225637467" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910693.png" /></p>
+<p><code>OSPF</code>邻居的建立过程：</p>
+<ul>
+<li>三次握手</li>
+<li><code>Down、Init、2-way</code></li>
+<li><strong>init:</strong>单向邻居建立成功</li>
+<li><strong>2-way:</strong>双向邻居建立成功</li>
+</ul>
+<p><img alt="image-20250806225430660" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910670.png" /></p>
+<ol>
+<li>设备<code>A</code>向<code>224.0.0.5</code>发送<code>Hello</code>报文（此时两台设备都处于<code>Down</code>状态）</li>
+<li>设备<code>B</code>收到设备<code>A</code>发送的<code>Hello</code>报文，但因为<code>Hello</code>报文中的<code>Active Neighbor</code>字段没有包含当前路由器的<code>Router ID</code>（此时<code>B</code>查看<code>Peer</code>状态为<code>Init</code>）</li>
+<li>设备<code>B</code>向<code>224.0.0.5</code>发送<code>Hello</code>报文，该报文中的<code>Active Neighbor</code>字段为设备<code>A</code>的<code>Router-ID</code></li>
+<li>设备<code>A</code>收到设备<code>B</code>发送的<code>Active Neighbor</code>字段为自己的<code>Router-ID</code>的<code>Hello</code>报文（此时设备<code>A</code>查看<code>Peer</code>状态为<code>2-way</code>）</li>
+<li>设备<code>A</code>向<code>224.0.0.5</code>发送<code>Hello</code>报文，该报文中的<code>Active Neighbor</code>字段为设备<code>B</code>的<code>Router-ID</code></li>
+<li>设备<code>B</code>收到设备<code>A</code>发送的<code>Active Neighbor</code>字段为自己的<code>Router-ID</code>的<code>Hello</code>报文（此时设备<code>B</code>查看<code>Peer</code>状态为<code>2-way</code>）</li>
+</ol>
+<hr />
+<h4 id="18">1.8.邻接关系建立过程</h4>
+<p><strong>注意：</strong>在<strong>广播和<code>NBMA</code></strong>类型的网络中，邻接关系的建立发生在<code>DR</code>和<code>BDR</code>选举之后。在其他网络类型中没有<code>DR/BDR</code>选举，邻居关系建立完成后便开始建立邻接关系。</p>
+<p><strong>邻接关系建立过程如下图：</strong></p>
+<p><img alt="image-20250806230125539" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910681.png" /></p>
+<hr />
+<h5 id="181drbdr">1.8.1.DR与BDR选举</h5>
+<p><img alt="img" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910687.png" /></p>
+<p>在<code>OSPF</code>的 <strong>广播网络（Broadcast）</strong> 和 <strong>非广播多路访问（NBMA）</strong> 网络中，为了避免全互联的邻接关系（<code>n(n-1)/2</code> 个邻接），OSPF 引入了 <strong>DR（Designated Router，指定路由器）</strong> 和 <strong>BDR（Backup Designated Router，备份指定路由器）</strong> 的概念。它们的作用是 <strong>减少 LSA 泛洪</strong>，提高网络效率。</p>
+<p>在广播网络和<code>NBMA</code>中，一个广播域里可能会有<code>2</code>个以上的<code>OSPF</code>设备进行邻居关系的建立，如果没有<code>DR/BDR</code>就需要两两之间建立邻居关系，有了<code>DR/BDR</code>之后，就会减少这个广播域内的<strong>邻接关系数量</strong>。如下图：</p>
+<p><img alt="image-20250806230820067" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910690.png" /></p>
+<p><img alt="选举DR前后对比图" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910703.png" /></p>
+<ul>
+<li>没有<code>DR/BDR</code>的邻接数量：6</li>
+<li>有<code>DR/BDR</code>的邻接数量：5</li>
+<li>公式：<code>( n - 1 ) + ( n - 2)</code> 或 <code>2n - 3</code></li>
+</ul>
+<hr />
+<p><strong>角色与作用</strong></p>
+<ul>
+<li><strong>DR（指定路由器）：只有一个</strong></li>
+<li>负责与所有<code>DROthers</code>建立邻接关系。</li>
+<li>代表当前网络所有设备发送<code>LSA</code>，减少重复泛洪。</li>
+<li><strong>BDR（备份指定路由器）：只有一个</strong></li>
+<li>在<code>DR</code>失效时接管其职责。</li>
+<li>与<code>DR</code>一样，与所有<code>DROthers</code>建立邻接关系，但是不向其泛洪<code>LSA</code>。</li>
+<li><strong><code>DROthers</code>（非<code>DR/BDR</code>路由器）：</strong></li>
+<li>仅与<code>DR\BDR</code>建立邻接关系，与<code>DROthers</code>保持<code>2-way</code>状态。</li>
+</ul>
+<hr />
+<p><strong>选举规则</strong></p>
+<p><code>DR/BDR</code>的选举基于 <strong>Router Priority（优先级）</strong> 和 <strong>Router ID</strong>，具体规则如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>规则</strong></th>
+<th style="text-align: center;"><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1. 比较优先级（Priority）</strong></td>
+<td style="text-align: center;">优先级高的成为 DR，次高的成为 BDR（默认 <strong>1</strong>，范围 <strong>0-255</strong>）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2. 如果优先级相同，比较 Router ID</strong></td>
+<td style="text-align: center;">Router ID 大的胜出（手动配置的 Router ID 优先，否则取最高 IP 地址）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3. 优先级为 0 不参与选举</strong></td>
+<td style="text-align: center;">如果接口优先级设为 <code>0</code>，则该路由器不会成为 DR/BDR（永远是 DROther）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4. 选举是非抢占的（Non-Preemptive）</strong></td>
+<td style="text-align: center;">即使新加入的路由器优先级更高，也不会抢占现有 DR/BDR，除非 DR/BDR 故障。</td>
+</tr>
+</tbody>
+</table>
+<p>有几个隐藏规则：</p>
+<ol>
+<li>
+<p>在你配置<code>OSPF</code>的时候，如果较晚将优先级最大的设备宣告进<code>OSPF</code>就会导致它无法当上<code>DR/BDR</code>。</p>
+</li>
+<li>
+<p>如果某台设备已经是<code>DR/BDR</code>了，你修改它的优先级，也无法让它立刻成为<code>DR/BDR</code></p>
+</li>
+<li>
+<p>解决上述两个问题的方式是：在当前局域网中所有的<code>OSPF</code>上执行<code>reset ospf process</code></p>
+</li>
+<li>
+<p>修改优先级的方式是：</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>[Huawei] interface Gi0/0/0
+[Huawei-Gi0/0/0] ospf dr-priority [0-255]
+</code></pre></div>
+<hr />
+<p><strong>选举流程</strong></p>
+<p>实际上在广播和<code>NBMA</code>网络中，<code>DR/BDR</code>的选举是与邻居关系的建立同步完成的，也就是说一旦有一对<code>OSPF</code>设备进入<code>2-way</code>状态，<code>DR/BDR</code>就已经选举完成了。因为，<code>Hello</code>报文中携带了<code>Router-ID、Router Priority</code>以及<code>DR/BDR</code>信息。</p>
+<p>所以，你如果指定某一个<code>OSPF</code>的设备是当前网络中的<code>DR</code>，你应该最先在这台设备上宣告网段，以便让它成为<code>DR</code>。</p>
+<p>另外，因为<code>DR/BDR</code>选举完成后，<code>OSPF</code>再向外通告<code>Hello</code>报文时，会携带<code>DR/BDR</code>的地址，所以后续加入进来的<code>OSPF</code>设备都会跳过<code>DR/BDR</code>选举过程。</p>
+<hr />
+<p><strong>监听地址</strong></p>
+<p>在广播和<code>NBMA</code>网络中，<code>DR/BDR</code>会监听组播地址<code>224.0.0.6</code>，<code>DROthers</code>通过<code>224.0.0.6</code>发送<code>LSU</code>和<code>LSR</code>报文，向<code>DR/BDR</code>索取和泛洪<code>LSA</code>。</p>
+<p>这样做的好处是避免<code>DROthers</code>之间直接交换<code>LSA</code>，减少网络流量。</p>
+<hr />
+<p><strong>伪节点</strong></p>
+<p>在多路访问网络中，OSPF 将 DR 抽象为一个 <strong>伪节点</strong>，其核心作用：</p>
+<ol>
+<li>简化拓扑计算：</li>
+<li>在 SPF（最短路径优先）计算中，伪节点代表整个多路访问网络，其他路由器只需计算到伪节点的路径，而非所有邻居。</li>
+<li>减少 LSA 数量：</li>
+<li>DR 生成 <strong>Network-LSA（Type-2 LSA）</strong>，描述该多路访问网络中的所有路由器（包括伪节点），避免每个路由器单独通告链路信息。</li>
+</ol>
+<p><img alt="image-20250810212223279" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910824.png" /></p>
+<hr />
+<h5 id="182">1.8.2.邻接关系建立过程</h5>
+<p>邻接关系是邻居路由器间为完成<code>LSDB</code>同步而发生的<code>LSA</code>交互过程，也是邻居路由器间初次通告<code>LSA</code>、快速同步的过程。它是<code>LSA</code>泛洪的一种方式，同步完成之后，邻居路由器间最终状态为<code>FULL</code>。</p>
+<p><strong>邻接关系状态迁移过程如下：</strong></p>
+<h6 id="1exstart">1.ExStart</h6>
+<p><img alt="image-20250809005828313" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910832.png" /></p>
+<p>在<code>ExStart</code>状态下，本地路由器和邻居路由器间互传空<code>DD</code>报文。作用如下：</p>
+<ul>
+<li>确定主/从关系：避免<code>DD</code>报文序列号冲突，保证可靠传输。</li>
+<li>选举规则：比较双方的<code>Router-ID</code>，值更大的一方称为<code>Master</code>。<ul>
+<li><code>Master</code>：负责控制<code>DD</code>报文的序列号分配。</li>
+<li><code>Slave</code>：响应<code>Master</code>的序列号，确保同步有序</li>
+</ul>
+</li>
+<li>确定<code>DD</code>的初始序列号</li>
+<li>比较接口<code>MTU</code>（可选） </li>
+</ul>
+<hr />
+<p>在<code>ExStart</code>状态下，路由器互相发送的空<code>DD</code>报文中置<code>I(Initialize)</code>，<code>M(More)</code>及<code>MS(Master/Slave)</code>位。</p>
+<ul>
+<li><strong>I位：</strong>初始化位，仅头两份<code>DD</code>报文中置该位，代表同步过程开始。</li>
+<li><strong>M位：</strong>如果<code>M</code>位为0，则代表后续<code>DD</code>报文中没有<code>LSDB</code>摘要要传。任何一方<code>M</code>位不为<code>0</code>，<code>Master</code>就要继续发送<code>DD</code>报文，<code>Slave</code>收到之后，不论是否还有<code>LSDB</code>摘要要传递，一定要回应<code>DD</code>报文。</li>
+<li><strong>M/S位：</strong>初始双方均认定自己是<code>Master</code>，所以<code>M/S</code>均置位。双方收到对方的<code>DD</code>，<code>Router ID</code>高的一方为<code>Master</code>，其后续<code>DD</code>报文中，<code>M/S</code>会一直置位。<code>Master</code>会一直发送<code>DD</code>报文，<code>Slave</code>回应的<code>DD</code>报文是对<code>Master</code>发送的<code>DD</code>报文的确认。此过程持续到双方的<code>LSA</code>头都交换完成。</li>
+</ul>
+<hr />
+<h6 id="2exchange">2.Exchange</h6>
+<p><img alt="image-20250808210840471" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910847.png" /></p>
+<p>在<code>Exchange</code>状态下，根据<code>ExStart</code>状态确定的主从关系，路由器之间交换<code>LSDB</code>摘要（<code>LSDB</code>摘要是<code>OSPF</code>链路状态数据库的摘要信息，用来与本端设备上的<code>LSDB</code>进行对比，查询自己缺少哪些<code>LSA</code>）。</p>
+<p>选举出<code>Master</code>后，<code>Slave</code>路由器向<code>Master</code>回送<code>DD</code>报文，其中包含<code>LSDB</code>的摘要，并使用<code>Master</code>的序列号。<code>Master</code>也把自己的<code>LSDB</code>摘要用<code>DD</code>报文发送给<code>Slave</code>，序列号加一，同时，<code>Slave</code>收到后，会回应相同序列号的<code>DD</code>报文。</p>
+<p>任何一侧只要还有未传递完的<code>LSA</code>头，<code>Master</code>就一定要产生<code>DD</code>报文并由<code>Slave</code>回应。<code>Exchange</code>阶段通过这种可靠的<code>DD</code>交互，完成快速交换<code>LSA</code>头。</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>Master和Slave的角色分工不同，Master是由Router-ID高的路由器充当，负责发送序列号递增的DD报文，如果Master没能得到Slave的回应，则Master每隔5秒重传该DD报文，直至收到Slave的DD报文。</p>
+</blockquote>
+<p><code>Exchange</code>交互<code>DD</code>报文的过程是可靠的。<code>Master</code>发送<code>seq=y+n</code>的报文，<code>Slave</code>回应<code>seq=y+n</code>的报文，<code>Master</code>和<code>Slave</code>的<code>DD</code>报文中<code>M</code>都不置位，<code>Exchange</code>过程才结束。</p>
+<hr />
+<h6 id="3loading">3.Loading</h6>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910856.png" /></p>
+<p><strong>步骤：</strong></p>
+<ol>
+<li>本端路由器根据<code>DD</code>报文交互的<code>LSDB</code>摘要发现当前缺失某条<code>LSA</code>。</li>
+<li>本端路由器向邻居发送<code>LSR</code>，用来请求缺失的<code>LSA</code>。</li>
+<li>对端路由器收到<code>LSR</code>后，发送包含被请求的<code>LSA</code>的<code>LSU</code>报文。</li>
+<li>本段路由器收到对端发送的<code>LSU</code>报文后，确认无误便向对端发送<code>LSACK</code>。</li>
+<li>若两端的<code>LSDB</code>同步完成，则进入<code>FULL</code>状态。</li>
+</ol>
+<hr />
+<h6 id="4full">4.Full</h6>
+<p>在<code>Full</code>状态下，邻居路由器之间已完成同步过程，建立起完全邻接关系。</p>
+<hr />
+<h5 id="183">1.8.3.广播网络类型中报文目的地址</h5>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>报文类型</strong></th>
+<th style="text-align: center;"><strong>目标 IP 地址</strong></th>
+<th style="text-align: center;"><strong>目标 MAC 地址</strong></th>
+<th style="text-align: center;"><strong>发送范围</strong></th>
+<th style="text-align: center;"><strong>用途</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Hello</strong></td>
+<td style="text-align: center;"><code>224.0.0.5</code>（AllSPFRouters）</td>
+<td style="text-align: center;"><code>01-00-5E-00-00-05</code></td>
+<td style="text-align: center;">所有 OSPF 路由器</td>
+<td style="text-align: center;">发现邻居、维护邻接关系（DR/BDR 选举）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>DD (Database Description)</strong></td>
+<td style="text-align: center;"><strong>单播</strong>（邻接路由器）</td>
+<td style="text-align: center;">对方 MAC 地址</td>
+<td style="text-align: center;">仅邻接路由器（DR/BDR ↔ 非 DR）</td>
+<td style="text-align: center;">交换 LSDB 摘要信息（ExStart/Exchange 状态）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>LSR (Link State Request)</strong></td>
+<td style="text-align: center;"><strong>单播</strong>（邻接路由器）</td>
+<td style="text-align: center;">对方 MAC 地址</td>
+<td style="text-align: center;">仅邻接路由器</td>
+<td style="text-align: center;">请求完整的 LSA（Loading 状态）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>LSU (Link State Update)</strong></td>
+<td style="text-align: center;"><code>224.0.0.5</code> 或 <strong>单播</strong></td>
+<td style="text-align: center;"><code>01-00-5E-00-00-05</code> 或 对方 MAC</td>
+<td style="text-align: center;">所有路由器或特定邻居</td>
+<td style="text-align: center;">发送更新的 LSA（泛洪时用组播，重传时可能单播）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>LSAck (Link State Acknowledgment)</strong></td>
+<td style="text-align: center;"><strong>单播</strong> 或 <code>224.0.0.5</code></td>
+<td style="text-align: center;">对方 MAC 或 <code>01-00-5E-00-00-05</code></td>
+<td style="text-align: center;">邻接路由器或所有路由器</td>
+<td style="text-align: center;">确认收到的 LSA（通常单播，但可能组播泛洪确认）。</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>Hello 报文</strong></li>
+<li><strong>始终组播</strong>（<code>224.0.0.5</code>），确保所有 OSPF 路由器都能收到，用于邻居发现和保活。</li>
+<li>在广播网络中，非 DR/BDR 的路由器只与 DR/BDR 建立邻接关系。</li>
+<li><strong>DD/LSR/LSAck 报文</strong></li>
+<li><strong>初始阶段</strong>（ExStart/Exchange）：DD 报文通过单播交换（DR/BDR 与非 DR 之间）。</li>
+<li><strong>Loading 状态</strong>：LSR 和 LSU 通常单播（直接请求和响应）。</li>
+<li><strong>LSAck</strong>：多数实现使用单播确认，但标准允许组播（<code>224.0.0.5</code>）泛洪确认。</li>
+<li><strong>LSU 报文</strong></li>
+<li><strong>首次泛洪</strong>：使用组播 <code>224.0.0.5</code>（所有 OSPF 路由器）。</li>
+<li><strong>重传或点对点响应</strong>：可能改用单播（如对方未确认）。</li>
+</ol>
+<hr />
+<h5 id="183_1">1.8.3.用实验验证理论</h5>
+<div class="highlight"><pre><span></span><code>LSW1
+int vlan 1
+  ip add 12.1.1.1 24
+  quit
+int loo0
+  ip add 1.1.1.1 32
+  quit
+ospf 1 router-id 1.1.1.1
+  area 0
+    network 12.1.1.1 0.0.0.0
+    network 1.1.1.1 0.0.0.0
+    quit
+
+LSW2
+int vlan 1
+  ip add 12.1.1.2 24
+  quit
+int loo0
+  ip add 2.2.2.2 32
+  quit
+ospf 1 router-id 2.2.2.2
+  area 0
+    network 12.1.1.2 0.0.0.0
+    network 2.2.2.2 0.0.0.0
+    quit
+</code></pre></div>
+<p><strong>结论：</strong></p>
+<p>在抓包的过程中，可以发现基本现象与理论中一致。但是有一个地方较为特殊：</p>
+<p><img alt="image-20250809015845663" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910862.png" /></p>
+<p>这两个<code>LSU</code>报文的目的地址都为<code>224.0.0.5</code>，说明是一个向所有<code>OSPF</code>泛洪的更新。点开具体的报文，会发现该<code>LSU</code>中包含了当前设备所有的<code>LSA</code>，所以这是一次增量更新：</p>
+<p><img alt="image-20250809015957787" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910866.png" /></p>
+<p>这么做的原因是为了加快<code>LSDB</code>同步的速度。但是，实际上通过抓包我们可以发现，后续还是和理论学习中一样，使用单播发送了<code>LSR</code>和<code>LSU</code>，为什么要这么设计呢？是不是多次一举呢？</p>
+<p>OSPF采用 <strong>"泛洪+点对点确认"</strong> 的双重保障机制，这是协议可靠性的核心设计：</p>
+<ol>
+<li><strong>第一层：组播泛洪（快速扩散）</strong></li>
+<li>通过<code>224.0.0.5</code>广播LSU（如包53/54），实现拓扑变化的快速传播</li>
+<li>特点：无确认、尽力而为的传输</li>
+<li><strong>第二层：单播确认（可靠同步）</strong></li>
+<li>通过单播LSR/LSU/LSAck（如包55-61）确保关键路由器100%同步</li>
+<li>特点：有确认、按需重传</li>
+</ol>
+<hr />
+<p>当<code>OSPF</code>拓扑稳定后，仅通过组播泛洪<code>224.0.0.5</code>发送增量<code>LSU</code>。是为了应对在网络拓扑发生变化或者出现故障等情况下，快速应对的方式。一对一同步<code>LSA</code>的方式效率过低，只适用于邻居建立之初。</p>
+<hr />
+<h6 id="184drbdr">1.8.4.DR/BDR场景</h6>
+<p><code>DROther</code>需要通过<code>224.0.0.6</code>发送<code>LSU</code>给<code>DR/BDR</code>，用来更新路由。随后，<code>DR</code>再通过<code>224.0.0.5</code>发送<code>LSU</code>给<code>DROther</code>。<code>DROthers</code>也需要通过<code>224.0.0.6</code>发送<code>LSACK</code>给<code>DR</code>。</p>
+<p><img alt="image-20250809013305494" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134910990.png" /></p>
+<p><code>DR:12.1.1.1</code></p>
+<p><code>BDR:12.1.1.3</code></p>
+<hr />
+<h4 id="19">1.9.周期性泛洪与触发式泛洪</h4>
+<h5 id="191">1.9.1.触发式泛洪</h5>
+<ol>
+<li>
+<p><strong>触发条件：</strong>当以下事件发生时，OSPF 会立即泛洪更新的 LSA：</p>
+</li>
+<li>
+<p>链路状态变化（如接口 UP/DOWN）</p>
+</li>
+<li>
+<p>新路由器加入网络</p>
+</li>
+<li>
+<p>现有 LSA 的序列号更新（如手动重置 OSPF 进程）</p>
+</li>
+<li>
+<p>收到邻居的 LSR（链路状态请求）需要回复</p>
+</li>
+<li>
+<p><strong>核心特点</strong></p>
+</li>
+<li>
+<p><strong>立即响应</strong>：毫秒级触发，无需等待定时器</p>
+</li>
+<li>
+<p><strong>增量更新</strong>：仅发送变化的 LSA（非全量）</p>
+</li>
+<li>
+<p><strong>目标明确</strong>：通过 <code>224.0.0.5</code>（AllSPFRouters）或 <code>224.0.0.6</code>（AllDRouters）组播</p>
+</li>
+</ol>
+<hr />
+<h5 id="192">1.9.2.周期性泛洪</h5>
+<ol>
+<li><strong>触发条件：</strong></li>
+<li><strong>默认每 30 分钟</strong>（LSA 的 <code>RefreshTime</code>，RFC 2328 规定）</li>
+<li>与网络状态变化无关，是预防性维护机制</li>
+<li><strong>核心特点：</strong></li>
+<li><strong>全量刷新</strong>：重新通告所有本地生成的 LSA</li>
+<li><strong>防老化机制</strong>：重置 LSA 的 <code>Age</code> 计时器（避免达到 <code>MaxAge</code> 3600 秒被删除）</li>
+<li><strong>携带特殊标志</strong>：<code>DoNotAge=1</code>（RFC 5613 扩展）</li>
+</ol>
+<hr />
+<h4 id="110mtu">1.10.MTU不一致</h4>
+<p><code>OSPF</code>在交换<code>DD</code>报文时会检查彼此的接口<code>MTU</code>，<code>MTU</code>决定了发送的<code>OSPF</code>报文大小，同时也决定了可接收的<code>OSPF</code>报文大小。如果通信双方的<code>MTU</code>不一致，会导致双方的邻居状态停留在<code>ExStart</code>或<code>Exchange</code>。</p>
+<p>在 <code>ExStart</code> 阶段，路由器会发送 <strong>空内容的 DBD 报文</strong>（仅包含头部，<code>I=1, M=1, MS=1</code>），并在报文中携带 <strong>Interface MTU 值</strong>（取自接口配置的 MTU）。</p>
+<ul>
+<li>如果对端接口的 MTU <strong>小于</strong> DBD 报文中声明的 MTU，对端会 <strong>静默丢弃该 DBD 报文</strong>（无任何错误提示）。</li>
+<li>丢弃后，发送方因未收到确认，会 <strong>持续重传 DBD 报文</strong>，而接收方因未收到合法 DBD 报文，<strong>无法进入 <code>Exchange</code></strong>。</li>
+</ul>
+<p><strong>现象：</strong></p>
+<ul>
+<li><code>MTU</code>较大的一端其邻居状态会卡在<code>Exchange</code></li>
+<li><code>MTU</code>较小的一端其邻居状态会卡在<code>ExStart</code></li>
+</ul>
+<p><strong>这是因为，<code>OSPF</code>对于<code>MTU</code>的要求是，对端小于等于本接口<code>MTU</code>。</strong></p>
+<p>华为设备默认情况下，邻接关系处在<code>ExStart/Exchange</code>状态时，缺省情况下<code>DD</code>报文中<code>Interface MTU</code>为<code>0</code>，<code>OSPF</code>既不填充接口实际<code>MTU</code>值，也不执行<code>MTU</code>一致性检查。而通信双方接口配置的<code>MTU</code>不一致，<code>OSPF</code>在同步<code>LSDB</code>时可能因<code>MTU</code>不一致而无法进入<code>FULL</code>状态。</p>
+<p>华为使用<code>ospf mtu-enable</code>命令可开启接口填充及检查<code>MTU</code>。</p>
+<p>比较<code>MTU</code>的目的是为了避免一端的报文太大，另一侧无法接受。</p>
+<hr />
+<h4 id="111p2p">1.11.提问：p2p与广播是否可以建立邻居</h4>
+<p><code>Broadcast</code>和<code>p2p</code>可以相互建立邻居关系，可以完成数据库同步，但无法计算出对方的路由。原因是<code>Broadcast</code>需要连接到虚节点，而<code>p2p</code>网络需要和邻居节点直连，在逻辑拓扑上，二者无法连接到义气，所以计算路由时，互相都无法算出各自节点后面的路由。</p>
+<p><strong>没法计算路由的原因：发送的<code>LSA</code>类型不一致，工作方式不一致。</strong></p>
+<hr />
+<h3 id="2">2.进阶</h3>
+<h4 id="21lsa">2.1.LSA概述及泛洪</h4>
+<p><code>LSA(Link-State Advertisement)</code>链路状态通告，用于在<code>OSPF</code>网络中传递链路状态信息，每个路由器通过交换<code>LSA</code>构建统一的链路状态数据库（<code>LSDB</code>），并基于此计算最短路径树。<code>LSA</code>的作用如下：</p>
+<ul>
+<li><strong>描述网络拓扑</strong>：LSA 携带路由器接口、邻居、链路成本、网络类型等信息。</li>
+<li><strong>同步 LSDB</strong>：所有 OSPF 路由器通过泛洪（Flooding）LSA，确保区域内 LSDB 一致。</li>
+<li><strong>支持分层设计</strong>：通过不同类型的 LSA 实现 OSPF 区域（Area）间的路由隔离与汇总。</li>
+</ul>
+<hr />
+<p><code>OSPF</code>定义了多种<code>LSA</code>类型，每种类型承载不同的拓扑信息：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>LSA 类型</strong></th>
+<th style="text-align: center;"><strong>名称</strong></th>
+<th style="text-align: center;"><strong>生成者</strong></th>
+<th style="text-align: center;"><strong>作用范围</strong></th>
+<th style="text-align: center;"><strong>关键功能</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Type 1</strong></td>
+<td style="text-align: center;">Router-LSA</td>
+<td style="text-align: center;">所有 OSPF 路由器</td>
+<td style="text-align: center;">本区域</td>
+<td style="text-align: center;">描述路由器的直连链路和邻居。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type 2</strong></td>
+<td style="text-align: center;">Network-LSA</td>
+<td style="text-align: center;">DR（指定路由器）</td>
+<td style="text-align: center;">本区域</td>
+<td style="text-align: center;">描述多路访问网络（如以太网）中的伪节点。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type 3</strong></td>
+<td style="text-align: center;">Summary-LSA</td>
+<td style="text-align: center;">ABR（区域边界路由器）</td>
+<td style="text-align: center;">跨区域</td>
+<td style="text-align: center;">汇总区域内的路由到其他区域（非明细路由）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type 4</strong></td>
+<td style="text-align: center;">ASBR-Summary-LSA</td>
+<td style="text-align: center;">ABR</td>
+<td style="text-align: center;">跨区域</td>
+<td style="text-align: center;">告知其他区域如何到达 ASBR。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type 5</strong></td>
+<td style="text-align: center;">AS-External-LSA</td>
+<td style="text-align: center;">ASBR（自治系统边界路由器）</td>
+<td style="text-align: center;">整个 OSPF 域</td>
+<td style="text-align: center;">通告外部路由（如重分布的路由）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type 7</strong></td>
+<td style="text-align: center;">NSSA-LSA</td>
+<td style="text-align: center;">ASBR（仅在 NSSA 区域）</td>
+<td style="text-align: center;">NSSA 区域</td>
+<td style="text-align: center;">类似 Type 5，但仅在 NSSA 区域内部使用。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="211lsa">2.1.1.LSA格式及类型</h5>
+<p><img alt="image-20250810215653248" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911011.png" /></p>
+<ul>
+<li><strong>LS Age</strong>：LSA 的存活时间（秒），超过 <code>MaxAge</code>（3600 秒）会被丢弃。</li>
+<li>无论<code>LSA</code>是在链路上传递，还是保存在<code>LSDB</code>中，<code>LS age</code>值都会不停增长。默认，泛洪时每经过一台路由器其<code>Age</code>增加1。</li>
+<li><strong>Otions：</strong>8比特（8个二进制数），告诉其他路由器自己支持的功能。</li>
+<li><code>O-bit</code>标记路由器是否支持 <strong>Opaque LSA</strong>（Type 9/10/11），这是一种扩展OSPF功能的机制，用于传递非标准路由信息（如流量工程、SDN控制信息等）。<ul>
+<li><strong>Type 9 LSA</strong>：链路本地范围（Link-local）</li>
+<li><strong>Type 10 LSA</strong>：本地区域范围（Area-local）</li>
+<li><strong>Type 11 LSA</strong>：整个OSPF域范围（AS-wide）</li>
+</ul>
+</li>
+<li><code>E-bit</code>用来标记是否允许传播<code>AS</code>外部路由<ul>
+<li>若区域配置为Stub或NSSA，区域内所有路由器的Hello报文中<code>E=0</code>，禁止5类LSA。</li>
+<li><code>E=1</code>，允许传播AS外部路由。</li>
+</ul>
+</li>
+</ul>
+<p><img alt="image-20250812163027838" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911016.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>比特位</strong></th>
+<th style="text-align: center;"><strong>名称</strong></th>
+<th style="text-align: center;"><strong>功能说明</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>比特7</strong></td>
+<td style="text-align: center;"><strong>DN</strong> (Down)</td>
+<td style="text-align: center;">用于MPLS VPN场景，防止环路（通常由PE路由器设置）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>比特6</strong></td>
+<td style="text-align: center;"><strong>O</strong> (Opaque)</td>
+<td style="text-align: center;">支持Opaque LSA（RFC 2370），用于扩展功能（如TE流量工程）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>比特5</strong></td>
+<td style="text-align: center;"><strong>DC</strong> (Demand Circuit)</td>
+<td style="text-align: center;">支持按需电路（RFC 1793），适用于按需拨号链路（抑制周期性Hello）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>比特4</strong></td>
+<td style="text-align: center;"><strong>EA</strong> (External Attributes)</td>
+<td style="text-align: center;">支持外部属性LSA（RFC 8362），用于BGP-OSPF交互（较少使用）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>比特3</strong></td>
+<td style="text-align: center;"><strong>N/P</strong> (NSSA)</td>
+<td style="text-align: center;"><strong>N</strong>比特：支持NSSA区域（RFC 3101）；<strong>P</strong>比特：允许7类LSA在NSSA内传播。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>比特2</strong></td>
+<td style="text-align: center;"><strong>MC</strong> (Multicast)</td>
+<td style="text-align: center;">支持MOSPF（组播OSPF，RFC 1584，现已被PIM取代，极少使用）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>比特1</strong></td>
+<td style="text-align: center;"><strong>E</strong> (External)</td>
+<td style="text-align: center;"><strong>E=1</strong>：允许AS外部LSA（5类/7类）；<strong>E=0</strong>：区域为Stub/NSSA（禁止5类LSA）。</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>比特0</strong></td>
+<td style="text-align: center;"><strong>MT</strong> (MT)</td>
+<td style="text-align: center;">支持多拓扑OSPF（RFC 4915），允许不同拓扑独立计算路径。</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>LS Type：</strong>8bit代表不同<code>LSA</code>类型</li>
+<li><strong>Link-State ID</strong>：32bit，唯一标识 LSA（如 Router ID、网络地址等）。</li>
+<li><strong>Advertising Router</strong>：32bit，生成该 LSA 的Router ID。</li>
+<li><strong>LSSequence Number</strong>：32bit，用于检测新旧 LSA（越大越新），其他路由器根据这个值判断哪个<code>LSA</code>最新。</li>
+<li>
+<p><strong>Checksum</strong>：校验数据完整性。</p>
+</li>
+<li>
+<p><strong>Length：</strong>16bit，<code>LSA</code>的总长度，包括<code>LSA Header</code>以字节为单位。</p>
+</li>
+</ul>
+<hr />
+<h5 id="212">2.1.2.泛洪机制</h5>
+<p><strong>何为泛洪？</strong></p>
+<p><code>OSPF</code>的路由信息都是通过<code>LSDB</code>中的<code>LSA</code>计算出来的，所以<code>LSDB</code>的一致性及快速同步直接影响<code>OSPF</code>路由的收敛性能。</p>
+<p><strong>泛洪的范围</strong></p>
+<p>一个区域内所有<code>OSPF</code>路由器要有一个相同的<code>LSDB</code>，这些<code>LSA</code>在区域内泛洪给每台路由器，泛洪的过程是路由器把自己产生或学习的<code>LSA</code>向所有其他邻居通告的过程。</p>
+<p><code>LSDB</code>内任何<code>LSA</code>的变化都会触发当前路由器通告该变化给邻居并泛洪至所属区域，为了确保<code>LSDB</code>被及时更新且保证其内容的一致性，<code>OSPF</code>泛洪使用<code>LSU</code>和<code>LSAck</code>来保证泛洪的可靠性。</p>
+<p>每台路由器在一个接口收到泛洪的<code>LSA</code>报文，会继续向其他接口泛洪。例如，在<code>MA</code>网段上，若<code>DRother</code>向<code>DR/BDR</code>泛洪，则<code>DR</code>会以组播方式将<code>LSU</code>(包含<code>LSA</code>)向其他<code>DRother</code>泛洪。</p>
+<p><strong>确认机制</strong></p>
+<p>泛洪过程是一个可靠过程，有确认机制。其中每份泛洪的<code>LSA</code>都必须被确认。包含显示确认或隐式确认。例如，接收者收到一份<code>LSU</code>的泛洪，恰巧它也需要发送<code>LSU</code>给发送方，可在<code>LSU</code>中包含需要被确认的<code>LSA</code>头来完成确认，这样可以减少单独发送<code>LSACK</code>的过程。</p>
+<p><strong>LSA重传</strong></p>
+<p>当一份<code>LSA</code>被泛洪出去，当前路由器会记录该接口的所有邻居数量并维护重传列表，没有收到显示或隐式确认的<code>LSA</code>，路由器会在<code>5s</code>后单播重传更新。</p>
+<hr />
+<h5 id="213">2.1.3.水平分割</h5>
+<p>当路由器的一个接口收到<code>LSA</code>，存放到<code>LSDB</code>后，再从其他接口重新泛洪出去。而泛洪也存在<strong>水平分割</strong>的行为。</p>
+<p>但是，<code>DR</code>会把从一个<code>DRother</code>收到的<code>LSA</code>通过原接口重新通告给其他<code>DRother</code>路由器。</p>
+<p>通告出去的<code>LSA</code>与收到的<code>LSA</code>，唯一不同的地方是<code>Age</code>增加<code>1</code>。</p>
+<hr />
+<h5 id="214lsdb">2.1.4.LSDB</h5>
+<p><code>LSDB</code>中每份<code>LSA</code>都有唯一的身份<code>ID</code>，由三个参数构成：</p>
+<ul>
+<li><code>LSA</code>类型</li>
+<li>
+<p>链路状态<code>ID</code>（<code>Link State ID</code>）</p>
+</li>
+<li>
+<p>通告路由器的<code>Router-ID</code></p>
+</li>
+</ul>
+<p>同一区域内，<code>LSA类型 + Link State ID + 通告路由器（Advertising Router）</code> 三者共同唯一确定一个LSA。</p>
+<p><strong>以下图为例解释：</strong></p>
+<ul>
+<li><strong>LSA头部信息</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">字段</th>
+<th style="text-align: center;">值/含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Ls id</strong></td>
+<td style="text-align: center;"><code>2.2.2.2</code> → 此LSA描述的路由器ID（即邻居路由器2.2.2.2的拓扑信息）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Adv rtr</strong></td>
+<td style="text-align: center;"><code>2.2.2.2</code> → 通告此LSA的路由器ID（与Ls id一致，表示是自身生成的LSA）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Ls age</strong></td>
+<td style="text-align: center;"><code>36</code> → LSA已存活36秒（最大老化时间3600秒）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Options</strong></td>
+<td style="text-align: center;"><code>E</code> → 支持外部路由（Type-5 LSA）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Link count</strong></td>
+<td style="text-align: center;"><code>2</code> → 该路由器有2条链路</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>链路详情</strong></p>
+</li>
+<li>
+<p><code>TransNet</code>类型</p>
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">字段</th>
+<th style="text-align: center;">值/含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Link ID</strong></td>
+<td style="text-align: center;"><code>12.1.1.2</code> → 邻居接口IP（对端路由器接口地址）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Data</strong></td>
+<td style="text-align: center;"><code>12.1.1.2</code> → 本地接口IP（当前路由器连接该网络的接口地址）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Link Type</strong></td>
+<td style="text-align: center;"><code>TransNet</code> → 多路访问网络（如以太网），由DR管理</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Metric</strong></td>
+<td style="text-align: center;"><code>1</code> → 到达此链路的开销值（OSPF Cost）</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p><code>StubNet</code>类型</p>
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">字段</th>
+<th style="text-align: center;">值/含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Link ID</strong></td>
+<td style="text-align: center;"><code>100.100.100.100</code> → 直连网络地址</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Data</strong></td>
+<td style="text-align: center;"><code>255.255.255.255</code> → 子网掩码（表示主机路由）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Link Type</strong></td>
+<td style="text-align: center;"><code>StubNet</code> → 末节网络（如环回接口或直连网段）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Metric</strong></td>
+<td style="text-align: center;"><code>0</code> → 本地接口开销通常为0</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="image-20250810232631409" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911027.png" /></p>
+<hr />
+<p><strong>在不同的<code>LSA</code>类型下<code>Link State ID</code>取值不同：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>LSA类型</strong></th>
+<th style="text-align: center;"><strong>Link State ID的含义</strong></th>
+<th style="text-align: center;"><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Type-1 (Router-LSA)</strong></td>
+<td style="text-align: center;"><strong>生成该LSA的路由器的Router ID</strong></td>
+<td style="text-align: center;"><code>1.1.1.1</code>（路由器自身ID）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type-2 (Network-LSA)</strong></td>
+<td style="text-align: center;"><strong>DR（指定路由器）的接口IP地址</strong></td>
+<td style="text-align: center;"><code>192.168.1.1</code>（DR的IP）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type-3 (Summary-LSA)</strong></td>
+<td style="text-align: center;"><strong>目标网络的IP地址</strong>（被汇总的路由）</td>
+<td style="text-align: center;"><code>10.1.0.0</code>（子网地址）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type-4 (ASBR-Summary-LSA)</strong></td>
+<td style="text-align: center;"><strong>ASBR的Router ID</strong></td>
+<td style="text-align: center;"><code>2.2.2.2</code>（ASBR的ID）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type-5 (AS-External-LSA)</strong></td>
+<td style="text-align: center;"><strong>外部路由的目标网络地址</strong></td>
+<td style="text-align: center;"><code>8.8.8.0</code>（外部网络）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Type-7 (NSSA-LSA)</strong></td>
+<td style="text-align: center;"><strong>外部路由的目标网络地址</strong>（仅NSSA内）</td>
+<td style="text-align: center;"><code>172.16.1.0</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h5 id="215lsa">2.1.5.新旧LSA判断</h5>
+<p>判断相同<code>ID</code>的“新的”<code>LSA</code>要依次比较以下内容：</p>
+<ul>
+<li><code>LSA</code>序列号（Sequence Number）：<code>32</code>位整数，采用线性递增的序列号，初始序列号从<code>0x80000001</code>到最大值<code>0x7FFFFFFF</code>，序列号越大代表越新，<code>LSA</code>会周期（30<code>min</code>）产生新的<code>LSA</code>，每次产生的<code>LSA</code>序列号都会增加<code>1</code>。</li>
+<li><code>LSA</code>报文校验和（<code>Checksum</code>）：<code>16</code>位数，负责对刚收到的<code>LSA</code>做计算，<code>Age</code>字域不在计算范围内。即使<code>LSA</code>存放在<code>LSDB</code>中，路由器也会每<code>5</code>分钟重新计算一次。</li>
+<li><code>LSA</code>年龄（<code>LSA Age</code>）：<code>16</code>位无符号整数。<code>LSA</code>的最大年龄是<code>3600s</code>。<code>LSA</code>在路由器间泛洪时每经过一跳<code>Age</code>增加<code>1</code>，在<code>LSDB</code>中存放时年龄也增加<code>1</code>。若<code>LSA</code>的年龄达到<code>3600s</code>，路由器会从<code>LSDB</code>中清除该<code>LSA</code>。</li>
+<li>在拓扑稳定的情况下，每份存放在<code>LSDB</code>中的<code>LSD</code>间隔<code>30min</code>都会被周期产生的新<code>LSA</code>刷新。</li>
+</ul>
+<hr />
+<p>泛洪机制把<code>LSA</code>向区域中的每条链路通告，不论<code>LSA</code>从哪条链路泛洪到当前路由器，在路由器的<code>LSDB</code>中仅保存一份最新的<code>LSA</code>。如果收到多分<code>ID</code>相同的<code>LSA</code>，则依次比较序列号、<code>Checksum</code>及<code>LSA Age</code>，来判定是否继续泛洪该<code>LSA</code>，还是终止泛洪。</p>
+<ul>
+<li>如果收到的<code>LSA</code>本地数据库没有，则接受且泛洪。</li>
+<li>如果收到的<code>LSA</code>本地有，但收到的<code>LSA</code>比自己当前已有的<code>LSA</code>要新，则更新<code>LSDB</code>并泛洪新的<code>LSA</code>。</li>
+<li>如果收到的<code>LSA</code>比自己已有的旧，则不接收。</li>
+<li>如果收到的<code>LSA</code>与本地的一样新，则忽略，并终止泛洪。</li>
+<li>如果收到的<code>LSA</code>损坏，比如<code>Checksum</code>错误，则不接收。</li>
+</ul>
+<hr />
+<p><strong>判断新旧的规则如下：</strong></p>
+<ol>
+<li>序列号越大代表越新</li>
+<li>若序列号相同，则<code>Checksum</code>数值越大代表越新</li>
+<li>上述都相同的情况下，比较<code>Age</code></li>
+<li>若<code>Age</code>为<code>3600s</code>，则认为该<code>LSA</code>更新<ul>
+<li>因为<code>3600s</code>的<code>LSA</code>被通告出来表示，要将该<code>LSA</code>删除。所以这里的更新可以理解为，这个<code>LSA</code>的动作有效。</li>
+</ul>
+</li>
+<li>若<code>Age</code>差额超过<code>15min</code>，则<code>Age</code>小的<code>LSA</code>被认定更新。</li>
+<li>若<code>Age</code>差额小于<code>15min</code>，则这两条<code>LSA</code>一样新，只保留先收到的<code>LSA</code></li>
+</ol>
+<hr />
+<p><strong>超时机制</strong></p>
+<p><code>LSA</code>的<code>Age</code>最大值为<code>3600s</code>，超过该值，则该<code>LSA</code>会从<code>LSDB</code>中被清除。</p>
+<p><code>LSDB</code>中清除<code>LSA</code>的场景如下：</p>
+<ol>
+<li>超过<code>3600s</code>被路由器自动清除</li>
+<li><code>LSA</code>起源路由器产生<code>3600s</code>的<code>LSA</code>并向区域中泛洪，收到的路由器用其更新自己<code>LSDB</code>中的<code>LSA</code>。泛洪<code>MaxAge</code>的<code>LSA</code>，其作用相当于<strong>毒化</strong>路由。</li>
+</ol>
+<hr />
+<h5 id="216">2.1.6.总结</h5>
+<p><img alt="image-20250811001602492" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911039.png" /></p>
+<p><code>X</code>路由器泛洪自己的<code>RouterLSA</code>，其序列号为<code>8000000B</code>，当网络稳定后，所有路由器<code>LSDB</code>都有<code>X</code>的<code>LSA</code>。某一时刻<code>X</code>路由器突然故障，修复上线后，网络会发生什么变化？</p>
+<p>网络稳定之后，<code>X</code>突然故障并离线。<code>800000B</code>的<code>LSA</code>在其他路 由器的<code>LSDB</code>中继续存活到<code>3600s</code>，此期间因同<code>A</code>和<code>C</code>设备相连的拓扑变化，会导致<code>A</code>和<code>C</code>泛洪新的<code>LSA</code>。其他路由器重新计算路由后，网络中不再有<code>X</code>的路由。</p>
+<p><code>X</code>上线后，由于初次启动，<code>X</code>会产生序列号为<code>8000001</code>的<code>LSA</code>，其他相邻的路由器收到序号为<code>8000001</code>的<code>LSA</code>，而<code>A</code>和<code>C</code>的<code>LSDB</code>中有<code>8000000B</code>的<code>LSA</code>，同步后，<code>X</code>会从<code>A</code>或<code>C</code>收到序列号为<code>800000B</code>的<code>X</code>曾经产生的<code>LSA</code>。但<code>X</code>没有任何产生过该<code>LSA</code>的记录，所以<code>X</code>会立即产生一份更新的<code>LSA</code>，序列号为<code>0x800000C</code>，去覆盖网络中的旧<code>LSA</code>。此后序列号就从<code>0x800000c</code>继续开始。</p>
+<hr />
+<p><strong>问题：</strong></p>
+<p><img alt="image-20250811002109455" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911033.png" /></p>
+<p>假设当前拓扑如上图，<code>AR1</code>、<code>AR2</code>、<code>AR3</code>三台路由器相互建立邻接关系，且<code>AR1</code>像网络中宣告了<code>1.1.1.1/32</code>的<code>LSA</code>。</p>
+<p>请问：如果<code>AR1</code>与<code>AR3</code>的邻接关系中断，当前网络拓扑中还会不会保留<code>1.1.1.1/32</code>的路由。</p>
+<p>答案：</p>
+<ul>
+<li><code>AR1</code>与<code>AR3</code>之间的网段，一定会从<code>LSDB</code>中消失。</li>
+<li><code>AR1</code>宣告的<code>1.1.1.1/32</code>一定在<code>LSDB</code>中存在，且<code>AR3</code>会学到新的。</li>
+</ul>
+<p><strong>误导：</strong></p>
+<ol>
+<li><code>AR3</code>在<code>AR1</code>的邻接关系中断后，会向网络中泛洪<code>3600s</code>的<code>LSA</code>，以删除与<code>AR1</code>相关的路由。</li>
+<li><code>AR2</code>在收到该<code>LSA</code>后，便会删除当前<code>LSDB</code>中的与<code>AR1</code>相关的<code>LSA</code>，并且泛洪给<code>AR1</code>。</li>
+</ol>
+<p><strong>正确步骤：</strong></p>
+<ol>
+<li><code>AR1</code>在与<code>AR3</code>邻接关系中断后，会立即向<code>OSPF</code>网络中发送<code>LSU</code>泛洪当前的所有<code>LSA</code>，且该<code>LSA</code>的序列号更新！</li>
+</ol>
+<p><img alt="image-20250811002725583" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911145.png" /></p>
+<ol>
+<li><code>AR2</code>收到更新的<code>LSA</code>后，会通告给<code>AR3</code>，所以<code>AR3</code>会从另一个地方学到最新的<code>1.1.1.1/32</code>的<code>LSA</code>，用来代替旧的。</li>
+<li><code>AR3</code>在断开<code>AR1</code>的邻接关系后，会立刻删除<code>LSDB</code>中<code>13.1.1.0/24</code>的<code>LSA</code>并向<code>OSPF</code>网络中泛洪，<code>Age</code>为<code>3600s</code>的<code>LSA</code>，但是该<code>LSA</code>只包含<code>13.1.1.0/24</code>这个网段（<code>AR1</code>与<code>AR3</code>互联网段）</li>
+</ol>
+<p><img alt="image-20250811003116040" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911187.png" /></p>
+<ol>
+<li><code>AR2</code>收到后删除<code>LSDB</code>中的<code>13.1.1.0/24</code>并泛洪给<code>AR1</code>。</li>
+</ol>
+<p><img alt="image-20250811003133301" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911199.png" /></p>
+<hr />
+<h4 id="22lsa">2.2.域内LSA</h4>
+<h5 id="221lsa1">2.2.1.LSA1</h5>
+<p>每台路由器会为自己所处的每个区域产生一份<code>Router LSA</code>，该<code>Router LSA</code>包含属于该区域的所有链路的链路状态信息。<code>Router LSA</code>只能在所属的区域内泛洪。</p>
+<p><img alt="image-20250812042319031" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911202.png" /></p>
+<ul>
+<li>其他内容前面讲过了，不再复述。</li>
+<li><strong>V（Virtual Link）：</strong>如果产生此<code>LSA</code>的路由器是虚连接的端点，则置为1。</li>
+<li><strong>E（External）：</strong>如果产生此<code>LSA</code>的路由器是<code>ASBR</code>，则置为1。</li>
+<li><strong>B（Border）：</strong>如果产生此<code>LSA</code>的路由器是<code>ABR</code>，则置为1。</li>
+<li><strong>links：</strong><code>LSA</code>中的<code>Link</code>(链路)数量。<code>Router LSA</code>使用<code>Link</code>来承载路由器直连接口的信息。</li>
+</ul>
+<hr />
+<p><strong>Link类型及描述</strong></p>
+<p><code>OSPF</code>定义了四种类型的<code>Link</code>，路由器接口的<code>OSPF</code>网络类型不同，产生的<code>Link</code>也不同，路由器把所有接口的<code>Link</code>放到<code>RouterLSA</code>中在区域内泛洪。</p>
+<p><code>Router LSA</code>使用<code>Link</code>来承载路由器直连接口的信息。每条<code>Link</code>都包含<strong>链路类型、链路ID、链路数据以及度量值</strong>。路由器可能会采用一个或者多个<code>Link</code>来描述某个端口。</p>
+<p><img alt="image-20250812044402354" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911218.png" /></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">描述</th>
+<th style="text-align: center;">Link ID</th>
+<th style="text-align: center;">Link Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Point-to-point</td>
+<td style="text-align: center;">点到点类型链路</td>
+<td style="text-align: center;">邻居路由器的RID</td>
+<td style="text-align: center;">自己的接口IP地址</td>
+</tr>
+<tr>
+<td style="text-align: center;">TransNetwork</td>
+<td style="text-align: center;">MA类型链路</td>
+<td style="text-align: center;">DR的接口IP地址</td>
+<td style="text-align: center;">自己的接口IP地址</td>
+</tr>
+<tr>
+<td style="text-align: center;">StubNetwork</td>
+<td style="text-align: center;">末节类型链路(网络)</td>
+<td style="text-align: center;">网络号</td>
+<td style="text-align: center;">网络掩码</td>
+</tr>
+<tr>
+<td style="text-align: center;">Virtual Link</td>
+<td style="text-align: center;">虚拟点到点链路</td>
+<td style="text-align: center;">Vlink对端ABR的RID</td>
+<td style="text-align: center;">本地Vlink的IP地址</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>类型一·：<code>Point-to-Point</code></strong></p>
+<p><code>OSPF</code>节点间为<strong>点到点链路</strong>，如<code>PPP</code>或<code>HDLC</code>链路，<code>OSPF</code>默认的网络类型为<code>ospf network point-to-point</code>，则节点在表述拓扑关系时，使用<code>Point-to-Point</code>类型<code>Link</code>。</p>
+<p><img alt="image-20250812044119433" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911221.png" /></p>
+<p><strong>类型二：<code>TransNet</code></strong></p>
+<p><img alt="image-20250812044315097" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911310.png" /></p>
+<p><strong>类型三：<code>Stub</code></strong></p>
+<p><code>StubNetwork</code>代表一个网络，用末梢节点来表示，附着在实节点上，不表示任何连接关系，其实是实节点上的网络。在<code>OSPF</code>逻辑图上<code>StubNet</code>类型<code>link</code>可以表示挂在实节点上的叶子节点。</p>
+<p><img alt="image-20250812044821787" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911355.png" /></p>
+<hr />
+<h5 id="222lsa2">2.2.2.LSA2</h5>
+<p><code>Network LSA</code>，用来表述多路访问网络上的拓扑关系。<code>Network LSA</code>仅出现在<code>Broadcast</code>或<code>NBMA</code>的网络上。这两个网络类型会选举<code>DR</code>，选举出来的<code>DR</code>除用于数据库同步外，<code>DR</code>也负责产生<code>LSA2</code>。<code>LSA2</code>用于描述<strong>虚节点</strong>周边的连接关系。</p>
+<p><code>Network LSA</code>记录了该网段内所有与<code>DR</code>建立了邻接关系的<code>OSPF</code>路由器，同时携带了该网段的网络掩码。</p>
+<p><img alt="image-20250812045416736" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911371.png" /></p>
+<ul>
+<li><strong>Link State ID：</strong><code>DR</code>的接口<code>IP</code>地址。</li>
+<li><strong>Network Mask：</strong><code>MA</code>网络的子网掩码。</li>
+<li><strong>Attached Router：</strong>连接到该<code>MA</code>网络的路由器的<code>Router-ID</code>（所有），如果有多台路由器接入<code>MA</code>网络，则使用多个字段描述。</li>
+</ul>
+<p><img alt="image-20250812045648794" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911374.png" /></p>
+<hr />
+<h5 id="223">2.2.3.问题与总结</h5>
+<p><strong>问题一：</strong></p>
+<p>在<code>P2P</code>链路中没有描述<strong>网络号</strong>，那在学习路由的时候，怎么知道目的网段的掩码信息？</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">描述</th>
+<th style="text-align: center;">Link ID</th>
+<th style="text-align: center;">Link Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Point-to-point</td>
+<td style="text-align: center;">点到点类型链路</td>
+<td style="text-align: center;">邻居路由器的RID</td>
+<td style="text-align: center;">自己的接口IP地址</td>
+</tr>
+<tr>
+<td style="text-align: center;">TransNetwork</td>
+<td style="text-align: center;">MA类型链路</td>
+<td style="text-align: center;">DR的接口IP地址</td>
+<td style="text-align: center;">自己的接口IP地址</td>
+</tr>
+<tr>
+<td style="text-align: center;">StubNetwork</td>
+<td style="text-align: center;">末节类型链路(网络)</td>
+<td style="text-align: center;">网络号</td>
+<td style="text-align: center;">网络掩码</td>
+</tr>
+<tr>
+<td style="text-align: center;">Virtual Link</td>
+<td style="text-align: center;">虚拟点到点链路</td>
+<td style="text-align: center;">Vlink对端ABR的RID</td>
+<td style="text-align: center;">本地Vlink的IP地址</td>
+</tr>
+</tbody>
+</table>
+<p><strong>回答：</strong></p>
+<p><code>p2p</code>链路仅描述连接关系，在同一个<code>Router LSA</code>中，会有一个<code>StubNetwork</code>类型的链路与之关联。如下图：</p>
+<p><img alt="image-20250812050807352" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911384.png" /></p>
+<p><strong>为什么这么设计：</strong></p>
+<p><code>OSPF</code>的<code>Type-1 LSA</code>需要同时描述拓扑和网络信息，因此拆分为两种链路类型：</p>
+<ul>
+<li><code>P2P/TransNetwork/Virtual Link</code>：描述邻居关系（动态路由计算使用，实节点）。</li>
+<li><code>StubNetwork</code>：描述直连网段（用于生成路由表）。</li>
+</ul>
+<hr />
+<p><strong>问题二：</strong></p>
+<p>为什么<code>TransNet</code>不使用<code>StubNetwork</code>的方式实现，而是使用<code>LSA 2</code>。</p>
+<p><strong>回答：</strong></p>
+<ul>
+<li><strong>P2P 链路</strong> 是<strong>直接连接两个路由器</strong>，没有 DR，因此需要额外用 <strong>StubNetwork 补充掩码</strong>。</li>
+<li>TransNetwork（MA 网络）的掩码信息已经隐含在 Network LSA（Type-2 LSA）中：</li>
+<li><strong>DR 会生成 Type-2 LSA</strong>，其中包含 <strong>MA 网络的 IP 网段和掩码</strong>。</li>
+<li>所有路由器通过 Type-2 LSA 就能知道该 MA 网络的掩码，<strong>不需要像 P2P 那样额外用 StubNetwork 补充</strong>。</li>
+</ul>
+<hr />
+<p><strong>问题三：</strong></p>
+<p>为什么<code>TransNetwork</code>中，<code>Link ID</code>是<code>DR</code>的接口地址，<code>Link Data</code>是自己的接口地址？</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">描述</th>
+<th style="text-align: center;">Link ID</th>
+<th style="text-align: center;">Link Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">Point-to-point</td>
+<td style="text-align: center;">点到点类型链路</td>
+<td style="text-align: center;">邻居路由器的RID</td>
+<td style="text-align: center;">自己的接口IP地址</td>
+</tr>
+<tr>
+<td style="text-align: center;">TransNetwork</td>
+<td style="text-align: center;">MA类型链路</td>
+<td style="text-align: center;">DR的接口IP地址</td>
+<td style="text-align: center;">自己的接口IP地址</td>
+</tr>
+<tr>
+<td style="text-align: center;">StubNetwork</td>
+<td style="text-align: center;">末节类型链路(网络)</td>
+<td style="text-align: center;">网络号</td>
+<td style="text-align: center;">网络掩码</td>
+</tr>
+<tr>
+<td style="text-align: center;">Virtual Link</td>
+<td style="text-align: center;">虚拟点到点链路</td>
+<td style="text-align: center;">Vlink对端ABR的RID</td>
+<td style="text-align: center;">本地Vlink的IP地址</td>
+</tr>
+</tbody>
+</table>
+<p><strong>回答：</strong></p>
+<p>自己的接口地址，这个很好理解是为了计算到<code>Link ID</code>（邻居）的开销的。那为啥<code>TransNetwork</code>的<code>Link ID</code>填的都是<code>DR</code>的接口IP地址呢？</p>
+<p>因为，你在<code>MA</code>网络中有<code>DR</code>的存在，且你所有通过<code>MA</code>网络学习到的<code>LSA</code>都是通过<code>DR</code>，那理所当然的你应该计算到<code>DR</code>的开销。</p>
+<p><img alt="image-20250812051525495" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911382.png" /></p>
+<hr />
+<h5 id="224spf">2.2.4.SPF算法</h5>
+<p><code>SPF</code>算法计算时包含三步：</p>
+<p><strong>第一步：</strong>路由器根据<code>LSDB</code>中的<code>LSA</code>画出网络图（<code>Graph</code>），在这个<code>Graph</code>上包含<code>OSPF</code>网络拓扑中所有"点"和“比边”，画图需要使用<code>LSA 1</code>中<code>p2p</code>、<code>TransNet</code>和<code>Vlink</code>类型及<code>LSA 2</code>来描述拓扑。<strong>也就是说先画出包括当前节点在内的拓扑图。</strong></p>
+<p><img alt="image-20250812064145530" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911473.png" /></p>
+<p><strong>注意：</strong>每台路由器的<code>LSDB</code>内容一样，所以在每台路由器根据<code>LSDB</code>画出的区域内的<code>Graph</code>也是一样的。区别是根路由器不一样，每台路由器是以自己为起点开始画<code>Graph</code>的。</p>
+<hr />
+<p><strong>第二步：</strong>路由器以自己为树根，对<code>Graph</code>执行<code>SPF</code>计算。画出一颗由树根到图中每个节点的最短成本路径树，从树根到树根上任何其他节点的成本是最小的。<strong>也就说，需要计算出到每一个节点最优选的路径。</strong></p>
+<p><img alt="image-20250812064327250" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911518.png" /></p>
+<p><strong>问题：</strong><code>R1</code>在这个物理拓扑张到达<code>R2</code>有几条路径？==切记，你有眼睛，但是<code>OSPF</code>没有眼睛，需要依赖算法。==</p>
+<hr />
+<p><strong>第三步：</strong>在树的节点上添加网络信息，并计算由树根到这些网络的成本及下一跳，并把计算结果加入到路由表中。把<code>SPF</code>树上添加的网络，称为叶子节点。<code>SPF</code>已计算出树根到任何节点的最小距离，再把代表网络的叶子节点挂在<code>SPF</code>树的相应网络节点上。树根到网络的路由成本等于树根到网络节点的距离加网络节点到叶子节点的成本。叶子节点可以是<code>LSA 1</code>中的<code>StubNet</code>、<code>LSA2</code>中的网络、<code>LSA3</code>的网络、<code>LSA5/7</code>的网络。</p>
+<p><img alt="image-20250812064619088" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911524.png" /></p>
+<p><strong>注意：</strong><code>Stub</code>网络挂在路由器节点（实节点）上，<code>LSA2</code>挂在虚节点上（<code>DR</code>）上，<code>LSA3</code>的网络挂在<code>ABR</code>节点上，<code>LSA7挂在</code>ASBR<code>节点上，而</code>LSA5<code>则可能挂再</code>ASBR<code>或</code>ABR<code>上，这要依据</code>ASBR`路由器是否在当前区域内而定。</p>
+<hr />
+<h5 id="225ispfincremental-spf">2.2.5.iSPF（Incremental SPF）==看看得了==</h5>
+<ul>
+<li><strong>iSPF（增量最短路径优先）</strong> 是 OSPF 的一种优化算法，用于 <strong>减少 SPF（最短路径优先）计算的开销</strong>。</li>
+<li>传统 SPF 在拓扑变化时会 <strong>重新计算整个最短路径树（SPT）</strong>，而 iSPF <strong>只计算受影响的部分</strong>，提高收敛速度。</li>
+</ul>
+<p><strong>作用：</strong></p>
+<ul>
+<li><strong>减少 CPU 负载</strong>：避免每次变化都进行全量计算。</li>
+<li><strong>加快收敛</strong>：仅更新受影响的路由，提高网络恢复速度。</li>
+<li><strong>适用于大型网络</strong>：在核心路由器上特别有用，避免频繁全量 SPF 计算。</li>
+</ul>
+<p><strong>工作原理：</strong></p>
+<ol>
+<li><strong>初始 SPF 计算：</strong></li>
+<li>路由器首次启动或拓扑稳定时，运行 <strong>完整 SPF</strong>，构建 SPT（最短路径树）。</li>
+<li><strong>拓扑变化时：</strong></li>
+<li>如果某条链路状态（LSA）发生变化（如链路 up/down），OSPF 会 <strong>仅重新计算受影响的节点和路径</strong>，而不是整个网络。</li>
+<li>例如：<ul>
+<li>如果 <strong>某个叶子节点（末梢网络）</strong> 发生变化，iSPF 只更新该节点到根（自己）的路径。</li>
+<li>如果 <strong>关键节点（如 ABR/ASBR）</strong> 变化，可能会触发更大范围的 SPF 计算。</li>
+</ul>
+</li>
+</ol>
+<p>华为采用初次计算过程执行<code>Full SPF</code>，而此后不论发生什么变化，只把故障节点及其周边的连接关系重画，执行<code>iSPF</code>计算，只计算变化的部分，而不是全部计算。</p>
+<hr />
+<h5 id="226prcpartial-route-calculation">2.2.6.PRC（Partial Route Calculation）==看看得了==</h5>
+<ul>
+<li><strong>PRC（部分路由计算）</strong> 是 OSPF 的另一种优化机制，用于 <strong>减少路由表计算的开销</strong>。</li>
+<li>它 <strong>不涉及 SPF 计算</strong>，而是 <strong>仅更新受影响的 IP 路由</strong>（如外部路由或末梢网络变化）。</li>
+</ul>
+<p><strong>作用：</strong></p>
+<ul>
+<li><strong>极低计算开销</strong>：不涉及 SPF 计算，仅更新路由表。</li>
+<li><strong>适用于外部路由变化</strong>：如 BGP 重分发进 OSPF 时，PRC 可以快速更新路由。</li>
+<li><strong>与 iSPF 互补</strong>：PRC 处理路由变化，iSPF 处理拓扑变化。</li>
+</ul>
+<p><strong>工作原理：</strong></p>
+<ol>
+<li><strong>初始 SPF 计算：</strong></li>
+<li>路由器运行 SPF 计算，构建拓扑（SPT），并生成路由表。</li>
+<li><strong>拓扑变化时：</strong></li>
+<li>如果 <strong>仅影响 IP 路由（如外部路由或 Stub 网络变化）</strong>，OSPF 会 <strong>跳过 SPF 计算</strong>，直接更新路由表。</li>
+<li>例如：<ul>
+<li>如果 <strong>某个外部路由（Type-5/7 LSA）</strong> 变化，PRC 直接更新该路由，而不重新计算 SPT。</li>
+<li>如果 <strong>某个 Stub 网络（Type-1 LSA 中的 StubNetwork）</strong> 变化，PRC 仅更新该网段的路由。</li>
+</ul>
+</li>
+</ol>
+<p><strong>说人话：</strong></p>
+<p>当网络中的叶子节点发生变化（外部网络引入、增加末节网络等），此时不需要重新计算<code>SPT</code>。</p>
+<p>因为从根节点到树中的任何实或虚节点的最短路径已经确定了，那么到叶子节点的最短路径也就确定了。那么到节点发布的路由的最短路径也就确定了。</p>
+<p>所以，<code>PRC</code>就是在<code>SPF</code>计算出的最短路径树的基础上再计算叶子节点的路由。当路由信息改变，<code>PRC</code>直接判断在哪条链路上的节点的哪个叶子出现变化，之后直接进行路由的计算与更新。</p>
+<hr />
+<h5 id="227">2.2.7.实验验证理论</h5>
+<p>请用如下拓扑图，介绍清楚当前整个<code>OSPF</code>网络中，有哪些是<code>p2p link</code>、<code>transnet link</code>、<code>stub link</code>和<code>LSA 2</code>以及<code>SPT</code>怎么计算。</p>
+<p><img alt="image-20250812073015761" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911527.png" /></p>
+<hr />
+<h4 id="23lsa">2.3.域间LSA</h4>
+<p>为了避免单区域产生的<code>LSDB</code>庞大及链路更新造成的链路拥塞问题，需要在设计拓扑时使用多区域划分的方式。随之而来的就是区域与区域之间传递<code>LSA</code>。</p>
+<p><code>Router LSA</code>和<code>Network LSA</code>只在区域内泛洪，因此通过区域划分在一定程度上降低网络设备的内存及CPU的消耗。</p>
+<p><img alt="image-20250812082615606" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911534.png" /></p>
+<h5 id="231lsa3">2.3.1.LSA3</h5>
+<p><code>OSPF</code>区域间路由信息传递是通过<code>ABR</code>产生的<code>Network Summary LSA</code>（3类LSA）实现的。</p>
+<p><img alt="image-20250812082801908" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911553.png" /></p>
+<p>理论上，因为所有的非骨干区域都必须且只能与骨干区域相连，所以本质上<code>ABR</code>必然有一个或多个接口处在<code>Area 0</code>。</p>
+<p><strong>LSA3的产生与传播过程：</strong></p>
+<p><img alt="image-20250812160421317" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911624.png" /></p>
+<p>第一步：在<code>Area 0</code>和<code>Area 1</code>中，区域内的网络通过<code>LSA 1</code>和<code>LSA 2</code>在区域内泛洪。</p>
+<p>此时在<code>Area 0</code>中会有如下<code>LSA</code>信息：</p>
+<ul>
+<li><code>LSA1</code>：</li>
+<li><code>AR2</code>通告的<code>12.1.1.2</code></li>
+<li><code>AR1</code>通告的<code>12.1.1.1</code></li>
+<li><code>AR1</code>通告的<code>StubNet 1.1.1.1/32</code></li>
+<li><code>LSA2</code>：</li>
+<li><code>DR</code>通告的<code>12.1.1.0/24</code></li>
+</ul>
+<p>此时在<code>Area 1</code>中会有如下<code>LSA</code>信息：</p>
+<ul>
+<li><code>LSA1</code>：</li>
+<li><code>AR2</code>通告的<code>23.1.1.2</code></li>
+<li><code>AR3</code>通告的<code>23.1.1.3</code></li>
+<li><code>AR3</code>通告的<code>StubNet 3.3.3.3/32</code></li>
+<li><code>LSA2</code>：</li>
+<li><code>DR</code>通告的<code>23.1.1.0/24</code></li>
+</ul>
+<hr />
+<p>第二步：<code>ABR(AR2)</code>负责将从这两个区域中学习到的<code>LSA</code>，稍作修改生成<code>LSA3</code>并向对应区域进行通告。</p>
+<p><img alt="image-20250812161919045" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911688.png" /></p>
+<hr />
+<p><strong>LSA3特性</strong></p>
+<ol>
+<li>边界路由器<code>ABR</code>为区域内的每条<code>OSPF</code>路由各产生一份<code>LSA3</code>并向其他区域通告。</li>
+<li>边界若有多个<code>ABR</code>，则每个<code>ABR</code>都产生<code>LSA3</code>来通告区域间路由。通过<code>Adveristing Router</code>字域来区分。</li>
+<li>区域间传递的是路由，<code>LSA3</code>是由每个区域的<code>ABR</code>产生的、并仅在该区域内泛洪的一类<code>LSA</code>。路由进入其他区域后，再由该区域的<code>ABR</code>产生<code>LSA3</code>继续泛洪。</li>
+<li><code>OSPF</code>在区域边界上具备适量特性，只有出现在<code>ABR</code>路由表里的路由才会被通告给邻居区域。</li>
+<li>计算路由时，路由器计算自己区域内到<code>ABR</code>的成本加上<code>LSA3</code>传递的区域间成本，得到的是当前路由器到目标网段端到端的成本。</li>
+<li>如果<code>ABR</code>路由器上路由表中的某条<code>OSPF</code>路由不再可达，则<code>ABR</code>会立即产生一份<code>3600s</code>的<code>LSA3</code>向区域内泛洪，用于在区域内撤销该网络。</li>
+</ol>
+<hr />
+<h5 id="232">2.3.2.区域间路由防环机制</h5>
+<p>如下图，如果<code>OSPF</code>不要求非骨干区域必须直连骨干区域的话，就会出现如下图的环路问题。</p>
+<p><img alt="image-20250812190937887" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911692.png" /></p>
+<hr />
+<p><code>ABR</code>不会将描述到达某个区域内网段路由的<code>LSA3</code>再注入回该区域。</p>
+<p><img alt="image-20250812191136852" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911698.png" /></p>
+<hr />
+<p><code>ABR</code>不会将从非骨干区域学习到的<code>LSA3</code>传播到骨干区域。因为非骨干区域必须连接着骨干区域，那么就代表非骨干区域中的<code>LSA3</code>一定是从骨干区域学习到的，那么就不能再传播回骨干区域了。</p>
+<p><img alt="image-20250812191316104" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911707.png" /></p>
+<hr />
+<h4 id="24vlink">2.4.虚连接（Vlink）</h4>
+<p><code>Vlink</code>是用来修复骨干区域分割的一种<strong>临时</strong>的解决方案。如果骨干区域被分割，修复被分割的骨干区域，要在非骨干区域上创建<code>Vlink</code>来维持骨干区域的连通信。以下图为例：</p>
+<ul>
+<li><code>Vlink</code>被看作是骨干区域的点到点的链路，其配置在两个<code>ABR</code>之间。</li>
+<li><code>Vlink</code>在两个<code>ABR</code>间创建属于骨干区域的邻居关系。这个邻居关系是单播的，穿过区域1，其单播地址是根据区域1中的<code>R2</code>和<code>R3</code>的<code>Router LSA</code>计算出来的。<code>Router LSA</code>中用于描述拓扑的<code>Link</code>中，<code>Link Data</code>是路由器自身的接口<code>IP</code>，这个<code>IP</code>地址就是<code>Vlink</code>使用的单播地址。</li>
+<li>承载<code>Vlink</code>的这个<code>Area 1</code>称为<code>Transit Area</code>，当<code>Vlink</code>创建好后，该区域也像骨干区域一样，<code>R1</code>访问<code>R4</code>的流量经过<code>Area 1</code>传递。<code>Transit Area</code>不能是<code>Stub或NSSA</code>区域。</li>
+</ul>
+<p><img alt="image-20250812194928256" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911715.png" /></p>
+<h5 id="241vlink">2.4.1.Vlink的应用场景</h5>
+<ol>
+<li>连接断开的<code>Area 0</code></li>
+</ol>
+<p><img alt="image-20250812195242095" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911780.png" /></p>
+<ol>
+<li>修复<code>Area 2</code>未连接到<code>Area 0</code></li>
+</ol>
+<p><img alt="image-20250812195307112" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911862.png" /></p>
+<h5 id="242">2.4.2.<strong>实验一：</strong></h5>
+<p><img alt="image-20250812195658593" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911859.png" /></p>
+<p>基础代码忽略，<code>Vlink</code>配置如下：</p>
+<div class="highlight"><pre><span></span><code>[AR2]ospf 1
+[AR2-ospf-1]area 1
+[AR2-ospf-1-area-0.0.0.1]vlink-peer 3.3.3.3
+
+[AR3]ospf 1
+[AR3-ospf-1]area 1  
+[AR3-ospf-1-area-0.0.0.1]vlink-peer 2.2.2.2
+
+[AR2-ospf-1-area-0.0.0.1]dis ospf vlink 
+
+     OSPF Process 1 with Router ID 2.2.2.2
+         Virtual Links 
+
+ Virtual-link Neighbor-id  -&gt; 3.3.3.3, Neighbor-State: Full
+
+ Interface: 23.1.1.2 (GigabitEthernet0/0/1)
+ Cost: 1  State: P-2-P  Type: Virtual 
+ Transit Area: 0.0.0.1 
+ Timers: Hello 10 , Dead 40 , Retransmit 5 , Transmit Delay 1 
+ GR State: Normal
+</code></pre></div>
+<p><strong>现象：</strong></p>
+<p>从下图<code>Router LSA</code>可知，<code>Vlink</code>的实际作用是将<code>AR3</code>加入到当前的<code>Area0</code>，从逻辑拓扑上看，此时<code>Area 0</code>有三台设备<code>AR1、AR2、AR3</code>，那么此时的<code>Area 0</code>就有两台<code>ABR</code>了，那既然此时<code>AR3</code>是<code>Area0</code>和<code>Area2</code>的<code>ABR</code>，这两个区域之间的路由也就可以通过<code>AR3</code>传播了。</p>
+<p><img alt="image-20250812220627810" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911864.png" /></p>
+<hr />
+<h5 id="243">2.4.3.<strong>实验二：</strong></h5>
+<p><img alt="image-20250812221316159" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911885.png" /></p>
+<div class="highlight"><pre><span></span><code>[AR2]ospf 1
+[AR2-ospf-1]area 1
+[AR2-ospf-1-area-0.0.0.1]vlink-peer 3.3.3.3
+
+[AR3]ospf 1 router-id 3.3.3.3
+[AR3-ospf-1]area 1
+[AR3-ospf-1-area-0.0.0.1]vlink-peer 2.2.2.2
+
+[AR3]dis ospf vlink 
+
+     OSPF Process 1 with Router ID 3.3.3.3
+         Virtual Links 
+
+ Virtual-link Neighbor-id  -&gt; 2.2.2.2, Neighbor-State: Full
+
+ Interface: 23.1.1.2 (GigabitEthernet0/0/0)
+ Cost: 1  State: P-2-P  Type: Virtual 
+ Transit Area: 0.0.0.1 
+ Timers: Hello 10 , Dead 40 , Retransmit 5 , Transmit Delay 1 
+ GR State: Normal
+</code></pre></div>
+<p>观察：最终<code>1.1.1.1/32</code>是几类<code>LSA</code>被<code>AR4</code>学习到的？</p>
+<hr />
+<h5 id="244">2.4.4.<strong>实验三（作业）：</strong></h5>
+<p><img alt="image-20250813151426300" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911881.png" /></p>
+<hr />
+<p><strong>扩展</strong></p>
+<p><img alt="image-20250813165735875" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134911933.png" /></p>
+<hr />
+<h4 id="25lsa">2.5.外部LSA</h4>
+<p>通常我们会遇到网络中除了<code>OSPF</code>协议之外还有其他路由协议（其他<code>OSPF</code>进程），此时，不同协议默认是不会互相传递路由信息的，那就需要额外做一个操作——<strong>引入（重分发）</strong>。</p>
+<p>引入外部路由的<code>OSPF</code>设备有一个名称叫做<code>ASBR(AS Boundary Router)</code>自治系统边界路由器。<strong>成功引入外部路由有一个前提，该路由必须存在于<code>ASBR</code>的路由表内。</strong></p>
+<p><code>ASBR</code>将外部路由信息以<code>LSA 5</code>的形式在<code>OSPF</code>网络内泛洪。</p>
+<p><img alt="image-20250813181034886" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912010.png" /></p>
+<h5 id="251lsa5">2.5.1.LSA5</h5>
+<p>由<code>ASBR</code>产生，描述到达<code>AS</code>外部的路由，该<code>LSA</code>会被通告到所有的区域（除了<code>Stub</code>区域和<code>NSSA</code>区域）。</p>
+<p><img alt="image-20250813181616457" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912019.png" /></p>
+<ul>
+<li><code>LS Type</code>：取值5，代表<code>LSA 5</code>。</li>
+<li><code>Link State ID</code>：外部路由的目的网络地址。</li>
+<li><code>Advertising Router</code>：生成该<code>LSA</code>的<code>Router ID</code>。</li>
+<li><code>Network Mask</code>：网络掩码</li>
+<li><code>E</code>：该外部路由所使用的度量值类型</li>
+<li><code>0</code>：度量值类型为<code>Metric-Type-1</code></li>
+<li><code>1</code>：度量值类型为<code>Metric-Type-2</code></li>
+<li><code>metric</code>：到目的网络的路由开销。</li>
+<li><code>Forwarding Address(FA)</code>：到所通告的目的地址的报文将被转发到这个地址。</li>
+</ul>
+<hr />
+<h5 id="252lsa4">2.5.2.LSA4</h5>
+<p><code>ASBR-Summary LSA</code>：由<code>ABR</code>产生，描述到<code>ASBR</code>的路由，通告给除<code>ASBR</code>所在区域的其他相关区域。</p>
+<p><img alt="image-20250813182208879" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912032.png" /></p>
+<ul>
+<li><code>LS Type</code>：取值4，代表<code>LSA 4</code>。</li>
+<li><code>Link State ID</code>：<code>ASBR</code>的<code>Router-ID</code>。</li>
+<li><code>Advertising Router</code>：生成<code>LSA</code>的<code>Router-ID</code>。</li>
+<li><code>Network Mask</code>：仅保留，无意义。</li>
+<li><code>metric</code>：ABR到目的地址的路由开销。</li>
+</ul>
+<hr />
+<p><strong>问题：</strong></p>
+<p>为什么有了<code>LSA 5</code>还需要<code>LSA 4</code>呢？</p>
+<p><strong>答案：</strong></p>
+<p><code>LSA 5</code>的<code>Advertising Router</code>明确指出是由哪一台路由器通告的该<code>LSA</code>。但是，在其他区域的<code>STP</code>树上并不存在该节点，所以，还需根据<code>ABR</code>产生的<code>LSA 4</code>进行计算。</p>
+<p>而实际上，<code>LSA 4</code>只是告诉其他路由器，你到达<code>LSA 5</code>的下一跳应该是<code>ABR</code>。而当数据包到达<code>ABR</code>后，<code>ABR</code>可以根据<code>LSA 1</code>找到<code>ASBR</code>。</p>
+<hr />
+<p><strong>实验：</strong></p>
+<p><img alt="image-20250813182755713" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912041.png" /></p>
+<hr />
+<h5 id="253">2.5.3.度量值类型</h5>
+<ul>
+<li><code>Metric-Type-1</code></li>
+<li>当外部路由的开销与<code>AS</code>内部的路由开销相当，并且和<code>OSPF</code>自身路由的开销有可比性时，可以认为这类路由的可信程度较高，将其配置<code>Metric-Type-1</code>。</li>
+<li><code>Metric-Type-1</code>外部路由的开销为<code>AS</code>内部开销与<code>AS</code>外部开销之和。</li>
+<li><code>Metric-Type-1</code></li>
+<li>当<code>ASBR</code>到<code>AS</code>之外的开销远远大于在<code>AS</code>之内到达<code>ASBR</code>的开销时，可以认为这类路由的可信程度较低，将其配置成<code>Metric-Type-2</code>.</li>
+<li><code>Metric-Type-2</code>外部路由的开销等于<code>AS</code>外部开销。也就是只计算外部开销。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>import-route &lt;Router-Protocol&gt; type 1
+</code></pre></div>
+<hr />
+<h4 id="26">2.6.特殊区域</h4>
+<p><code>OSPF</code>路由器计算区域内、区域间、外部路由都需要依靠网络中的<code>LSA</code>，当网络规模变大时，设备的<code>LSDB</code>规模也会变大，设备的路由计算能力变得更吃力，造成设备性能浪费。</p>
+<p><img alt="image-20250815165100293" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912056.png" /></p>
+<p>那所需要做的就是，在保持数据通畅的情况下，减少<code>LSA</code>的数量，降低路由器的消耗。</p>
+<p>特殊区域主要用于优化路由信息，减少区域内或区域间的<code>LSA</code>数量，从而降低路由器的计算负担和内存消耗。</p>
+<p>在<code>OSPF</code>中特殊区域分为四种：</p>
+<ul>
+<li><code>Stub Area</code></li>
+<li><code>Totally Stub Area</code></li>
+<li><code>NSSA Area</code></li>
+<li><code>Totally NSSA Area</code></li>
+</ul>
+<hr />
+<p><code>OSPF</code>的区域可分为两种类型：</p>
+<ul>
+<li>传输区域（<code>Transit Area</code>）：除了承载本区域发起的流量和访问区域的流量外，还承载了源<code>IP</code>和目的<code>IP</code>都不属于本区域的流量，即“穿越型流量”，如本例中的<code>Area 0</code>。</li>
+<li>末端区域（<code>Stub Area</code>）：只承载本区域发起的流量和访问本区域的流量，如本例中的<code>Area 1</code>和<code>Area2</code>。</li>
+</ul>
+<p><img alt="image-20250815165356685" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912077.png" /></p>
+<hr />
+<h5 id="261stub">2.6.1.Stub区域</h5>
+<p><code>Stub</code>区域的<code>ABR</code>不向<code>Stub</code>区域内传播它接收到的<code>AS</code>外部路由，<code>Stub</code>区域中路由器的<code>LSDB</code>、路由表规模都会大大减小。</p>
+<p>为保证<code>Stub</code>区域能够到达<code>AS</code>外部，<code>Stub</code>区域的<code>ABR</code>将生成一条缺省路由（使用3类<code>LSA</code>描述）。</p>
+<p>简单一句话总结，<code>Stub</code>区域的作用就是<code>ABR</code>生成一条<code>LSA3</code>的默认路由，代替所有<code>LSA 5</code>。</p>
+<p><img alt="image-20250815170606569" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912159.png" /></p>
+<p>配置<code>Stub</code>区域时需要注意以下几点：</p>
+<ul>
+<li>骨干区域不能配置为<code>Stub</code>区域</li>
+<li><code>Stub</code>区域中的所有路由器都必须将该区域配置为<code>Stub</code></li>
+<li><code>Stub</code>区域内不能引入也不能接收<code>AS</code>外部路由</li>
+<li>虚连接不能穿越<code>Stub</code>区域</li>
+</ul>
+<hr />
+<h5 id="262totally-stub">2.6.2.Totally Stub区域</h5>
+<p><code>Totally Stub</code>区域既不允许<code>AS</code>外部路由在本区域内传播，也不允许区域间路由在本区域内传播。</p>
+<p><code>Totally Stub</code>区域内的路由器通过本区域<code>ABR</code>下发的缺省路由（使用3类<code>LSA</code>描述）到达其他区域，以及<code>AS</code>外部。</p>
+<p><img alt="image-20250815170729905" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912175.png" /></p>
+<hr />
+<h5 id="263nssatotally-nssa">2.6.3.NSSA与Totally NSSA</h5>
+<p><code>OSPF</code>规定<code>Stub</code>区域是不能引入外部路由的，这样可以避免大量外部路由引入造成设备资源消耗。对于既需要引入外部路由又要避免外部路由带来的资源消耗的场景，就需要用<code>NSSA</code>了。</p>
+<p><img alt="image-20250815170857824" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912180.png" /></p>
+<p>你可以简单地理解为，<code>NSSA</code>区域就是可以引入外部路由的<code>Stub</code>区域，而<code>Totally NSSA</code>区域就是可以引入外部路由的<code>Stub</code>区域。</p>
+<p><img alt="image-20250816165053044" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912194.png" /></p>
+<p><strong>七类LSA</strong></p>
+<p>由<code>ASBR</code>产生，用于描述到达<code>OSPF</code>域外的路由。<code>NSSA LSA</code>与<code>AS</code>外部<code>LSA</code>功能类似，但是泛洪范围不同。<code>NSSA LSA</code>只能在始发的<code>NSSA</code>内泛洪，并且不能直接进入<code>Area 0</code> ，<code>NSSA</code>的<code>ABR</code>会将<code>LSA 7</code>转换成<code>LSA5</code>注入到<code>Area 0</code>。</p>
+<hr />
+<h5 id="263stub">2.6.3.实验一：Stub</h5>
+<p><img alt="image-20250816230050874" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912216.png" /></p>
+<p><img alt="image-20250816230329286" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912256.png" /></p>
+<p><img alt="image-20250816230315533" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912317.png" /></p>
+<p><strong>结论：</strong></p>
+<p>在<code>Area 2</code>中，<code>AR4</code>能够学习到<code>LSA3</code>的明细路由与<code>LSA3</code>的默认路由。</p>
+<hr />
+<h5 id="265totally-stub">2.6.5.实验二：Totally Stub</h5>
+<p><img alt="image-20250816230050874" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912332.png" /></p>
+<p><img alt="image-20250816230729842" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912352.png" /></p>
+<p><img alt="image-20250816230742198" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912361.png" /></p>
+<p><strong>结论：</strong></p>
+<p>在<code>AR4</code>上已经不存在明细<code>LSA3</code>了，只留下一条默认<code>LSA3</code>。</p>
+<hr />
+<h5 id="264nssa">2.6.4.实验三：NSSA</h5>
+<p><img alt="image-20250816225136103" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912393.png" /></p>
+<p><strong>基础配置忽略</strong></p>
+<p><img alt="image-20250816223414635" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912431.png" /></p>
+<p><img alt="image-20250816223426093" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912498.png" /></p>
+<p><img alt="image-20250816223401242" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912521.png" /></p>
+<p><img alt="image-20250816223346064" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912517.png" /></p>
+<p><img alt="image-20250816223524348" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912529.png" /></p>
+<p><strong>结论：</strong></p>
+<p>在<code>NSSA</code>区域内由<code>ABR</code>在区域内发送<code>LSA7</code>的默认路由，用来过滤掉外部路由。同时，<code>ABR</code>会将<code>LSA3</code>发送到<code>NSSA</code>区域中。</p>
+<p>在<code>NSSA</code>区域内<code>ASBR</code>会将外部路由以<code>LSA7</code>的方式发送到当前区域，由当前区域的<code>ABR</code>把路由以<code>LSA5</code>的方式发送到骨干区域。</p>
+<p>在<code>Area 1</code>中，<code>ABR</code>负责将<code>Area 0</code>中的<code>LSA 5</code>转发到<code>Area 1</code>，并且生成<code>LSA 4</code>描述去往<code>NSSA</code>区域的<code>ABR</code>的路由信息。</p>
+<hr />
+<h5 id="265totally-nssa">2.6.5.实验四：Totally NSSA</h5>
+<p><img alt="" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912555.png" /></p>
+<p><strong>基础配置忽略</strong></p>
+<p><img alt="image-20250816225438974" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912605.png" /></p>
+<p><img alt="image-20250816225453383" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912690.png" /></p>
+<p><strong>结论：</strong></p>
+<p><code>Area 2</code>外的路由器与<code>NSSA</code>实验中的现象没有任何区别。</p>
+<p><code>Area 2</code>中的路由器的<code>LSDB</code>发生了变化，<code>LSA3</code>明细路由全部被过滤，只留下（汇总）一条<code>0.0.0.0</code>的<code>LSA3</code>。除此之外，<code>LSA7</code>的默认路由依旧存在。<strong>为什么呢？路由表选择哪一条？</strong></p>
+<hr />
+<h4 id="27">2.7.选路规则</h4>
+<ol>
+<li><strong>通过路由类型进行选路</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><strong>优先级</strong></th>
+<th style="text-align: center;"><strong>路由类型</strong></th>
+<th style="text-align: center;"><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: center;"><strong>Intra-Area</strong></td>
+<td style="text-align: center;"><strong>区域内路由</strong>（同一 OSPF 区域内的路由）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: center;"><strong>Inter-Area</strong></td>
+<td style="text-align: center;"><strong>区域间路由</strong>（来自其他 OSPF 区域，由 ABR 通告）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: center;"><strong>Type 1 External (E1)</strong></td>
+<td style="text-align: center;"><strong>外部路由（E1）</strong>，计算外部路由开销 + 内部路径开销</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: center;"><strong>Type 2 External (E2)</strong></td>
+<td style="text-align: center;"><strong>外部路由（E2）</strong>，<strong>仅计算外部路由开销</strong>（默认类型）</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: center;"><strong>NSSA Type 1 (N1)</strong></td>
+<td style="text-align: center;"><strong>NSSA 外部路由（N1）</strong>，类似 E1，计算外部 + 内部开销</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: center;"><strong>NSSA Type 2 (N2)</strong></td>
+<td style="text-align: center;"><strong>NSSA 外部路由（N2）</strong>，类似 E2，仅计算外部开销</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li><strong>如果存在多条相同类型的路由，<code>OSPF</code>会通过<code>Cost</code>进行选路</strong></li>
+<li><strong>如果<code>Cost</code>也相同，则负载均衡</strong></li>
+</ol>
+<p><strong>修改：</strong></p>
+<p>如果，路由类型与<code>Cost</code>都相同，且有多个<code>ABR</code>将外部路由传递到当前路由器，优先选择<code>Area</code>大的。如果<code>Area</code>也一致，则负载均衡。</p>
+<hr />
+<h4 id="28">2.8.报文认证</h4>
+<p><code>OSPF</code>支持两种<code>OSPF</code>报文认证方式，当两种认证方式都存在时，优先使用接口认证方式：</p>
+<ul>
+<li><strong>区域认证方式：</strong>一个<code>OSPF</code>区域中所有的路由器在该区域下的认证模式和口令必须一致。</li>
+<li><strong>接口认证方式：</strong>相邻路由器直连接口下的认证模式和口令必须一致。</li>
+</ul>
+<hr />
+<p>如下，在<code>OSPF</code>中认证模式分为以下几类：</p>
+<ul>
+<li><code>hmac-md5</code>：支持<code>Key-ID</code> + 密码认证，防篡改，防重放攻击。</li>
+<li><code>md5</code>：兼容旧设备，安全性不如<code>hmac-md5</code></li>
+<li><code>simple</code>：明文认证，明文传输密码。</li>
+<li><code>keychain</code>：动态密钥连，适用于安全性极高的网络。</li>
+<li><code>null</code>：不启用认证。</li>
+</ul>
+<div class="highlight"><pre><span></span><code>[AR4-ospf-1-area-0.0.0.1] authentication-mode ?
+  hmac-md5  Use HMAC-MD5 algorithm  # HMAC-MD5 认证（推荐）
+  keychain  Keychain authentication mode  # 动态密钥链认证（高级）
+  md5       Use MD5 algorithm  # 传统 MD5 认证（兼容旧设备）
+  simple    Simple authentication mode  # 明文认证（不安全）
+
+[AR4-GigabitEthernet0/0/0] ospf authentication-mode ?
+  hmac-md5  Use HMAC-MD5 algorithm
+  keychain  Keychain authentication mode
+  md5       Use MD5 algorithm
+  null      Use null authentication  # 关闭认证（默认）
+  simple    Simple authentication mode
+</code></pre></div>
+<hr />
+<h5 id="281">2.8.1.实验一：接口认证明文</h5>
+<p><img alt="image-20250816232340228" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912700.png" /></p>
+<div class="highlight"><pre><span></span><code>interface GigabitEthernet0/0/0
+ ip address 12.1.1.1 255.255.255.252 
+ ospf authentication-mode simple cipher %$%$LVwQ@Rj`3M&#39;3s{Vx2d2~yUnj%$%$ 
+
+interface GigabitEthernet0/0/0
+ ip address 12.1.1.2 255.255.255.252 
+ ospf authentication-mode simple cipher %$%$lTQLAl$R&#39;BB6*W~}cPm3yUO~%$%$ 
+</code></pre></div>
+<p><img alt="image-20250816232828951" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912723.png" /></p>
+<p><strong>字段解释：</strong></p>
+<div class="highlight"><pre><span></span><code>  STRING&lt;1-8&gt;/&lt;32&gt;  The password (key)
+  cipher            Encryption type (Cryptogram)
+  plain             Encryption type (Plain text)
+</code></pre></div>
+<ul>
+<li><code>STRING &lt;1-8&gt;</code>：表示密码长度为<code>1-8</code>个字符</li>
+<li><code>STRING &lt;32&gt;</code>：标识密码长度扩展至<code>32</code>个字符</li>
+<li><code>cipher</code>：密码会以<strong>加密</strong>形式（哈希值）存储在配置文件中</li>
+<li><code>plain</code>：密码以<strong>明文形式</strong>存储，可直接查看</li>
+</ul>
+<hr />
+<h5 id="282">2.8.2.实验二：区域认证密文</h5>
+<p><img alt="image-20250816233316041" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912725.png" /></p>
+<div class="highlight"><pre><span></span><code> area 0.0.0.0 
+  authentication-mode md5 1 cipher %$%$38(L=WWT6(&quot;5/&#39;Ai%4y&#39;y^ML%$%$
+</code></pre></div>
+<p><img alt="image-20250816233757925" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912727.png" /></p>
+<hr />
+<h4 id="29">2.9.路由汇总</h4>
+<p>路由汇总又被称为路由聚合，即将一组前缀相同的路由汇聚成一条路由，从而达到减小路由表规模以及优化设备资源利用率的目的。我们把汇聚之前的这组路由称为精细路由或明细路由，把汇聚之后的这条路有称为汇总路由或聚合路由。</p>
+<p><strong>OSPF路由汇总的类型：</strong></p>
+<ul>
+<li>在<code>ABR</code>执行路由汇总：对区域间的路由执行路由汇总。</li>
+<li>在<code>ASBR</code>执行路由汇总：对引入的外部路由执行路由汇总。</li>
+</ul>
+<hr />
+<p><strong>示例：</strong></p>
+<p>假设现在有如下子网需要进行汇总，最精确的网段是什么？ </p>
+<ul>
+<li><code>192.168.0.0/24</code></li>
+<li><code>192.168.1.0/24</code></li>
+<li><code>192.168.2.0/24</code></li>
+<li><code>192.168.3.0/24</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>192.168.0.0:   11000000.10101000.00000000.00000000
+192.168.1.0:   11000000.10101000.00000001.00000000
+192.168.2.0:   11000000.10101000.00000010.00000000
+192.168.3.0:   11000000.10101000.00000011.00000000
+</code></pre></div>
+<p>所以，汇总后的网段为：<code>192.168.0.0/22</code></p>
+<hr />
+<h5 id="291">2.9.1.实验一：区域间汇总</h5>
+<p><img alt="image-20250817130705940" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912811.png" /></p>
+<p>在<code>ABR</code>还没有做汇总时，<code>AR3</code>上能够学习到<code>LSA 3</code>明细路由。</p>
+<p><img alt="image-20250817131129654" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912877.png" /></p>
+<p><strong>区域间汇总配置：</strong></p>
+<div class="highlight"><pre><span></span><code>ospf 1 router-id 2.2.2.2 
+ area 0.0.0.0 
+  abr-summary 192.168.0.0 255.255.0.0
+  network 12.1.1.2 0.0.0.0 
+ area 0.0.0.1 
+  network 23.1.1.1 0.0.0.0
+</code></pre></div>
+<p><img alt="image-20250817131250016" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912872.png" /></p>
+<hr />
+<h5 id="292">2.9.2.实验二：区域外汇总</h5>
+<p><img alt="image-20250817131522742" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912913.png" /></p>
+<div class="highlight"><pre><span></span><code>ospf 1 router-id 3.3.3.3 
+ asbr-summary 172.16.0.0 255.255.0.0
+ import-route direct
+ area 0.0.0.1 
+  network 23.1.1.2 0.0.0.0
+</code></pre></div>
+<p><img alt="image-20250817131517069" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912899.png" /></p>
+<hr />
+<h4 id="210silent-interface">2.10.Silent-Interface</h4>
+<p><code>Silent-Interface</code>有以下特性：</p>
+<ul>
+<li>不会接收和发送<code>OSPF</code>报文</li>
+<li><code>Silent-Interface</code>的直连路由仍可以发布出去</li>
+</ul>
+<p><strong>场景介绍：</strong></p>
+<p>此时，<code>LSW1</code>和<code>LSW2</code>通过<code>G0/0/1</code>接口传递<code>Vlan 10 20</code>并做了<code>VRRP</code>。并且，<code>AR1、LSW1、LSW2</code>之间建立了<code>OSPF</code>邻居关系，<code>LSW、LSW2</code>会通过<code>OSPF</code>将<code>Vlan 10 20</code>宣告给<code>AR1</code>。如果此时，不做任何干预的话，会导致<code>LSW1</code>和<code>LSW2</code>通过<code>Vlan 10 20</code>建立<code>OSPF</code>邻接关系，造成额外的开销。</p>
+<div class="highlight"><pre><span></span><code>ospf
+    silent-interface GigabitEthernet 0/0/1
+</code></pre></div>
+<p><img alt="image-20250817133027237" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912926.png" /></p>
+<hr />
+<h4 id="2111">2.11.填坑1</h4>
+<p><img alt="{5c131c4e-76c9-4ad0-bcab-a1ebe43d1cbf}" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134912958.png" /></p>
+<p>上节课用这个拓扑讲了外部路由以及路由选举，我们发现当<code>AR1</code>有多个<code>ABR</code>且不是一个区域时，即使路由等级相同、<code>Cost</code>值相同依旧不会出现负载均衡。但是，当<code>AR1</code>与相同区域的多个<code>ABR</code>建立了邻居之后，外部路由在<code>AR1</code>上就会是负载均衡的。</p>
+<p>我们上结课的结论是，等级与<code>Cost</code>相等时，且<code>Area</code>不同，选择<code>Area</code>大的。</p>
+<p>我觉得也不太严谨，是不是有可能选择<code>Router-ID</code>大的呢？</p>
+<h5 id="2111_1">2.11.1.实验说明</h5>
+<ol>
+<li><code>AR1、AR2、AR3、AR4</code>属于<code>Area0</code>，<code>AR1</code>与<code>AR5</code>属于<code>Area3</code>，<code>AR3</code>与<code>AR5</code>属于<code>Area2</code>，<code>Ar4</code>与<code>AR5</code>属于<code>Area1</code></li>
+<li><code>AR2</code>将<code>Loo0</code>引入到<code>OSPF</code>区域内（<code>Type2</code>），在<code>AR5</code>上观察会从哪个<code>ABR</code>上学习到。</li>
+</ol>
+<p><img alt="image-20250820161003388" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134913036.png" /></p>
+<p><strong>结果：</strong></p>
+<p><img alt="image-20250820161755961" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134913064.png" /></p>
+<p><strong>关闭<code>G0/0/0</code>接口：</strong></p>
+<p><img alt="image-20250820161931438" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134913087.png" /></p>
+<p><strong>关闭<code>G0/0/1</code>接口：</strong></p>
+<p><img alt="image-20250820161955040" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134913102.png" /></p>
+<p><strong>修改<code>R1</code>的<code>Router-ID</code>为<code>6.6.6.6</code></strong></p>
+<p><img alt="image-20250820162429722" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20250902134913097.png" /></p>
+<p><strong>最终结论：</strong></p>
+<p>在这种情况下，就是选择区域号最大的！</p>
+<hr />
+<h4 id="2122">2.12.填坑2</h4>
+<p>针对为什么有的路由删除时抓包<code>update</code>报文里没有出现<code>3600s</code>做解释。</p>
+<p><code>OSPF</code>协议在设计上，为了高效同步链路状态数据库（<code>LSDB</code>），提供了两种主要的机制来处理路由信息的撤销或更新：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">机制</th>
+<th style="text-align: left;">触发场景</th>
+<th style="text-align: left;">表现形式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1. 立即更新（更常见）</strong></td>
+<td style="text-align: left;">网络拓扑发生<strong>变化</strong>（如接口关闭、路由被删除）</td>
+<td style="text-align: left;">路由器会<strong>立即生成一个该LSA的新版本</strong>（Sequence Number加1，LS Age置为0或很小值），通过LSU报文泛洪。这个新版本的LSA中已经<strong>不再包含</strong>被删除的那条路由或链路信息。</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2. 立即老化</strong></td>
+<td style="text-align: left;">网络拓扑变化，且有时为了快速收敛</td>
+<td style="text-align: left;">路由器会生成一个<strong>LS Age=3600</strong>的LSA（即MaxAge LSA），通过LSU报文泛洪，直接通知邻居删除该LSA。</td>
+</tr>
+</tbody>
+</table>
+<p>根据实验可以发现，针对<code>LSA1,2</code>这类通告采用的是<strong>更新</strong>的机制，而针对<code>LSA3,4,5,7</code>采用的是<strong>老化</strong>的机制。</p>
+<p><img alt="image-20251119183010163" src="https://qyt-gujun.oss-cn-shanghai.aliyuncs.com/20251119183010345.png" /></p>
+<p>这么设计的原因，或者说什么时候是老化什么时候是更新，取决于该路由的来源是否“可靠”。如果该路由的来源与我在同一个区域，我认为这是“第一手消息”。如果该路由的来源是我听说的“二手消息”，那么就直接告诉其他人我之前说的消息不可靠了请忽略。</p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
